@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="imagetoolbar" content="no" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<title>Venta - BizAgi Process Modeler</title>
+	<link type="text/css" href="css/ui-darkness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+	<link href="css/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+    <link media="screen" type="text/css" href="css/main.css" rel="stylesheet" />
+	<!--[if IE 7]>
+	<link media="screen" type="text/css" href="css/main_ie7.css" rel="stylesheet" />
+	<![endif]-->
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+    <script type="text/javascript" src="js/ui.tabs.paging.js"></script>
+	<script type="text/javascript" src="js/jquery.maphilight.min.js"></script>
+	<script type="text/javascript" src="js/jquery.watermarkinput.js"></script>
+	<script type="text/javascript" src="js/jquery.autocomplete.js"></script>
+	<!--<script type="text/javascript" src="js/shiftzoom.js"></script>-->
+	<script type="text/javascript" src="js/jquery.hashtable-1.1.js"></script>
+	<script type="text/javascript">
+		/* Textbox Watermark plugin */
+		$(function($) {
+			$("#q").Watermark('Search');
+		});
+
+		/* Shiftzoom plugin */
+		//if (document.images && document.createElement && document.getElementById) {
+		//	document.writeln('<style type="text/css">');
+		//	document.writeln('	img.shiftzoom { visibility: hidden; }');
+		//	document.writeln('<\/style>');
+		//}
+
+		$(document).ready(function() {
+
+			/* Tabs plugin */
+			$("#tabs").tabs({
+				selected: 0
+				, select: function(event, ui) {
+					var url = $.data(ui.tab, 'load.tabs');
+					if (url) {
+						location.href = url;
+						return false;
+					}
+					return true;
+				}
+			});
+
+			$("#tabs").tabs('paging');
+
+			/* Autocomplete plugin */
+			var ht = new jQuery.Hashtable();
+			ht.add("Venta","caf85bf3-ace3-4d62-a801-125397dbe84a");
+ht.add("Venta Revlimid","c7fe7793-c394-4ff4-9e3e-089d7a411b50");
+ht.add("Orden","7eeafe71-a08d-491a-a1b0-1698453209c7");
+ht.add("Seleccion de Paciente","89110c40-3d02-457c-983c-fa5ea2820ce1");
+ht.add("SEXO","ea7ad528-d49e-4ccd-8479-6ec3deddfbbd");
+ht.add("Capacidad de Gestar","184fa10c-3db2-48ae-b884-bf5462896458");
+ht.add("Ultima venta","deb41f65-f355-43e8-afbc-c8326b85d72d");
+ht.add("Carga de datos","5abe7b33-53a0-4853-b7bc-4e1e3bcb11d3");
+ht.add("Validacion de tiempos","7e78c877-ffe2-4e4f-b9d3-cdd374bf2d22");
+ht.add("Pedido de nuevos documentos","7704e454-e966-49e6-8d82-435d253fb5c4");
+ht.add("FV","6be1e361-e0c3-4758-909e-d4dd2a29bc74");
+ht.add("Validacion","07fa41f3-2341-45f9-998a-e0e7f90ce3e5");
+ht.add("Registro definitivo","491d5473-c893-4a3b-b647-07692d3c3f23");
+ht.add("Devolucion del ID de registro","1d272e2a-8e65-477b-ad57-01dba86a5982");
+ht.add("Doc. Postergado hasta cumplir 28 dias","12ff9ae4-393b-48ca-a158-267b891e59c8");
+ht.add("Element","67447bde-dd9b-4d1f-b800-d9c1400dd3a8");
+ht.add("Aprobado","00cd6afb-fc6c-4d2a-9346-8eacca6c294b");
+ht.add("Receta","b5741b9f-ac0a-4cb2-a893-94e387c2ca20");
+ht.add("Pendiente por Documentacion","dce2c224-efbe-4944-9a0b-9f03d9e6f6a8");
+ht.add("Se prohibe la carga","cb50e035-ba98-4fbb-830a-09f2c9820263");
+ht.add("Vetnas/Marketing","4db6ae2c-25e3-4688-810a-500ca669c7b9");
+
+			var data = 'Venta|Venta Revlimid|Orden|Seleccion de Paciente|SEXO|Capacidad de Gestar|Ultima venta|Carga de datos|Validacion de tiempos|Pedido de nuevos documentos|FV|Validacion|Registro definitivo|Devolucion del ID de registro|Doc. Postergado hasta cumplir 28 dias|Element|Aprobado|Receta|Pendiente por Documentacion|Se prohibe la carga|Vetnas/Marketing'.split('|');
+			$("#q").autocomplete(data, { matchContains: true});
+			$('#q').result(function(event, data, formatted) {
+				var val = ht.get(formatted.toString());
+				var anchor = '#' + val;
+				var dia = anchor + '_doc';
+				$(dia).dialog('open');
+			});
+
+			/* Show/hide Pan & Zoom */
+			//$('#diagramimagepan').hide();
+
+			//$('#pan').click(function() {
+			//	$(this).toggleClass("down");
+
+			//	if ($(this).hasClass("down")) {
+			//		$('#diagramimage').hide();
+			//		$('#diagramimagepan').show('slow');
+			//		$(this).text('Normal View');
+			//	} else {
+			//		$('#diagramimagepan').hide();
+			//		$('#diagramimage').show('slow');
+			//		$(this).text('Pan & Zoom View');
+			//	}
+			//});
+			
+			/* Dialog plugin */
+			var minWidth = 610;
+			if ($(".docelem img").hasClass("imageForm")) {
+				var width = $(".docelem .imageForm").width();
+			} else {
+				var width = minWidth;
+			};
+			$('.docelem').dialog({ 
+				autoOpen: false, 
+				width: (width + 30),
+				height: 480, 
+				modal: true,
+				show: 'slide'
+			});
+			$('.docelem').dialog('option', 'minWidth', 640);
+			
+			$('.diagelem').click(function() {
+				var t = $(this).attr('href');
+				t = t.replace('#', '');
+				var dia = $(this).attr('href') + '_doc';
+				
+				$(dia).dialog('open');
+			});
+
+			/* Map Highlight plugin */
+			$(function() {
+				$('.map').maphilight();
+			});
+
+		});
+	</script>
+	
+	<script type="text/javascript" src="js/cufon-yui.js"></script>
+	<script type="text/javascript" src="js/BeauSansRegular.js"></script>    
+    <!--<script type="text/javascript">
+	    // <![CDATA[
+	    Cufon.replace('h1');
+	    Cufon.replace('h2');
+	    Cufon.replace('h3');
+	    //Cufon.replace('h4');
+	    Cufon.replace('.ui-dialog-title');
+	    Cufon.replace('.layout-type a', {
+	        hover: true
+	    });
+	    Cufon.replace('.BizAgi li a', {
+	        hover: true
+	    });
+
+	    Cufon.replace('.tabs a', {
+	        hover: true
+	    });
+	    Cufon.replace('#topnav a', {
+	        hover: true
+	    });
+
+	    //]]>
+	</script>-->
+</head>
+<body>
+
+	<div id="contentwrapper">
+		<div class="BizAgi"><ul><li><a href="http://www.bizagi.com" target="_blank">Visit bizagi.com</a></li></ul></div>
+		<div id="header">
+			<h1>
+				Venta - BizAgi Process Modeler</h1>
+		</div>
+		<div id="tabs">
+			<ul class="tabs">
+				<li><a href="#tabs-0" title="tabs-0">Venta</a></li>
+<li><a href="Alta Pacientes.htm" title="tabs-1">Alta Pacientes</a></li>
+
+			</ul>
+			<div id="content">
+				<div id="tabs-0">
+					<div class="layout-type">
+						<ul id="topnav">
+							<li class="home"><a href="default.htm">Home</a></li>
+						</ul>
+						<ul>
+							<li><span class="search"><input id="q" name="q" type="text" style="color:#3A3A3A"/></span></li>
+						</ul>
+					</div>
+					<div>
+						<!--|#bpm_back_to_parent#|--> <a href="#caf85bf3-ace3-4d62-a801-125397dbe84a" class="diagelem"><h2>Venta</h2></a>
+					</div>
+					<div id="diagram-image">
+						<!--<div id="diagramimagepan" align="center">
+							<div style="width: 800px; height: 656px; background: url(img/indicator.gif) 50% 50% no-repeat;
+								-webkit-box-shadow: 0px 0px 8px black; -moz-box-shadow: 0px 0px 8px black;">
+								<img id="diagpz" class="shiftzoom" onload="shiftzoom.add(this,{fading:true,showcoords:false,zoom:30});"
+									src="diagrams/Venta.png" width="800" height="656"
+									alt="large image" border="0" />
+							</div>
+						</div>-->
+						<div id="diagramimage" align="center">
+							<div id="documentation" style="visibility: hidden;">
+							<div id="caf85bf3-ace3-4d62-a801-125397dbe84a_doc" class="docelem" title="Venta">
+<a name="caf85bf3-ace3-4d62-a801-125397dbe84a" id="caf85bf3-ace3-4d62-a801-125397dbe84a"></a>
+
+<h4>Version</h4><p>1.0</p><h4>Author</h4><p>dcilveti</p>
+
+
+</div>
+<div id="c7fe7793-c394-4ff4-9e3e-089d7a411b50_doc" class="docelem" title="Venta Revlimid">
+<a name="c7fe7793-c394-4ff4-9e3e-089d7a411b50" id="c7fe7793-c394-4ff4-9e3e-089d7a411b50"></a>
+<img class="icon" src="diagrams/bpmnimg/Pool_24.jpg" border="0" />
+
+
+
+</div>
+<div id="7eeafe71-a08d-491a-a1b0-1698453209c7_doc" class="docelem" title="Orden">
+<a name="7eeafe71-a08d-491a-a1b0-1698453209c7" id="7eeafe71-a08d-491a-a1b0-1698453209c7"></a>
+<img class="icon" src="diagrams/bpmnimg/Start_24.jpg" border="0" />
+
+<h4>Description</h4><p>La orden de Compra puede venir tanto por MAIL como por FAX, y puede ser recibida por el area de MARKETING o de VENTAS. <br> </p>
+
+</div>
+<div id="89110c40-3d02-457c-983c-fa5ea2820ce1_doc" class="docelem" title="Seleccion de Paciente">
+<a name="89110c40-3d02-457c-983c-fa5ea2820ce1" id="89110c40-3d02-457c-983c-fa5ea2820ce1"></a>
+<img class="icon" src="diagrams/bpmnimg/Task_None_24.jpg" border="0" />
+
+<h4>Description</h4><p>En el sistema selecciona al paciente, con ello trae los datos cargados en la ficha, Fecha de Nacimiento (con lo que se calcula la edad), patologia, sexo, fecha de consentimiento, capacidad de Gestar <br> </p>
+
+</div>
+<div id="ea7ad528-d49e-4ccd-8479-6ec3deddfbbd_doc" class="docelem" title="SEXO">
+<a name="ea7ad528-d49e-4ccd-8479-6ec3deddfbbd" id="ea7ad528-d49e-4ccd-8479-6ec3deddfbbd"></a>
+<img class="icon" src="diagrams/bpmnimg/Gateway_Data_Based_24.jpg" border="0" />
+
+<h4>Description</h4><p>La determinacion del sexo cambia las validaciones a realizar. <br> Si es Hombre, no se validan datos <br> Si es Mujer, se pasa al siguiente esquema de validaciones <br> </p>
+<h4>Gates</h4><p>&nbsp;Mujer</p><p>&nbsp;Hombre</p>
+</div>
+<div id="184fa10c-3db2-48ae-b884-bf5462896458_doc" class="docelem" title="Capacidad de Gestar">
+<a name="184fa10c-3db2-48ae-b884-bf5462896458" id="184fa10c-3db2-48ae-b884-bf5462896458"></a>
+<img class="icon" src="diagrams/bpmnimg/Gateway_Data_Based_24.jpg" border="0" />
+
+<h4>Description</h4><p>Si esta informada como SI o NULL en la ficha del paciente pasa al siguiente esquema de validaciones <br> Si esta informada como NO no se procesan mas controles <br> </p>
+<h4>Gates</h4><p>&nbsp;SI</p><p>&nbsp;NO</p>
+</div>
+<div id="deb41f65-f355-43e8-afbc-c8326b85d72d_doc" class="docelem" title="Ultima venta">
+<a name="deb41f65-f355-43e8-afbc-c8326b85d72d" id="deb41f65-f355-43e8-afbc-c8326b85d72d"></a>
+<img class="icon" src="diagrams/bpmnimg/Gateway_Data_Based_24.jpg" border="0" />
+
+<h4>Description</h4><p>Si la ultima venta se realizo dentro de los 28 dias, la orden pasara a POSTERGADA <br> Si la actual venta supera en 28 dias a la ultima, se procesa el siguiente control <br> </p>
+<h4>Gates</h4><p>&nbsp;>28 dias</p><p>&nbsp;<28 dias</p>
+</div>
+<div id="5abe7b33-53a0-4853-b7bc-4e1e3bcb11d3_doc" class="docelem" title="Carga de datos">
+<a name="5abe7b33-53a0-4853-b7bc-4e1e3bcb11d3" id="5abe7b33-53a0-4853-b7bc-4e1e3bcb11d3"></a>
+<img class="icon" src="diagrams/bpmnimg/Task_None_24.jpg" border="0" />
+
+<h4>Description</h4><p>Se carga: fecha de test de embarazo y documento respaldatorio <br> </p>
+
+</div>
+<div id="7e78c877-ffe2-4e4f-b9d3-cdd374bf2d22_doc" class="docelem" title="Validacion de tiempos">
+<a name="7e78c877-ffe2-4e4f-b9d3-cdd374bf2d22" id="7e78c877-ffe2-4e4f-b9d3-cdd374bf2d22"></a>
+<img class="icon" src="diagrams/bpmnimg/Gateway_Data_Based_24.jpg" border="0" />
+
+<h4>Description</h4><p>El test de embarazo no puede tener mas de 3 dias de diferencia que la receta <br> </p>
+<h4>Gates</h4><p>&nbsp;-3dias</p><p>&nbsp;+3dias</p>
+</div>
+<div id="7704e454-e966-49e6-8d82-435d253fb5c4_doc" class="docelem" title="Pedido de nuevos documentos">
+<a name="7704e454-e966-49e6-8d82-435d253fb5c4" id="7704e454-e966-49e6-8d82-435d253fb5c4"></a>
+<img class="icon" src="diagrams/bpmnimg/Intermediate_Event_24.jpg" border="0" />
+
+<h4>Description</h4><p>Proceso no relevado <br> </p>
+
+</div>
+<div id="6be1e361-e0c3-4758-909e-d4dd2a29bc74_doc" class="docelem" title="FV">
+<a name="6be1e361-e0c3-4758-909e-d4dd2a29bc74" id="6be1e361-e0c3-4758-909e-d4dd2a29bc74"></a>
+<img class="icon" src="diagrams/bpmnimg/Task_None_24.jpg" border="0" />
+
+<h4>Description</h4><p>El documento se pasa a FarmacoVigilancia <br> </p>
+
+</div>
+<div id="07fa41f3-2341-45f9-998a-e0e7f90ce3e5_doc" class="docelem" title="Validacion">
+<a name="07fa41f3-2341-45f9-998a-e0e7f90ce3e5" id="07fa41f3-2341-45f9-998a-e0e7f90ce3e5"></a>
+<img class="icon" src="diagrams/bpmnimg/Gateway_Data_Based_24.jpg" border="0" />
+
+<h4>Description</h4><p>FV determina si APRUEBA o RECHAZA la orden indicando motivos <br> </p>
+<h4>Gates</h4><p>&nbsp;APROBADO</p><p>&nbsp;Rechazado</p>
+</div>
+<div id="491d5473-c893-4a3b-b647-07692d3c3f23_doc" class="docelem" title="Registro definitivo">
+<a name="491d5473-c893-4a3b-b647-07692d3c3f23" id="491d5473-c893-4a3b-b647-07692d3c3f23"></a>
+<img class="icon" src="diagrams/bpmnimg/Task_None_24.jpg" border="0" />
+
+<h4>Description</h4><p>Como constancia de la imputacion correcta se devuelve un numero de registro <br> </p>
+
+</div>
+<div id="1d272e2a-8e65-477b-ad57-01dba86a5982_doc" class="docelem" title="Devolucion del ID de registro">
+<a name="1d272e2a-8e65-477b-ad57-01dba86a5982" id="1d272e2a-8e65-477b-ad57-01dba86a5982"></a>
+<img class="icon" src="diagrams/bpmnimg/End_24.jpg" border="0" />
+
+
+
+</div>
+<div id="14659389-ba45-4744-9da0-931d2136b887_doc" class="docelem" title="Carga de datos">
+<a name="14659389-ba45-4744-9da0-931d2136b887" id="14659389-ba45-4744-9da0-931d2136b887"></a>
+<img class="icon" src="diagrams/bpmnimg/Task_None_24.jpg" border="0" />
+
+<h4>Description</h4><p>Se carga: fecha de test de embarazo y documento respaldatorio estado pendiente : POSTERGADO <br> </p>
+
+</div>
+<div id="12ff9ae4-393b-48ca-a158-267b891e59c8_doc" class="docelem" title="Doc. Postergado hasta cumplir 28 dias">
+<a name="12ff9ae4-393b-48ca-a158-267b891e59c8" id="12ff9ae4-393b-48ca-a158-267b891e59c8"></a>
+<img class="icon" src="diagrams/bpmnimg/Intermediate_Event_24.jpg" border="0" />
+
+
+
+</div>
+<div id="67447bde-dd9b-4d1f-b800-d9c1400dd3a8_doc" class="docelem" title="Element">
+<a name="67447bde-dd9b-4d1f-b800-d9c1400dd3a8" id="67447bde-dd9b-4d1f-b800-d9c1400dd3a8"></a>
+<img class="icon" src="diagrams/bpmnimg/End_24.jpg" border="0" />
+
+
+
+</div>
+<div id="00cd6afb-fc6c-4d2a-9346-8eacca6c294b_doc" class="docelem" title="Aprobado">
+<a name="00cd6afb-fc6c-4d2a-9346-8eacca6c294b" id="00cd6afb-fc6c-4d2a-9346-8eacca6c294b"></a>
+<img class="icon" src="diagrams/bpmnimg/Gateway_Data_Based_24.jpg" border="0" />
+
+<h4>Description</h4><p>FV tiene que dar el visto bueno para considerar que la documentacion acompañada que identifica al paciente como Sin capacidad de Gestar sea suficiente. <br> </p>
+<h4>Gates</h4><p>&nbsp;OK</p><p>&nbsp;NO</p>
+</div>
+<div id="ae490ebc-f99d-40d5-9f3f-a83124869d3f_doc" class="docelem" title="Carga de datos">
+<a name="ae490ebc-f99d-40d5-9f3f-a83124869d3f" id="ae490ebc-f99d-40d5-9f3f-a83124869d3f"></a>
+<img class="icon" src="diagrams/bpmnimg/Task_None_24.jpg" border="0" />
+
+<h4>Description</h4><p>Se debera cargar la fecha de la receta y el documento respaldatorio <br> </p>
+
+</div>
+<div id="b5741b9f-ac0a-4cb2-a893-94e387c2ca20_doc" class="docelem" title="Receta">
+<a name="b5741b9f-ac0a-4cb2-a893-94e387c2ca20" id="b5741b9f-ac0a-4cb2-a893-94e387c2ca20"></a>
+<img class="icon" src="diagrams/bpmnimg/Gateway_Data_Based_24.jpg" border="0" />
+
+<h4>Description</h4><p>Se unifico el criterio de FECHA_RECETA y DOCUMENTO_RECETA informados, si no estan ambos reportes, la orden quedara como pendiente por DOCUMENTACION <br> </p>
+<h4>Gates</h4><p>&nbsp;Falta</p><p>&nbsp;Correcto</p><p>&nbsp;Falta Documentacion</p>
+</div>
+<div id="dce2c224-efbe-4944-9a0b-9f03d9e6f6a8_doc" class="docelem" title="Pendiente por Documentacion">
+<a name="dce2c224-efbe-4944-9a0b-9f03d9e6f6a8" id="dce2c224-efbe-4944-9a0b-9f03d9e6f6a8"></a>
+<img class="icon" src="diagrams/bpmnimg/Intermediate_Event_24.jpg" border="0" />
+
+
+
+</div>
+<div id="cb50e035-ba98-4fbb-830a-09f2c9820263_doc" class="docelem" title="Se prohibe la carga">
+<a name="cb50e035-ba98-4fbb-830a-09f2c9820263" id="cb50e035-ba98-4fbb-830a-09f2c9820263"></a>
+<img class="icon" src="diagrams/bpmnimg/End_24.jpg" border="0" />
+
+
+
+</div>
+<div id="4db6ae2c-25e3-4688-810a-500ca669c7b9_doc" class="docelem" title="Vetnas/Marketing">
+<a name="4db6ae2c-25e3-4688-810a-500ca669c7b9" id="4db6ae2c-25e3-4688-810a-500ca669c7b9"></a>
+<img class="icon" src="diagrams/bpmnimg/Milestone_24.jpg" border="0" />
+
+
+
+</div>
+<div id="8ceebfef-9d55-4d8e-a599-2235a7384e1f_doc" class="docelem" title="FV">
+<a name="8ceebfef-9d55-4d8e-a599-2235a7384e1f" id="8ceebfef-9d55-4d8e-a599-2235a7384e1f"></a>
+<img class="icon" src="diagrams/bpmnimg/Milestone_24.jpg" border="0" />
+
+
+
+</div>
+
+							</div>
+							<img src="diagrams/Venta.png" border="0" usemap="#map" class="map" />
+							<map name="map">
+								<area shape="rect" class="diagelem" coords="20,20,70,970" title="" href="#c7fe7793-c394-4ff4-9e3e-089d7a411b50" />
+<area shape="circle" class="diagelem" coords="120,55,15" title="La orden de Compra puede venir tanto por MAIL como por FAX, y puede ser recibida por el area de MARKETING o de VENTAS.
+" href="#7eeafe71-a08d-491a-a1b0-1698453209c7" />
+<area shape="rect" class="diagelem" coords="75,100,165,160" title="En el sistema selecciona al paciente, con ello trae los datos cargados en la ficha, Fecha de Nacimiento (con lo que se calcula la edad), patologia, sexo, fecha de consentimiento, capacidad de Gestar
+" href="#89110c40-3d02-457c-983c-fa5ea2820ce1" />
+<area shape="poly" class="diagelem" coords="100,220,120,200,140,220,120,240" title="La determinacion del sexo cambia las validaciones a realizar.
+Si es Hombre, no se validan datos
+Si es Mujer, se pasa al siguiente esquema de validaciones
+" href="#ea7ad528-d49e-4ccd-8479-6ec3deddfbbd" />
+<area shape="poly" class="diagelem" coords="295,220,315,200,335,220,315,240" title="Si esta informada como SI o NULL en la ficha del paciente pasa al siguiente esquema de validaciones
+Si esta informada como NO no se procesan mas controles
+" href="#184fa10c-3db2-48ae-b884-bf5462896458" />
+<area shape="poly" class="diagelem" coords="600,220,620,200,640,220,620,240" title="Si la ultima venta se realizo dentro de los 28 dias, la orden pasara a POSTERGADA
+Si la actual venta supera en 28 dias a la ultima, se procesa el siguiente control
+" href="#deb41f65-f355-43e8-afbc-c8326b85d72d" />
+<area shape="rect" class="diagelem" coords="740,320,830,380" title="Se carga: fecha de test de embarazo y documento respaldatorio
+" href="#5abe7b33-53a0-4853-b7bc-4e1e3bcb11d3" />
+<area shape="poly" class="diagelem" coords="765,520,785,500,805,520,785,540" title="El test de embarazo no puede tener mas de 3 dias de diferencia que la receta
+" href="#7e78c877-ffe2-4e4f-b9d3-cdd374bf2d22" />
+<area shape="circle" class="diagelem" coords="955,520,15" title="Proceso no relevado
+" href="#7704e454-e966-49e6-8d82-435d253fb5c4" />
+<area shape="rect" class="diagelem" coords="1080,600,1170,660" title="El documento se pasa a FarmacoVigilancia
+" href="#6be1e361-e0c3-4758-909e-d4dd2a29bc74" />
+<area shape="poly" class="diagelem" coords="1240,630,1260,610,1280,630,1260,650" title="FV determina si APRUEBA o RECHAZA la orden indicando motivos
+" href="#07fa41f3-2341-45f9-998a-e0e7f90ce3e5" />
+<area shape="rect" class="diagelem" coords="500,725,590,785" title="Como constancia de la imputacion correcta se devuelve un numero de registro
+" href="#491d5473-c893-4a3b-b647-07692d3c3f23" />
+<area shape="circle" class="diagelem" coords="875,755,15" title="" href="#1d272e2a-8e65-477b-ad57-01dba86a5982" />
+<area shape="rect" class="diagelem" coords="575,320,665,380" title="Se carga: fecha de test de embarazo y documento respaldatorio estado pendiente : POSTERGADO
+" href="#14659389-ba45-4744-9da0-931d2136b887" />
+<area shape="circle" class="diagelem" coords="620,495,15" title="" href="#12ff9ae4-393b-48ca-a158-267b891e59c8" />
+<area shape="circle" class="diagelem" coords="620,626,15" title="" href="#67447bde-dd9b-4d1f-b800-d9c1400dd3a8" />
+<area shape="poly" class="diagelem" coords="295,315,315,295,335,315,315,335" title="FV tiene que dar el visto bueno para considerar que la documentacion acompañada que identifica al paciente como Sin capacidad de Gestar sea suficiente.
+" href="#00cd6afb-fc6c-4d2a-9346-8eacca6c294b" />
+<area shape="rect" class="diagelem" coords="270,400,360,460" title="Se debera cargar la fecha de la receta y el documento respaldatorio
+" href="#ae490ebc-f99d-40d5-9f3f-a83124869d3f" />
+<area shape="poly" class="diagelem" coords="295,755,315,735,335,755,315,775" title="Se unifico el criterio de FECHA_RECETA y DOCUMENTO_RECETA informados, si no estan ambos reportes, la orden quedara como pendiente por DOCUMENTACION
+" href="#b5741b9f-ac0a-4cb2-a893-94e387c2ca20" />
+<area shape="circle" class="diagelem" coords="315,855,15" title="" href="#dce2c224-efbe-4944-9a0b-9f03d9e6f6a8" />
+<area shape="circle" class="diagelem" coords="435,315,15" title="" href="#cb50e035-ba98-4fbb-830a-09f2c9820263" />
+<area shape="rect" class="diagelem" coords="70,20,1000,50" title="" href="#4db6ae2c-25e3-4688-810a-500ca669c7b9" />
+<area shape="rect" class="diagelem" coords="1000,20,1300,50" title="" href="#8ceebfef-9d55-4d8e-a599-2235a7384e1f" />
+<area shape="rect" coords="1210,1030,1300,1073" href="http://www.bizagi.com" title="Visit BizAgi.com" target="_blank" />
+
+							</map>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="footer"><div class="modelerLogo"></div></div>
+		</div>
+	</div>
+</body>
+</html>

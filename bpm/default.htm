@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Venta - BizAgi Process Modeler</title>
+	<style type="text/css">
+	@import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
+</style>
+<link media="screen" type="text/css" href="css/main.css" rel="stylesheet" />
+
+</head>
+<body>
+	
+	<div id="contentwrapper">
+		<div id="header">
+			<h1>
+			Venta</h1>
+		</div>
+		<div id="content">
+			<div class="layout-type">
+				<ul>
+					<li class="mosaic "><a class="active" href="#">Mosaic</a> </li>
+					<li class="coverFlow"><a href="default_cf.htm">Cover Flow</a></li>
+				</ul>
+			</div>
+			<div class="processDiagrams">
+				<div class="boxgrid caption">
+					<a href="Venta.htm">
+						<img src="diagrams/Venta.png" width="350" />
+					</a>
+					<div class="cover boxcaption">
+						<a href="Venta.htm">
+							<h3>
+								Venta
+							</h3>
+						</a>
+						<p>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div id="contentwrapper_pac">
+		<div id="header">
+			<h1>Alta de Paciente</h1>
+		</div>
+		<div id="content">
+			<div class="layout-type">
+				<ul>
+					<li class="mosaic "><a class="active" href="#">Mosaic</a> </li>
+					<li class="coverFlow"><a href="default_cf.htm">Cover Flow</a></li>
+				</ul>
+			</div>
+			<div class="processDiagrams">
+				<div class="boxgrid caption">
+					<a href="Alta Pacientes.htm">
+						<img src="diagrams/Alta Pacientes.png" width="350" />
+					</a>
+					<div class="cover boxcaption">
+						<a href="Alta Pacientes.htm">
+							<h3>Alta Pacientes </h3>
+						</a>
+						<p>
+						</p>
+					</div>
+				</div>
+				<div class="boxgrid caption">
+					<a data-toggle="modal" data-target="#modal_pac_r">
+						<img src="diagrams/Advertencias.png" width="350" />
+					</a>
+					<div class="cover boxcaption">
+						<a data-toggle="modal" data-target="#modal_pac_r">
+							<h3>Reglas Pacientes</h3>
+						</a>
+						<p>
+							Advertencias sobre la carga de Pacientes
+						</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="modal_pac_r" tabindex="-1" role="dialog" aria-labelledby="modal_pac_rLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+				    <div class="modal-content">
+					      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title" id="modal_pac_rLabel">Advertencias Pacientes</h4>
+					      </div>
+					      <div class="modal-body">
+						       <table class="table table-bordered table-striped table-responsive">
+								<thead>
+									<tr>
+										<th>
+											Edad Paciente
+										</th>
+										<th>
+											Sexo
+										</th>
+										<th>
+											Advertencia
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<= 15 años
+										</td>
+										<td>
+											M / F
+										</td>
+										<td>
+											<b>* Paciente Pediatrico</b>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											> 15 años y <= 50 años
+										</td>
+										<td>
+											F
+										</td>
+										<td>
+											<b>*  Paciente en Edad Gestacional</b>
+										</td>
+									</tr>
+								</tbody>
+						</table>
+					      </div>
+					      <div class="modal-footer">
+						        <button type="button" class="btn btn-danger" onclick='' data-dismiss="modal">Cerrar</button>
+					      </div>
+				    </div>
+			  </div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../resources/JQuery/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript" src="../resources/Bootstrap-3.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/cufon-yui.js"></script>
+	<script type="text/javascript" src="js/BeauSansRegular.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+            //Vertical Sliding
+            $('.boxgrid.slidedown').hover(function() {
+            	$(".cover", this).stop().animate({ top: '-260px' }, { queue: false, duration: 300 });
+            }, function() {
+            	$(".cover", this).stop().animate({ top: '0px' }, { queue: false, duration: 300 });
+            });
+            //Caption Sliding (Partially Hidden to Visible)
+            $('.boxgrid.caption').hover(function() {
+            	$(".cover", this).stop().animate({ top: '92px' }, { queue: false, duration: 300 });
+            }, function() {
+            	$(".cover", this).stop().animate({ top: '170px' }, { queue: false, duration: 300 });
+            });
+        });
+    </script>
+</body>
+</html>

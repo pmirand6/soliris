@@ -1,0 +1,53 @@
+/* version 1.1 */
+body, html {
+    height: 100%;
+    font-family: 'PT Sans Narrow';
+}
+
+iframe{
+    display: fixed;
+    width: 100%;
+    height: 99%;
+    border: none;
+    overflow-x: hidden;
+}
+
+.rounded-borders {
+    border-radius: 5px;
+}
+
+#botonesHeader{
+    margin-top: 18px;
+}
+
+.head_barra{
+	 background-color: #00838F ;
+    background: #206e754d;
+    
+    /*background: -moz-linear-gradient(top, #B7C1D6 0, #ffffff  100%);
+    background: -o-linear-gradient(top, #B7C1D6 0, #ffffff  100%);
+    background: linear-gradient(to bottom, #B7C1D6 0, #ffffff  100%);*/
+	
+}
+
+.nav_item{
+    color: #5c7382;
+    cursor: pointer;
+}
+
+.margin-right{
+    margin-right: 10px
+}
+
+.right-border {
+    border-right: 2px dotted;
+    border-right-color: #00a2e8;
+}
+
+.logo {
+    width: 114px;
+}
+
+.pointer {
+    cursor: pointer;
+}

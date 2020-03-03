@@ -1,0 +1,15 @@
+/* version 1.0 */
+@import url("base.css");
+
+.margin {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.over{
+ background-color:#bdc6ce;
+}
+.out{
+ background-color:white;
+}

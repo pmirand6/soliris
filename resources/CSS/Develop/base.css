@@ -1,0 +1,12 @@
+/* version 1.0 */
+* {
+    font: small "PT Sans Narrow", Helvetica, sans-serif;
+}
+
+.iniciales{
+    color: #FFFFFF;
+}
+
+.pointer {
+    cursor: pointer;
+}

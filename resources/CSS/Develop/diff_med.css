@@ -1,0 +1,30 @@
+   @import url("base.css");
+   
+   .id_med {
+    width: 20% !important;
+  }
+
+  .right {
+
+    left: 14%;
+    width: 25%
+  }
+
+  .left {
+
+    left: 5%; 
+    width: 25%
+  }
+
+
+  thead{
+    background-color: lightblue;
+  }
+
+  .col-sm-4 {
+    border: #abb4ac medium solid;
+    border-radius: 10px;
+  }
+
+
+  

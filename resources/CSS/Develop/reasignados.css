@@ -1,0 +1,37 @@
+/* version 1.0 */
+@import url("base.css");
+
+table tbody tr{
+    -webkit-transition: all  400ms ease-in-out;
+    -moz-transition: all  400ms ease-in-out;
+    -ms-transition: all  400ms ease-in-out;
+    -o-transition: all  400ms ease-in-out;
+    transition: all  400ms ease-in-out;
+}
+
+table tbody tr:hover{
+    background-color: #0081C2;
+    color: white;
+    -webkit-transition: all  400ms ease-in-out;
+    -moz-transition: all  400ms ease-in-out;
+    -ms-transition: all  400ms ease-in-out;
+    -o-transition: all  400ms ease-in-out;
+    transition: all  400ms ease-in-out;
+}
+table tbody tr input:hover{
+    color: black;
+}
+/* enable absolute positioning */
+.inner-addon {
+    position: relative;
+}
+
+/* style icon */
+.inner-addon .addon {
+  position: absolute;
+  padding: 10px;
+  /* pointer-events: none; */
+  cursor: pointer;
+}
+.right-addon .addon { right: 0px;}
+.right-addon input { padding-right: 30px; }

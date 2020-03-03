@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="imagetoolbar" content="no" />
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<title>Alta Pacientes - BizAgi Process Modeler</title>
+	<link type="text/css" href="css/ui-darkness/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+	<link href="css/jquery.autocomplete.css" rel="stylesheet" type="text/css" />
+    <link media="screen" type="text/css" href="css/main.css" rel="stylesheet" />
+	<!--[if IE 7]>
+	<link media="screen" type="text/css" href="css/main_ie7.css" rel="stylesheet" />
+	<![endif]-->
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+    <script type="text/javascript" src="js/ui.tabs.paging.js"></script>
+	<script type="text/javascript" src="js/jquery.maphilight.min.js"></script>
+	<script type="text/javascript" src="js/jquery.watermarkinput.js"></script>
+	<script type="text/javascript" src="js/jquery.autocomplete.js"></script>
+	<!--<script type="text/javascript" src="js/shiftzoom.js"></script>-->
+	<script type="text/javascript" src="js/jquery.hashtable-1.1.js"></script>
+	<script type="text/javascript">
+		/* Textbox Watermark plugin */
+		$(function($) {
+			$("#q").Watermark('Search');
+		});
+
+		/* Shiftzoom plugin */
+		//if (document.images && document.createElement && document.getElementById) {
+		//	document.writeln('<style type="text/css">');
+		//	document.writeln('	img.shiftzoom { visibility: hidden; }');
+		//	document.writeln('<\/style>');
+		//}
+
+		$(document).ready(function() {
+
+			/* Tabs plugin */
+			$("#tabs").tabs({
+				selected: 1
+				, select: function(event, ui) {
+					var url = $.data(ui.tab, 'load.tabs');
+					if (url) {
+						location.href = url;
+						return false;
+					}
+					return true;
+				}
+			});
+
+			$("#tabs").tabs('paging');
+
+			/* Autocomplete plugin */
+			var ht = new jQuery.Hashtable();
+			ht.add("Alta Pacientes","359b38f2-065b-4356-929b-38ed595cad58");
+ht.add("Alta de Pacientes","6672afa1-d311-4b45-911c-1997256027b3");
+ht.add("Element","9c323bf5-bc8f-4fc8-b777-a1457bb9ef45");
+ht.add("Carga de datos","4e12e92c-4027-455e-a775-cf20043acfbf");
+ht.add("Sexo","c464ea58-1fde-449f-84ff-46ab86bd34d9");
+ht.add("Capacidad de Gestar?","f2f50b13-9c18-498a-942c-cf60d76af68e");
+ht.add("Habilitado","a5a812de-c6f5-47a7-b818-5e12604a1e0a");
+ht.add("Adjunta Doc. Respaldatoria","c22aded8-9390-457d-8723-3f05d71293c2");
+ht.add("Aprueba/Rechaza","cf06e045-b4f0-48be-ae0f-de6f13cb2a1a");
+ht.add("Ventas/Marketing","9ecd67df-9bb5-413a-a2b8-f8f187f2e65e");
+ht.add("FV","b34c89bc-f558-44c4-ab55-9cfdcdde861a");
+
+			var data = 'Alta Pacientes|Alta de Pacientes|Element|Carga de datos|Sexo|Capacidad de Gestar?|Habilitado|Adjunta Doc. Respaldatoria|Aprueba/Rechaza|Ventas/Marketing|FV'.split('|');
+			$("#q").autocomplete(data, { matchContains: true});
+			$('#q').result(function(event, data, formatted) {
+				var val = ht.get(formatted.toString());
+				var anchor = '#' + val;
+				var dia = anchor + '_doc';
+				$(dia).dialog('open');
+			});
+
+			/* Show/hide Pan & Zoom */
+			//$('#diagramimagepan').hide();
+
+			//$('#pan').click(function() {
+			//	$(this).toggleClass("down");
+
+			//	if ($(this).hasClass("down")) {
+			//		$('#diagramimage').hide();
+			//		$('#diagramimagepan').show('slow');
+			//		$(this).text('Normal View');
+			//	} else {
+			//		$('#diagramimagepan').hide();
+			//		$('#diagramimage').show('slow');
+			//		$(this).text('Pan & Zoom View');
+			//	}
+			//});
+			
+			/* Dialog plugin */
+			var minWidth = 610;
+			if ($(".docelem img").hasClass("imageForm")) {
+				var width = $(".docelem .imageForm").width();
+			} else {
+				var width = minWidth;
+			};
+			$('.docelem').dialog({ 
+				autoOpen: false, 
+				width: (width + 30),
+				height: 480, 
+				modal: true,
+				show: 'slide'
+			});
+			$('.docelem').dialog('option', 'minWidth', 640);
+			
+			$('.diagelem').click(function() {
+				var t = $(this).attr('href');
+				t = t.replace('#', '');
+				var dia = $(this).attr('href') + '_doc';
+				
+				$(dia).dialog('open');
+			});
+
+			/* Map Highlight plugin */
+			$(function() {
+				$('.map').maphilight();
+			});
+
+		});
+	</script>
+	
+	<script type="text/javascript" src="js/cufon-yui.js"></script>
+	<script type="text/javascript" src="js/BeauSansRegular.js"></script>    
+    <!--<script type="text/javascript">
+	    // <![CDATA[
+	    Cufon.replace('h1');
+	    Cufon.replace('h2');
+	    Cufon.replace('h3');
+	    //Cufon.replace('h4');
+	    Cufon.replace('.ui-dialog-title');
+	    Cufon.replace('.layout-type a', {
+	        hover: true
+	    });
+	    Cufon.replace('.BizAgi li a', {
+	        hover: true
+	    });
+
+	    Cufon.replace('.tabs a', {
+	        hover: true
+	    });
+	    Cufon.replace('#topnav a', {
+	        hover: true
+	    });
+
+	    //]]>
+	</script>-->
+</head>
+<body>
+
+	<div id="contentwrapper">
+		<div class="BizAgi"><ul><li><a href="http://www.bizagi.com" target="_blank">Visit bizagi.com</a></li></ul></div>
+		<div id="header">
+			<h1>
+				Venta - BizAgi Process Modeler</h1>
+		</div>
+		<div id="tabs">
+			<ul class="tabs">
+				<li><a href="Venta.htm" title="tabs-1">Venta</a></li>
+<li><a href="#tabs-0" title="tabs-0">Alta Pacientes</a></li>
+
+			</ul>
+			<div id="content">
+				<div id="tabs-0">
+					<div class="layout-type">
+						<ul id="topnav">
+							<li class="home"><a href="default.htm">Home</a></li>
+						</ul>
+						<ul>
+							<li><span class="search"><input id="q" name="q" type="text" style="color:#3A3A3A"/></span></li>
+						</ul>
+					</div>
+					<div>
+						<!--|#bpm_back_to_parent#|--> <a href="#359b38f2-065b-4356-929b-38ed595cad58" class="diagelem"><h2>Alta Pacientes</h2></a>
+					</div>
+					<div id="diagram-image">
+						<!--<div id="diagramimagepan" align="center">
+							<div style="width: 800px; height: 580px; background: url(img/indicator.gif) 50% 50% no-repeat;
+								-webkit-box-shadow: 0px 0px 8px black; -moz-box-shadow: 0px 0px 8px black;">
+								<img id="diagpz" class="shiftzoom" onload="shiftzoom.add(this,{fading:true,showcoords:false,zoom:30});"
+									src="diagrams/Alta Pacientes.png" width="800" height="580"
+									alt="large image" border="0" />
+							</div>
+						</div>-->
+						<div id="diagramimage" align="center">
+							<div id="documentation" style="visibility: hidden;">
+							<div id="359b38f2-065b-4356-929b-38ed595cad58_doc" class="docelem" title="Alta Pacientes">
+<a name="359b38f2-065b-4356-929b-38ed595cad58" id="359b38f2-065b-4356-929b-38ed595cad58"></a>
+
+<h4>Version</h4><p>1.0</p><h4>Author</h4><p>dcilveti</p>
+
+
+</div>
+<div id="6672afa1-d311-4b45-911c-1997256027b3_doc" class="docelem" title="Alta de Pacientes">
+<a name="6672afa1-d311-4b45-911c-1997256027b3" id="6672afa1-d311-4b45-911c-1997256027b3"></a>
+<img class="icon" src="diagrams/bpmnimg/Pool_24.jpg" border="0" />
+
+
+
+</div>
+<div id="9c323bf5-bc8f-4fc8-b777-a1457bb9ef45_doc" class="docelem" title="Element">
+<a name="9c323bf5-bc8f-4fc8-b777-a1457bb9ef45" id="9c323bf5-bc8f-4fc8-b777-a1457bb9ef45"></a>
+<img class="icon" src="diagrams/bpmnimg/Start_24.jpg" border="0" />
+
+
+
+</div>
+<div id="4e12e92c-4027-455e-a775-cf20043acfbf_doc" class="docelem" title="Carga de datos">
+<a name="4e12e92c-4027-455e-a775-cf20043acfbf" id="4e12e92c-4027-455e-a775-cf20043acfbf"></a>
+<img class="icon" src="diagrams/bpmnimg/Task_None_24.jpg" border="0" />
+
+<h4>Description</h4><p>Se debera cargar: <br> *Apellido y Nombre <br> *Fecha de Nacimiento <br> *Sexo <br> *Fecha de Consentimiento <br> *Patologia <br> *Telefono (opcional) <br> *mail(opctional) <br>  <br> Adjuntar <br> -&gt; Consentimiento <br> -&gt;Ficha Medica <br> -&gt;Informe Ginecologico (si aplica) <br>  <br>  <br> </p>
+
+</div>
+<div id="c464ea58-1fde-449f-84ff-46ab86bd34d9_doc" class="docelem" title="Sexo">
+<a name="c464ea58-1fde-449f-84ff-46ab86bd34d9" id="c464ea58-1fde-449f-84ff-46ab86bd34d9"></a>
+<img class="icon" src="diagrams/bpmnimg/Gateway_Data_Based_24.jpg" border="0" />
+
+
+<h4>Gates</h4><p>&nbsp;Mujer</p><p>&nbsp;Hombre</p>
+</div>
+<div id="f2f50b13-9c18-498a-942c-cf60d76af68e_doc" class="docelem" title="Capacidad de Gestar?">
+<a name="f2f50b13-9c18-498a-942c-cf60d76af68e" id="f2f50b13-9c18-498a-942c-cf60d76af68e"></a>
+<img class="icon" src="diagrams/bpmnimg/Gateway_Data_Based_24.jpg" border="0" />
+
+
+<h4>Gates</h4><p>&nbsp;SI</p><p>&nbsp;NO</p>
+</div>
+<div id="a5a812de-c6f5-47a7-b818-5e12604a1e0a_doc" class="docelem" title="Habilitado">
+<a name="a5a812de-c6f5-47a7-b818-5e12604a1e0a" id="a5a812de-c6f5-47a7-b818-5e12604a1e0a"></a>
+<img class="icon" src="diagrams/bpmnimg/End_24.jpg" border="0" />
+
+
+
+</div>
+<div id="c22aded8-9390-457d-8723-3f05d71293c2_doc" class="docelem" title="Adjunta Doc. Respaldatoria">
+<a name="c22aded8-9390-457d-8723-3f05d71293c2" id="c22aded8-9390-457d-8723-3f05d71293c2"></a>
+<img class="icon" src="diagrams/bpmnimg/Task_None_24.jpg" border="0" />
+
+<h4>Description</h4><p>Se debera adjuntar el informe Ginecologico que demuestre el motivo por el cual la paciente no puede quedar embarazada. <br> </p>
+
+</div>
+<div id="cf06e045-b4f0-48be-ae0f-de6f13cb2a1a_doc" class="docelem" title="Aprueba/Rechaza">
+<a name="cf06e045-b4f0-48be-ae0f-de6f13cb2a1a" id="cf06e045-b4f0-48be-ae0f-de6f13cb2a1a"></a>
+<img class="icon" src="diagrams/bpmnimg/Gateway_Data_Based_24.jpg" border="0" />
+
+
+<h4>Gates</h4><p>&nbsp;Aprueba</p>
+</div>
+<div id="a34e457f-5dbd-4386-a14d-4d63ec561491_doc" class="docelem" title="Habilitado">
+<a name="a34e457f-5dbd-4386-a14d-4d63ec561491" id="a34e457f-5dbd-4386-a14d-4d63ec561491"></a>
+<img class="icon" src="diagrams/bpmnimg/End_24.jpg" border="0" />
+
+
+
+</div>
+<div id="9ecd67df-9bb5-413a-a2b8-f8f187f2e65e_doc" class="docelem" title="Ventas/Marketing">
+<a name="9ecd67df-9bb5-413a-a2b8-f8f187f2e65e" id="9ecd67df-9bb5-413a-a2b8-f8f187f2e65e"></a>
+<img class="icon" src="diagrams/bpmnimg/Milestone_24.jpg" border="0" />
+
+
+
+</div>
+<div id="b34c89bc-f558-44c4-ab55-9cfdcdde861a_doc" class="docelem" title="FV">
+<a name="b34c89bc-f558-44c4-ab55-9cfdcdde861a" id="b34c89bc-f558-44c4-ab55-9cfdcdde861a"></a>
+<img class="icon" src="diagrams/bpmnimg/Milestone_24.jpg" border="0" />
+
+
+
+</div>
+
+							</div>
+							<img src="diagrams/Alta Pacientes.png" border="0" usemap="#map" class="map" />
+							<map name="map">
+								<area shape="rect" class="diagelem" coords="20,20,70,650" title="" href="#6672afa1-d311-4b45-911c-1997256027b3" />
+<area shape="circle" class="diagelem" coords="380,55,15" title="" href="#9c323bf5-bc8f-4fc8-b777-a1457bb9ef45" />
+<area shape="rect" class="diagelem" coords="335,120,425,180" title="Se debera cargar:
+*Apellido y Nombre
+*Fecha de Nacimiento
+*Sexo
+*Fecha de Consentimiento
+*Patologia
+*Telefono (opcional)
+*mail(opctional)
+
+Adjuntar
+-&gt; Consentimiento
+-&gt;Ficha Medica
+-&gt;Informe Ginecologico (si aplica)
+
+
+" href="#4e12e92c-4027-455e-a775-cf20043acfbf" />
+<area shape="poly" class="diagelem" coords="360,240,380,220,400,240,380,260" title="" href="#c464ea58-1fde-449f-84ff-46ab86bd34d9" />
+<area shape="poly" class="diagelem" coords="360,340,380,320,400,340,380,360" title="" href="#f2f50b13-9c18-498a-942c-cf60d76af68e" />
+<area shape="circle" class="diagelem" coords="380,555,15" title="" href="#a5a812de-c6f5-47a7-b818-5e12604a1e0a" />
+<area shape="rect" class="diagelem" coords="560,310,650,370" title="Se debera adjuntar el informe Ginecologico que demuestre el motivo por el cual la paciente no puede quedar embarazada.
+" href="#c22aded8-9390-457d-8723-3f05d71293c2" />
+<area shape="poly" class="diagelem" coords="871,340,891,320,911,340,891,360" title="" href="#cf06e045-b4f0-48be-ae0f-de6f13cb2a1a" />
+<area shape="circle" class="diagelem" coords="635,240,15" title="" href="#a34e457f-5dbd-4386-a14d-4d63ec561491" />
+<area shape="rect" class="diagelem" coords="70,20,731,50" title="" href="#9ecd67df-9bb5-413a-a2b8-f8f187f2e65e" />
+<area shape="rect" class="diagelem" coords="731,20,1031,50" title="" href="#b34c89bc-f558-44c4-ab55-9cfdcdde861a" />
+<area shape="rect" coords="941,710,1031,753" href="http://www.bizagi.com" title="Visit BizAgi.com" target="_blank" />
+
+							</map>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="footer"><div class="modelerLogo"></div></div>
+		</div>
+	</div>
+</body>
+</html>

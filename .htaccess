@@ -1,0 +1,39 @@
+#Version: 8.0.9
+
+<FilesMatch "\.(html|htm|js|css|php)>
+	FileETag None
+	Header unset ETag
+	Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+	Header set Pragma "no-cache"
+	Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+</FilesMatch>
+
+<IfModule mod_php5.c>
+    php_value memory_limit 512M
+    php_value default_charset 'UTF-8'
+
+    #Session timeout
+    php_value session.cookie_lifetime 7200
+    php_value session.gc_maxlifetime 7200
+</IfModule>
+
+# Show Errors
+php_flag display_startup_errors on
+php_flag display_errors on
+
+#Prevent viewing of .htaccess file
+<Files .htaccess>
+	order allow,deny
+	deny from all
+</Files>
+
+# Redirección por manteninimiento
+#<IfModule mod_rewrite.c>
+#	RewriteEngine on
+	
+#</IfModule>
+
+DirectoryIndex login.php
+
+#Prevent directory listings
+	Options All -Indexes

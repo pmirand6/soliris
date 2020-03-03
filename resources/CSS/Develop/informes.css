@@ -1,0 +1,191 @@
+/* version 1.0 */
+@import url("base.css");
+
+.LabelDTB{
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid rgba(0,0,0,0);
+    border-bottom-width: 2px;
+    -webkit-border-radius: 10px;
+    font-family: 'PT Sans Narrow';
+    font-weight: bold;
+    border-radius: 5px;
+    height: 16px;
+    line-height: 16px;
+    margin-bottom: 10px;
+    margin-top: 0px;
+    text-align: left;
+    color: rgb(255, 255, 255);
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    background: #337AB7;
+}
+
+.TBLrows tbody tr{
+    -webkit-transition: all  400ms ease-in-out;
+    -moz-transition: all  400ms ease-in-out;
+    -ms-transition: all  400ms ease-in-out;
+    -o-transition: all  400ms ease-in-out;
+    transition: all  400ms ease-in-out;
+}
+
+    .TBLrows tbody tr:hover{
+        background-color: #0081C2;
+        color: white;
+        -webkit-transition: all  400ms ease-in-out;
+        -moz-transition: all  400ms ease-in-out;
+        -ms-transition: all  400ms ease-in-out;
+        -o-transition: all  400ms ease-in-out;
+        transition: all  400ms ease-in-out;
+    }
+.modal_box_txt{
+    box-sizing: border-box;
+
+    font-size: 14px;
+    line-height: 1.42857143;
+    /*background-color: #fcf8e3;*/
+    padding: 10px;
+    margin-bottom: 20px;
+
+    border: 1px solid;
+    border-radius: 10px;
+}
+
+.modal_box_txt .success{
+    border-color: #e0f1e9;
+}
+.modal_box_txt .warning{
+    border-color: #faebcc;
+}
+.modal_box_txt .danger{
+    border-color: #723432;
+}
+
+.modal_box_txt .info{
+    border-color: #ccf3ff;
+}
+
+.validation_check_success{
+    display: block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    float: none;
+    z-index: auto;
+    width: auto;
+    height: auto;
+    position: static;
+    cursor: default;
+    opacity: 1;
+    margin: 0;
+    padding: 10px;
+    overflow: visible;
+    border: 1px solid rgba(60,118,61,0.85);
+    border-bottom-width: 2px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    font: normal normal bold 18px/1 "PT Sans Narrow", Helvetica, sans-serif;
+    color: #548853;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    background: #DFF0D8;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-shadow: none;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+    -webkit-transform: none;
+    transform: none;
+    -webkit-transform-origin: 50% 50% 0;
+    transform-origin: 50% 50% 0;
+}
+
+.validation_check_alert{
+    display: block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    float: none;
+    z-index: auto;
+    width: auto;
+    height: auto;
+    position: static;
+    cursor: default;
+    opacity: 1;
+    margin: 0;
+    padding: 10px;
+    overflow: visible;
+    border: 1px solid #EC971F;
+    border-bottom-width: 2px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    font: normal normal bold 18px/1 "PT Sans Narrow", Helvetica, sans-serif;
+    color: #F0AD4E;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    background: #FCF8E3;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-shadow: none;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+    -webkit-transform: none;
+    transform: none;
+    -webkit-transform-origin: 50% 50% 0;
+    transform-origin: 50% 50% 0;
+}
+
+.validation_check_danger{
+    display: block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    float: none;
+    z-index: auto;
+    width: auto;
+    height: auto;
+    position: static;
+    cursor: default;
+    opacity: 1;
+    margin: 0;
+    padding: 10px;
+    overflow: visible;
+    border: 1px solid #AC2925;
+    border-bottom-width: 2px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    font: normal normal bold 18px/1 "PT Sans Narrow", Helvetica, sans-serif;
+    color: #FFFFFF;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    background: #C12E2A;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-shadow: none;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    transition: none;
+    -webkit-transform: none;
+    transform: none;
+    -webkit-transform-origin: 50% 50% 0;
+    transform-origin: 50% 50% 0;
+}
+
+.popUP{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  margin-top: -100px;
+  margin-left: -200px;
+  background-color: transparent;
+  text-align: center;
+  z-index: 21;
+}

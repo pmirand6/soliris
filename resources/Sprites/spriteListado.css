@@ -1,0 +1,196 @@
+.TBL {
+    background-image: url(spriteListado.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.TBL-Aprobado {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -5px;
+}
+
+.TBL-Autorizado {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -5px;
+}
+
+.TBL-Baja {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -5px;
+}
+
+.TBL-Cancela-Paciente {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -5px;
+}
+
+.TBL-Cancelado {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -5px;
+}
+
+.TBL-Rechazado {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -5px;
+}
+
+.TBL-Error-de-Sistema {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -5px;
+}
+
+.TBL-FV {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -31px;
+}
+
+.TBL-NP {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -31px;
+}
+
+.TBL-Operacion-Cancelada {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -31px;
+}
+
+.TBL-Reasignado-Drogueria {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -31px;
+}
+.TBL-Documentacion {
+    width: 16px;
+    height: 16px;
+    background-position: -109px -31px;
+}
+
+.TBL-Inactivo {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -57px;
+}
+
+.TBL-eliminado {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -57px;
+}
+
+.TBL-Postergado {
+    width: 16px;
+    height: 16px;
+    background-position: -109px -57px;
+}
+
+.TBL-Historico {
+    width: 16px;
+    height: 16px;
+    background-position: -109px -57px;
+}
+
+.TBL-F {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -57px;
+}
+
+.TBL-M {
+    width: 16px;
+    height: 16px;
+    background-position: -109px -83px;
+}
+
+.TBL-file_extension_bmp {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -57px;
+}
+
+.TBL-file_extension_doc {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -57px;
+}
+
+.TBL-file_extension_gif {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -83px;
+}
+
+.TBL-file_extension_jpeg {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -83px;
+}
+
+.TBL-file_extension_jpg {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -83px;
+}
+
+.TBL-file_extension_ {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -83px;
+}
+
+.TBL-file_extension_pdf {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -83px;
+}
+
+.TBL-file_extension_png {
+    width: 16px;
+    height: 16px;
+    background-position: -109px -5px;
+}
+
+.TBL-file_extension_ttf {
+    width: 16px;
+    height: 16px;
+    background-position: -109px -31px;
+}
+
+.TBL-file_extension_tif {
+    width: 16px;
+    height: 16px;
+    background-position: -109px -31px;
+}
+
+.TBL-Accion {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -109px;
+}
+
+.TBL-Pendiente {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -109px;
+}
+
+.TBL-zoom_in {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -109px;
+}
+
+.TBL-zoom_out {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -109px;
+}

@@ -1,0 +1,32 @@
+/* version 1.0 */
+@import url("base.css");
+
+.RI{
+    color: #000000;
+}
+.UP{
+    color: #7CB5EC;
+}
+
+table tbody tr{
+	-webkit-transition: all  400ms ease-in-out;
+	-moz-transition: all  400ms ease-in-out;
+	-ms-transition: all  400ms ease-in-out;
+	-o-transition: all  400ms ease-in-out;
+	transition: all  400ms ease-in-out;
+}
+
+    table tbody tr:hover{
+		background-color: #0081C2;
+		color: white;
+		-webkit-transition: all  400ms ease-in-out;
+		-moz-transition: all  400ms ease-in-out;
+		-ms-transition: all  400ms ease-in-out;
+		-o-transition: all  400ms ease-in-out;
+		transition: all  400ms ease-in-out;
+	}
+
+.count_0{
+	color: #ff0000;
+	 font-weight: bold;
+}

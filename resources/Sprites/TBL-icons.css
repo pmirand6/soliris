@@ -1,0 +1,101 @@
+.TBL {
+    background-image: url(TBL-icons.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.TBL-Aprobado {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -5px;
+}
+
+.TBL-Activo {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -5px;
+}
+
+
+.TBL-Baja {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -5px;
+}
+
+.TBL-F {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -5px;
+}
+
+.TBL-Fallecio {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -31px;
+}
+
+.TBL-inactivo{
+    width: 16px;
+    height: 16px;
+    background-position: -31px -31px;
+}
+.TBL-Inactivo {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -31px;
+}
+
+.TBL-M {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -31px;
+}
+
+.TBL-Pendiente {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -57px;
+}
+
+.TBL-Pide_Espaciado {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -57px;
+}
+
+.TBL-Rechazado {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -57px;
+}
+
+.TBL-Suspendio {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -5px;
+}
+
+.TBL-fax {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -31px;
+}
+
+.TBL-nacional {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -57px;
+}
+
+.TBL-provincial {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -83px;
+}
+
+.TBL-tel {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -83px;
+}

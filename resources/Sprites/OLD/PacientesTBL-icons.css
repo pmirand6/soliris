@@ -1,0 +1,83 @@
+.PAC {
+    background-image: url(PacientesTBL-icons.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.PAC-Aprobado {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -5px;
+}
+
+.PAC-Activo {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -5px;
+}
+
+.PAC-Baja {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -5px;
+}
+
+.PAC-F {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -5px;
+}
+
+.PAC-Fallecio {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -31px;
+}
+
+.PAC-Inactivo {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -31px;
+}
+
+.PAC-M {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -31px;
+}
+
+.PAC-Pendiente {
+    width: 16px;
+    height: 16px;
+    background-position: -5px -57px;
+}
+
+.PAC-Pide_Espaciado {
+    width: 16px;
+    height: 16px;
+    background-position: -31px -57px;
+}
+
+.PAC-Rechazado {
+    width: 16px;
+    height: 16px;
+    background-position: -57px -57px;
+}
+
+.PAC-Suspendio {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -5px;
+}
+
+.PAC-nacional {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -31px;
+}
+
+.PAC-provincial {
+    width: 16px;
+    height: 16px;
+    background-position: -83px -57px;
+}

@@ -1,0 +1,29 @@
+.PAC {
+    background-image: url(PacientesTBL-icons.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.PAC-Aprobado {
+    width: 24px;
+    height: 24px;
+    background-position: -5px -5px;
+}
+
+.PAC-Baja {
+    width: 24px;
+    height: 24px;
+    background-position: -39px -5px;
+}
+
+.PAC-F {
+    width: 24px;
+    height: 24px;
+    background-position: -5px -39px;
+}
+
+.PAC-M {
+    width: 24px;
+    height: 24px;
+    background-position: -39px -39px;
+}

@@ -1,0 +1,185 @@
+.file_extension {
+    background-image: url(file_extension.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+._7z {
+    width: 32px;
+    height: 32px;
+    background-position: -5px -5px;
+}
+
+._bat {
+    width: 32px;
+    height: 32px;
+    background-position: -47px -5px;
+}
+
+._bmp {
+    width: 32px;
+    height: 32px;
+    background-position: -89px -5px;
+}
+
+._divx {
+    width: 32px;
+    height: 32px;
+    background-position: -131px -5px;
+}
+
+._dll {
+    width: 32px;
+    height: 32px;
+    background-position: -173px -5px;
+}
+
+._doc {
+    width: 32px;
+    height: 32px;
+    background-position: -5px -47px;
+}
+
+._exe {
+    width: 32px;
+    height: 32px;
+    background-position: -47px -47px;
+}
+
+._gif {
+    width: 32px;
+    height: 32px;
+    background-position: -89px -47px;
+}
+
+._htm {
+    width: 32px;
+    height: 32px;
+    background-position: -131px -47px;
+}
+
+._html {
+    width: 32px;
+    height: 32px;
+    background-position: -173px -47px;
+}
+
+._jar {
+    width: 32px;
+    height: 32px;
+    background-position: -5px -89px;
+}
+
+._jpeg {
+    width: 32px;
+    height: 32px;
+    background-position: -47px -89px;
+}
+
+._jpg {
+    width: 32px;
+    height: 32px;
+    background-position: -89px -89px;
+}
+
+._mov {
+    width: 32px;
+    height: 32px;
+    background-position: -131px -89px;
+}
+
+._mp4 {
+    width: 32px;
+    height: 32px;
+    background-position: -173px -89px;
+}
+
+._mpeg {
+    width: 32px;
+    height: 32px;
+    background-position: -5px -131px;
+}
+
+._mpg {
+    width: 32px;
+    height: 32px;
+    background-position: -47px -131px;
+}
+
+._msi {
+    width: 32px;
+    height: 32px;
+    background-position: -89px -131px;
+}
+
+._pdf {
+    width: 32px;
+    height: 32px;
+    background-position: -131px -131px;
+}
+
+._png {
+    width: 32px;
+    height: 32px;
+    background-position: -173px -131px;
+}
+
+._pps {
+    width: 32px;
+    height: 32px;
+    background-position: -5px -173px;
+}
+
+._pst {
+    width: 32px;
+    height: 32px;
+    background-position: -47px -173px;
+}
+
+._rar {
+    width: 32px;
+    height: 32px;
+    background-position: -89px -173px;
+}
+
+._swf {
+    width: 32px;
+    height: 32px;
+    background-position: -131px -173px;
+}
+
+._tif {
+    width: 32px;
+    height: 32px;
+    background-position: -173px -173px;
+}
+
+._txt {
+    width: 32px;
+    height: 32px;
+    background-position: -215px -5px;
+}
+
+._wav {
+    width: 32px;
+    height: 32px;
+    background-position: -215px -47px;
+}
+
+._wma {
+    width: 32px;
+    height: 32px;
+    background-position: -215px -89px;
+}
+
+._xls {
+    width: 32px;
+    height: 32px;
+    background-position: -215px -131px;
+}
+
+._zip {
+    width: 32px;
+    height: 32px;
+    background-position: -215px -173px;
+}

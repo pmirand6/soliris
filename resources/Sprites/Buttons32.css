@@ -1,0 +1,59 @@
+.sprite {
+    background-image: url(Buttons32.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.sprite-Button-Add-icon {
+    width: 24px;
+    height: 24px;
+    background-position: -5px -5px;
+}
+
+.sprite-Button-Close-icon {
+    width: 24px;
+    height: 24px;
+    background-position: -39px -5px;
+}
+
+.sprite-Button-Delete-icon {
+    width: 24px;
+    height: 24px;
+    background-position: -73px -5px;
+}
+
+.sprite-Button-Help-icon {
+    width: 24px;
+    height: 24px;
+    background-position: -5px -39px;
+}
+
+.sprite-Button-Info-icon {
+    width: 24px;
+    height: 24px;
+    background-position: -39px -39px;
+}
+
+.sprite-Button-Next-icon {
+    width: 24px;
+    height: 24px;
+    background-position: -73px -39px;
+}
+
+.sprite-Button-Previous-icon {
+    width: 24px;
+    height: 24px;
+    background-position: -5px -73px;
+}
+
+.sprite-Button-Refresh-icon {
+    width: 24px;
+    height: 24px;
+    background-position: -39px -73px;
+}
+
+.sprite-Button-Reload-icon {
+    width: 24px;
+    height: 24px;
+    background-position: -73px -73px;
+}
