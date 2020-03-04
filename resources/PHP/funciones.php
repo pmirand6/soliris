@@ -446,7 +446,7 @@ function parametroEmptyChceck($value){
 /* Libera todas las resultantes de las querys
 RECOMENDABLE EJECUTAR ANTES DE LAS VISTAS */
 
-function free_all_results(mysqli $dbCon)
+function free_all_results($dbCon)
 {
     do {
         if ($res = $dbCon->store_result()) {
