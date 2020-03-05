@@ -8,8 +8,8 @@ require $_SERVER['DOCUMENT_ROOT'] . _FN;
     session_start();
 
     //desactivamos los erroes por seguridad
-    error_reporting(0);
-    //error_reporting(E_ALL); //activar los errores (en modo depuración)
+    //error_reporting(0);
+    error_reporting(E_ALL); //activar los errores (en modo depuración)
     if ($_POST["oper"] == "logUser"  AND !empty($_POST["usuario"]) AND !empty($_POST["password"])) {
         
 				$servidor_LDAP = "ldap://192.168.0.27:389/";

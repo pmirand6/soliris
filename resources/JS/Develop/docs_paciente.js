@@ -60,14 +60,15 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
     });
 });
 
-
-function ModifiedPac(){
+// Documentacion Paciente modificado se debe actualizar el estado a Pendiente
+// para que sea revisada la documentacion por FV
+function DocPacModified(){
   var parametros = {
-      "oper": "ModifiedPac",
+      "oper": "DocPacModified",
       "id": $('#id').val()
   };
   $.ajax({
-      url: aplicacion + '/ajax/ajx.paciente_form.php',
+      url: aplicacion + '/ajax/ajx.docs_paciente.php',
       type: "POST",
       data: parametros,
       async: false,

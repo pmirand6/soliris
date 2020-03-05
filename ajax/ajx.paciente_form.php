@@ -123,37 +123,7 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "ValidaPac") == 0)){
 		
     };
 }
-if(isset($_POST["oper"]) AND $_POST["oper"] == "ModifiedPac"){
-    
-    require_once("../config/config.php");
-    include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
-    include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
 
-    if (isset($_POST["id"]) AND $_POST["id"] != ""){
-        /* Seteo de variables */
-        $id = $_POST["id"];
-        $estado = 'Pendiente';
-        $usuario = $_SESSION["soliris_usuario"];
-
-        $SQLnom = "SELECT Nombre FROM pacientes WHERE id = '$id';";
-        $resultnom = mysqli_query($db, $SQLnom);
-        while ($row = mysqli_fetch_assoc($resultnom)) {
-          $nombre = $row["Nombre"];
-        }
-        /* -------------- */
-
-        $SQL = "SELECT FU_VAL_PAC('$id', '', '$estado', '$usuario') as response";
-        /* Realizo la consulta */
-        if (isset($SQL) AND $SQL != ""){
-            $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "1");
-            echo $response;
-
-            sendMailPM("Paciente $estado", $nombre, '', '');
-            
-        }
-        mysqli_close($db);
-    };
-}
 function l_aprobated($estado) {
     switch ($estado) {
         case "Aprobado":
