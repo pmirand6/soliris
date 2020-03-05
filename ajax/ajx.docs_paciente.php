@@ -19,7 +19,7 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "DocPacModified"){
         /* -------------- */
 
         //$SQL = "SELECT FU_VAL_PAC('$id', '', '', '$usuario') as response";
-        $SQL = "SELECT soliris.ST_DOC_PAC_MODIFIED";
+        $SQL = "SELECT ST_DOC_PAC_MODIFIED";
         /* Realizo la consulta */
         if (isset($SQL) AND $SQL != ""){
             $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "1");
