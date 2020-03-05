@@ -171,9 +171,10 @@ function MySQL_sendFunctionAudit($query, $accion, $typeResponse){
         } else {
 
             if ($typeResponse == "1"){
-                $response = "";
+                //$response = "";
+                $response = array();
                 while ($row = mysqli_fetch_array($result)) {
-                    $response = $row[0];
+                    $response[] = $row;
                 };
                 mysqli_free_result($result);
                 return $response;

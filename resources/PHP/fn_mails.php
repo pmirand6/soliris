@@ -3,7 +3,7 @@
     
     include dirname(__FILE__) . '/db.php';
     include_once $_SERVER['DOCUMENT_ROOT'] . '/' . _NAME .'/resources/PHP/PHPMailer_5.1/class.phpmailer.php';
-    include $_SERVER['DOCUMENT_ROOT'] . _FN;
+    include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
 
 
     function sendMailPM($estadoPac, $paciente, $id, $nota){
@@ -70,7 +70,7 @@
 
         
         #$SQL = "SELECT distinct mail FROM soliris_usuarios $grupo and estado='Activo';";  //dc001
-        $SQL = "SELECT GROUP_CONCAT(distinct mail) AS mail FROM soliris_usuarios $grupo and estado='Activo';";  //PGM002
+        $SQL = "SELECT GROUP_CONCAT(DISTINCT u.email) AS mail FROM usuario u WHERE u.rol_id = (SELECT r.id FROM rol r WHERE r.nombre = LOWER('FV')) AND u.estado_id = 1";  //PGM002
         $result = mysqli_query($db, $SQL);
         $destino = "";
         while ($row = mysqli_fetch_assoc($result)) {

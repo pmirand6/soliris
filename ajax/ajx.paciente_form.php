@@ -79,7 +79,7 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
                 '{$sub_estado}', 
                 {$cmrid}) as response";
 
-
+        echo $SQL;
 
     /* Realizo la consulta */
     // Verificar el log de auditoria

@@ -22,6 +22,7 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
             l_hide_selectpicker_sub_pat();
             l_list_paises();
             l_list_os();
+            l_sub_estado();
         } else {
             l_set_paciente();
         }
@@ -236,7 +237,7 @@ $('#histDocs').click(function () {
 });
 
 function l_disable_form(grupo) {
-    if (grupo == 'admin' || grupo == 'fv') {
+    if (grupo == 'fv') {
         $("#frm-paciente input, select").prop("disabled", true);
         $("#comentario").prop("disabled", false);
         $("#estadoList").prop("disabled", false);
@@ -505,7 +506,7 @@ function save_ventas(){
 }
 
 function save_admin(){
-    if (paramPaciente.grupo == 'admin' || paramPaciente.grupo == 'fv') {
+    if (paramPaciente.grupo == 'fv') {
         var parametros = {
             "oper": "ValidaPac",
             "id": $('#id').val(),

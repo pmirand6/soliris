@@ -191,8 +191,9 @@
 
         if(isset($_GET["id"]) && ($_GET["id"] !== 0)) {
             $id = $_GET["id"];
-            include('../vistas/paciente/paciente_aprobacion.php');
             include('../vistas/paciente/documentacion_paciente.php');
+        } else {
+            include('../vistas/paciente/paciente_aprobacion.php');
         }
         
     ?>
