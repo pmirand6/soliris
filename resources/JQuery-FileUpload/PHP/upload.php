@@ -16,7 +16,7 @@ if(isset($_FILES["myfile"])){
  	 	$fileName = str_replace(' ', '-', $_FILES["myfile"]["name"]);
  		move_uploaded_file($_FILES["myfile"]["tmp_name"], $output_dir.$_POST["tipo"]."_".$_POST["id"]."_".$date."_".$fileName);
 	    #Se agrega la fecha
-    	include_adjuntos($_POST["id"], '0', $_POST["referencia"], $_POST["tipo"],$date,  $_POST["tipo"]."_".$_POST["id"]."_". $date ."_".$fileName);
+    	include_adjuntos($_POST["id"], '0', $_POST["referencia"], $_POST["tipo"] ,$date,  $_POST["tipo"]."_".$_POST["id"]."_". $date ."_".$fileName);
 			$ret[]= " El archivo: '$fileName'. \n Se subió correctamente";
 	}
     echo json_encode($ret);

@@ -13,8 +13,8 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
     include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
     include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
 
-
-    (isset($_POST["id"]) AND $_POST["id"] != "") ?: $id = $_POST["id"];
+    
+    (isset($_POST["idPac"]) AND $_POST["idPac"] != "") ? $idPac = $_POST["idPac"] : '';
     
 
     /* Seteo de variables */
@@ -24,6 +24,7 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
         $f_nac = mysqli_real_escape_string($db, strtoupper($_POST["f_nac"]));
         $sexo = mysqli_real_escape_string($db, strtoupper($_POST["sexo"]));
         $pais = mysqli_real_escape_string($db, strtoupper($_POST["pais"]));
+        $estado = (!isset($_POST["estado"]) || $_POST["estado"] != '' || $_SESSION["grupo"] != 'ventas') ? 7 : $_POST["estado"];
         $sub_estado = mysqli_real_escape_string($db, $_POST["sub_estado"]);
         $patologia = mysqli_real_escape_string($db, $_POST["patologia"]);
         $usuario = $_SESSION["soliris_usuario"];
@@ -42,51 +43,52 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
         
     /* -------------- */
     
-    (isset($id) AND $id != "") ?: 
-    // Actualizo Paciente
-    $SQL = "SELECT ST_UP_PACIENTE(
-                $id,
-                '$apellido', 
-                '{$nombre}', 
-                '{$f_nac}', 
-                '{$sexo}', 
-                '{$telefono}', 
-                '{$ciudad}', 
-                {$pais}, 
-                '{$mail}', 
-                {$patologia}, 
-                {$sub_patologia}, 
-                {$os}, 
-                '{$usuario}', 
-                '{$sub_estado}',
-                '{$estado}' 
-                {$cmrid}) as response";
+    if (isset($idPac) AND $idPac != ""){
+        // Actualizo Paciente
+        
+        $SQL = "CALL ST_UP_PACIENTE(
+            $idPac,
+            '$apellido', 
+            '{$nombre}', 
+            '{$f_nac}', 
+            '{$sexo}', 
+            '{$telefono}', 
+            '{$ciudad}', 
+            {$pais}, 
+            '{$mail}', 
+            {$patologia}, 
+            {$sub_patologia}, 
+            {$os}, 
+            '{$usuario}', 
+            '{$sub_estado}',
+            '$estado', 
+            {$cmrid})";
+    } else {
+        // Creo Paciente
+        $SQL = "CALL `ST_NEW_PACIENTE`(
+            '$apellido', 
+            '{$nombre}', 
+            '{$f_nac}', 
+            '{$sexo}', 
+            '{$telefono}', 
+            '{$ciudad}', 
+            {$pais}, 
+            '{$mail}', 
+            {$patologia}, 
+            {$sub_patologia}, 
+            {$os}, 
+            '{$usuario}', 
+            '{$sub_estado}', 
+            {$cmrid})";
+
+    }
     
-    // Creo Paciente
-    $SQL = "CALL `ST_NEW_PACIENTE`(
-                '$apellido', 
-                '{$nombre}', 
-                '{$f_nac}', 
-                '{$sexo}', 
-                '{$telefono}', 
-                '{$ciudad}', 
-                {$pais}, 
-                '{$mail}', 
-                {$patologia}, 
-                {$sub_patologia}, 
-                {$os}, 
-                '{$usuario}', 
-                '{$sub_estado}', 
-                {$cmrid}) as response";
-
-        echo $SQL;
-
     /* Realizo la consulta */
     // Verificar el log de auditoria
     if (isset($SQL) AND $SQL != ""){
         $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "1");
-        echo("$response");
-        //echo $SQL;
+        echo $response[0]["mensaje"];
+        
       //  sendMailPM('Paciente Pendiente', $nombre, '', '');
 
     }
@@ -100,9 +102,9 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "ValidaPac") == 0)){
     include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
     include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
 
-    if (isset($_POST["id"]) AND $_POST["id"] != ""){
+    if (isset($_POST["idPac"]) AND $_POST["idPac"] != ""){
         /* Seteo de variables */
-        $id = $_POST["id"];
+        $idPac = $_POST["idPac"];
         $nombre = mysqli_real_escape_string($db, $_POST["nombre"]);
         $comentario = mysqli_real_escape_string($db, $_POST["comentario"]);
         $estado = mysqli_real_escape_string($db, $_POST["estado"]);
@@ -110,12 +112,12 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "ValidaPac") == 0)){
 
         /* -------------- */
 	
-        $SQL = "SELECT FU_VAL_PAC('$id', '$comentario', '$estado', '$usuario') as response";
+        $SQL = "SELECT FU_VAL_PAC('$idPac', '$comentario', '$estado', '$usuario') as response";
 
         /* Realizo la consulta */
         if (isset($SQL) AND $SQL != ""){
             $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "1");
-            echo("$response");
+            echo($response[0]["mensaje"]);
 
             sendMailPM("Paciente $estado", $nombre, '', $comentario);
         }

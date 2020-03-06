@@ -488,6 +488,7 @@ function l_list_os($filter = null, $os_id = null, $os_nombre) {
 
 function save_ventas(){
     var parametros = $("#frm-paciente").serializeArray();
+    parametros.push({name: 'idPac', value: paramPaciente.idPac})
     parametros.push({name: 'oper', value:'Guardar'});
     $.ajax({
         url: aplicacion + "/ajax/ajx.paciente_form.php",
@@ -497,7 +498,7 @@ function save_ventas(){
         success: function(opciones) {
             if (opciones.indexOf("ERROR") != 0) {
                 alert('Se registró correctamente. Continue con la carga de la documentación.');
-                window.location.href = aplicacion + '/administrador/docs_paciente.php?id=' + opciones;
+                window.location.href = aplicacion + '/administrador/docs_paciente.php?id=' + paramPaciente.idPac;
             } else {
                 alert(opciones);
             }

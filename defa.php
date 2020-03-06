@@ -88,24 +88,24 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
             </div>
             <div id="popoverUser" class="hidden">
                 <div>
-            <?php if (strcasecmp($_SESSION["grupo"], 'Admin') == 0) {?>            
+            <?php if (strcasecmp($_SESSION["grupo"], 'admin') == 0) {?>            
                         <form id="frm_grupo">
                             <span>Cambiar Grupo: </span>
                             <div class="form-check">
                               <label class="form-check-label">
-                                <input class="form-check-input" type="radio" value="Ventas" onclick="change_location(this.value);" <?=selected("Ventas");?>>
+                                <input class="form-check-input" type="radio" value="ventas" onclick="change_location(this.value);" <?=selected("ventas");?>>
                                 Ventas 
                             </label>
                         </div>
                         <div class="form-check">
                           <label class="form-check-label">
-                            <input class="form-check-input" type="radio" value="FV" onclick="change_location(this.value);" <?=selected("FV");?>>
+                            <input class="form-check-input" type="radio" value="fv" onclick="change_location(this.value);" <?=selected("fv");?>>
                             FV
                         </label>
                     </div>
                     <div class="form-check disabled">
                       <label class="form-check-label">
-                        <input class="form-check-input" type="radio" value="Marketing" onclick="change_location(this.value);" <?=selected("Marketing");?>>
+                        <input class="form-check-input" type="radio" value="marketing" onclick="change_location(this.value);" <?=selected("marketing");?>>
                         MKT
                     </label>
                 </div>

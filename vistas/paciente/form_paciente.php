@@ -186,15 +186,20 @@
            
     </div>
     <hr>
-     <div id="estadoDictamen"></div><br>
+     <div id="estadoDictamen"></div><br><br>
     <?php 
+        
+        
+        include('../vistas/paciente/paciente_aprobacion.php');
 
         if(isset($_GET["id"]) && ($_GET["id"] !== 0)) {
             $id = $_GET["id"];
             include('../vistas/paciente/documentacion_paciente.php');
-        } else {
-            include('../vistas/paciente/paciente_aprobacion.php');
         }
+
+
+            
+        
         
     ?>
 </fieldset>

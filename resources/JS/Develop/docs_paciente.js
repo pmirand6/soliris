@@ -2,13 +2,14 @@
  * Created by jgallina on 20/04/2015.
  */
 var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
+var paramPaciente = JSON.parse(window.localStorage.getItem('paramPaciente'));
  $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
     // script is now loaded and executed.
     // put your dependent JS here.
     $(document).ready(function(){
-    
+
 		var Consentimiento = $("#file_consentimiento").uploadFile({
-            url: aplicacion + '/resources/JQuery-FileUpload/PHP/upload.php',
+            url: aplicacion + '/ajax/ajx.docs_paciente.php',
             autoSubmit:false,
             dragDrop: false,
             fileName: "myfile",
@@ -17,15 +18,20 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
             dragDropStr: "<span><b>Arrastre y suelte el archivo...</b></span>",
             maxFileCount: 1,
             multiple:false,
-            formData: {"id": $('#id').val(), "referencia": "pacientes", "tipo": 'Consentimiento'},
+            formData: {
+                idPac: paramPaciente.idPac, 
+                referencia: "Paciente", 
+                tipoDoc: 'Consentimiento',
+                oper: 'saveDocPac'
+            },
             onSuccess: function(files,data,xhr){
-                //alert((data));
+                //alert((paramPaciente.idPac));
                 // $("#file_consentimiento").addClass("glyphicon glyphicon-ok");
                 // ModifiedPac();
             }
         });
         var Otro = $("#file_otro").uploadFile({
-            url: aplicacion + '/resources/JQuery-FileUpload/PHP/upload.php',
+            url: aplicacion + '/ajax/ajx.docs_paciente.php',
             autoSubmit:false,
             dragDrop: false,
             fileName: "myfile",
@@ -34,26 +40,30 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
             dragDropStr: "<span><b>Arrastre y suelte el archivo...</b></span>",
             multiple:false,
             maxFileCount: 1,
-            formData: {"id": $('#id').val(), "referencia": "pacientes", "tipo": 'Otro'},
+            formData: {
+                idPac: paramPaciente.idPac, 
+                referencia: 'Paciente', 
+                tipoDoc: 'Otro',
+                oper: 'saveDocPac'
+            },
             onSuccess: function(files,data,xhr){
                 //alert((data));
             }
         });
-			$('#save').click(function () {
-				var $btn = $(this).button('loading')
-				Consentimiento.startUpload();
-				Otro.startUpload();
-				ModifiedPac()
-				window.location.href = aplicacion + '/administrador/pacientes.php?id=' + getQuerystring("id");
-				$btn.button('reset');
+        $('#save').click(function () {
+            var $btn = $(this).button('loading')
+            Consentimiento.startUpload();
+            Otro.startUpload();
+            window.location.href = aplicacion + '/administrador/pacientes.php?id=' + paramPaciente.idPac;
+            $btn.button('reset');
 
-			});
+        });
 		
 		
         $('#Docs').click(function () {
             if (getQuerystring("id") != ''){
                 var $btn = $(this).button('loading')
-                window.location.href = aplicacion + '/administrador/paciente.php?id=' + getQuerystring("id");
+                window.location.href = aplicacion + '/administrador/paciente.php?id=' + paramPaciente.idPac;
                 $btn.button('reset');
             }
         });

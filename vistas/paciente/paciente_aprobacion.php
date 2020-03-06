@@ -32,7 +32,7 @@ echo '
 </div>
 
 ';
-} else {
+} elseif ($_SESSION["grupo"] == 'ventas') {
    echo ' <!-- Button (Double) -->
     <div class="form-group text-center">
         <div class="col-sm-12">

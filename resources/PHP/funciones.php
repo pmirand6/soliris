@@ -99,8 +99,11 @@ function f_p_date($value){
 
 function include_adjuntos($idPac, $numero, $referencia, $tipo, $fecha, $filepath){
     $SQL = "SELECT FU_ADJ_FILES('$idPac', '$numero', '$referencia', '$tipo', '$fecha', '$filepath') as response";
+    echo $SQL;
     MySQL_sendFunctionAudit($SQL, "Documentación: $tipo "-" $referencia _ Pac/Med: $idPac", 0);
 }
+
+
 
 function SQL_auditoria($origen, $registro){
 
@@ -166,13 +169,15 @@ function MySQL_sendFunctionAudit($query, $accion, $typeResponse){
 
 
         if (mysqli_error($db)) {
-            return "ERROR: " . mysqli_error($db);
+            $response[0]["mensaje"] = "ERROR: " . mysqli_error($db) . '(ERROR MYSQL: ' . mysqli_errno($db) . ')';
+            return $response;
             exit();
         } else {
 
             if ($typeResponse == "1"){
                 //$response = "";
                 $response = array();
+                
                 while ($row = mysqli_fetch_array($result)) {
                     $response[] = $row;
                 };
