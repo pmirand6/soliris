@@ -184,23 +184,25 @@
                 </div>
             </div>
            
-    </div>
-    <hr>
-     <div id="estadoDictamen"></div><br><br>
-    <?php 
-        
-        
-        include('../vistas/paciente/paciente_aprobacion.php');
+        </fieldset>
+</form>
+<hr>
 
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" id="estadoDictamen"></div>
+    </div>
+    
+</div>
+
+<div class="container">
+    <form class="form-horizontal form" autocomplete="off" id="frm-dictamen">
+    <?php 
+        include('../vistas/paciente/paciente_aprobacion.php');
         if(isset($_GET["id"]) && ($_GET["id"] !== 0)) {
             $id = $_GET["id"];
             include('../vistas/paciente/documentacion_paciente.php');
         }
-
-
-            
-        
-        
     ?>
-</fieldset>
-</form>
+    </form>
+</div>

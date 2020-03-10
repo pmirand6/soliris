@@ -6,45 +6,33 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
     // put your dependent JS here.
     
     $(document).ready(function() {
-        
-        
         l_set_dom();
         l_validate_form();
-
-        
-        
-
         $('#patologia').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
             l_hide_selectpicker_sub_pat();            
             l_list_sub_patologia(null, this.value, $('#patologia option:selected').text());
         });
-
         $('#patologia').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
             l_list_sub_patologia(null, this.value, $('#patologia option:selected').text());
         });
-          
-        
-        
 
+        if (getQuerystring("id") === "") {
+            document.getElementById('masculino').checked = true;
+        } else {    
+            $('#bot_guardar').removeClass('disabled');
+        }
 
+        $("#f_nac").on('change', function(){
+            l_calcular_edad(this.value);
+        })
 
-if (getQuerystring("id") === "") {
-    document.getElementById('masculino').checked = true;
-} else {    
-    $('#bot_guardar').removeClass('disabled');
-}
-
-$("#f_nac").on('change', function(){
-    l_calcular_edad(this.value);
-})
-
-$('#editDocs').click(function () {
-    window.location.href = aplicacion + '/administrador/docs_paciente.php?id=' + getQuerystring("id");
-});
-$('#histDocs').click(function () {
-    window.location.href = '../vistas/paciente/docs_hist_paciente.php?id=' + getQuerystring("id") + '&nombre=' + ($('#apellido').val() + ', ' + $('#nombre').val());
-});
-});
+        $('#editDocs').click(function () {
+            window.location.href = aplicacion + '/administrador/docs_paciente.php?id=' + getQuerystring("id");
+        });
+        $('#histDocs').click(function () {
+            window.location.href = '../vistas/paciente/docs_hist_paciente.php?id=' + getQuerystring("id") + '&nombre=' + ($('#apellido').val() + ', ' + $('#nombre').val());
+        });
+    });
 });
 
 function l_disable_form(grupo) {
