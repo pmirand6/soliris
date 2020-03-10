@@ -23,8 +23,7 @@
         /* File Upload */
         @import "../resources/JQuery-FileUpload/CSS/uploadfile.css";
         /* Custom CSS */
-        #Docs{
-        }
+       
             #Docs:hover{
                 color: #5cb811;
             }

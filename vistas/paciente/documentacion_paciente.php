@@ -10,9 +10,10 @@
                 <legend>Documentación <i id=\"editDocs\" class='fa fa-edit' title='Editar Documentación' style='cursor:pointer;'></i>
                 <i id=\"histDocs\" class='fa fa-history' title='Historial de Documentación' style='cursor:pointer;'></i></legend>
                 ";
-
-                $sql = "CALL `ST_LIST_DOCS_PAC`('4')";
-                $resultdoc = mysqli_query($db, "CALL `ST_LIST_DOCS_PAC`('$id')");
+                // Listo todos los documentos que esten activos para el paciente
+                $sql = "CALL `ST_LIST_DOCS_ACTIVOS_PAC`('$id')";
+                
+                $resultdoc = mysqli_query($db, $sql);
                 
 
 

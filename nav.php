@@ -21,7 +21,7 @@ include './config/config.php';
         /* EasyUI */
             @import "resources/JQuery-EasyUI-1.4.2/themes/bootstrap/easyui.css";
             @import "resources/JQuery-EasyUI-1.4.2/themes/bootstrap/accordion.css";
-            @import "resources/JQuery-EasyUI-1.4.2/locale/easyui-lang-es.js";
+            /*@import "resources/JQuery-EasyUI-1.4.2/locale/easyui-lang-es.js";*/
 
     </style>
 <?php
@@ -32,14 +32,14 @@ include './config/config.php';
 </head>
 <body>
     <div class="easyui-accordion" style="height: auto;">
-    <div title="Gestión" style="overflow:hidden;padding:10px;">
+    <div title="Gestión" style="overflow:auto;padding:10px;">
         <p class="nav_item" onclick="pop('main/panel.php')"><span class="margin-right fa fa-home"></span>Principal</p>
         <p class="nav_item" onclick="pop('main/informes.php')"><span class="margin-right fa fa-cart-plus"></span>Alta de Venta</p>
         <p class="nav_item" onclick="pop('main/listado.php')"><span class="margin-right fa fa-shopping-cart"></span>Historial de Ventas</p>
 <!--        <p class="nav_item" onclick="pop('administrador/reasignar.php')"><span class="margin-right fa fa-history"></span>Ventas a Reasignar</p>-->
 <!--        <p class="nav_item" onclick="pop('administrador/reasignados.php')"><span class="margin-right fa fa-share"></span>Vincular Reasignados</p>-->
     </div>
-    <div title="Reportes" style="overflow: hidden; padding: 10px;">
+    <div title="Reportes" style="overflow: auto; padding: 10px;">
         <p class="nav_item" onclick="pop('reportes/reporte_panel.php')"><span class="margin-right fa fa-gears"></span>Panel General</p>
         <p class="nav_item" onclick="pop('reportes/log.php')"><span class="margin-right fa fa-history"></span>Log Registros</p>
         <p class="nav_item" onclick="pop('reportes/reporte_filtros.php')"><span class="margin-right fa fa-briefcase"></span>Reporte Filtros</p>
@@ -53,7 +53,7 @@ include './config/config.php';
         <p class="nav_item" onclick="pop('reportes/reporte_docs_paciente.php')"><span class="margin-right fa fa-bar-chart"></span>Reporte de Ventas (Documentación)</p>
         <p class="nav_item" onclick="pop('reportes/reporte_ventas_apm.php')"><span class="margin-right fa fa-line-chart"></span>Reporte de Ventas x APM</p>
     </div>
-    <div title="Administración" style="overflow: hidden; padding: 10px;">
+    <div title="Administración" style="overflow: auto; padding: 10px;">
         <p class="nav_item" onclick="pop('administrador/pacientes.php')"><span class="margin-right fa fa-hotel"></span>Pacientes</p>
         <p class="nav_item" onclick="pop('administrador/medicos.php')"><span class="margin-right fa fa-user-md"></span>Medicos</p>
         <p class="nav_item" onclick="pop('administrador/apms.php')"><span class="margin-right fa fa-user-secret"></span>APM</p>
@@ -67,7 +67,7 @@ include './config/config.php';
         <p class="nav_item" onclick="pop('administrador/adm_regs.php')"><span class="margin-right fa fa-sliders"></span>Admin. Registros</p>
         <p class="nav_item" onclick="pop('administrador/seguridad.php')"><span class="margin-right fa fa-lock"></span>Seguridad</p>
     </div>
-    <div title="Ayuda" style="overflow: hidden; padding: 10px;">
+    <div title="Ayuda" style="overflow: auto; padding: 10px;">
         <p class="nav_item" onclick="pop('bpm/default.htm')"><span class="margin-right fa fa-question-circle"></span>Ayuda</p>
         <p class="nav_item" data-toggle="modal" data-target="#modal_version""><span class="margin-right fa fa-info-circle"></span>Version</p>
 		<iframe src="" class="nav_item"></iframe>

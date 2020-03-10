@@ -39,9 +39,19 @@ $(document).ready(function () {
         deleteProfile()
     });
 });
+
 function pop(url){
     document.getElementById('if_main').src = url;
-};
+}
+
+function setMultipleAttributes(el, attributes) {
+    for (var attr in attributes)
+      el.setAttribute(attr, attributes[attr]);
+ }
+ 
+ 
+ 
+ 
 function startTime() {
     var today = new Date();
     var h = today.getHours();
@@ -143,3 +153,16 @@ function getUrlHTTP() {
     return appName[1];
 }
 
+
+function change_location(value){
+    $.ajax({
+        type: 'POST',
+        data: {
+            grupo: value
+        },
+        url: 'defa.php',
+        success:function(data) {
+            window.location.reload();
+        }
+    });
+}

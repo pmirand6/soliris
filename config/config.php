@@ -11,4 +11,5 @@ define("_FN", "/"  . _NAME . "/resources/PHP/funciones.php");
 define("_SG", "/"  . _NAME . "/resources/PHP/accesos_seguridad.php");
 define("_MAIL","/"  . _NAME . "/resources/PHP/fn_mails.php");
 define("HTTP", 'https://' . $_SERVER['HTTP_HOST'] . '/' . _NAME);
+define("_RESOURCES", _NAME . '/resources/');
 

@@ -67,29 +67,29 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 
     <!--  Nuevo Paciente  -->
     <div class="col-sm-11 col-xs-11 text-left" style="margin-left: 10px">
-        <button type="button" title="Nuevo Paciente" id="nwPac" class="btn btn-xs btn-warning pointer fa fa-user-plus text-right" style="margin-right: 10px;margin-bottom: 5px;"> Nuevo Paciente</button>
+        <button type="button" title="Nuevo Paciente" id="nwPac" class="btn btn-warning fa fa-user-plus"> Nuevo Paciente</button>
         <br>
         <!-- Text Input para reconstruir las Tablas -->
         <input type="hidden" name="url" id="url">
         <!--  DataTable Pacientes  -->
         <br>
-        <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="DataTPacientes" style="font-size: 13px">
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="DataTPacientes">
             <thead>
                 <tr>
                     <th> id </th>
                     <th> Paciente </th>
                     <th> Sexo </th>
                     <!--<th> C. Gestar </th>-->
-                    <th> F. Nac (DD-MM-YYYY)</th>
+                    <th> F. Nac</th>
                     <th> Patología </th>
                     <th> Sub Patología </th>
-                    <th> F. Cons (DD-MM-YYYY)</th>
+                    <th> F. Cons</th>
                     <th> E-Mail </th>
                     <th> Tel </th>
                     <th> Notas </th>
                     <th> Estado </th>
                     <th> Sub Estado </th>
-                    <th> Última Venta (DD-MM-YYYY)</th>
+                    <th> Última Venta</th>
                 </tr>
             </thead>
             <tbody>

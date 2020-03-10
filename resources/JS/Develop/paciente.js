@@ -1,31 +1,17 @@
 var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 var paramPaciente = JSON.parse(window.localStorage.getItem('paramPaciente'));
+
 $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
     // script is now loaded and executed.
     // put your dependent JS here.
     
     $(document).ready(function() {
-        l_disable_form(paramPaciente.grupo);
-        $.fn.ajaxSelectPicker.locale["es-ES"] = {
-            currentlySelected: "Seleccionado",
-            emptyTitle: "Seleccione y comience a escribir",
-            errorText: "No se puede recuperar resultados",
-            searchPlaceholder: "Buscar...",
-            statusInitialized: "Empieza a escribir una consulta de búsqueda",
-            statusNoResults: "Sin Resultados",
-            statusSearching: "Buscando...",
-            statusTooShort: "Introduzca más caracteres"
-        },
-        $.fn.ajaxSelectPicker.locale.es = $.fn.ajaxSelectPicker.locale["es-ES"];
-        if(getQuerystring("id") === ""){
-            l_list_patologias();
-            l_hide_selectpicker_sub_pat();
-            l_list_paises();
-            l_list_os();
-            l_sub_estado();
-        } else {
-            l_set_paciente();
-        }
+        
+        
+        l_set_dom();
+        l_validate_form();
+
+        
         
 
         $('#patologia').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
@@ -37,17 +23,275 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
             l_list_sub_patologia(null, this.value, $('#patologia option:selected').text());
         });
           
-        $('.date').datepicker({
-            format: "yyyy-mm-dd",
-            language: "es",
-            endDate: getDate(),
-            calendarWeeks: true,
-            autoclose: true,
-            clearBtn: true,
-            todayHighlight: true
-        });
+        
+        
 
-        $('.form')
+
+
+if (getQuerystring("id") === "") {
+    document.getElementById('masculino').checked = true;
+} else {    
+    $('#bot_guardar').removeClass('disabled');
+}
+
+$("#f_nac").on('change', function(){
+    l_calcular_edad(this.value);
+})
+
+$('#editDocs').click(function () {
+    window.location.href = aplicacion + '/administrador/docs_paciente.php?id=' + getQuerystring("id");
+});
+$('#histDocs').click(function () {
+    window.location.href = '../vistas/paciente/docs_hist_paciente.php?id=' + getQuerystring("id") + '&nombre=' + ($('#apellido').val() + ', ' + $('#nombre').val());
+});
+});
+});
+
+function l_disable_form(grupo) {
+    if (grupo == 'fv') {
+        $("#frm-paciente input, select").prop("disabled", true);
+        $("#comentario").prop("disabled", false);
+        $("#estadoList").prop("disabled", false);
+    }
+}
+
+function l_dictamen_paciente(){
+
+}
+
+function l_set_paciente() {
+    $.ajax({
+        type: "POST",
+        url: '../ajax/ajx.paciente.php',
+        data: {id : getQuerystring("id")},
+        success: function (response) {
+            $.map($.parseJSON(response), function (e, i) {
+                l_show_id(e.id);
+                $("#apellido").val(e.apellido);
+                $("#nombre").val(e.nombre);
+                $("#f_nac").val(e.fecha_nac);
+                l_calcular_edad(e.fecha_nac);
+                e.sexo == 'M' ? $("#masculino").attr('checked', 'checked'): $("#femenino").attr('checked', 'checked');
+                $("#telefono").val(e.telefono);
+                $("#ciudad").val(e.ciudad);
+                l_list_paises(true, e.pais_id, e.pais_nombre);
+                $("#mail").val(e.mail);
+                l_get_estado(e.estado_id);
+                e.estado_id === "7" ? l_estado_dictamen(e.estado_valor) : l_estado_dictamen(e.estado_valor, e.notas);
+                (paramPaciente.grupo == 'admin' || paramPaciente.grupo == 'fv') ? l_list_estado(e.estado_id) : 0;
+                l_sub_estado(e.sub_estado_id);
+                l_list_patologias(e.patologia_id);
+                l_list_sub_patologia(e.sub_patologia_id, e.sub_patologia_id, null);
+                l_list_os(true, e.os_id, e.os_nombre);
+                $("#crm_id").val(e.crm_id);
+            });
+            
+        }
+    });
+}
+
+function l_show_id($id) {
+    $("#div_paciente_id").show();
+    $("#vw_id").val($id);
+}
+
+function l_get_estado($estado_id){
+    $.getJSON("../ajax/ajx.estado.php", {"oper" : 'getEstado'},
+        function (data) {
+            $.map(data, function (e, i) {
+                if($estado_id == e.id) $('#estado').val(e.valor);
+            });
+        }
+    );
+}
+
+function l_estado_dictamen($estadoValor, $notas = null){
+    
+    $("#estadoDictamen").show();
+    $("#estado").prop("disabled", true);
+    const content =`<div class="row col-sm-12 col-xs-12">
+      <div class="col-sm-12 col-xs-12">
+      <p class="validation_check_alert">Registro en estado: "${$estadoValor}" <br> 
+      ${$notas ? 'Motivo:<i> ' + $notas +'</i>' : ''}
+      </p>
+      </div>
+      </div><br>`
+    $("#estadoDictamen").html(content);
+
+}
+
+function l_list_estado($estado_id) {
+
+    $.getJSON("../ajax/ajx.estado.php", {"oper" : 'getEstado'},
+        function (data) {
+            $.map(data, function (e, i) {
+                $('#estadoList').append('<option value=' + e.id + '>' + e.valor + '</option>');
+                $('#estadoList').selectpicker('refresh');
+                if(e.id == $estado_id){
+                    $('#estadoList').selectpicker('val', e.valor);
+                }
+            });
+        }
+    );
+}
+
+function l_sub_estado($sub_estado_id) {
+
+    $.getJSON("../ajax/ajx.sub_estado.php", {"oper" : 'getSubEstado'},
+        function (data) {
+            $.map(data, function (e, i) {
+                $('#sub_estado').append('<option value=' + e.id + '>' + e.valor + '</option>');
+                $('#sub_estado').selectpicker('refresh');
+                
+                if(e.id == $sub_estado_id){
+                    $('#sub_estado').selectpicker('val', e.valor);    
+                }
+            });
+        }
+    );
+}
+
+function l_calcular_edad(fecha) {
+    var array_fecha = fecha.split("-")
+    todayDate = new Date();
+    todayYear = todayDate.getFullYear();
+    todayMonth = todayDate.getMonth();
+    todayDay = todayDate.getDate();
+    age = todayYear - array_fecha[0];
+    $("#f_edad").val(age);
+}
+
+function l_list_patologias($patologia_id = null) {
+    $.getJSON("../ajax/ajx.patologia.php", {"oper" : 'list_patologias'},
+    function (data) {
+            $.map(data, function (e, i) {
+                $('#patologia').append('<option value=' + e.id + '>' + e.patologia_nombre + '</option>');
+                $('#patologia').selectpicker('refresh');
+                if(e.id == $patologia_id){
+                    $('#patologia').selectpicker('val', e.id);
+                }
+            });
+        }
+    );
+}
+
+function l_list_sub_patologia($sub_patologia_id = null, $patologia_id, $patologia_nombre){
+    $('#sub_patologia').empty();
+    $('#sub_patologia').selectpicker('refresh');
+                
+    $.get('../ajax/ajx.sub_patologia.php', {oper: 'list_sub_patologia', patologia_id: $patologia_id},
+        function (data) {
+            if(data !== 0){
+                l_hide_selectpicker_sub_pat(false);
+                $('#sub_patologia').append('<option value="" selected >Seleccione una Sub Patología</option>');
+                $.map(data, function (e, i) {
+                    $('#sub_patologia').append('<option data-subtext=' + $patologia_nombre + ' value=' + e.id + '>' + e.sub_patologia_nombre + '</option>');
+                    $('#sub_patologia').selectpicker('refresh');
+                    if($sub_patologia_id == e.id){
+                        $('#sub_patologia').selectpicker('val', e.id);
+                    }
+                });
+            }
+        },
+        "json"
+    );
+}
+
+function l_hide_selectpicker_sub_pat(hide = true) {
+    if(hide){
+        $('#div-sub_pat').hide();
+    } else if(hide == false) {
+        $('#div-sub_pat').show();
+    }
+    
+}
+
+function l_list_paises($filter = null, $pais_id = null, $pais_nombre = null) {
+    $('#pais').selectpicker().ajaxSelectPicker({
+        ajax: {
+          // data source
+          url: '../ajax/ajx.paises.php',
+          // ajax type
+          type: 'POST',
+          // data type
+          dataType: 'json',
+          langCode:'es',
+          // Use "{{{q}}}" as a placeholder and Ajax Bootstrap Select will
+          // automatically replace it with the value of the search query.
+          data: {
+            q: '{{{q}}}'
+          }
+        },
+        // function to preprocess JSON data
+        preprocessData: function (data) {
+          var i, l = data.length, array = [];
+          if (l) {
+              for (i = 0; i < l; i++) {
+                  array.push($.extend(true, data[i], {
+                      text : data[i].nombre,
+                      value: data[i].id,
+                  }));
+              }
+          }
+          // You must always return a valid array when processing data. The
+          // data argument passed is a clone and cannot be modified directly.
+          return array;
+        }
+      
+      });
+      if($filter) {
+        $('#pais.after-init').append('<option value="' + $pais_id + '" selected="selected">' + $pais_nombre + '</option>').selectpicker('refresh');
+        $("#pais.after-init").trigger('change')    
+      } else {
+        $('#pais.after-init').append('<option value="13" selected="selected">Argentina</option>').selectpicker('refresh');
+        $("#pais.after-init").trigger('change')
+      }
+      
+}
+
+function l_list_os($filter = null, $os_id = null, $os_nombre) {
+    $('#os').selectpicker().ajaxSelectPicker({
+        ajax: {
+          // data source
+          url: '../ajax/ajx.os.php',
+          // ajax type
+          type: 'POST',
+          // data type
+          dataType: 'json',
+          langCode:'es',
+          // Use "{{{q}}}" as a placeholder and Ajax Bootstrap Select will
+          // automatically replace it with the value of the search query.
+          data: {
+            q: '{{{q}}}'
+          }
+        },
+      
+        // function to preprocess JSON data
+        preprocessData: function (data) {
+          var i, l = data.length, array = [];
+          if (l) {
+              for (i = 0; i < l; i++) {
+                  array.push($.extend(true, data[i], {
+                      text : data[i].nombre,
+                      value: data[i].id,
+                  }));
+              }
+          }
+          // You must always return a valid array when processing data. The
+          // data argument passed is a clone and cannot be modified directly.
+          return array;
+        }
+      
+      });
+      if($filter) {
+        $('#os').append('<option value="' + $os_id + '" selected="selected">' + $os_nombre + '</option>').selectpicker('refresh');
+        $("#os").trigger('change');    
+      }
+}
+
+function l_validate_form() {
+
+    $('.form')
         .formValidation({
             framework: 'bootstrap',
             excluded: ':disabled',
@@ -214,276 +458,23 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
         .submit(function(e) {
             e.preventDefault();
         });
-
-
-
-if (getQuerystring("id") === "") {
-    document.getElementById('masculino').checked = true;
-} else {    
-    $('#bot_guardar').removeClass('disabled');
-}
-
-$("#f_nac").on('change', function(){
-    l_calcular_edad(this.value);
-})
-
-$('#editDocs').click(function () {
-    window.location.href = aplicacion + '/administrador/docs_paciente.php?id=' + getQuerystring("id");
-});
-$('#histDocs').click(function () {
-    window.location.href = aplicacion + '/administrador/docs_hist_paciente.php?id=' + getQuerystring("id") + '&nombre=' + $('#nombre').val();
-});
-});
-});
-
-function l_disable_form(grupo) {
-    if (grupo == 'fv') {
-        $("#frm-paciente input, select").prop("disabled", true);
-        $("#comentario").prop("disabled", false);
-        $("#estadoList").prop("disabled", false);
-    }
-}
-
-function l_dictamen_paciente(){
-
-}
-
-function l_set_paciente() {
-    $.ajax({
-        type: "POST",
-        url: '../ajax/ajx.paciente.php',
-        data: {id : getQuerystring("id")},
-        success: function (response) {
-            $.map($.parseJSON(response), function (e, i) {
-                l_show_id(e.id);
-                $("#apellido").val(e.apellido);
-                $("#nombre").val(e.nombre);
-                $("#f_nac").val(e.fecha_nac);
-                l_calcular_edad(e.fecha_nac);
-                e.sexo == 'M' ? $("#masculino").attr('checked', 'checked'): $("#femenino").attr('checked', 'checked');
-                $("#telefono").val(e.telefono);
-                $("#ciudad").val(e.ciudad);
-                l_list_paises(true, e.pais_id, e.pais_nombre);
-                $("#mail").val(e.mail);
-                l_get_estado(e.estado_id);
-                e.estado_id === "7" ? l_estado_dictamen(e.estado_valor) : l_estado_dictamen(e.estado_valor, e.notas);
-                (paramPaciente.grupo == 'admin' || paramPaciente.grupo == 'fv') ? l_list_estado(e.estado_id) : 0;
-                l_sub_estado(e.sub_estado_id);
-                l_list_patologias(e.patologia_id);
-                l_list_sub_patologia(e.sub_patologia_id, e.sub_patologia_id, null);
-                l_list_os(true, e.os_id, e.os_nombre);
-                $("#crm_id").val(e.crm_id);
-            });
-            
-        }
-    });
-}
-
-function l_show_id($id) {
-    $("#div_paciente_id").show();
-    $("#vw_id").val($id);
-}
-
-function l_get_estado($estado_id){
-    $.getJSON("../ajax/ajx.estado.php", {"oper" : 'getEstado'},
-        function (data) {
-            $.map(data, function (e, i) {
-                if($estado_id == e.id) $('#estado').val(e.valor);
-            });
-        }
-    );
-}
-
-function l_estado_dictamen($estadoValor, $notas = null){
     
-    $("#estadoDictamen").show();
-    $("#estado").prop("disabled", true);
-    const content =`<div class="row col-sm-12 col-xs-12">
-      <div class="col-sm-12 col-xs-12">
-      <p class="validation_check_alert">Registro en estado: "${$estadoValor}" <br> 
-      ${$notas ? 'Motivo:<i> ' + $notas +'</i>' : ''}
-      </p>
-      </div>
-      </div><br>`
-    $("#estadoDictamen").html(content);
-
 }
 
-function l_list_estado($estado_id) {
-
-    $.getJSON("../ajax/ajx.estado.php", {"oper" : 'getEstado'},
-        function (data) {
-            $.map(data, function (e, i) {
-                $('#estadoList').append('<option value=' + e.id + '>' + e.valor + '</option>');
-                $('#estadoList').selectpicker('refresh');
-                if(e.id == $estado_id){
-                    $('#estadoList').selectpicker('val', e.valor);
-                }
-            });
-        }
-    );
-}
-
-function l_sub_estado($sub_estado_id) {
-
-    $.getJSON("../ajax/ajx.sub_estado.php", {"oper" : 'getSubEstado'},
-        function (data) {
-            $.map(data, function (e, i) {
-                $('#sub_estado').append('<option value=' + e.id + '>' + e.valor + '</option>');
-                $('#sub_estado').selectpicker('refresh');
-                
-                if(e.id == $sub_estado_id){
-                    $('#sub_estado').selectpicker('val', e.valor);    
-                }
-            });
-        }
-    );
-}
-
-function l_calcular_edad(fecha) {
-    var array_fecha = fecha.split("-")
-    todayDate = new Date();
-    todayYear = todayDate.getFullYear();
-    todayMonth = todayDate.getMonth();
-    todayDay = todayDate.getDate();
-    age = todayYear - array_fecha[0];
-    $("#f_edad").val(age);
-}
-
-/*function l_mensaje_cp(edad) {
-    if ($('input:radio[name=sexo]:checked').val() == 'F' && edad < 50) {
-        $('#alertCP').show(300);
+function l_set_dom(){
+    
+    l_disable_form(paramPaciente.grupo);
+    if(getQuerystring("id") === ""){
+        l_list_patologias();
+        l_hide_selectpicker_sub_pat();
+        l_list_paises();
+        l_list_os();
+        l_sub_estado();
     } else {
-        $('#alertCP').hide(300);
+        l_set_paciente();
     }
-}*/
 
-function l_list_patologias($patologia_id = null) {
-    $.getJSON("../ajax/ajx.patologia.php", {"oper" : 'list_patologias'},
-    function (data) {
-            $.map(data, function (e, i) {
-                $('#patologia').append('<option value=' + e.id + '>' + e.patologia_nombre + '</option>');
-                $('#patologia').selectpicker('refresh');
-                if(e.id == $patologia_id){
-                    $('#patologia').selectpicker('val', e.id);
-                }
-            });
-        }
-    );
-}
-
-function l_list_sub_patologia($sub_patologia_id = null, $patologia_id, $patologia_nombre){
-    $('#sub_patologia').empty();
-    $('#sub_patologia').selectpicker('refresh');
-                
-    $.get('../ajax/ajx.sub_patologia.php', {oper: 'list_sub_patologia', patologia_id: $patologia_id},
-        function (data) {
-            if(data !== 0){
-                l_hide_selectpicker_sub_pat(false);
-                $('#sub_patologia').append('<option value="" selected >Seleccione una Sub Patología</option>');
-                $.map(data, function (e, i) {
-                    $('#sub_patologia').append('<option data-subtext=' + $patologia_nombre + ' value=' + e.id + '>' + e.sub_patologia_nombre + '</option>');
-                    $('#sub_patologia').selectpicker('refresh');
-                    if($sub_patologia_id == e.id){
-                        $('#sub_patologia').selectpicker('val', e.id);
-                    }
-                });
-            }
-        },
-        "json"
-    );
-}
-
-function l_hide_selectpicker_sub_pat(hide = true) {
-    if(hide){
-        $('#div-sub_pat').hide();
-    } else if(hide == false) {
-        $('#div-sub_pat').show();
-    }
     
-}
-
-function l_list_paises($filter = null, $pais_id = null, $pais_nombre = null) {
-    $('#pais').selectpicker().ajaxSelectPicker({
-        ajax: {
-          // data source
-          url: '../ajax/ajx.paises.php',
-          // ajax type
-          type: 'POST',
-          // data type
-          dataType: 'json',
-          langCode:'es',
-          // Use "{{{q}}}" as a placeholder and Ajax Bootstrap Select will
-          // automatically replace it with the value of the search query.
-          data: {
-            q: '{{{q}}}'
-          }
-        },
-        // function to preprocess JSON data
-        preprocessData: function (data) {
-          var i, l = data.length, array = [];
-          if (l) {
-              for (i = 0; i < l; i++) {
-                  array.push($.extend(true, data[i], {
-                      text : data[i].nombre,
-                      value: data[i].id,
-                  }));
-              }
-          }
-          // You must always return a valid array when processing data. The
-          // data argument passed is a clone and cannot be modified directly.
-          return array;
-        }
-      
-      });
-      if($filter) {
-        $('#pais.after-init').append('<option value="' + $pais_id + '" selected="selected">' + $pais_nombre + '</option>').selectpicker('refresh');
-        $("#pais.after-init").trigger('change')    
-      } else {
-        $('#pais.after-init').append('<option value="13" selected="selected">Argentina</option>').selectpicker('refresh');
-        $("#pais.after-init").trigger('change')
-      }
-      
-}
-
-function l_list_os($filter = null, $os_id = null, $os_nombre) {
-    $('#os').selectpicker().ajaxSelectPicker({
-        ajax: {
-          // data source
-          url: '../ajax/ajx.os.php',
-          // ajax type
-          type: 'POST',
-          // data type
-          dataType: 'json',
-          langCode:'es',
-          // Use "{{{q}}}" as a placeholder and Ajax Bootstrap Select will
-          // automatically replace it with the value of the search query.
-          data: {
-            q: '{{{q}}}'
-          }
-        },
-      
-        // function to preprocess JSON data
-        preprocessData: function (data) {
-          var i, l = data.length, array = [];
-          if (l) {
-              for (i = 0; i < l; i++) {
-                  array.push($.extend(true, data[i], {
-                      text : data[i].nombre,
-                      value: data[i].id,
-                  }));
-              }
-          }
-          // You must always return a valid array when processing data. The
-          // data argument passed is a clone and cannot be modified directly.
-          return array;
-        }
-      
-      });
-      if($filter) {
-        $('#os').append('<option value="' + $os_id + '" selected="selected">' + $os_nombre + '</option>').selectpicker('refresh');
-        $("#os").trigger('change');    
-      }
 }
 
 function save_ventas(){
@@ -534,15 +525,9 @@ function save_admin(){
     }
 }
 
-function checkPost(value){
-    // get query arguments
-    var dir = window.location.href;
-    var n = dir.search(value);
-    return n;
-}
-
 function getCurrentHostname() {
     var protocolo, url, var_port, port;
+
     protocolo = window.location.protocol;
     url = window.location.hostname;
     var_port = window.location.port;
@@ -552,6 +537,7 @@ function getCurrentHostname() {
     } else {
         port = '';
     }
+
     return protocolo + '//' + url + port;
 }
 
@@ -560,4 +546,15 @@ function getUrlHTTP() {
     var path = window.location.pathname;
     var appName = path.split("/");
     return appName[1];
+}
+
+function getQuerystring(key, default_){
+    if (default_==null) default_="";
+    key = key.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regex = new RegExp("[\\?&]"+key+"=([^&#]*)");
+    var qs = regex.exec(window.location.href);
+    if(qs == null)
+        return default_;
+    else
+        return qs[1];
 }

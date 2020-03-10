@@ -21,7 +21,7 @@ iframe{
 }
 
 .head_barra{
-	 background-color: #00838F ;
+	background-color: #00838F ;
     background: #206e754d;
     
     /*background: -moz-linear-gradient(top, #B7C1D6 0, #ffffff  100%);
@@ -31,8 +31,8 @@ iframe{
 }
 
 .nav_item{
-    color: #5c7382;
-    cursor: pointer;
+    color: #5c7382 !important;
+    cursor: pointer !important;
 }
 
 .margin-right{
