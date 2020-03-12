@@ -97,13 +97,14 @@ function l_estado_dictamen($estadoValor, $notas = null){
     
     $("#estadoDictamen").show();
     $("#estado").prop("disabled", true);
-    const content =`<div class="row col-sm-12 col-xs-12">
-      <div class="col-sm-12 col-xs-12">
-      <p class="validation_check_alert">Registro en estado: "${$estadoValor}" <br> 
-      ${$notas ? 'Motivo:<i> ' + $notas +'</i>' : ''}
-      </p>
+    const content =`
+    <div class="row">
+      <div class="col-sm-6 col-xs-6">
+        <p class="validation_check_alert">Registro en estado: "${$estadoValor}" <br> 
+        ${$notas ? 'Motivo:<i> ' + $notas +'</i>' : ''}
+        </p>
       </div>
-      </div><br>`
+    </div>`
     $("#estadoDictamen").html(content);
 
 }

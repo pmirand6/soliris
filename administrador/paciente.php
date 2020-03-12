@@ -21,8 +21,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . _SG;
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Editor de Pacientes</title>
     <style type="text/css">
+    
     /* Latest compiled and minified CSS */
     @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
+    /* Bulma CSS */
+    @import "../resources/CSS/bulma/css/bulma.css";
     /* Font-Awesome */
     @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
     /* Include Bootstrap Datepicker */
@@ -39,8 +42,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . _SG;
     @import "../resources/Sprites/TBL-icons.css";
     /* Iconos de Estados */
     @import "../resources/CSS/Develop/paciente.css";
-
-  
+    
     #editDocs:hover{
         color: #e35919;
     }
@@ -73,6 +75,7 @@ include "../resources/Includes/BootstrapSelect.php";
 include "../resources/Includes/BootstrapSelectAjax.php";
 ?>
 <!-- Custom JS -->
+<script src="../resources/bulmajs/dist/tabs.js"></script>
 <script type="text/javascript" src="../resources/JS/Develop/paciente.js"></script>
 </body>
 </html>

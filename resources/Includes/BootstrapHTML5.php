@@ -10,8 +10,7 @@
 echo "
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         
-        <script src=\"" . HTTP . "/resources/JQuery/jquery-2.1.3.min.js\"></script>
-        <script src=\"" . HTTP . "/resources/popper.js/dist/umd/popper.js\"></script>
+        <script src=\"" . HTTP . "/resources/JQuery/jquery-1.11.2.min.js\"></script>
         
     <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src=\"" . HTTP . "/resources/Bootstrap-3.3.1/js/bootstrap.min.js\"></script>

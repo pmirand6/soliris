@@ -1,5 +1,14 @@
 /* version 1.0 */
-@import url("base.css");
+/*@import url("base.css");*/
+
+.iniciales{
+    color: #FFFFFF;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 
 .box1{
     border: 0px ridge #000000;
