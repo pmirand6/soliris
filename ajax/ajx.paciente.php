@@ -17,6 +17,4 @@ if(isset($_POST["id"]) AND $_POST["id"]!=0 AND !empty($_POST["id"])){
     echo json_encode($data);
     mysqli_free_result($result);
 
-    
-
 }

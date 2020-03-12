@@ -18,6 +18,8 @@ function openfile(e) {
     window.open(aplicacion + "/documentacion/" + e)
 }
 
+
+
 function hostname() {
     return aplicacion
 }

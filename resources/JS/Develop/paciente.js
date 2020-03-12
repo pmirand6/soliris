@@ -32,6 +32,11 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
         $('#histDocs').click(function () {
             window.location.href = '../vistas/paciente/docs_hist_paciente.php?id=' + getQuerystring("id") + '&nombre=' + ($('#apellido').val() + ', ' + $('#nombre').val());
         });
+        $("#confirmar_pac").click(function (e) { 
+            e.preventDefault();
+            l_dictamen_paciente();
+            
+        });
     });
 });
 
@@ -45,6 +50,16 @@ function l_disable_form(grupo) {
 
 function l_dictamen_paciente(){
 
+    var data = $("#frmDictamenPac").serializeArray();
+    data.push({name: 'oper', value: 'ValidaPac'});
+    data.push({name: 'idPac', value: paramPaciente.idPac})
+    
+    $.post("../ajax/ajx.paciente_form.php", data,
+        function (data, textStatus, jqXHR) {
+            console.log(data);
+        },
+        
+    );
 }
 
 function l_set_paciente() {
@@ -54,24 +69,43 @@ function l_set_paciente() {
         data: {id : getQuerystring("id")},
         success: function (response) {
             $.map($.parseJSON(response), function (e, i) {
-                l_show_id(e.id);
-                $("#apellido").val(e.apellido);
-                $("#nombre").val(e.nombre);
-                $("#f_nac").val(e.fecha_nac);
-                l_calcular_edad(e.fecha_nac);
-                e.sexo == 'M' ? $("#masculino").attr('checked', 'checked'): $("#femenino").attr('checked', 'checked');
-                $("#telefono").val(e.telefono);
-                $("#ciudad").val(e.ciudad);
-                l_list_paises(true, e.pais_id, e.pais_nombre);
-                $("#mail").val(e.mail);
-                l_get_estado(e.estado_id);
-                e.estado_id === "7" ? l_estado_dictamen(e.estado_valor) : l_estado_dictamen(e.estado_valor, e.notas);
-                (paramPaciente.grupo == 'admin' || paramPaciente.grupo == 'fv') ? l_list_estado(e.estado_id) : 0;
-                l_sub_estado(e.sub_estado_id);
-                l_list_patologias(e.patologia_id);
-                l_list_sub_patologia(e.sub_patologia_id, e.sub_patologia_id, null);
-                l_list_os(true, e.os_id, e.os_nombre);
-                $("#crm_id").val(e.crm_id);
+                if (paramPaciente.grupo == 'fv' || paramPaciente.grupo == 'admin') {
+                    $("#nombrePac").html(e.apellido + ' ' + e.nombre);
+                    $("#idPac").html(e.id);
+                    $("#estadoPac").html(e.estado_valor);
+                    l_sub_estado(e.sub_estado_id);
+                    $("#fechaNacPac").html(e.fecha_nac_formateada);
+                    $("#f_edad").html(l_calcular_edad(e.fecha_nac));
+                    $("#telPac").html(e.telefono);
+                    $("#ciudadPac").html(e.ciudad);
+                    $("#paisPac").html(e.pais_nombre);
+                    $("#emailPac").html(e.mail);
+                    $("#sexoPac").html(e.sexo);
+                    $("#osPac").html(e.os_nombre);
+                    $("crmId").html(e.crm_id);
+                    $("#patPac").html(e.patologiaNombre);
+                    $("#subPatPac").html(e.subPatologiaNombre);
+                    l_list_estado(e.estado_id)
+                } else {
+                    l_show_id(e.id);
+                    $("#apellido").val(e.apellido);
+                    $("#nombre").val(e.nombre);
+                    $("#f_nac").val(e.fecha_nac);
+                    $("#f_edad").val(l_calcular_edad(e.fecha_nac));
+                    e.sexo == 'M' ? $("#masculino").attr('checked', 'checked'): $("#femenino").attr('checked', 'checked');
+                    $("#telefono").val(e.telefono);
+                    $("#ciudad").val(e.ciudad);
+                    l_list_paises(true, e.pais_id, e.pais_nombre);
+                    $("#mail").val(e.mail);
+                    l_get_estado(e.estado_id);
+                    e.estado_id === "7" ? l_estado_dictamen(e.estado_valor) : l_estado_dictamen(e.estado_valor, e.notas);
+                    l_sub_estado(e.sub_estado_id);
+                    l_list_patologias(e.patologia_id);
+                    l_list_sub_patologia(e.sub_patologia_id, e.sub_patologia_id, null);
+                    l_list_os(true, e.os_id, e.os_nombre);
+                    $("#crm_id").val(e.crm_id);    
+                }
+                
             });
             
         }
@@ -92,6 +126,26 @@ function l_get_estado($estado_id){
         }
     );
 }
+
+function openFileInModal(e) { 
+
+    urlImagen = aplicacion + "/documentacion/" + e;
+
+    $('#imgModalDocumentacionPaciente').attr("src", urlImagen);
+
+    var modal = document.querySelector('.modal');  // assuming you have only 1
+    var html = document.querySelector('html');
+    modal.classList.add('is-active');
+    html.classList.add('is-clipped');
+
+    modal.querySelector('.modal-background').addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.classList.remove('is-active');
+        html.classList.remove('is-clipped');
+  });
+
+
+ }
 
 function l_estado_dictamen($estadoValor, $notas = null){
     
@@ -133,7 +187,7 @@ function l_sub_estado($sub_estado_id) {
                 $('#sub_estado').selectpicker('refresh');
                 
                 if(e.id == $sub_estado_id){
-                    $('#sub_estado').selectpicker('val', e.valor);    
+                    ((paramPaciente.grupo == 'fv') || (paramPaciente.grupo == 'admin')) ? $("#subEstadoPac").html(e.valor) : $('#sub_estado').selectpicker('val', e.valor); 
                 }
             });
         }
@@ -147,7 +201,8 @@ function l_calcular_edad(fecha) {
     todayMonth = todayDate.getMonth();
     todayDay = todayDate.getDate();
     age = todayYear - array_fecha[0];
-    $("#f_edad").val(age);
+    return age;
+    
 }
 
 function l_list_patologias($patologia_id = null) {

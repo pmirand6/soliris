@@ -20,7 +20,11 @@ if($_SESSION["grupo"] == 'ventas'){
 ';
     
 } else {
-    include __DIR__.'/form_paciente_fv.php';
+    if(isset($_GET["id"]) && ($_GET["id"] !== 0)) {
+        $id = $_GET["id"];
+        include __DIR__.'/form_paciente_fv.php';
+    }
+
 }?>
     
 <hr>

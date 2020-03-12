@@ -97,7 +97,7 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
 
 // validar paciente
 if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "ValidaPac") == 0)){
-    
+    // TODO VER ENVIO DE VALIDACION DEL PACIENTE
     require_once("../config/config.php");
     include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
     include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
@@ -118,8 +118,8 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "ValidaPac") == 0)){
         if (isset($SQL) AND $SQL != ""){
             $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "1");
             echo($response[0]["mensaje"]);
-
-            sendMailPM("Paciente $estado", $nombre, '', $comentario);
+            // TODO ver mail de envío aprobacion paciente
+            //sendMailPM("Paciente $estado", $nombre, '', $comentario);
         }
         mysqli_close($db);
 		
