@@ -26,7 +26,7 @@
 
             <!-- File Consentimiento -->
             <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="file_consentimiento">Consentimiento</label>
+                <label class="col-sm-4 col-xs-4 control-label" for="file_consentimiento">Registro Vacunación</label>
                 <div class="col-sm-4 col-xs-6">
                     <div id="file_consentimiento">Subir</div>
                 </div>
@@ -53,4 +53,11 @@
             </div>
         </fieldset>
     </form>' : 'No seleccionó un paciente al cuál adjuntar documentación.'?>
+
+<script>
+
+
+
+
+</script>
         

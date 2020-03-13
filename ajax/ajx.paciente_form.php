@@ -6,18 +6,83 @@ include_once $_SERVER['DOCUMENT_ROOT'] . _MAIL;
 
 
 
-// crear paciente o actualizar paciente
-if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
+// crear paciente
+if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "savePac") == 0)){
     
     require_once("../config/config.php");
     include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
     include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
 
     
-    (isset($_POST["idPac"]) AND $_POST["idPac"] != "") ? $idPac = $_POST["idPac"] : '';
-    
-
     /* Seteo de variables */
+        // Varaibles que no pueden ser NULL o vacías
+        $nombre = mysqli_real_escape_string($db, strtoupper($_POST["nombre"]));
+        $apellido = mysqli_real_escape_string($db, strtoupper($_POST["apellido"]));
+        $f_nac = mysqli_real_escape_string($db, strtoupper($_POST["f_nac"]));
+        $sexo = mysqli_real_escape_string($db, strtoupper($_POST["sexo"]));
+        $pais = mysqli_real_escape_string($db, strtoupper($_POST["pais"]));
+        $estado = (!isset($_POST["estado"]) || $_POST["estado"] != '' || $_SESSION["grupo"] != 'ventas') ? 7 : $_POST["estado"];
+        $sub_estado = mysqli_real_escape_string($db, $_POST["sub_estado"]);
+        $patologia = mysqli_real_escape_string($db, $_POST["patologia"]);
+        $usuario = $_SESSION["soliris_usuario"];
+
+        // Varaibles que pueden ser NULL o Vacías
+        // Se chequea con la funcion parametroEmptyChceck que devuelve un string vacío
+        // o el parametro sanitizado
+                
+        $sub_patologia = (isset($_POST["sub_patologia"]) ? mysqli_real_escape_string($db, $_POST["sub_patologia"]) : 4);
+        $os = parametroEmptyChceck($_POST["os"]);
+        $telefono = parametroEmptyChceck($_POST["telefono"]);
+        $ciudad = parametroEmptyChceck($_POST["ciudad"]);
+        $mail = (isset($_POST["mail"]) ? parametroEmptyChceck($_POST["mail"]) : 'NULL');
+        $cmrid = (isset($_POST["crm_id"]) ? parametroEmptyChceck($_POST["crm_id"]) : 'NULL');
+
+        
+    
+        // Creo Paciente
+        $SQL = "CALL `ST_NEW_PACIENTE`(
+            '$apellido', 
+            '{$nombre}', 
+            '{$f_nac}', 
+            '{$sexo}', 
+            '{$telefono}', 
+            '{$ciudad}', 
+            {$pais}, 
+            '{$mail}', 
+            {$patologia}, 
+            {$sub_patologia}, 
+            {$os}, 
+            '{$usuario}', 
+            '{$sub_estado}', 
+            {$cmrid})";
+        
+        
+            /* Realizo la consulta */
+        // Verificar el log de auditoria
+        if (isset($SQL) AND $SQL != ""){
+            
+            $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "1");
+            echo $response[0]["mensaje"];
+            // TODO VER ENVIO DE MAIL EN EL ALTA DEL PACIENTE
+        //  sendMailPM('Paciente Pendiente', $nombre, '', '');
+
+        }
+        mysqli_close($db);
+
+} 
+
+
+
+
+if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "actualizaPac") == 0)){
+    require_once("../config/config.php");
+    include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
+    include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
+
+    
+    if (isset($_POST["idPac"]) AND $_POST["idPac"] !== "" AND !empty($_POST["idPac"])){
+        $idPac = $_POST["idPac"];
+        /* Seteo de variables */
         // Varaibles que no pueden ser NULL o vacías
         $nombre = mysqli_real_escape_string($db, strtoupper($_POST["nombre"]));
         $apellido = mysqli_real_escape_string($db, strtoupper($_POST["apellido"]));
@@ -43,7 +108,6 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
         
     /* -------------- */
     
-    if (isset($idPac) AND $idPac != ""){
         // Actualizo Paciente
         
         $SQL = "CALL ST_UP_PACIENTE(
@@ -63,36 +127,28 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
             '{$sub_estado}',
             '$estado', 
             {$cmrid})";
-    } else {
-        // Creo Paciente
-        $SQL = "CALL `ST_NEW_PACIENTE`(
-            '$apellido', 
-            '{$nombre}', 
-            '{$f_nac}', 
-            '{$sexo}', 
-            '{$telefono}', 
-            '{$ciudad}', 
-            {$pais}, 
-            '{$mail}', 
-            {$patologia}, 
-            {$sub_patologia}, 
-            {$os}, 
-            '{$usuario}', 
-            '{$sub_estado}', 
-            {$cmrid})";
 
+        /* Realizo la consulta */
+        // Verificar el log de auditoria
+        if (isset($SQL) AND $SQL != ""){
+            
+            $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "1");
+            echo $response[0]["mensaje"];
+            
+        //  sendMailPM('Paciente Pendiente', $nombre, '', '');
+
+        }
+        mysqli_close($db);
+
+    
+    } else {
+        echo "ERROR: No se encontró el paciente";
     }
     
-    /* Realizo la consulta */
-    // Verificar el log de auditoria
-    if (isset($SQL) AND $SQL != ""){
-        $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "1");
-        echo $response[0]["mensaje"];
-        
-      //  sendMailPM('Paciente Pendiente', $nombre, '', '');
 
-    }
-    mysqli_close($db);
+    echo "ERROR: ERROR AL EJECUTAR LA ACTUALIZACION DEL PACIENTE";
+    
+   
 }
 
 // validar paciente

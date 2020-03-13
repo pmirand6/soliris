@@ -21,6 +21,11 @@ $(document).ready(function() {
     //$('#win').window('close');  // close a window
 
     $('#nwPac').click(function () {
+        localStorage.removeItem('paramPaciente');
+        const paramPaciente = {
+            grupo: $(this).data('grupo')
+        }
+        window.localStorage.setItem('paramPaciente', JSON.stringify(paramPaciente));
         $('#win').window('open');  // close a window
         $('#win_pac').attr('src', aplicacion + '/administrador/paciente.php');
     });

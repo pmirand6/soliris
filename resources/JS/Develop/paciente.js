@@ -7,7 +7,31 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
     
     $(document).ready(function() {
         l_set_dom();
-        l_validate_form();
+
+        $.fn.ajaxSelectPicker.locale["es-ES"] = {
+            currentlySelected: "Seleccionado",
+            emptyTitle: "Seleccione y comience a escribir",
+            errorText: "No se puede recuperar resultados",
+            searchPlaceholder: "Buscar...",
+            statusInitialized: "Empieza a escribir una consulta de búsqueda",
+            statusNoResults: "Sin Resultados",
+            statusSearching: "Buscando...",
+            statusTooShort: "Introduzca más caracteres"
+        }
+        
+        $.fn.ajaxSelectPicker.locale.es = $.fn.ajaxSelectPicker.locale["es-ES"];
+
+        $('.date').datepicker({
+            format: "yyyy-mm-dd",
+            language: "es",
+            endDate: getDate(),
+            calendarWeeks: true,
+            autoclose: true,
+            clearBtn: true,
+            todayHighlight: true
+        });
+        
+        
         $('#patologia').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
             l_hide_selectpicker_sub_pat();            
             l_list_sub_patologia(null, this.value, $('#patologia option:selected').text());
@@ -23,7 +47,9 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
         }
 
         $("#f_nac").on('change', function(){
-            l_calcular_edad(this.value);
+            $("#f_edad").val(l_calcular_edad(this.value));
+            $('.form').formValidation('revalidateField', 'f_nac');
+            
         })
 
         $('#editDocs').click(function () {
@@ -56,6 +82,7 @@ function l_dictamen_paciente(){
     $.post("../ajax/ajx.paciente_form.php", data,
         function (data) {
             alert(data);
+            window.location.href = aplicacion + '/main/panel.php';
         },
         
     );
@@ -239,7 +266,7 @@ function l_sub_estado($sub_estado_id) {
     $.getJSON("../ajax/ajx.sub_estado.php", {"oper" : 'getSubEstado'},
         function (data) {
             $.map(data, function (e, i) {
-                $('#sub_estado').append('<option val=' + e.id + '>' + e.valor + '</option>');
+                $('#sub_estado').append('<option value=' + e.id + '>' + e.valor + '</option>');
                 $('#sub_estado').selectpicker('refresh');
                 
                 if(e.id == $sub_estado_id){
@@ -265,7 +292,7 @@ function l_list_patologias($patologia_id = null) {
     $.getJSON("../ajax/ajx.patologia.php", {"oper" : 'list_patologias'},
     function (data) {
             $.map(data, function (e, i) {
-                $('#patologia').append('<option val=' + e.id + '>' + e.patologia_nombre + '</option>');
+                $('#patologia').append('<option value=' + e.id + '>' + e.patologia_nombre + '</option>');
                 $('#patologia').selectpicker('refresh');
                 if(e.id == $patologia_id){
                     $('#patologia').selectpicker('val', e.id);
@@ -283,7 +310,7 @@ function l_list_sub_patologia($sub_patologia_id = null, $patologia_id, $patologi
         function (data) {
             if(data !== 0){
                 l_hide_selectpicker_sub_pat(false);
-                $('#sub_patologia').append('<option val="" selected >Seleccione una Sub Patología</option>');
+                $('#sub_patologia').append('<option value="" selected >Seleccione una Sub Patología</option>');
                 $.map(data, function (e, i) {
                     $('#sub_patologia').append('<option data-subtext=' + $patologia_nombre + ' value=' + e.id + '>' + e.sub_patologia_nombre + '</option>');
                     $('#sub_patologia').selectpicker('refresh');
@@ -340,10 +367,10 @@ function l_list_paises($filter = null, $pais_id = null, $pais_nombre = null) {
       
       });
       if($filter) {
-        $('#pais.after-init').append('<option val="' + $pais_id + '" selected="selected">' + $pais_nombre + '</option>').selectpicker('refresh');
+        $('#pais.after-init').append('<option value="' + $pais_id + '" selected="selected">' + $pais_nombre + '</option>').selectpicker('refresh');
         $("#pais.after-init").trigger('change')    
       } else {
-        $('#pais.after-init').append('<option val="13" selected="selected">Argentina</option>').selectpicker('refresh');
+        $('#pais.after-init').append('<option value="13" selected="selected">Argentina</option>').selectpicker('refresh');
         $("#pais.after-init").trigger('change')
       }
       
@@ -563,13 +590,14 @@ function l_validate_form() {
 
 function l_set_dom(){
     
-    l_disable_form(paramPaciente.grupo);
+    //l_disable_form(paramPaciente.grupo);
     if(getQuerystring("id") === ""){
         l_list_patologias();
         l_hide_selectpicker_sub_pat();
         l_list_paises();
         l_list_os();
         l_sub_estado();
+        l_validate_form();
     } else {
         l_set_paciente();
     }
@@ -578,9 +606,15 @@ function l_set_dom(){
 }
 
 function save_ventas(){
+    
     var parametros = $("#frm-paciente").serializeArray();
-    parametros.push({name: 'idPac', value: paramPaciente.idPac})
-    parametros.push({name: 'oper', value:'Guardar'});
+    if(getQuerystring("id") === ""){
+        parametros.push({name: 'oper', value:'savePac'});
+    } else {
+        parametros.push({name: 'idPac', value: paramPaciente.idPac})
+        parametros.push({name: 'oper', value:'actualizaPac'});
+    }
+    
     $.ajax({
         url: aplicacion + "/ajax/ajx.paciente_form.php",
         type: "POST",
@@ -589,7 +623,12 @@ function save_ventas(){
         success: function(opciones) {
             if (opciones.indexOf("ERROR") != 0) {
                 alert('Se registró correctamente. Continue con la carga de la documentación.');
-                window.location.href = aplicacion + '/administrador/docs_paciente.php?id=' + paramPaciente.idPac;
+                localStorage.removeItem('paramPaciente');
+                const paramPaciente = {
+                    idPac: opciones
+                }
+                window.localStorage.setItem('paramPaciente', JSON.stringify(paramPaciente));
+                window.location.href = aplicacion + '/administrador/docs_paciente.php?id=' + opciones;
             } else {
                 alert(opciones);
             }

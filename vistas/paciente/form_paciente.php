@@ -8,16 +8,7 @@ if($_SESSION["grupo"] == 'ventas'){
         $id = $_GET["id"];
         include('../vistas/paciente/documentacion_paciente.php');
     }
-    echo ' <!-- Button (Double) -->
-    <div class="form-group text-center">
-        <div class="col-sm-12">
-            <button type="submit" id="bot_guardar" name="bot_guardar" data-loading-text="Loading..."
-            class="btn btn-success disabled">
-            <span class="fa fa-save"></span>
-            Guardar
-        </button>
-    </div></div>
-';
+    
     
 } else {
     if(isset($_GET["id"]) && ($_GET["id"] !== 0)) {

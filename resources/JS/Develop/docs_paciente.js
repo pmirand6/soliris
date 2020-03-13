@@ -3,11 +3,23 @@
  */
 var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 var paramPaciente = JSON.parse(window.localStorage.getItem('paramPaciente'));
+
+$.getScript(aplicacion + '/resources/JS/funciones.min.js')
+.done(function( script, textStatus ) {
+    console.log( script, textStatus );
+  })
+  .fail(function( jqxhr, settings, exception ) {
+     // handle error here
+     console.log( jqxhr, settings, exception );
+});
+
  $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
     // script is now loaded and executed.
     // put your dependent JS here.
+    
     $(document).ready(function(){
 
+               
 		var Consentimiento = $("#file_consentimiento").uploadFile({
             url: aplicacion + '/ajax/ajx.docs_paciente.php',
             autoSubmit:false,
