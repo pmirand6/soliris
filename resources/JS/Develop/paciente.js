@@ -43,8 +43,7 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
 function l_disable_form(grupo) {
     if (grupo == 'fv') {
         $("#frm-paciente input, select").prop("disabled", true);
-        $("#comentario").prop("disabled", false);
-        $("#estadoList").prop("disabled", false);
+
     }
 }
 
@@ -55,8 +54,8 @@ function l_dictamen_paciente(){
     data.push({name: 'idPac', value: paramPaciente.idPac})
     
     $.post("../ajax/ajx.paciente_form.php", data,
-        function (data, textStatus, jqXHR) {
-            console.log(data);
+        function (data) {
+            alert(data);
         },
         
     );
@@ -73,6 +72,7 @@ function l_set_paciente() {
                     $("#nombrePac").html(e.apellido + ' ' + e.nombre);
                     $("#idPac").html(e.id);
                     $("#estadoPac").html(e.estado_valor);
+                    l_set_hero_style(e.estado_id);
                     l_sub_estado(e.sub_estado_id);
                     $("#fechaNacPac").html(e.fecha_nac_formateada);
                     $("#f_edad").html(l_calcular_edad(e.fecha_nac));
@@ -85,6 +85,9 @@ function l_set_paciente() {
                     $("crmId").html(e.crm_id);
                     $("#patPac").html(e.patologiaNombre);
                     $("#subPatPac").html(e.subPatologiaNombre);
+                    $("#usuarioCreador").html(e.usuario_creador);
+                    $("#fechaCreacion").html(e.fecha_creacion);
+                    e.estado_id === "7" ? l_estado_dictamen(e.estado_valor) : l_estado_dictamen(e.estado_valor, e.notas, e.usuario_mod, e.fecha_modificacion);
                     l_list_estado(e.estado_id)
                 } else {
                     l_show_id(e.id);
@@ -147,19 +150,67 @@ function openFileInModal(e) {
 
  }
 
-function l_estado_dictamen($estadoValor, $notas = null){
+ function l_set_hero_style($estado_id){
+     switch ($estado_id) {
+         case '7':
+             $class = 'is-warning'
+             break;
+        case '11':
+            $class = 'is-success'
+            break;
+        case '12':
+            $class = 'is-danger'
+            break;
+        case '13':
+            $class = 'is-danger'
+            break;
+         default:
+             break;
+     }
+    $( "#heroHeadPac" ).addClass($class);
+ }
+
+function l_estado_dictamen($estadoValor, $notas = null, $usuario_mod, $fecha_modificacion){
     
     $("#estadoDictamen").show();
     $("#estado").prop("disabled", true);
-    const content =`
-    <div class="row">
-      <div class="col-sm-6 col-xs-6">
-        <p class="validation_check_alert">Registro en estado: "${$estadoValor}" <br> 
-        ${$notas ? 'Motivo:<i> ' + $notas +'</i>' : ''}
-        </p>
-      </div>
-    </div>`
-    $("#estadoDictamen").html(content);
+
+    if (paramPaciente.grupo = 'fv' || paramPaciente.grupo == 'admin') {
+        const content = `
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <p class="heading">Ultima Nota</p>
+                    <p class="subtitle">${$notas}</p>
+                </div>
+            </div>
+        </nav>
+        <br>
+        <div class="container has-text-centered">
+            <div class="tags has-addons are-small">
+                <span class="tag is-dark">${$usuario_mod}</span>
+                <span class="tag is-info">${$fecha_modificacion}</span>
+            </div>
+        </div>
+        
+        `;
+        $("#ultimaNota").html(content);
+    } else {
+        const content =`
+        <div class="row">
+        <div class="col-sm-6 col-xs-6">
+            <p class="validation_check_alert">Registro en estado: "${$estadoValor}" <br> 
+            ${$notas ? 'Motivo:<i> ' + $notas +'</i>' : ''}
+            </p>
+            <p>Nota creada por: ${$usuario_mod}</p>
+        </div>
+        </div>`
+        $("#estadoDictamen").html(content);
+        }
+
+        
+    
+    
 
 }
 
@@ -168,11 +219,16 @@ function l_list_estado($estado_id) {
     $.getJSON("../ajax/ajx.estado.php", {"oper" : 'getEstado'},
         function (data) {
             $.map(data, function (e, i) {
-                $('#estadoList').append('<option value=' + e.id + '>' + e.valor + '</option>');
-                $('#estadoList').selectpicker('refresh');
-                if(e.id == $estado_id){
-                    $('#estadoList').selectpicker('val', e.valor);
+                if (e.id == '7') {
+                    $('#estadoList').append('<option value=' + e.id + ' disabled>' + e.valor + '</option>');
+                } else {
+                    $('#estadoList').append('<option value=' + e.id + '>' + e.valor + '</option>');
                 }
+                if(e.id == $estado_id){
+                     $('#estadoList').selectpicker('val', e.id);
+                 }
+                 
+                 $('#estadoList').selectpicker('refresh');
             });
         }
     );
@@ -183,7 +239,7 @@ function l_sub_estado($sub_estado_id) {
     $.getJSON("../ajax/ajx.sub_estado.php", {"oper" : 'getSubEstado'},
         function (data) {
             $.map(data, function (e, i) {
-                $('#sub_estado').append('<option value=' + e.id + '>' + e.valor + '</option>');
+                $('#sub_estado').append('<option val=' + e.id + '>' + e.valor + '</option>');
                 $('#sub_estado').selectpicker('refresh');
                 
                 if(e.id == $sub_estado_id){
@@ -209,7 +265,7 @@ function l_list_patologias($patologia_id = null) {
     $.getJSON("../ajax/ajx.patologia.php", {"oper" : 'list_patologias'},
     function (data) {
             $.map(data, function (e, i) {
-                $('#patologia').append('<option value=' + e.id + '>' + e.patologia_nombre + '</option>');
+                $('#patologia').append('<option val=' + e.id + '>' + e.patologia_nombre + '</option>');
                 $('#patologia').selectpicker('refresh');
                 if(e.id == $patologia_id){
                     $('#patologia').selectpicker('val', e.id);
@@ -227,7 +283,7 @@ function l_list_sub_patologia($sub_patologia_id = null, $patologia_id, $patologi
         function (data) {
             if(data !== 0){
                 l_hide_selectpicker_sub_pat(false);
-                $('#sub_patologia').append('<option value="" selected >Seleccione una Sub Patología</option>');
+                $('#sub_patologia').append('<option val="" selected >Seleccione una Sub Patología</option>');
                 $.map(data, function (e, i) {
                     $('#sub_patologia').append('<option data-subtext=' + $patologia_nombre + ' value=' + e.id + '>' + e.sub_patologia_nombre + '</option>');
                     $('#sub_patologia').selectpicker('refresh');
@@ -284,10 +340,10 @@ function l_list_paises($filter = null, $pais_id = null, $pais_nombre = null) {
       
       });
       if($filter) {
-        $('#pais.after-init').append('<option value="' + $pais_id + '" selected="selected">' + $pais_nombre + '</option>').selectpicker('refresh');
+        $('#pais.after-init').append('<option val="' + $pais_id + '" selected="selected">' + $pais_nombre + '</option>').selectpicker('refresh');
         $("#pais.after-init").trigger('change')    
       } else {
-        $('#pais.after-init').append('<option value="13" selected="selected">Argentina</option>').selectpicker('refresh');
+        $('#pais.after-init').append('<option val="13" selected="selected">Argentina</option>').selectpicker('refresh');
         $("#pais.after-init").trigger('change')
       }
       
@@ -328,7 +384,7 @@ function l_list_os($filter = null, $os_id = null, $os_nombre) {
       
       });
       if($filter) {
-        $('#os').append('<option value="' + $os_id + '" selected="selected">' + $os_nombre + '</option>').selectpicker('refresh');
+        $('#os').append('<option val="' + $os_id + '" selected="selected">' + $os_nombre + '</option>').selectpicker('refresh');
         $("#os").trigger('change');    
       }
 }

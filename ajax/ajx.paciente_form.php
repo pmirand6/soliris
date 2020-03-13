@@ -105,14 +105,13 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "ValidaPac") == 0)){
     if (isset($_POST["idPac"]) AND $_POST["idPac"] != ""){
         /* Seteo de variables */
         $idPac = $_POST["idPac"];
-        $nombre = mysqli_real_escape_string($db, $_POST["nombre"]);
         $comentario = mysqli_real_escape_string($db, $_POST["comentario"]);
-        $estado = mysqli_real_escape_string($db, $_POST["estado"]);
+        $estado = mysqli_real_escape_string($db, $_POST["estadoList"]);
         $usuario = $_SESSION["soliris_usuario"];
 
         /* -------------- */
 	
-        $SQL = "SELECT FU_VAL_PAC('$idPac', '$comentario', '$estado', '$usuario') as response";
+        $SQL = "CALL ST_VAL_PAC('$idPac', '$comentario', '$estado', '$usuario')";
 
         /* Realizo la consulta */
         if (isset($SQL) AND $SQL != ""){
@@ -124,17 +123,6 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "ValidaPac") == 0)){
         mysqli_close($db);
 		
     };
-}
-
-function l_aprobated($estado) {
-    switch ($estado) {
-        case "Aprobado":
-            return "'" . $_SESSION["soliris_usuario"] . "'";
-			break;
-        default:
-            return "null";
-			break;
-    }
 }
 
 if (isset($_POST["oper"]) AND strcasecmp($_POST["oper"], 'e_edad') == 0) {

@@ -1,5 +1,5 @@
 
-<form action="" method="post" id="frmDictamenPac">
+<form action="" method="post" id="frmDictamenPac" class="form has-text-centered">
     <div class="field">
     <label class="label">Estado</label>
     <div class="control">
@@ -19,6 +19,13 @@
         <button id="confirmar_pac" name="confirmar_pac" type="submit" class="button is-primary is-centered"><span class="icon is-small"><i class="fa fa-check"></i></span><span>Validar Paciente</span></button>
     </div>
 
+        
+    <div class="field has-text-centered" id="estadoDictamen" style="display: none">
+        <div class="control has-text-centered">
+            <div class="notification has-text-centered" id="ultimaNota">
+            </div>
+        </div>
+    </div>
 </form>
 
 

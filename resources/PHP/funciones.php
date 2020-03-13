@@ -167,6 +167,8 @@ function MySQL_sendFunctionAudit($query, $accion, $typeResponse){
 
         $result = mysqli_query($db, $query);
 
+        
+
 
         if (mysqli_error($db)) {
             $response[0]["mensaje"] = "ERROR: " . mysqli_error($db) . '(ERROR MYSQL: ' . mysqli_errno($db) . ')';

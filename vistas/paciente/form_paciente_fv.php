@@ -2,15 +2,38 @@
    <div class="tile is-ancestor">
       <div class="tile is-parent">
          <article class="tile is-child box">
-            <section class="hero is-info">
+            <section class="hero" id="heroHeadPac">
                <div class="hero-body">
                   <div class="container has-text-centered">
                      <h1 class="title" id="nombrePac">
                         <!-- Nombre del Paciente -->
                      </h1>
-                     <h2 class="subtitle" id="estadoPac">
-                        <!-- Nombre del Paciente -->
-                     </h2>
+                     <nav class="level">
+                        <div class="level-item has-text-centered">
+                           <div>
+                              <p class="heading">ID Paciente</p>
+                              <span class="tag" id="idPac"></span>
+                           </div>
+                        </div>
+                        <div class="level-item has-text-centered">
+                           <div>
+                              <p class="heading">Usuario Creador</p>
+                              <span class="tag" id="usuarioCreador"></span>
+                           </div>
+                        </div>
+                        <div class="level-item has-text-centered">
+                           <div>
+                              <p class="heading">Fecha Creación</p>
+                              <span class="tag" id="fechaCreacion"></span>
+                           </div>
+                        </div>
+                        <div class="level-item has-text-centered">
+                           <div>
+                              <p class="heading">Estado</p>
+                              <span class="tag" id="estadoPac"></span>
+                           </div>
+                        </div>
+                     </nav>
                   </div>
                </div>
                <div class="hero-foot">
@@ -23,17 +46,12 @@
                      </div>
                   </nav>
                </div>
-                <?php ''?>
             </section>
             <div class="container is-fluid section">
                <div class="content-tab" id="datosPac">
                   <div class="columns">
                      <div class="column is-one-third ">
                         <div class="box is-info has-background-white-ter">
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">ID </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="idPac"></p>
-                           </div>
                            <div class="column">
                               <p class="subtitle is-size-6 has-text-grey">Sexo </p>
                               <p class="title is-size-6 has-text-grey-darker" id="sexoPac"></p>
@@ -70,7 +88,6 @@
                               <p class="subtitle is-size-6 has-text-grey">Pais </p>
                               <p class="title is-size-6 has-text-grey-darker" id="paisPac"></p>
                            </div>
-                           
                            <div class="column">
                               <p class="subtitle is-size-6 has-text-grey">Mail </p>
                               <p class="title is-size-6 has-text-grey-darker" id="emailPac"></p>
@@ -94,9 +111,9 @@
                         </div>
                      </div>
                   </div>
-                </div>
+               </div>
                <div id="docsPac" class="content-tab" style="display:none">
-               <div class="columns">
+                  <div class="columns">
                      <div class="column">
                         <?php include __DIR__.'/documentacion_paciente.php';?>
                      </div>
@@ -104,6 +121,7 @@
                </div>
             </div>
          </article>
+         
       </div>
       <div class="tile is-parent">
          <div class="box">
@@ -125,28 +143,26 @@
 </div>
 
 <div class="modal" id="modalDocumentacionPaciente">
-  <div class="modal-background"></div>
-  <div class="modal-content">
-    <p class="image is-4by3">
-      <img id="imgModalDocumentacionPaciente" src="" alt="">
-    </p>
-  </div>
+   <div class="modal-background"></div>
+   <div class="modal-content">
+      <p class="image is-4by3">
+         <img id="imgModalDocumentacionPaciente" src="" alt="">
+      </p>
+   </div>
 </div>
-
 <script>
-function openTab(evt, tabName) {
-    let i, x, tablinks;
-    x = document.getElementsByClassName("content-tab");
-  for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";
-  }
-  tablinks = document.getElementsByClassName("tab");
-  for (i = 0; i < x.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" is-active", "");
-  }
-  document.getElementById(tabName).style.display = "block";
-  evt.currentTarget.className += " is-active";
-}
-    
+   function openTab(evt, tabName) {
+      let i, x, tablinks;
+      x = document.getElementsByClassName("content-tab");
+      for (i = 0; i < x.length; i++) {
+         x[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tab");
+      for (i = 0; i < x.length; i++) {
+         tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+      }
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " is-active";
+   }
+   
 </script>
-
