@@ -10,7 +10,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
 include_once $_SERVER['DOCUMENT_ROOT'] . _SG;
 
 
-
 ?>
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/html">
@@ -25,7 +24,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . _SG;
     /* Latest compiled and minified CSS */
     @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
     /* Bulma CSS */
-    @import "../resources/CSS/bulma/css/bulma.css";
+    <?php if ($_SESSION["grupo"] !== 'ventas') { ?> @import "../resources/CSS/bulma/css/bulma.css"; <?php  } ?> 
     /* Font-Awesome */
     @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
     /* Include Bootstrap Datepicker */
