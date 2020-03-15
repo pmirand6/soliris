@@ -27,284 +27,160 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
           }
         });
 
-        // DATATABLE
-        // FV - ADMIN = Documentos Pendientes de Autorizar
-        // VENTAS - MARKETING = Documentos Devueltos
-        $("#DataDPG").dataTable({
-            "ajax": {
-                "url": aplicacion + '/ajax/ajx.panel.php?oper=DataDPG&grupo=' + grupo_usuario,
-                "dataSrc": "data"
-            },
-            "bPaginate": true,
-            "iDisplayLength": 5,
-            "sPaginationType": "full_numbers",
-            "bAutoWidth": true,
-            "sDom": '<"top"B>frt<"bottom"ip><"clear">',
-            "deferRender": true,
-            "columns": [{
-                "data": "id",
-                "visible": false,
-                "searchable": false
-                }, // 0
-                {
-                    "data": "nombrePaciente"
-                }, //1
-                {
-                    "data": "sexo"
-                }, // 2
-                {
-                    "data": "c_gestar"
-                }, // 3
-                {
-                    "data": "f_nac"
-                }, // 4
-                {
-                    "data": "uventa"
-                }, // 5
-                {
-                    "data": "edad"
-                }, // 6
-                {
-                    "data": "patologia"
-                }, // 7
-                {
-                    "data": "estado"
-                }, // 8
-                {
-                    "data": "documentos"
-                }, // 9
-                {
-                    "data": function(data, type, dataToSet) {
-                        return "<div class='btn btn-sm btn-default pointer boton-doc' title='Ver el Registro' onclick='viewDetails(" + data.id + ");'><div class='TBL TBL-Accion'><p class='hidden'></p></div></div>";
-                    },
-                    "visible": ocultar_columna
-                } // 10
-                ],
-                "columnDefs": [{
-                // funcion para obtener el icono del sexo
-                "render": function(data, type, row) {
-                    var sexo = data;
-                    return sexo_icon(data);
-                },
-                "targets": [2],
-                "searchable": false
-            }, {
-                //funcion para obtener los iconos de estado en la columna 8
-                "render": function(data, type, row) {
-                    var datos = data;
-                    return estado_icon(data);
-                },
-                "targets": [8],
-                "searchable": false
-            }, {
-                //funcion para obtener los iconos de estado en la columna 9
-                "render": function ( data, type, row ) {
-                    campo = '<ul class="docs">';
-                    if(data == null){data = 'Sin Documentación'}
-                        if (data.indexOf(';') > -1)
-                    {
-                        var string = data.split(";");
-                        var campo='';
-                        for (pos=0; pos < string.length; pos++){
-                            campo+= docs_icon(string[pos]);
-                        }
-                    } else {
-                        campo += docs_icon(data);    
-                    }
-                    return campo + '</ul>';   
-                },
-                "targets": [9],
-                "visible": true,
-                "searchable": false
-            }, {
-                //funcion para obtener los iconos de estado en la columna 8
-                "targets": [10],
-                "searchable": false,
-            }],
-            "buttons": [
-            { extend: 'copyHtml5', text: '<i class="fa fa-files-o" aria-hidden="true"></i> Copiar'},
-            { extend: 'print', text: '<i class="fa fa-print" aria-hidden="true"></i> Imprimir'},
-            { extend: 'excel', text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel'}
-            ],
-            "oLanguage": {
-                "sSearch": "Filtrar:",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sPrevious": "Anterior",
-                    "sNext": "Siguiente",
-                    "sLast": "Último"
-                },
-                "sEmptyTable": "No se encontraron registros",
-                "sZeroRecords": "No se encontraron registros",
-                "sInfo": "Mostrando (_START_ a _END_ registro/s). Total de registro/s: _TOTAL_ ",
-                "sInfoEmpty": "No se encontraron registros",
-                "sProcessing": "Procesando",
-                "sInfoFiltered": "(Filtrados de un total de _TOTAL_ registros)",
-                buttons: {
-                    copyTitle: 'Copiado al Portapapeles',
-                    copyKeys: 'Presione <i>CRTL</i> ó <i>\u2318</i> + <i>C</i> para copiar la tabla en el documento que desee. <br><br>Para cancelar, haga click sobre este mensaje o presione la tecla ESC.',
-                    copySuccess: {
-                        _: '%d líneas copiadas',
-                        1: '1 línea copiada'
-                    }
-                }
-            }
 
-        });
+        // // DataTable Ventas Pendientes de NP
+        // $("#DataDVP").dataTable({
+        //     "ajax": {
+        //         "url": aplicacion + '/ajax/ajx.panel.php?oper=DataGDP&grupo=' + grupo_usuario,
+        //         "dataSrc": "data",
+        //     },
+        //     "deferRender": true,
+        //     "bPaginate": true,
+        //     "iDisplayLength": 5,
+        //     "sPaginationType": "full_numbers",
+        //     "processing": true,
+        //     "bAutoWidth": true,
+        //     "sDom": '<"top"B>frt<"bottom"ip><"clear">',
+        //     "columns": [{
+        //         "data": "id",
+        //         "visible": false,
+        //         "searchable": false
+        //         }, // 0
+        //         {
+        //             "data": "IDPac",
+        //             "visible": false,
+        //             "searchable": false
+        //         }, // 1
+        //         {
+        //             "data": "nombrePaciente"
+        //         }, // 2
+        //         {
+        //             "data": "sexo"
+        //         }, // 3
+        //         {
+        //             "data": "c_gestar"
+        //         }, // 4
+        //         {
+        //             "data": "f_nac"
+        //         }, // 5
+        //         {
+        //             "data": "uventa"
+        //         }, // 6
+        //         {
+        //             "data": "edad"
+        //         }, // 7
+        //         {
+        //             "data": "patologia"
+        //         }, // 8
+        //         {
+        //             "data": "estado"
+        //         }, // 9
+        //         {
+        //             "data": "documentos",
+        //             "class": "docs"
+        //         }, // 10
+        //         {
+        //             "data": function(data, type, dataToSet) {
+
+        //                 switch (grupo_usuario) {
+        //                     case 'FV':
+        //                     return "<div class='btn btn-sm btn-default pointer boton' title='Ver el Registro' onclick='viewDetails(" + data.id + ");'><div class='TBL TBL-Accion'><p class='hidden'></p></div></div>";
+        //                     break;
+        //                     case 'Admin':
+        //                     return "<div class='btn btn-sm btn-default pointer boton' title='Ver el Registro' onclick='viewDetails(" + data.id + ");'><div class='TBL TBL-Accion'><p class='hidden'></p></div></div>";
+        //                     break;
+        //                     default:
+        //                     return "<div class='btn btn-sm btn-default pointer boton' title='Ver el Registro' onclick='viewDetailsProd(" + data.id + ", " + data.IDPac + ");'><div class='TBL TBL-Accion'><p class='hidden'></p></div></div>";
+        //                     break;
+        //                 }
+        //             }
+        //         } // 11
+
+        //         ],
+        //         "columnDefs": [{
+        //             // funcion para obtener el icono del sexo
+        //             "render": function(data, type, row) {
+        //                 var sexo = data;
+        //                 return sexo_icon(data);
+        //             },
+        //             "targets": [3],
+        //             "searchable": false
+        //         }, {
+        //             //funcion para obtener los iconos de estado en la columna 9
+        //             "render": function(data, type, row) {
+        //                 var datos = data;
+        //                 return estado_icon(data);
 
 
+        //             },
+        //             "targets": [9],
+        //             "searchable": false
+        //         }, {
+        //             //funcion para obtener los iconos de los documentos en la columna 10
+        //             "render": function(data, type, row) {
+        //                 campo = '<ul>';
+        //                 if (data == null) {
+        //                     data = 'Sin Documentacion'
+        //                 }
+        //                 if (data.indexOf(';') > -1) {
+        //                     var string = data.split(";");
+        //                     var campo = '';
+        //                     for (pos = 0; pos < string.length; pos++) {
+        //                         campo += docs_icon(string[pos]);
+        //                     }
+        //                 } else {
+        //                     campo += docs_icon(data);
+        //                 }
+        //                 return campo + '</ul>';
+        //             },
+        //             "targets": [10],
+        //             "visible": true,
+        //             "searchable": false
+        //         }
 
-        // DATATABLE Reporte Global de Documentos Pendientes de Acción
-        $("#DataGDP").dataTable({
-            "ajax": {
-                "url": aplicacion + '/ajax/ajx.panel.php?oper=DataGDP&grupo=' + grupo_usuario,
-                "dataSrc": "data",
-            },
-            "deferRender": true,
-            "bPaginate": true,
-            "iDisplayLength": 5,
-            "sPaginationType": "full_numbers",
-            "processing": true,
-            "bAutoWidth": true,
-            "sDom": '<"top"B>frt<"bottom"ip><"clear">',
-            "columns": [{
-                "data": "id",
-                "visible": false,
-                "searchable": false
-                }, // 0
-                {
-                    "data": "IDPac",
-                    "visible": false,
-                    "searchable": false
-                }, // 1
-                {
-                    "data": "nombrePaciente"
-                }, // 2
-                {
-                    "data": "sexo"
-                }, // 3
-                {
-                    "data": "c_gestar"
-                }, // 4
-                {
-                    "data": "f_nac"
-                }, // 5
-                {
-                    "data": "uventa"
-                }, // 6
-                {
-                    "data": "edad"
-                }, // 7
-                {
-                    "data": "patologia"
-                }, // 8
-                {
-                    "data": "estado"
-                }, // 9
-                {
-                    "data": "documentos",
-                    "class": "docs"
-                }, // 10
-                {
-                    "data": function(data, type, dataToSet) {
+        //         ],
+        //         "buttons": [
+        //         { extend: 'copyHtml5', text: '<i class="fa fa-files-o" aria-hidden="true"></i> Copiar'},
+        //         { extend: 'print', text: '<i class="fa fa-print" aria-hidden="true"></i> Imprimir'},
+        //         { extend: 'excel', text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel'}
+        //         ],
 
-                        switch (grupo_usuario) {
-                            case 'FV':
-                            return "<div class='btn btn-sm btn-default pointer boton' title='Ver el Registro' onclick='viewDetails(" + data.id + ");'><div class='TBL TBL-Accion'><p class='hidden'></p></div></div>";
-                            break;
-                            case 'Admin':
-                            return "<div class='btn btn-sm btn-default pointer boton' title='Ver el Registro' onclick='viewDetails(" + data.id + ");'><div class='TBL TBL-Accion'><p class='hidden'></p></div></div>";
-                            break;
-                            default:
-                            return "<div class='btn btn-sm btn-default pointer boton' title='Ver el Registro' onclick='viewDetailsProd(" + data.id + ", " + data.IDPac + ");'><div class='TBL TBL-Accion'><p class='hidden'></p></div></div>";
-                            break;
-                        }
-                    }
-                } // 11
+        //         "oLanguage": {
+        //             "sSearch": "Filtrar:",
+        //             "sLengthMenu": "Mostrar _MENU_ registros",
+        //             "oPaginate": {
+        //                 "sFirst": "Primero",
+        //                 "sPrevious": "Anterior",
+        //                 "sNext": "Siguiente",
+        //                 "sLast": "Último"
+        //             },
+        //             "sEmptyTable": "No se encontraron registros",
+        //             "sZeroRecords": "No se encontraron registros",
+        //             "sInfo": "Mostrando (_START_ a _END_ registro/s). Total de registro/s: _TOTAL_ ",
+        //             "sInfoEmpty": "No se encontraron registros",
+        //             "sProcessing": "Procesando",
+        //             "sInfoFiltered": "(Filtrados de un total de _TOTAL_ registros)",
+        //             buttons: {
+        //                 copyTitle: 'Copiado al Portapapeles',
+        //                 copyKeys: 'Presione <i>CRTL</i> ó <i>\u2318</i> + <i>C</i> para copiar la tabla en el documento que desee. <br><br>Para cancelar, haga click sobre este mensaje o presione la tecla ESC.',
+        //                 copySuccess: {
+        //                     _: '%d líneas copiadas',
+        //                     1: '1 línea copiada'
+        //                 }
+        //             }
+        //         }
 
-                ],
-                "columnDefs": [{
-                    // funcion para obtener el icono del sexo
-                    "render": function(data, type, row) {
-                        var sexo = data;
-                        return sexo_icon(data);
-                    },
-                    "targets": [3],
-                    "searchable": false
-                }, {
-                    //funcion para obtener los iconos de estado en la columna 9
-                    "render": function(data, type, row) {
-                        var datos = data;
-                        return estado_icon(data);
-
-
-                    },
-                    "targets": [9],
-                    "searchable": false
-                }, {
-                    //funcion para obtener los iconos de los documentos en la columna 10
-                    "render": function(data, type, row) {
-                        campo = '<ul>';
-                        if (data == null) {
-                            data = 'Sin Documentacion'
-                        }
-                        if (data.indexOf(';') > -1) {
-                            var string = data.split(";");
-                            var campo = '';
-                            for (pos = 0; pos < string.length; pos++) {
-                                campo += docs_icon(string[pos]);
-                            }
-                        } else {
-                            campo += docs_icon(data);
-                        }
-                        return campo + '</ul>';
-                    },
-                    "targets": [10],
-                    "visible": true,
-                    "searchable": false
-                }
-
-                ],
-                "buttons": [
-                { extend: 'copyHtml5', text: '<i class="fa fa-files-o" aria-hidden="true"></i> Copiar'},
-                { extend: 'print', text: '<i class="fa fa-print" aria-hidden="true"></i> Imprimir'},
-                { extend: 'excel', text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel'}
-                ],
-
-                "oLanguage": {
-                    "sSearch": "Filtrar:",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "oPaginate": {
-                        "sFirst": "Primero",
-                        "sPrevious": "Anterior",
-                        "sNext": "Siguiente",
-                        "sLast": "Último"
-                    },
-                    "sEmptyTable": "No se encontraron registros",
-                    "sZeroRecords": "No se encontraron registros",
-                    "sInfo": "Mostrando (_START_ a _END_ registro/s). Total de registro/s: _TOTAL_ ",
-                    "sInfoEmpty": "No se encontraron registros",
-                    "sProcessing": "Procesando",
-                    "sInfoFiltered": "(Filtrados de un total de _TOTAL_ registros)",
-                    buttons: {
-                        copyTitle: 'Copiado al Portapapeles',
-                        copyKeys: 'Presione <i>CRTL</i> ó <i>\u2318</i> + <i>C</i> para copiar la tabla en el documento que desee. <br><br>Para cancelar, haga click sobre este mensaje o presione la tecla ESC.',
-                        copySuccess: {
-                            _: '%d líneas copiadas',
-                            1: '1 línea copiada'
-                        }
-                    }
-                }
-
-            });
+        //     });
 
 
         // DATATABLE Pacientes Pendiente de Activarse [hasta 90 dias]
-        $("#DataPPA").dataTable({
-            "ajax": {
-                "url": aplicacion + '/ajax/ajx.panel.php?oper=DataPPA&grupo=' + grupo_usuario,
-                "dataSrc": "data"
+        $("#DataPPA").DataTable({
+            ajax: {
+                url: aplicacion + '/ajax/ajx.panel.php',
+                data: {
+                    oper: 'DataPPA'
+                },
+                method: 'POST'
             },
             "bPaginate": true,
             "iDisplayLength": 5,
@@ -314,42 +190,30 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
             "bAutoWidth": true,
             "sDom": '<"top"B>frt<"bottom"ip><"clear">',
             "deferRender": true,
-            /*"aoColumns": [
-            { "mData": "nombre", "bSearchable": true, "sWidth": "25%", "sClass": "center"},
-            { "mData": "sexo", "bSearchable": true, "sWidth": "5%", "sClass": "center"},
-            { "mData": "cgestar", "bSearchable": true, "sWidth": "5%", "sClass": "center"},
-            { "mData": "fnac", "bSearchable": true, "sWidth": "10%", "sClass": "center"},
-            { "mData": "patologia", "bSearchable": true, "sWidth": "10%", "sClass": "center"},
-            { "mData": "estado", "bSearchable": true, "sWidth": "5%", "sClass": "center"},
-            { "mData": "documentacion", "bSearchable": true, "sWidth": "20%", "sClass": "center"},
-            { "mData": "acciones", "bSearchable": true, "sWidth": "10%", "sClass": "center"}
-            ],*/
             "columns": [{
                 "data": "id",
                 "visible": false,
                 "searchable": false
                 }, // 0
                 {
-                    "data": "nombre"
+                    "data": "name"
                 }, // 1
                 {
                     "data": "sexo"
                 }, // 2
                 {
-                    "data": "c_gestar"
-                }, // 3
-                {
-                    "data": "f_nac"
+                    "data": "fnac"
                 }, // 4
                 {
-                    "data": "patologia"
+                    "data": "patologia_nombre"
+                },
+                {
+                    "data": "sub_patologia_nombre"
                 }, // 5
                 {
                     "data": "estado"
                 }, // 6
-                {
-                    "data": "documentos"
-                }, // 7
+                
                 {
                     "data": function(data, type, dataToSet) {
                         return "<div class='btn btn-sm btn-default pointer boton' title='Ver el Registro' onclick='viewDetailsPAC(" + data.id + ");'><div class='TBL TBL-Accion'><p class='hidden'></p></div></div>";
@@ -357,16 +221,6 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
                 } // 8
                 ],
                 "columnDefs": [
-
-                { // funcion para obtener el icono del sexo
-                    "render": function(data, type, row) {
-                        var sexo = data;
-                        return sexo_icon(data);
-                    },
-                    "targets": [2],
-                    "searchable": false
-                },
-
                 { //funcion para obtener los iconos de estado en la columna 9
                     "render": function(data, type, row) {
                         var datos = data;
@@ -374,29 +228,14 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
                     },
                     "targets": [6],
                     "searchable": false
-                }, {
-                    //funcion para obtener los iconos de estado en la columna 9
-                    "render": function(data, type, row) {
-                        campo = '<ul class="docs">';
-                        if (data == null) {
-                            data = 'Sin Documentación'
-                        }
-                        if (data.indexOf(';') > -1) {
-                            var string = data.split(";");
-                            var campo = '';
-                            for (pos = 0; pos < string.length; pos++) {
-                                campo += docs_icon(string[pos]);
-                            }
-                        } else {
-                            campo += docs_icon(data);
-                        }
-                        return campo + '</ul>';
-                    },
-                    "targets": [7],
-                    "visible": true,
+                },
+                {"render": function(data, type, row) {
+                            var sexo = data;
+                            return sexo_icon(data);
+                        },
+                    "targets": [2],
                     "searchable": false
-                }
-                ],
+                }],
                 "buttons": [
                 { extend: 'copyHtml5', text: '<i class="fa fa-files-o" aria-hidden="true"></i> Copiar'},
                 { extend: 'print', text: '<i class="fa fa-print" aria-hidden="true"></i> Imprimir'},
@@ -427,7 +266,7 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
                     }
                 }
             });
-});
+    });
 });
 
 function reloadTBLinitial(init) {
@@ -470,15 +309,13 @@ function viewDetails(id) {
 
 function viewDetailsPAC(id) {
     $('#win').window('open'); // close a window
-    $('#win_list').attr('src', aplicacion + '/administrador/paciente.php?id=' + id + '&acc=nu');
+    $('#win_list').attr('src', aplicacion + '/administrador/paciente.php?id=' + id);
 }
 
 function viewDetailsProd(id, id_paciente) {
     $('#win').window('open'); // close a window
     $('#win_list').attr('src', aplicacion + '/main/informes_nue_pres.php?id=' + id_paciente + '&idMst=' + id);
 }
-
-
 
 function session_group(grupo, accion) {
 
@@ -499,8 +336,6 @@ function session_group(grupo, accion) {
         break;
     }
 }
-
-
 
 function getCurrentHostname() {
     var protocolo, url, var_port, port;

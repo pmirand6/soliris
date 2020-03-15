@@ -9,6 +9,7 @@ require $_SERVER['DOCUMENT_ROOT'] . _FN;
 
     //desactivamos los erroes por seguridad
     //error_reporting(0);
+    // FIXME verificar el muestreo de errores
     error_reporting(E_ALL); //activar los errores (en modo depuración)
     if ($_POST["oper"] == "logUser"  AND !empty($_POST["usuario"]) AND !empty($_POST["password"])) {
         

@@ -35,8 +35,9 @@ $session_grupo = $_SESSION["grupo"];
     </style>
 
     <?php
-    if (strtoupper($_SESSION["grupo"]) == "FV" OR strtoupper($_SESSION["grupo"]) == "ADMIN") { $var_grupo = 1; } else { $var_grupo = 1; }
-    if (strtoupper($_SESSION["grupo"]) == "VENTAS" OR strtoupper($_SESSION["grupo"]) == "MARKETING") { $var_grupo = 2; }
+    // FIXME ver seguridad en el panel
+    if (strtoupper($_SESSION["grupo"]) == "fv" OR strtoupper($_SESSION["grupo"]) == "admin") { $var_grupo = 1; } else { $var_grupo = 1; }
+    if (strtoupper($_SESSION["grupo"]) == "ventas" OR strtoupper($_SESSION["grupo"]) == "marketing") { $var_grupo = 2; }
 
 
 
@@ -79,8 +80,8 @@ $session_grupo = $_SESSION["grupo"];
 
         <!--  Header  -->
         
-        <!--  DataTable Documentos Pendientes Globales  -->
-        <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="DataDPG" style="font-size: 13px">
+        <!--  DataTable Ventas Pendientes de NP  -->
+        <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="DataDVP" style="font-size: 13px">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -104,46 +105,6 @@ $session_grupo = $_SESSION["grupo"];
 
     <div class="row col-sm-12 col-xs-12">&nbsp;</div>
 
-    <div class="row col-sm-12 col-xs-12 box2">
-        <div class="col-sm-8 col-xs-8 text-left">
-            <samp style="font-family: 'Ubuntu Condense', Helvetica, Arial, sans-serif;vertical-align: top;">
-                <b>Reporte Global de Documentos Pendientes de Acción</b>
-            </samp>
-        </div>
-        <!--  DataTable Reporte Global de Documentos Pendientes de Acción  -->
-        <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="DataGDP" style="font-size: 13px">
-            <thead>
-                <tr>
-                    <!--
-                    <th>Nombre</th>
-                    <th>Sexo</th>
-                    <th>C. Ges</th>
-                    <th>F. Nac (DD/MM/YYYY)</th>
-                    <th>U. Venta (DD/MM/YYYY)</th>
-                    <th>Edad</th>
-                    <th>Patologia</th>
-                    <th>Estado</th>
-                    <th>Documentación</th>
-                    <th>Acciones</th>
-                -->
-                <th>ID</th>
-                <th>ID_Paciente</th>
-                <th>Nombre</th>
-                <th>Sexo</th>
-                <th>C. Ges</th>
-                <th>F. Nac (DD/MM/YYYY)</th>
-                <th>U. Venta (DD/MM/YYYY)</th>
-                <th>Edad</th>
-                <th>Patología</th>
-                <th>Estado</th>
-                <th>Documentación</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
 
 <div class="row col-sm-12 col-xs-12">&nbsp;</div>
 
@@ -160,11 +121,10 @@ $session_grupo = $_SESSION["grupo"];
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Sexo</th>
-                <th>C. Ges</th>
-                <th>F. Nac (DD/MM/YYYY)</th>
+                <th>F. Nac</th>
                 <th>Patología</th>
+                <th>Sub Patología</th>
                 <th>Estado</th>
-                <th>Documentación</th>
                 <th>Acciones</th>
             </tr>
         </thead>
