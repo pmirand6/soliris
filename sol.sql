@@ -20,18 +20,26 @@ USE `soliris`;
 CREATE TABLE IF NOT EXISTS `apm` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `codigo_apm_np` int(10) unsigned NOT NULL,
-  `estado_id` int(11) NOT NULL,
+  `estado_id` int(11) NOT NULL DEFAULT '17',
   `usuario_audit` varchar(45) DEFAULT NULL,
   `fecha_audit` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `username` varchar(45) NOT NULL,
-  `email` varchar(50) NOT NULL,
+  `username` varchar(45) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `nombre_completo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla soliris.apm: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.apm: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `apm` DISABLE KEYS */;
-INSERT INTO `apm` (`id`, `codigo_apm_np`, `estado_id`, `usuario_audit`, `fecha_audit`, `username`, `email`) VALUES
-	(11, 0, 0, 'pmiranda', '2019-12-10 16:18:10', '', '');
+INSERT INTO `apm` (`id`, `codigo_apm_np`, `estado_id`, `usuario_audit`, `fecha_audit`, `username`, `email`, `nombre_completo`) VALUES
+	(1, 10047, 17, NULL, '2020-03-16 13:14:20', 'jvidela', NULL, 'VIDELA JUAN IGNACIO'),
+	(3, 10245, 17, NULL, '2020-03-16 13:14:20', 'mparamo', NULL, 'PARAMO MARTIN GUSTAVO'),
+	(4, 5001, 17, NULL, '2020-03-16 13:14:20', 'goldani', NULL, 'OLDANI GUSTAVO ALBERTO'),
+	(5, 10202, 17, NULL, '2020-03-16 13:14:20', 'dmartinez', NULL, 'MARTINEZ DANIELA FERNANDA'),
+	(7, 10239, 17, NULL, '2020-03-16 13:14:20', 'vlorenzo', NULL, 'LORENZO VALERIA PAULA'),
+	(8, 10282, 17, NULL, '2020-03-16 13:14:20', 'ufernandez', NULL, 'FERNANDEZ URIEL LUIS'),
+	(9, 11745, 17, NULL, '2020-03-16 13:14:20', 'ccattaneo', NULL, 'CATTANEO CARLA'),
+	(10, 10142, 17, NULL, '2020-03-16 13:14:20', 'galbiero', NULL, 'ALBIERO GASTON FRANCO JESUS ');
 /*!40000 ALTER TABLE `apm` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.auxiliar
@@ -127,31 +135,37 @@ CREATE TABLE IF NOT EXISTS `documentos` (
   `documentos_tipo_id` int(11) NOT NULL COMMENT 'ID del tipo de documento',
   `fecha_creacion` datetime NOT NULL COMMENT 'fecha de creacion del registro',
   `fecha_documento` date NOT NULL COMMENT 'fecha del documento',
+  `estado_id` int(11) NOT NULL DEFAULT '15',
   `usuario_id` int(11) unsigned NOT NULL COMMENT 'id del usuario que creó el registro',
   `familia` varchar(3) NOT NULL DEFAULT 'SOL' COMMENT 'familia del sistema',
   PRIMARY KEY (`id`),
   KEY `FK_doc_tipo` (`documentos_tipo_id`),
   KEY `FK_doc_usuario` (`usuario_id`),
+  KEY `FK_doc_estado` (`estado_id`),
+  CONSTRAINT `FK_doc_estado` FOREIGN KEY (`estado_id`) REFERENCES `maestro_estado` (`id`),
   CONSTRAINT `FK_doc_tipo` FOREIGN KEY (`documentos_tipo_id`) REFERENCES `documentos_tipo` (`id`),
   CONSTRAINT `FK_doc_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla donde se almacenan las referencias a los documentos del sistema';
 
--- Volcando datos para la tabla soliris.documentos: ~12 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.documentos: ~16 rows (aproximadamente)
 /*!40000 ALTER TABLE `documentos` DISABLE KEYS */;
-INSERT INTO `documentos` (`id`, `valor`, `documentos_tipo_id`, `fecha_creacion`, `fecha_documento`, `usuario_id`, `familia`) VALUES
-	(2, 'Consentimiento Prueba.jpg', 1, '2020-03-02 20:13:54', '2020-03-02', 50, 'SOL'),
-	(10, 'test.jpg', 1, '2020-03-06 16:08:09', '0000-00-00', 50, 'SOL'),
-	(21, 'Consentimiento_4_2020-03-06_tali.jpg', 1, '2020-03-06 17:31:32', '0000-00-00', 50, 'SOL'),
-	(22, 'Consentimiento_4_2020-03-06_tali.jpg', 1, '2020-03-06 17:31:50', '0000-00-00', 50, 'SOL'),
-	(23, 'Consentimiento_4_2020-03-06_tali.jpg', 1, '2020-03-06 17:32:15', '0000-00-00', 50, 'SOL'),
-	(24, 'Consentimiento_4_2020-03-06_Sin-título.png', 1, '2020-03-06 17:33:15', '0000-00-00', 50, 'SOL'),
-	(25, 'Consentimiento_4_2020-03-06_tali.jpg', 1, '2020-03-06 17:35:53', '0000-00-00', 50, 'SOL'),
-	(26, 'Consentimiento_4_2020-03-06_tali.jpg', 1, '2020-03-06 17:37:01', '0000-00-00', 50, 'SOL'),
-	(27, 'Consentimiento_4_2020-03-06_tali.jpg', 1, '2020-03-06 17:38:01', '0000-00-00', 50, 'SOL'),
-	(28, 'Consentimiento_4_2020-03-06_tali.jpg', 1, '2020-03-06 17:46:17', '2020-03-06', 50, 'SOL'),
-	(29, 'Otro_4_2020-03-06_tali.jpg', 2, '2020-03-06 17:49:54', '2020-03-06', 50, 'SOL'),
-	(30, 'Consentimiento_4_2020-03-06_IMG_5907.jpg', 1, '2020-03-06 17:49:54', '2020-03-06', 50, 'SOL'),
-	(31, 'Consentimiento_4_2020-03-06_tarjeta.pdf', 1, '2020-03-06 18:12:14', '2020-03-06', 50, 'SOL');
+INSERT INTO `documentos` (`id`, `valor`, `documentos_tipo_id`, `fecha_creacion`, `fecha_documento`, `estado_id`, `usuario_id`, `familia`) VALUES
+	(1, 'test.jpg', 1, '2020-03-09 12:37:22', '2020-03-09', 16, 50, 'SOL'),
+	(2, 'test.jpg', 1, '2020-03-09 12:37:30', '2020-03-09', 16, 50, 'SOL'),
+	(3, 'test.jpg', 1, '2020-03-09 12:37:31', '2020-03-09', 16, 50, 'SOL'),
+	(4, 'test.jpg', 1, '2020-03-09 12:38:34', '2020-03-09', 16, 50, 'SOL'),
+	(5, 'test.jpg', 1, '2020-03-09 12:39:08', '2020-03-09', 16, 50, 'SOL'),
+	(6, 'test.jpg', 2, '2020-03-09 12:40:49', '2020-03-09', 16, 50, 'SOL'),
+	(7, 'test_otro.jpg', 2, '2020-03-09 12:41:12', '2020-03-09', 16, 50, 'SOL'),
+	(8, 'test_otro.jpg', 2, '2020-03-09 12:41:24', '2020-03-09', 16, 50, 'SOL'),
+	(9, 'test_otro.jpg', 2, '2020-03-09 12:43:27', '2020-03-09', 16, 50, 'SOL'),
+	(10, 'test_otro.jpg', 1, '2020-03-09 12:44:06', '2020-03-09', 16, 50, 'SOL'),
+	(11, 'Consentimiento_4_2020-03-09_logo_t.png', 1, '2020-03-09 14:30:49', '2020-03-09', 15, 50, 'SOL'),
+	(12, 'Otro_4_2020-03-09_pq.png', 2, '2020-03-09 14:30:49', '2020-03-09', 15, 50, 'SOL'),
+	(13, 'Otro_70_2020-03-13_76616478_448167989220350_469734487194861568_n.jpg', 2, '2020-03-13 16:58:04', '2020-03-13', 15, 50, 'SOL'),
+	(14, 'Consentimiento_70_2020-03-13_tali.jpg', 1, '2020-03-13 16:58:04', '2020-03-13', 15, 50, 'SOL'),
+	(15, 'Otro_71_2020-03-13_tali.jpg', 2, '2020-03-13 17:00:12', '2020-03-13', 15, 50, 'SOL'),
+	(16, 'Consentimiento_71_2020-03-13_tali.jpg', 1, '2020-03-13 17:00:12', '2020-03-13', 15, 50, 'SOL');
 /*!40000 ALTER TABLE `documentos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.documentos_tipo
@@ -276,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `maestro_estado` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla soliris.maestro_estado: ~14 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.maestro_estado: ~18 rows (aproximadamente)
 /*!40000 ALTER TABLE `maestro_estado` DISABLE KEYS */;
 INSERT INTO `maestro_estado` (`id`, `valor`, `tipo`, `referencia`) VALUES
 	(1, 'Activo', 'estado', 'usuario'),
@@ -292,7 +306,11 @@ INSERT INTO `maestro_estado` (`id`, `valor`, `tipo`, `referencia`) VALUES
 	(11, 'Aprobado', 'estado', 'paciente'),
 	(12, 'Baja', 'estado', 'paciente'),
 	(13, 'Rechazado', 'estado', 'paciente'),
-	(14, 'Eliminado', 'estado', 'venta');
+	(14, 'Eliminado', 'estado', 'venta'),
+	(15, 'Activo', 'estado', 'documento'),
+	(16, 'Inactivo', 'estado', 'documento'),
+	(17, 'Activo', 'estado', 'apm'),
+	(18, 'Inactivo', 'estado', 'apm');
 /*!40000 ALTER TABLE `maestro_estado` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.medico
@@ -329,10 +347,8 @@ CREATE TABLE IF NOT EXISTS `medico` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='InnoDB free: 351232 kB';
 
--- Volcando datos para la tabla soliris.medico: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.medico: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `medico` DISABLE KEYS */;
-INSERT INTO `medico` (`id`, `apellido`, `nombre`, `matricula_tipo`, `matricula_numero`, `fecha_alta`, `apm_id`, `C_Atencion`, `Lugar`, `U_mod`, `Mail`, `telefono`, `Fax`, `nacimiento`, `domicilio`, `fecha_cap`, `localidad`, `especialidad`, `estado`, `Aprobado`, `Fecha_Aprobado`, `id_meditec`, `prov_id`, `m_nac`, `m_prov`, `ant_nombre`, `esp_id`, `fl`, `fecha_inac`) VALUES
-	(1030, NULL, 'Medico test', 'Nacional', '1111111111', '2019-12-10', 11, '', 'HOSPITAL', NULL, '', '', '', '', '', '2019-12-10', '', 'otro', 'Activo', NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `medico` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.obra_social
@@ -412,13 +428,17 @@ CREATE TABLE IF NOT EXISTS `paciente` (
   CONSTRAINT `FK_usuario_pac` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Tabla de Pacientes';
 
--- Volcando datos para la tabla soliris.paciente: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.paciente: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
 INSERT INTO `paciente` (`id`, `apellido`, `nombre`, `nombre_completo`, `fecha_nac`, `sexo`, `telefono`, `ciudad`, `pais_id`, `mail`, `patologia_id`, `sub_patologia_id`, `os_id`, `notas`, `usuario_id`, `c_gestar`, `estado_id`, `sub_estado_id`, `fecha_creacion`, `familia`, `fecha_modificacion`, `usuario_mod_id`, `crm_id`) VALUES
-	(4, 'MIRANDAA', 'PABLA', 'MIRANDAA, PABLA', '2020-02-19', 'M', '01131218333', 'TIGRE', 16, 'PMIRAND6@GMAIL.COM', 18, 4, 4, NULL, 50, '', 7, 8, '2020-02-26 16:10:37', 'SOL', '2020-03-06 13:29:28', 50, NULL),
+	(4, 'MIRANDA', 'PABLO', 'MIRANDA, PABLO', '2020-03-12', 'M', '01131218333', 'TIGRE', 13, 'PMIRAND6@GMAIL.COM', 17, 4, 2, 'Se rechaza paciente', 50, '', 7, 8, '2020-02-26 16:10:37', 'SOL', '2020-03-13 15:28:04', 50, NULL),
 	(5, 'MIRANDA', 'PABLO', 'MIRANDA, PABLO', '2020-02-19', 'M', '01131218333', 'TIGRE', 16, 'PMIRAND6@GMAIL.COM', 21, 1, 4, NULL, 50, NULL, 7, 0, '2020-03-03 09:58:58', 'SOL', '2020-03-05 17:24:07', 50, NULL),
 	(6, 'MIRANDA', 'PABLO', 'MIRANDA, PABLO', '2020-03-05', 'M', '01131218333', 'TIGRE', 13, 'PMIRAND6@GMAIL.COM', 17, 4, 4, NULL, 50, NULL, 7, 0, '2020-03-06 10:53:54', 'SOL', '0000-00-00 00:00:00', 0, 1234),
-	(34, 'MIRANDA', 'PABLI', 'MIRANDA, PABLI', '2020-03-05', 'M', '01131218333', 'TIGRE', 13, 'PMIRAND6@GMAIL.COM', 17, 4, 4, NULL, 50, NULL, 7, 0, '2020-03-06 12:25:31', 'SOL', '0000-00-00 00:00:00', 0, 1234);
+	(34, 'MIRANDA', 'PABLITO', 'MIRANDA, PABLITO', '2020-03-12', 'M', '01131218333', 'TIGRE', 13, 'PMIRAND6@GMAIL.COM', 17, 4, 2, NULL, 50, '', 7, 8, '2020-03-06 12:25:31', 'SOL', '2020-03-13 15:32:36', 50, NULL),
+	(67, 'MIRANDA', 'PABLO', 'MIRANDA, PABLO', '2020-03-13', 'M', '01131218333', 'TIGRE', 13, 'PMIRAND6@GMAIL.COM', 18, 4, 2, NULL, 50, NULL, 7, 8, '2020-03-13 16:23:28', 'SOL', '2020-03-13 16:23:28', 50, NULL),
+	(69, 'MIRANDA', 'PABLO', 'MIRANDA, PABLO', '2020-03-08', 'M', '01131218333', 'TIGRE', 13, 'PMIRAND6@GMAIL.COM', 17, 4, 2, NULL, 50, NULL, 7, 8, '2020-03-13 16:25:20', 'SOL', '2020-03-13 16:25:20', 50, NULL),
+	(70, 'MIRANDA', 'PABLO', 'MIRANDA, PABLO', '2020-03-04', 'M', '01131218333', 'TIGRE', 13, 'PMIRAND6@GMAIL.COM', 17, 4, 2, NULL, 50, NULL, 7, 8, '2020-03-13 16:32:17', 'SOL', '2020-03-13 16:32:17', 50, NULL),
+	(71, 'CILVETI', 'DIEGO', 'CILVETI, DIEGO', '1500-01-01', 'M', '01131218333', 'TIGRE', 13, 'PMIRAND6@GMAIL.COM', 17, 4, 2, 'Se da de baja el paciente', 50, NULL, 12, 8, '2020-03-13 16:59:56', 'SOL', '2020-03-13 17:08:25', 50, NULL);
 /*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.paises
@@ -733,27 +753,29 @@ CREATE TABLE IF NOT EXISTS `rel_paciente_documentos` (
   PRIMARY KEY (`id`),
   KEY `FK_doc_pac` (`paciente_id`),
   KEY `FK_doc_doc` (`documento_id`),
-  CONSTRAINT `FK_doc_doc` FOREIGN KEY (`documento_id`) REFERENCES `documentos` (`id`),
-  CONSTRAINT `FK_doc_pac` FOREIGN KEY (`paciente_id`) REFERENCES `paciente` (`id`)
+  CONSTRAINT `FK_doc_pac` FOREIGN KEY (`paciente_id`) REFERENCES `paciente` (`id`),
+  CONSTRAINT `FK_doc_doc` FOREIGN KEY (`documento_id`) REFERENCES `documentos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla de relacion de los documentos de los pacientes en el sistema';
 
--- Volcando datos para la tabla soliris.rel_paciente_documentos: ~13 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.rel_paciente_documentos: ~16 rows (aproximadamente)
 /*!40000 ALTER TABLE `rel_paciente_documentos` DISABLE KEYS */;
 INSERT INTO `rel_paciente_documentos` (`id`, `paciente_id`, `documento_id`, `fecha_creacion`) VALUES
-	(1, 4, 2, '2020-03-02 20:15:48'),
-	(2, 4, 10, '2020-03-06 16:08:09'),
-	(3, 4, 2, '2020-03-06 17:06:53'),
-	(6, 4, 21, '2020-03-06 17:31:32'),
-	(7, 4, 22, '2020-03-06 17:31:50'),
-	(8, 4, 23, '2020-03-06 17:32:15'),
-	(9, 4, 24, '2020-03-06 17:33:15'),
-	(10, 4, 25, '2020-03-06 17:35:53'),
-	(11, 4, 26, '2020-03-06 17:37:01'),
-	(12, 4, 27, '2020-03-06 17:38:01'),
-	(13, 4, 28, '2020-03-06 17:46:17'),
-	(14, 4, 29, '2020-03-06 17:49:54'),
-	(15, 4, 30, '2020-03-06 17:49:54'),
-	(16, 4, 31, '2020-03-06 18:12:14');
+	(1, 4, 1, '2020-03-09 12:37:22'),
+	(2, 4, 2, '2020-03-09 12:37:30'),
+	(3, 4, 3, '2020-03-09 12:37:31'),
+	(4, 4, 4, '2020-03-09 12:38:34'),
+	(5, 4, 5, '2020-03-09 12:39:08'),
+	(6, 4, 6, '2020-03-09 12:40:49'),
+	(7, 4, 7, '2020-03-09 12:41:12'),
+	(8, 4, 8, '2020-03-09 12:41:24'),
+	(9, 4, 9, '2020-03-09 12:43:27'),
+	(10, 4, 10, '2020-03-09 12:44:06'),
+	(11, 4, 11, '2020-03-09 14:30:49'),
+	(12, 4, 12, '2020-03-09 14:30:49'),
+	(13, 70, 13, '2020-03-13 16:58:04'),
+	(14, 70, 14, '2020-03-13 16:58:04'),
+	(15, 71, 15, '2020-03-13 17:00:12'),
+	(16, 71, 16, '2020-03-13 17:00:12');
 /*!40000 ALTER TABLE `rel_paciente_documentos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.rel_patologia_sub_patologia
@@ -1045,7 +1067,7 @@ CREATE TABLE IF NOT EXISTS `soliris_log` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla soliris.soliris_log: ~215 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.soliris_log: ~266 rows (aproximadamente)
 /*!40000 ALTER TABLE `soliris_log` DISABLE KEYS */;
 INSERT INTO `soliris_log` (`id`, `usuario`, `fecha`, `accion`, `registro`, `notas`, `tabla`, `id_registro`) VALUES
 	(12253, 'PMIRANDA', '2019-12-10 15:20:53', 'Intento Fallido de Login', NULL, 'Desde el Equipo: 10.33.9.37 - ERROR: Verifique el usuario y la contraseña introducidos', NULL, NULL),
@@ -1230,7 +1252,84 @@ INSERT INTO `soliris_log` (`id`, `usuario`, `fecha`, `accion`, `registro`, `nota
 	(12432, 'pmiranda', '2020-03-06 17:46:17', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-06_tali.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
 	(12433, 'pmiranda', '2020-03-06 17:49:54', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Otro\', \'Otro_4_2020-03-06_tali.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
 	(12434, 'pmiranda', '2020-03-06 17:49:54', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-06_IMG_5907.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
-	(12435, 'pmiranda', '2020-03-06 18:12:14', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-06_tarjeta.pdf\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL);
+	(12435, 'pmiranda', '2020-03-06 18:12:14', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-06_tarjeta.pdf\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12436, 'pmiranda', '2020-03-09 09:58:21', 'CALL ST_UP_PACIENTE(\r\n            4,\r\n            \'TEST\', \r\n            \'TEST\', \r\n            \'2020-03-09\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            19, \r\n            4, \r\n            4, \r\n            \'pmiranda\', \r\n            \'8\',\r\n            \'7\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12437, 'pmiranda', '2020-03-09 09:58:37', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_tali.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12438, 'pmiranda', '2020-03-09 10:05:45', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_tali.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12439, 'pmiranda', '2020-03-09 10:05:45', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Otro\', \'Otro_4_2020-03-09_IMG_5687.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12440, 'pmiranda', '2020-03-09 10:10:15', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_IMG_5907.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12441, 'pmiranda', '2020-03-09 10:10:48', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_BARRALE-CECILIA-TEST-OK.GIF\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12442, 'pmiranda', '2020-03-09 10:10:48', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Otro\', \'Otro_4_2020-03-09_ALM_snapshot_107.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12443, 'pmiranda', '2020-03-09 10:12:05', 'CALL `ST_UP_DOC_PACIENTE`(\'5\', \'Consentimiento\', \'Consentimiento_5_2020-03-09_IMG_5907.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12444, 'pmiranda', '2020-03-09 10:12:05', 'CALL `ST_UP_DOC_PACIENTE`(\'5\', \'Otro\', \'Otro_5_2020-03-09_IMG_5802.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12445, 'pmiranda', '2020-03-09 10:12:37', 'CALL `ST_UP_DOC_PACIENTE`(\'6\', \'Consentimiento\', \'Consentimiento_6_2020-03-09_logo_t.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12446, 'pmiranda', '2020-03-09 10:12:37', 'CALL `ST_UP_DOC_PACIENTE`(\'6\', \'Otro\', \'Otro_6_2020-03-09_pq.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12447, 'pmiranda', '2020-03-09 10:15:34', 'CALL `ST_UP_DOC_PACIENTE`(\'34\', \'Consentimiento\', \'Consentimiento_34_2020-03-09_logo_t.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12448, 'pmiranda', '2020-03-09 10:15:47', 'CALL `ST_UP_DOC_PACIENTE`(\'34\', \'Consentimiento\', \'Consentimiento_34_2020-03-09_logo_t.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12449, 'pmiranda', '2020-03-09 10:54:34', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_logo_t.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12450, 'pmiranda', '2020-03-09 10:54:48', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Otro\', \'Otro_4_2020-03-09_pq.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12451, 'pmiranda', '2020-03-09 10:55:05', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_productivo---copia.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12452, 'pmiranda', '2020-03-09 11:01:26', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_pq.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12453, 'pmiranda', '2020-03-09 11:07:29', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_logo_t.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12454, '::1', '2020-03-09 11:59:22', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_76616478_448167989220350_469734487194861568_n.jpg\', \'\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12455, 'pmiranda', '2020-03-09 11:59:35', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_76616478_448167989220350_469734487194861568_n.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12456, 'pmiranda', '2020-03-09 12:04:42', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_logo_t.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12457, 'pmiranda', '2020-03-09 12:05:31', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_logo_t.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12458, 'pmiranda', '2020-03-09 12:06:02', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_logo_t.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12459, 'pmiranda', '2020-03-09 14:30:49', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Consentimiento\', \'Consentimiento_4_2020-03-09_logo_t.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12460, 'pmiranda', '2020-03-09 14:30:49', 'CALL `ST_UP_DOC_PACIENTE`(\'4\', \'Otro\', \'Otro_4_2020-03-09_pq.png\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12461, 'pmiranda', '2020-03-13 11:34:42', 'SELECT FU_VAL_PAC(\'4\', \'DASDASD\', \'\', \'pmiranda\') as response', 'paciente_form.php', NULL, NULL, NULL),
+	(12462, 'pmiranda', '2020-03-13 11:45:20', 'CALL ST_VAL_PAC(\'4\', \'DASDASD\', \'11\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12463, 'pmiranda', '2020-03-13 11:45:36', 'CALL ST_VAL_PAC(\'4\', \'DASDASD\', \'11\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12464, 'pmiranda', '2020-03-13 11:46:11', 'CALL ST_VAL_PAC(\'4\', \'DASDASD\', \'11\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12465, 'pmiranda', '2020-03-13 11:47:04', 'CALL ST_VAL_PAC(\'4\', \'dasdasd\', \'11\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12466, 'pmiranda', '2020-03-13 11:47:55', 'CALL ST_VAL_PAC(\'4\', \'dasdasd\', \'11\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12467, 'pmiranda', '2020-03-13 11:48:49', 'CALL ST_VAL_PAC(\'4\', \'dasdasd\', \'11\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12468, 'pmiranda', '2020-03-13 11:50:12', 'CALL ST_VAL_PAC(\'4\', \'dasdasd\', \'12\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12469, 'pmiranda', '2020-03-13 14:01:09', 'CALL ST_VAL_PAC(\'4\', \'se rechaza el paciente\', \'Rechazado\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12470, 'pmiranda', '2020-03-13 14:02:10', 'CALL ST_VAL_PAC(\'4\', \'se rechaza el paciente\', \'Rechazado\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12471, 'pmiranda', '2020-03-13 14:03:16', 'CALL ST_VAL_PAC(\'4\', \'\', \'Rechazado\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12472, 'pmiranda', '2020-03-13 14:03:52', 'CALL ST_VAL_PAC(\'4\', \'\', \'11\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12473, 'pmiranda', '2020-03-13 14:06:13', 'CALL ST_VAL_PAC(\'4\', \'Se rechaza paciente\', \'13\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12474, 'PMIRANDA', '2020-03-13 14:53:55', 'Intento Fallido de Login', NULL, 'Desde el Equipo: ::1 - ERROR: Verifique el usuario y la contraseña introducidos', NULL, NULL),
+	(12475, 'pmiranda', '2020-03-13 15:25:12', 'CALL ST_UP_PACIENTE(\r\n            4,\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-12\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            HPN, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'Activo\',\r\n            \'7\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12476, 'pmiranda', '2020-03-13 15:26:56', 'CALL ST_UP_PACIENTE(\r\n            4,\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-11\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'Activo\',\r\n            \'7\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12477, 'pmiranda', '2020-03-13 15:28:04', 'CALL ST_UP_PACIENTE(\r\n            4,\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-12\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\',\r\n            \'7\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12478, 'pmiranda', '2020-03-13 15:32:35', 'CALL ST_UP_PACIENTE(\r\n            34,\r\n            \'MIRANDA\', \r\n            \'PABLITO\', \r\n            \'2020-03-12\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\',\r\n            \'7\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12479, 'pmiranda', '2020-03-13 15:43:02', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'GASTON\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12480, 'pmiranda', '2020-03-13 15:43:08', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'GASTON\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12481, 'pmiranda', '2020-03-13 15:43:17', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'GASTON\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'9\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12482, 'pmiranda', '2020-03-13 15:43:32', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'GASTON\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12483, 'pmiranda', '2020-03-13 15:45:09', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'GASTON\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12484, 'pmiranda', '2020-03-13 15:46:45', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'GASTON\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12485, 'pmiranda', '2020-03-13 15:47:04', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'GASTON\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12486, 'pmiranda', '2020-03-13 15:48:01', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12487, 'pmiranda', '2020-03-13 15:48:43', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12488, 'pmiranda', '2020-03-13 15:48:53', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-10\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12489, 'pmiranda', '2020-03-13 15:50:00', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-10\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'9\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12490, 'pmiranda', '2020-03-13 15:50:42', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-10\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12491, 'pmiranda', '2020-03-13 15:52:48', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-12\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            NULL, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12492, 'pmiranda', '2020-03-13 15:54:55', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12493, 'pmiranda', '2020-03-13 16:03:30', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12494, 'pmiranda', '2020-03-13 16:06:32', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12495, 'pmiranda', '2020-03-13 16:21:11', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            18, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12496, 'pmiranda', '2020-03-13 16:22:56', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12497, 'pmiranda', '2020-03-13 16:23:28', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-13\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            18, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12498, 'pmiranda', '2020-03-13 16:25:20', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-08\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12499, 'pmiranda', '2020-03-13 16:32:17', 'CALL `ST_NEW_PACIENTE`(\r\n            \'MIRANDA\', \r\n            \'PABLO\', \r\n            \'2020-03-04\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12500, 'pmiranda', '2020-03-13 16:58:04', 'CALL `ST_UP_DOC_PACIENTE`(\'70\', \'Otro\', \'Otro_70_2020-03-13_76616478_448167989220350_469734487194861568_n.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12501, 'pmiranda', '2020-03-13 16:58:04', 'CALL `ST_UP_DOC_PACIENTE`(\'70\', \'Consentimiento\', \'Consentimiento_70_2020-03-13_tali.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12502, 'pmiranda', '2020-03-13 16:59:55', 'CALL `ST_NEW_PACIENTE`(\r\n            \'CILVETI\', \r\n            \'DIEGO\', \r\n            \'1500-01-01\', \r\n            \'M\', \r\n            \'01131218333\', \r\n            \'TIGRE\', \r\n            13, \r\n            \'PMIRAND6@GMAIL.COM\', \r\n            17, \r\n            4, \r\n            2, \r\n            \'pmiranda\', \r\n            \'8\', \r\n            NULL)', 'paciente_form.php', NULL, NULL, NULL),
+	(12503, 'pmiranda', '2020-03-13 17:00:12', 'CALL `ST_UP_DOC_PACIENTE`(\'71\', \'Otro\', \'Otro_71_2020-03-13_tali.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12504, 'pmiranda', '2020-03-13 17:00:12', 'CALL `ST_UP_DOC_PACIENTE`(\'71\', \'Consentimiento\', \'Consentimiento_71_2020-03-13_tali.jpg\', \'pmiranda\')', 'ajx.docs_paciente.php', NULL, NULL, NULL),
+	(12505, 'pmiranda', '2020-03-13 17:01:52', 'CALL ST_VAL_PAC(\'71\', \'Se rechaza el paciente\', \'13\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12506, 'pmiranda', '2020-03-13 17:03:01', 'CALL ST_VAL_PAC(\'71\', \'Otro comentario\', \'12\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12507, 'pmiranda', '2020-03-13 17:03:48', 'CALL ST_VAL_PAC(\'71\', \'Otro comentario\', \'11\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12508, 'pmiranda', '2020-03-13 17:04:07', 'CALL ST_VAL_PAC(\'71\', \'Se da de baja el paciente\', \'12\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12509, 'pmiranda', '2020-03-13 17:04:19', 'CALL ST_VAL_PAC(\'71\', \'Se da de baja el paciente\', \'12\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12510, 'pmiranda', '2020-03-13 17:05:23', 'CALL ST_VAL_PAC(\'71\', \'Se da de baja el paciente\', \'12\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12511, 'pmiranda', '2020-03-13 17:05:54', 'CALL ST_VAL_PAC(\'71\', \'dasdasd\', \'11\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL),
+	(12512, 'pmiranda', '2020-03-13 17:08:25', 'CALL ST_VAL_PAC(\'71\', \'Se da de baja el paciente\', \'12\', \'pmiranda\')', 'paciente_form.php', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `soliris_log` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.soliris_maestro
@@ -1553,6 +1652,34 @@ insert into soliris_log (usuario,fecha, accion, registro, tabla, notas) (select 
 END//
 DELIMITER ;
 
+-- Volcando estructura para procedimiento soliris.ST_DISABLE_OLD_DOC_PAC
+DELIMITER //
+CREATE PROCEDURE `ST_DISABLE_OLD_DOC_PAC`(
+	IN `v_idPac` INT,
+	IN `v_idTipoDoc` INT
+)
+    COMMENT 'Coloca el estado inactivo a los documentos de un paciente'
+BEGIN
+
+DECLARE counter INT;
+
+SET counter = (SELECT COUNT(*) FROM rel_paciente_documentos rel INNER JOIN documentos d ON d.documentos_tipo_id = v_idTipoDoc WHERE rel.paciente_id = v_idPac);
+
+IF( counter > 0 ) THEN
+
+	UPDATE documentos 
+	INNER JOIN rel_paciente_documentos ON rel_paciente_documentos.documento_id = documentos.id
+	INNER JOIN paciente ON rel_paciente_documentos.paciente_id = paciente.id 
+	INNER JOIN documentos_tipo ON documentos.documentos_tipo_id = documentos_tipo.id
+	SET documentos.estado_id = 16 
+	WHERE paciente.id = v_idPac 
+	AND documentos_tipo.id = v_idTipoDoc;
+
+END IF;
+
+END//
+DELIMITER ;
+
 -- Volcando estructura para procedimiento soliris.ST_DOC_PAC_MODIFIED
 DELIMITER //
 CREATE PROCEDURE `ST_DOC_PAC_MODIFIED`(
@@ -1688,32 +1815,47 @@ insert into soliris_log set usuario='sistema', fecha=now(), accion='Inactivacion
 END//
 DELIMITER ;
 
--- Volcando estructura para procedimiento soliris.ST_LIST_DOCS_PAC
+-- Volcando estructura para procedimiento soliris.ST_LIST_ALL_DOCS_PAC
 DELIMITER //
-CREATE PROCEDURE `ST_LIST_DOCS_PAC`(
+CREATE PROCEDURE `ST_LIST_ALL_DOCS_PAC`(
+	IN `v_idPac` INT
+)
+    COMMENT 'Lista los documentos del paciente'
+BEGIN
+
+SELECT 
+	dt.tipo,
+	d.valor AS documento, 
+	date_format(d.fecha_documento, '%d/%m/%Y') AS fecha_doc,
+	m.valor AS estado
+FROM documentos as d
+LEFT OUTER JOIN documentos_tipo as dt ON d.documentos_tipo_id = dt.id
+INNER JOIN rel_paciente_documentos rel ON d.id = rel.documento_id
+INNER JOIN maestro_estado m ON m.id = d.estado_id
+WHERE rel.paciente_id = v_idPac
+GROUP BY d.valor, dt.tipo ORDER BY d.id desc;
+
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento soliris.ST_LIST_DOCS_ACTIVOS_PAC
+DELIMITER //
+CREATE PROCEDURE `ST_LIST_DOCS_ACTIVOS_PAC`(
 	IN `v_id` INT
 )
     COMMENT 'Lista los documentos del paciente'
 BEGIN
 
--- SELECT d.valor AS documento, dt.tipo FROM rel_paciente_documentos rel
--- INNER JOIN paciente p ON rel.paciente_id = p.id
--- INNER JOIN documentos d ON rel.documento_id = d.id
--- INNER JOIN documentos_tipo dt ON dt.id = d.documentos_tipo_id
--- WHERE dt.referencia = 'Paciente' and
--- p.id = 4
--- GROUP BY dt.tipo ORDER BY rel.id DESC LIMIT 0,2;
-
-
 SELECT 
 	d.valor AS documento, 
 	dt.tipo,
-	MAX(d.id)
+	DATE_FORMAT(d.fecha_documento, '%d/%m/%Y') as fecha_documento,
+	DATE_FORMAT(d.fecha_creacion, '%d/%m/%Y %H:%i:%s') AS fecha_creacion
 FROM documentos as d
 LEFT OUTER JOIN documentos_tipo as dt ON d.documentos_tipo_id = dt.id
 INNER JOIN rel_paciente_documentos rel ON d.id = rel.documento_id
-WHERE rel.paciente_id = v_id
-GROUP BY d.valor, dt.tipo ORDER BY d.id DESC LIMIT 0, 2;
+WHERE rel.paciente_id = 4 AND d.estado_id = 15
+GROUP BY d.valor, dt.tipo ORDER BY d.id;
 
 END//
 DELIMITER ;
@@ -1807,7 +1949,7 @@ CREATE PROCEDURE `ST_NEW_PACIENTE`(
 	IN `v_sub_patologia_id` INT,
 	IN `v_os_id` INT,
 	IN `v_usuario` VARCHAR(50),
-	IN `v_sub_estado_id` VARCHAR(50),
+	IN `v_sub_estado_id` INT,
 	IN `v_crm_id` INT
 )
     COMMENT 'Creacion del nuevo paciente'
@@ -1822,8 +1964,6 @@ DECLARE c_sub_estado INT;
         SELECT CONCAT('ERROR: Ya existe el paciente ', CONCAT(v_apellido, ', ', v_nombre), ' con fecha de nacimiento: ', v_fecha_nac) AS mensaje;
     end;
    
-
-SET c_sub_estado = (SELECT id FROM `maestro_estado` WHERE `tipo` = 'sub_estado' AND valor = 'v_sub_estado');
 
 SET c_usuario_id = (SELECT u.id FROM usuario u WHERE v_usuario = u.username);
 
@@ -1841,10 +1981,12 @@ INSERT INTO paciente
 		patologia_id, 
 		sub_patologia_id, 
 		os_id, 
-		usuario_id, 		
+		usuario_id, 
+		usuario_mod_id,		
 		estado_id, 
 		sub_estado_id, 
 		fecha_creacion, 
+		fecha_modificacion,
 		familia, 
 		crm_id
 		)
@@ -1863,9 +2005,11 @@ INSERT INTO paciente
 		v_sub_patologia_id, 
 		v_os_id, 
 		c_usuario_id, 
+		c_usuario_id,
 		7, 
-		c_sub_estado, 
+		v_sub_estado_id, 
 		NOW(), 
+		NOW(),
 		'SOL', 
 		v_crm_id
 		);
@@ -1911,17 +2055,6 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `ST_SHOW_PACIENTE`(
 	IN `v_id` INT
-
-
-
-
-
-
-
-
-
-
-
 )
     COMMENT 'Muestra la informacion del paciente'
 BEGIN
@@ -1932,13 +2065,22 @@ SELECT
 	p.id as id, 
 	p.apellido as apellido, 
 	p.nombre as nombre, 
+	p.usuario_id AS usuario_creador_id,
+	(SELECT u.username FROM usuario u WHERE u.id = p.usuario_id) AS usuario_creador,
+	p.usuario_mod_id AS usuario_mod_id,
+	(SELECT u.username FROM usuario u WHERE u.id = p.usuario_mod_id) AS usuario_mod,
 	(select me.id from maestro_estado me where me.id = p.estado_id) as estado_id,
 	(select me.valor from maestro_estado me where me.id = p.estado_id) as estado_valor,
 	(select me.id from maestro_estado me where me.id = p.sub_estado_id) as sub_estado_id,
 	p.fecha_nac as fecha_nac,
+	DATE_FORMAT(p.fecha_nac, '%d/%m/%Y') as fecha_nac_formateada,
 	(select pat.id from patologia pat where pat.id = p.patologia_id) as patologia_id,
+	(select pat.patologia_nombre from patologia pat where pat.id = p.patologia_id) as patologiaNombre,
 	(select sub_pat.id from sub_patologia sub_pat where sub_pat.id = p.sub_patologia_id) as sub_patologia_id,
+	(select sub_pat.sub_patologia_nombre from sub_patologia sub_pat where sub_pat.id = p.sub_patologia_id) as subPatologiaNombre,
 	(SELECT DATE_FORMAT(`FU_SHOW_FECHA_CONS_PAC`(v_id), '%d/%m/%Y')) as fecha_con,
+	(SELECT DATE_FORMAT (p.fecha_creacion, '%d/%m/%Y %H:%i:%s')) AS fecha_creacion,
+	(SELECT DATE_FORMAT (p.fecha_modificacion, '%d/%m/%Y %H:%i:%s')) AS fecha_modificacion,
 	p.telefono as telefono,
 	p.ciudad as ciudad,
 	p.pais_id as pais_id,
@@ -1969,38 +2111,52 @@ CREATE PROCEDURE `ST_UP_DOC_PACIENTE`(
     COMMENT 'Datos de la documentación subida del paciente'
 BEGIN
 
+-- SETEO DE VARIABLES UTILIZADAS EN EL STORE PROCEDURED
+SET @p_nombre_doc := v_nombreDoc; -- VARIABLE QUE CONTIENE EL NOMBRE DEL DOCUMENTO (VARCHAR)
+SET @p_doc_tipo_id := 0; -- VARIABLE DEL TIPO DE ID DEL DOCUMENTO
+SET @p_usuario_id := 0; -- VARIABLE QUE CONTENDRA EL ID DEL USUARIO QUE REALIZA LA ACCION
+SET @p_id_paciente = v_idPac; -- VARIABLE QUE CONTIENE EL ID DEL PACIENTE
+SET @p_tipo = v_tipoDoc; -- VARIABLE QUE CONTIENE EL TIPO DE DOCUMENTO (STRING) QUE SE PASA AL STORE PROCEDURED
 
-SET @p_nombre_doc := v_nombreDoc;
-SET @p_doc_tipo := 0;
-SET @p_usuario_id := 0;
-SET @p_id_paciente = v_idPac;
 
-
-SET @documento_tipo_id = CONCAT("SELECT dt.id INTO @p_doc_tipo FROM documentos_tipo dt WHERE dt.tipo = ? AND dt.referencia = 'Paciente'");
+-- OBTENGO EL ID DEL DOCUMENTO QUE SE PASA POR PARAMETRO
+SET @documento_tipo_id = CONCAT("SELECT dt.id INTO @p_doc_tipo_id FROM documentos_tipo dt WHERE dt.tipo = ? AND dt.referencia = 'Paciente'");
 PREPARE statement_documento_tipo_id FROM @documento_tipo_id;
 SET @p_tipo = v_tipoDoc;
 EXECUTE statement_documento_tipo_id USING @p_tipo;
 DEALLOCATE PREPARE statement_documento_tipo_id;
 
+
+-- OBTENGO EL ID DEL USUARIO QUE ESTA HACIENDO LA ACCION
 SET @usuario_id = CONCAT("SELECT `FU_GET_ID_USUARIO`(?) INTO @p_usuario_id");
 PREPARE statement_usuario_id FROM @usuario_id;
 SET @p_username = v_usuario;
 EXECUTE statement_usuario_id USING @p_username;
 DEALLOCATE PREPARE statement_usuario_id;
 
+-- DESHABILITO LOS DOCUMENTOS DEL PACIENTE PARA QUE LOS NUEVOS DOCUMENTOS SEAN LOS UNICOS HABILITADOS
+SET @query_documentos_up = CONCAT("CALL `ST_DISABLE_OLD_DOC_PAC`(?, ?)");
+PREPARE query_documentos_up FROM @query_documentos_up;
+EXECUTE query_documentos_up USING @p_id_paciente, @p_doc_tipo_id;
+DEALLOCATE PREPARE query_documentos_up;
 
--- SELECT @p_nombre_doc, @p_doc_tipo, @p_usuario_id;
 
-SET @query_documentos = CONCAT("INSERT INTO documentos (valor, documentos_tipo_id, fecha_creacion, fecha_documento, usuario_id, familia) VALUES (?, ?, NOW(), NOW(), ?, 'SOL')");
-PREPARE statement_query_documentos FROM @query_documentos;
-EXECUTE statement_query_documentos USING @p_nombre_doc, @p_doc_tipo, @p_usuario_id;
-DEALLOCATE PREPARE statement_query_documentos;
+-- INSERTO EN LA TABLA DOCUMENTOS LOS DATOS DEL DOCUMENTO CARGADO
+SET @query_documentos_ins = CONCAT("INSERT INTO documentos (valor, documentos_tipo_id, fecha_creacion, fecha_documento, usuario_id, familia) VALUES (?, ?, NOW(), NOW(), ?, 'SOL')");
+PREPARE statement_query_documentos_ins FROM @query_documentos_ins;
+EXECUTE statement_query_documentos_ins USING @p_nombre_doc, @p_doc_tipo_id, @p_usuario_id;
+DEALLOCATE PREPARE statement_query_documentos_ins;
 
+
+-- ESTABLEZCO LA RELACION ENTRE EL NUEVO DOCUMENTO CARGADO Y EL PACIENTE
+-- PARA ESTABLECER EL ID DEL DOCUMENTO EN LA TABLA RELACION, UTILIZO LA FUNCION LAST_INSERT_ID()
 SET @query_rel_paciente_documentos = CONCAT("INSERT INTO rel_paciente_documentos (paciente_id, documento_id, fecha_creacion) VALUES (?, LAST_INSERT_ID(), NOW())");
 PREPARE statement_query_rel_paciente_documentos FROM @query_rel_paciente_documentos;
 EXECUTE statement_query_rel_paciente_documentos USING @p_id_paciente;
 DEALLOCATE PREPARE statement_query_rel_paciente_documentos;
 
+
+-- RETORNO EL MENSAJE AL BACKEND
 SELECT "SE CREO EL REGISTRO CORRECTAMENTE" AS mensaje;
 
 
@@ -2091,6 +2247,42 @@ ELSE
 	SELECT "Mensaje de error";
 	
 END if;
+
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento soliris.ST_VAL_PAC
+DELIMITER //
+CREATE PROCEDURE `ST_VAL_PAC`(
+	IN `v_idPac` INT,
+	IN `v_comentario` LONGTEXT,
+	IN `v_estado` INT,
+	IN `v_usuario` VARCHAR(45)
+)
+    MODIFIES SQL DATA
+    DETERMINISTIC
+BEGIN
+
+-- SETEO DE VARIABLES UTILIZADAS EN EL STORE PROCEDURED
+SET @p_usuario_id := 0; -- VARIABLE QUE CONTENDRA EL ID DEL USUARIO QUE REALIZA LA ACCION
+SET @p_id_pac = v_idPac;
+SET @p_comentario = v_comentario;
+SET @p_estado = v_estado;
+
+-- OBTENGO EL ID DEL USUARIO QUE ESTA HACIENDO LA ACCION
+SET @usuario_id = CONCAT("SELECT `FU_GET_ID_USUARIO`(?) INTO @p_usuario_id");
+PREPARE statement_usuario_id FROM @usuario_id;
+SET @p_username = v_usuario;
+EXECUTE statement_usuario_id USING @p_username;
+DEALLOCATE PREPARE statement_usuario_id;
+
+SET @query_update_paciente = CONCAT("UPDATE paciente p SET p.estado_id = ?, p.notas = ?, p.usuario_mod_id = ?, p.fecha_modificacion = NOW() WHERE p.id = ?");
+PREPARE statement_update_paciente FROM @query_update_paciente;
+EXECUTE statement_update_paciente USING @p_estado, @p_comentario, @p_usuario_id, @p_id_pac;
+DEALLOCATE PREPARE statement_update_paciente;
+
+-- RETORNO EL MENSAJE AL BACKEND
+SELECT "SE ACTUALIZO EL PACIENTE CORRECTAMENTE" AS mensaje;
 
 END//
 DELIMITER ;
@@ -3485,54 +3677,6 @@ ELSE
 	END IF;
 END IF;
 	
-END//
-DELIMITER ;
-
--- Volcando estructura para función soliris.FU_VAL_PAC
-DELIMITER //
-CREATE FUNCTION `FU_VAL_PAC`(
-	`v_id` INT,
-	`v_comentario` LONGTEXT,
-	`v_estado` INT,
-	`v_usuario` VARCHAR(45)
-) RETURNS longtext CHARSET utf8mb4
-    MODIFIES SQL DATA
-    DETERMINISTIC
-BEGIN
-DECLARE devolucion LONGTEXT;
- 
-		UPDATE paciente SET 
-			notas = v_comentario,
-	      estado = v_estado,
- 	      fecha_stamp = now()
-		WHERE 
-			id = v_id;
-
-	IF (SELECT ROW_COUNT() > 0)  THEN
-			
-		IF (v_estado = 'Aprobado') THEN
-			UPDATE pacientes SET 
-		    aprobado = v_usuario,
-		    fecha_aprobado = now(),
-		    fecha_stamp = now()
-			WHERE 
-				id = v_id;
-		else
-			UPDATE pacientes SET 
-		    aprobado = NULL,
-		    fecha_aprobado = NULL
-		   WHERE 
-			 id = v_id;
-				
-		END IF;
-			SET devolucion = v_id;
-	ELSE
-			SET devolucion = 'ERROR NO_UPDATE';
-	END IF;
-
-	
-	RETURN devolucion;
-
 END//
 DELIMITER ;
 
