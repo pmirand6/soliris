@@ -3,8 +3,8 @@
  */
 var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 var paramPaciente = JSON.parse(window.localStorage.getItem('paramPaciente'));
-var fecha_vacunacion;
-var fecha_otro;
+var flagDocumento;
+var flagRespuesta = true;
 
 
 
@@ -58,6 +58,15 @@ var fecha_otro;
                 //alert((paramPaciente.idPac));
                 // $("#file_consentimiento").addClass("glyphicon glyphicon-ok");
                 // ModifiedPac();
+                
+            },
+            onError: function(files,status,errMsg,pd)
+            {
+                //files: list of files
+                //status: error status
+                //errMsg: error message
+                flagUpDoc(false);
+                alert(status + errMsg);
             }
         });
         var Otro = $("#file_otro").uploadFile({
@@ -84,14 +93,27 @@ var fecha_otro;
                 return data;
             },
             onSuccess: function(files,data,xhr){
-                //alert((data));
+                
+            },
+            onError: function(files,status,errMsg,pd)
+{
+                //files: list of files
+                //status: error status
+                //errMsg: error message
+                flagUpDoc(false);
+                alert(status + errMsg);
             }
         });
         $('#save').click(function () {
             var $btn = $(this).button('loading')
             Consentimiento.startUpload();
             Otro.startUpload();
-            window.location.href = aplicacion + '/administrador/pacientes.php?id=' + paramPaciente.idPac;
+            if (flagRespuesta) {
+                alert("Se cargo correctamente la documentación")
+            } else {
+                alert("Hubo un error en la carga de la documentación");
+            }
+            //window.location.href = aplicacion + '/administrador/pacientes.php?id=' + paramPaciente.idPac;
             $btn.button('reset');
 
         });
@@ -109,6 +131,7 @@ var fecha_otro;
 
 // Documentacion Paciente modificado se debe actualizar el estado a Pendiente
 // para que sea revisada la documentacion por FV
+
 function DocPacModified(){
   var parametros = {
       "oper": "DocPacModified",
