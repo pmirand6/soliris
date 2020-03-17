@@ -31,7 +31,7 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "savePac") == 0)){
         // o el parametro sanitizado
                 
         $sub_patologia = (isset($_POST["sub_patologia"]) ? mysqli_real_escape_string($db, $_POST["sub_patologia"]) : 4);
-        $os = parametroEmptyChceck($_POST["os"]);
+        $os = (isset($_POST["os"]) ? mysqli_real_escape_string($db, $_POST["os"]) : 7);
         $telefono = parametroEmptyChceck($_POST["telefono"]);
         $ciudad = parametroEmptyChceck($_POST["ciudad"]);
         $mail = (isset($_POST["mail"]) ? parametroEmptyChceck($_POST["mail"]) : 'NULL');
