@@ -11,6 +11,7 @@
                     los subidos en este módulo los reemplazarán.</i>
             </p>' : ''?>
             </legend>
+            
 
             <!-- ID -->
             <div class="form-group">
@@ -24,13 +25,36 @@
                 </div>
             </div>
 
-            <!-- File Consentimiento -->
+            <!-- Fecha Documento Documento-->
+            <div class="form-group">
+                <label class="col-sm-4 col-xs-4 control-label" for="f_doc_vac">Fecha de Vacunación</label>
+                <div class="col-sm-4 col-xs-8">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
+                        <input id="f_doc_vac" name="f_doc_vac" type="text" placeholder="YYYY-MM-DD" class="form-control input-md date">
+                    </div>
+                </div>
+            </div>
+
+            <!-- File Documento Documento-->
             <div class="form-group">
                 <label class="col-sm-4 col-xs-4 control-label" for="file_consentimiento">Registro Vacunación</label>
                 <div class="col-sm-4 col-xs-6">
                     <div id="file_consentimiento">Subir</div>
                 </div>
             </div>
+
+            <!-- Fecha Documento Otro-->
+            <div class="form-group">
+                <label class="col-sm-4 col-xs-4 control-label" for="f_doc_otro">Fecha de Vacunación</label>
+                <div class="col-sm-4 col-xs-8">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
+                        <input id="f_doc_otro" name="f_doc_otro" type="text" placeholder="YYYY-MM-DD" class="form-control input-md date">
+                    </div>
+                </div>
+            </div>
+
 
             <!-- File Otro -->
             <div class="form-group">

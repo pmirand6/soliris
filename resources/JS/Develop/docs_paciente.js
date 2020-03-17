@@ -3,15 +3,10 @@
  */
 var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 var paramPaciente = JSON.parse(window.localStorage.getItem('paramPaciente'));
+var fecha_vacunacion;
+var fecha_otro;
 
-$.getScript(aplicacion + '/resources/JS/funciones.min.js')
-.done(function( script, textStatus ) {
-    console.log( script, textStatus );
-  })
-  .fail(function( jqxhr, settings, exception ) {
-     // handle error here
-     console.log( jqxhr, settings, exception );
-});
+
 
  $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
     // script is now loaded and executed.
@@ -19,6 +14,24 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js')
     
     $(document).ready(function(){
 
+        $('.date').datepicker({
+            format: "yyyy-mm-dd",
+            language: "es",
+            endDate: getDate(),
+            calendarWeeks: true,
+            autoclose: true,
+            clearBtn: true,
+            todayHighlight: true
+        });
+
+
+        $("#f_doc_vac").on('change', function(){
+            fecha_vacunacion = this.value;
+        });
+
+        $("#f_doc_otro").on('change', function(){
+            fecha_otro = this.value;
+        })
                
 		var Consentimiento = $("#file_consentimiento").uploadFile({
             url: aplicacion + '/ajax/ajx.docs_paciente.php',
@@ -33,8 +46,13 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js')
             formData: {
                 idPac: paramPaciente.idPac, 
                 referencia: "Paciente", 
-                tipoDoc: 'Consentimiento',
+                tipoDoc: 'Vacunacion',
                 oper: 'saveDocPac'
+            },
+            dynamicFormData: function()
+            {
+                var data = { f_doc_vac: getFechaValue('f_doc_vac') }
+                return data;
             },
             onSuccess: function(files,data,xhr){
                 //alert((paramPaciente.idPac));
@@ -57,6 +75,13 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js')
                 referencia: 'Paciente', 
                 tipoDoc: 'Otro',
                 oper: 'saveDocPac'
+            },
+            dynamicFormData: function()
+            {
+                var data = { 
+                    f_doc_otro: getFechaValue('f_doc_otro') 
+                }
+                return data;
             },
             onSuccess: function(files,data,xhr){
                 //alert((data));
@@ -126,4 +151,9 @@ function getUrlHTTP() {
     var path = window.location.pathname;
     var appName = path.split("/");
     return appName[1];
+}
+
+
+function getFechaValue($id){
+    return $('#' + $id + '').val();
 }

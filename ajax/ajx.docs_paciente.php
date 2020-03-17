@@ -55,6 +55,13 @@ if(isset($_FILES["myfile"]) && isset($_POST["oper"]) && $_POST["oper"] == 'saveD
   $referencia = $_POST["referencia"];
   $tipoDoc = $_POST["tipoDoc"];
   $usuario = $_SESSION["soliris_usuario"];
+  if (isset($_POST["f_doc_vac"])) {
+    $fecha_documento = $_POST["f_doc_vac"];
+  }
+  if (isset($_POST["f_doc_otro"])) {
+    $fecha_documento = $_POST["f_doc_otro"];
+  }
+  
 
 	$error = $_FILES["myfile"]["error"];
 	//You need to handle  both cases
@@ -69,7 +76,8 @@ if(isset($_FILES["myfile"]) && isset($_POST["oper"]) && $_POST["oper"] == 'saveD
   
         $nombreDoc = $tipoDoc ."_". $idPac ."_".$date."_".$fileName;
   
-        $SQL = "CALL `ST_UP_DOC_PACIENTE`('{$idPac}', '$tipoDoc', '$nombreDoc', '$usuario')";
+        $SQL = "CALL `ST_UP_DOC_PACIENTE`('{$idPac}', '$tipoDoc', '$nombreDoc', '$usuario', '$fecha_documento')";
+        
 
         $response = MySQL_sendFunctionAudit($SQL, "ajx.docs_paciente.php", "1");
 
