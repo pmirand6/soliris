@@ -20,6 +20,8 @@
         @import "../resources/Bootstrap-3.3.1/css/bootstrap-theme.min.css";
         /* Font-Awesome */
         @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
+        /* Include Bootstrap Datepicker */
+        @import "../resources/Bootstrap-DatePicker/min/datepicker.min.css";
         /* File Upload */
         @import "../resources/JQuery-FileUpload/CSS/uploadfile.css";
         /* Custom CSS */
@@ -36,6 +38,7 @@
 <?php
     include("../vistas/paciente/form_docs_paciente.php");
     include "../resources/Includes/BootstrapHTML5.php";
+    include "../resources/Includes/DatePicker.php";
 ?>
 
     <!-- JQuery FileUpload-->

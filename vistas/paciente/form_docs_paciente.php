@@ -50,7 +50,7 @@
                 <div class="col-sm-4 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
-                        <input id="f_doc_vac" name="f_doc_vac" type="text" placeholder="YYYY-MM-DD" class="form-control input-md date">
+                        <input id="f_doc_otro" name="f_doc_otro" type="text" placeholder="YYYY-MM-DD" class="form-control input-md date">
                     </div>
                 </div>
             </div>
