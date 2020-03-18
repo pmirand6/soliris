@@ -65,7 +65,6 @@ var flagRespuesta = true;
                 //files: list of files
                 //status: error status
                 //errMsg: error message
-                flagUpDoc(false);
                 alert(status + errMsg);
             }
         });
@@ -100,7 +99,6 @@ var flagRespuesta = true;
                 //files: list of files
                 //status: error status
                 //errMsg: error message
-                flagUpDoc(false);
                 alert(status + errMsg);
             }
         });
@@ -108,12 +106,8 @@ var flagRespuesta = true;
             var $btn = $(this).button('loading')
             Consentimiento.startUpload();
             Otro.startUpload();
-            if (flagRespuesta) {
-                alert("Se cargo correctamente la documentación")
-            } else {
-                alert("Hubo un error en la carga de la documentación");
-            }
-            //window.location.href = aplicacion + '/administrador/pacientes.php?id=' + paramPaciente.idPac;
+            alert("Se cargo correctamente la documentación")
+            window.location.href = aplicacion + '/administrador/pacientes.php?id=' + paramPaciente.idPac;
             $btn.button('reset');
 
         });
