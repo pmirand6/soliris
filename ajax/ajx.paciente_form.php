@@ -31,7 +31,7 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "savePac") == 0)){
         // o el parametro sanitizado
                 
         $sub_patologia = (isset($_POST["sub_patologia"]) ? mysqli_real_escape_string($db, $_POST["sub_patologia"]) : 4);
-        $os = (isset($_POST["os"]) ? mysqli_real_escape_string($db, $_POST["os"]) : 7);
+        $os = (isset($_POST["os"]) ? mysqli_real_escape_string($db, $_POST["os"]) : '4');
         $telefono = parametroEmptyChceck($_POST["telefono"]);
         $ciudad = parametroEmptyChceck($_POST["ciudad"]);
         $mail = (isset($_POST["mail"]) ? parametroEmptyChceck($_POST["mail"]) : 'NULL');
@@ -60,6 +60,8 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "savePac") == 0)){
             /* Realizo la consulta */
         // Verificar el log de auditoria
         if (isset($SQL) AND $SQL != ""){
+
+            
             
             $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "1");
             echo $response[0]["mensaje"];
@@ -99,7 +101,7 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "actualizaPac") == 0)){
         // o el parametro sanitizado
                 
         $sub_patologia = (isset($_POST["sub_patologia"]) ? mysqli_real_escape_string($db, $_POST["sub_patologia"]) : 4);
-        $os = parametroEmptyChceck($_POST["os"]);
+        $os = (isset($_POST["os"]) ? mysqli_real_escape_string($db, $_POST["os"]) : '4');
         $telefono = parametroEmptyChceck($_POST["telefono"]);
         $ciudad = parametroEmptyChceck($_POST["ciudad"]);
         $mail = (isset($_POST["mail"]) ? parametroEmptyChceck($_POST["mail"]) : 'NULL');
