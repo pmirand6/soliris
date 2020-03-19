@@ -1,4 +1,4 @@
-<form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form" action="ajx.file-upload.php" method="post" enctype="multipart/form-data">
+<form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form" action="ajx.file-upload.php" method="post" enctype="multipart/form-data" autocomplete="off">
         <fieldset class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10">
             <legend>
 
