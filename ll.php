@@ -4,4 +4,11 @@
 session_start();
 
 $_SESSION["soliris_usuario"] = 'pmiranda';
-$_SESSION["grupo"] = 'fv';
+$_SESSION["grupo"] = 'ventas';
+
+?>
+
+<script>
+
+window.location = '/soliris';
+</script>
