@@ -57,7 +57,7 @@ var flagRespuesta = true;
             Consentimiento.startUpload();
             Otro.startUpload();
             alert("Se cargo correctamente la documentación")
-            //window.location.href = aplicacion + '/administrador/pacientes.php?id=' + paramPaciente.idPac;
+            window.location.href = aplicacion + '/administrador/pacientes.php?id=' + paramPaciente.idPac;
         });
 
 

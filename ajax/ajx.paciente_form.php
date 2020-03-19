@@ -134,7 +134,7 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "actualizaPac") == 0)){
             
             $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "1");
             echo $response[0]["mensaje"];
-            
+            // FIXME ARREGLAR EL ENVIO DE MAIL CUANDO SE ACTUALIZA EL PACIENTE
         //  sendMailPM('Paciente Pendiente', $nombre, '', '');
 
         }

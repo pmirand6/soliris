@@ -105,7 +105,7 @@ function l_set_paciente() {
                     l_set_hero_style(e.estado_id);
                     l_sub_estado(e.sub_estado_id);
                     $("#fechaNacPac").html(e.fecha_nac_formateada);
-                    $("#f_edad").html(l_calcular_edad(e.fecha_nac));
+                    $("#f_edad").html(l_calcular_edad(e.fecha_nac_formateada));
                     $("#telPac").html(e.telefono);
                     $("#ciudadPac").html(e.ciudad);
                     $("#paisPac").html(e.pais_nombre);
@@ -123,8 +123,8 @@ function l_set_paciente() {
                     l_show_id(e.id);
                     $("#apellido").val(e.apellido);
                     $("#nombre").val(e.nombre);
-                    $("#f_nac").val(e.fecha_nac);
-                    $("#f_edad").val(l_calcular_edad(e.fecha_nac));
+                    $("#f_nac").val(e.fecha_nac_formateada);
+                    $("#f_edad").val(l_calcular_edad(e.fecha_nac_formateada));
                     e.sexo == 'M' ? $("#masculino").attr('checked', 'checked'): $("#femenino").attr('checked', 'checked');
                     $("#telefono").val(e.telefono);
                     $("#ciudad").val(e.ciudad);
@@ -286,7 +286,7 @@ function l_calcular_edad(fecha) {
     todayYear = todayDate.getFullYear();
     todayMonth = todayDate.getMonth();
     todayDay = todayDate.getDate();
-    age = todayYear - array_fecha[0];
+    age = todayYear - array_fecha[2];
     return age;
     
 }
@@ -414,7 +414,7 @@ function l_list_os($filter = null, $os_id = null, $os_nombre) {
       
       });
       if($filter) {
-        $('#os').append('<option val="' + $os_id + '" selected="selected">' + $os_nombre + '</option>').selectpicker('refresh');
+        $('#os').append('<option value="' + $os_id + '" selected="selected">' + $os_nombre + '</option>').selectpicker('refresh');
         $("#os").trigger('change');    
       }
 }
@@ -572,15 +572,17 @@ function l_set_dom(){
 }
 
 function save_ventas(){
-
-    var parametros = $("#frm-paciente").serializeArray();
-    if(getQuerystring("id") === ""){
-        parametros.push({name: 'oper', value:'savePac'});
-    } else {
-        parametros.push({name: 'idPac', value: paramPaciente.idPac})
-        parametros.push({name: 'oper', value:'actualizaPac'});
-    }
     
+    if(getQuerystring("id") === ""){
+        l_savePac();
+    } else {
+        l_actualizaPac();
+    }
+}
+
+function l_savePac() {
+    var parametros = $("#frm-paciente").serializeArray();
+    parametros.push({name: 'oper', value:'savePac'});
     $.ajax({
         url: aplicacion + "/ajax/ajx.paciente_form.php",
         type: "POST",
@@ -595,6 +597,28 @@ function save_ventas(){
                 }
                 window.localStorage.setItem('paramPaciente', JSON.stringify(paramPaciente));
                 window.location.href = aplicacion + '/administrador/docs_paciente.php?id=' + opciones;
+            } else {
+                alert(opciones);
+            }
+        }
+    });
+}
+
+function l_actualizaPac() {
+    
+    var parametros = $("#frm-paciente").serializeArray();
+    parametros.push({name: 'idPac', value: paramPaciente.idPac})
+    parametros.push({name: 'oper', value:'actualizaPac'});
+
+    $.ajax({
+        url: aplicacion + "/ajax/ajx.paciente_form.php",
+        type: "POST",
+        data: parametros,
+        async: false,
+        success: function(opciones) {
+            if (opciones.indexOf("ERROR") != 0) {
+                alert('Se registró correctamente. Continue con la carga de la documentación.');
+                window.location.href = aplicacion + '/administrador/docs_paciente.php?id=' + paramPaciente.idPac;
             } else {
                 alert(opciones);
             }
