@@ -4,4 +4,4 @@
 session_start();
 
 $_SESSION["soliris_usuario"] = 'pmiranda';
-$_SESSION["grupo"] = 'admin';
+$_SESSION["grupo"] = 'ventas';

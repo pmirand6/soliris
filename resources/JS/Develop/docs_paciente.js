@@ -15,7 +15,7 @@ var flagRespuesta = true;
     $(document).ready(function(){
 
         $('.date').datepicker({
-            format: "yyyy-mm-dd",
+            format: "dd-mm-yyyy",
             language: "es",
             endDate: getDate(),
             calendarWeeks: true,
@@ -24,13 +24,50 @@ var flagRespuesta = true;
             todayHighlight: true
         });
 
-
-        $("#f_doc_vac").on('change', function(){
-            fecha_vacunacion = this.value;
+        $('.form')
+        .formValidation({
+            framework: 'bootstrap',
+            excluded: ':disabled',
+            icon: {
+                required: 'fa fa-asterisk',
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                f_doc_vac: {
+                    validators: {
+                        date: {
+                            format: 'DD-MM-YYYY',
+                            message: 'El formato es invalido',
+                        },
+                        notEmpty: {
+                            message: 'La Fecha del Documento de vacunación no puede quedar vacía'
+                        },
+                    }
+                },
+                
+            }
+        })
+        .on('success.form.fv', function(e) {
+            e.preventDefault();
+            
+        })
+        .submit(function(e) {
+            Consentimiento.startUpload();
+            Otro.startUpload();
+            alert("Se cargo correctamente la documentación")
+            //window.location.href = aplicacion + '/administrador/pacientes.php?id=' + paramPaciente.idPac;
         });
 
+
+        $("#f_doc_vac").on('change', function(){
+            $('.form').formValidation('revalidateField', 'f_doc_vac');
+        });
+
+        
         $("#f_doc_otro").on('change', function(){
-            fecha_otro = this.value;
+            $('.form').formValidation('revalidateField', 'f_doc_otro');
         })
                
 		var Consentimiento = $("#file_consentimiento").uploadFile({
@@ -53,6 +90,9 @@ var flagRespuesta = true;
             {
                 var data = { f_doc_vac: getFechaValue('f_doc_vac') }
                 return data;
+            },
+            onSubmit: function(){
+                $('.form').formValidation('revalidateField', 'f_doc_vac');
             },
             onSuccess: function(files,data,xhr){
                 //alert((paramPaciente.idPac));
@@ -90,6 +130,19 @@ var flagRespuesta = true;
                     f_doc_otro: getFechaValue('f_doc_otro') 
                 }
                 return data;
+            },
+            onSubmit: function(){
+                $('.form').formValidation('addField', 'f_doc_otro', {
+                    validators: {
+                        date: {
+                            format: 'DD-MM-YYYY',
+                            message: 'El formato es invalido',
+                        },
+                        notEmpty: {
+                            message: 'La Fecha de este Documento no puede quedar vacía'
+                        },
+                    }
+                });
             },
             onSuccess: function(files,data,xhr){
                 

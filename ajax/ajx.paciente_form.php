@@ -18,7 +18,7 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "savePac") == 0)){
         // Varaibles que no pueden ser NULL o vacías
         $nombre = mysqli_real_escape_string($db, strtoupper($_POST["nombre"]));
         $apellido = mysqli_real_escape_string($db, strtoupper($_POST["apellido"]));
-        $f_nac = mysqli_real_escape_string($db, strtoupper($_POST["f_nac"]));
+        $f_nac = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["f_nac"]))), 'Y-m-d');
         $sexo = mysqli_real_escape_string($db, strtoupper($_POST["sexo"]));
         $pais = mysqli_real_escape_string($db, strtoupper($_POST["pais"]));
         $estado = (!isset($_POST["estado"]) || $_POST["estado"] != '' || $_SESSION["grupo"] != 'ventas') ? 7 : $_POST["estado"];
@@ -86,7 +86,7 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "actualizaPac") == 0)){
         // Varaibles que no pueden ser NULL o vacías
         $nombre = mysqli_real_escape_string($db, strtoupper($_POST["nombre"]));
         $apellido = mysqli_real_escape_string($db, strtoupper($_POST["apellido"]));
-        $f_nac = mysqli_real_escape_string($db, strtoupper($_POST["f_nac"]));
+        $f_nac = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["f_nac"]))), 'Y-m-d');
         $sexo = mysqli_real_escape_string($db, strtoupper($_POST["sexo"]));
         $pais = mysqli_real_escape_string($db, strtoupper($_POST["pais"]));
         $estado = (!isset($_POST["estado"]) || $_POST["estado"] != '' || $_SESSION["grupo"] != 'ventas') ? 7 : $_POST["estado"];

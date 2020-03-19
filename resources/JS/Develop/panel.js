@@ -309,6 +309,12 @@ function viewDetails(id) {
 
 function viewDetailsPAC(id) {
     $('#win').window('open'); // close a window
+        localStorage.removeItem('paramPaciente');
+        const paramPaciente = {
+            idPac: id
+        }
+        window.localStorage.setItem('paramPaciente', JSON.stringify(paramPaciente));
+        
     $('#win_list').attr('src', aplicacion + '/administrador/paciente.php?id=' + id);
 }
 

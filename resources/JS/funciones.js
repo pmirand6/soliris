@@ -33,7 +33,7 @@ function getDate() {
         n = e.getDate(),
         t = e.getMonth() + 1,
         i = e.getFullYear();
-    return 10 > n && (n = "0" + n), 10 > t && (t = "0" + t), i + "-" + t + "-" + n
+    return 10 > n && (n = "0" + n), 10 > t && (t = "0" + t), n + "-" + t + "-" + i
 }
 
 function wait(e) {

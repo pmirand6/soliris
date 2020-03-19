@@ -39,7 +39,7 @@
                 <div class="col-sm-4 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
-                        <input id="f_nac" name="f_nac" type="text" placeholder="YYYY-MM-DD" class="form-control input-md date">
+                        <input id="f_nac" name="f_nac" type="text" placeholder="DD-MM-YYYY" class="form-control input-md date">
                     </div>
                 </div>
             </div>

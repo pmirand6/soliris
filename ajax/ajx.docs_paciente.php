@@ -45,6 +45,7 @@ if(isset($_FILES["myfile"]) && isset($_POST["oper"]) && $_POST["oper"] == 'saveD
     referencia: 'Paciente', 
     tipoDoc: 'Otro', <- Tipo de documento
     oper: 'saveDocPac'
+    f_doc_vac || f_doc_otro en formato dd-mm-yyyy
   */
 
 
@@ -56,10 +57,14 @@ if(isset($_FILES["myfile"]) && isset($_POST["oper"]) && $_POST["oper"] == 'saveD
   $tipoDoc = $_POST["tipoDoc"];
   $usuario = $_SESSION["soliris_usuario"];
   if (isset($_POST["f_doc_vac"])) {
-    $fecha_documento = $_POST["f_doc_vac"];
+    
+    $date_format = date_create_from_format('d-m-Y', $_POST["f_doc_vac"]);
+    $fecha_documento = date_format($date_format, 'Y-m-d');
+
   }
   if (isset($_POST["f_doc_otro"])) {
-    $fecha_documento = $_POST["f_doc_otro"];
+    $date_format = date_create_from_format('d-m-Y', $_POST["f_doc_otro"]);
+    $fecha_documento = date_format($date_format, 'Y-m-d');
   }
   
 
@@ -77,7 +82,6 @@ if(isset($_FILES["myfile"]) && isset($_POST["oper"]) && $_POST["oper"] == 'saveD
         $nombreDoc = $tipoDoc ."_". $idPac ."_".$date."_".$fileName;
   
         $SQL = "CALL `ST_UP_DOC_PACIENTE`('{$idPac}', '$tipoDoc', '$nombreDoc', '$usuario', '$fecha_documento')";
-        
 
         $response = MySQL_sendFunctionAudit($SQL, "ajx.docs_paciente.php", "1");
 

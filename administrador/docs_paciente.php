@@ -38,7 +38,9 @@
 <?php
     include("../vistas/paciente/form_docs_paciente.php");
     include "../resources/Includes/BootstrapHTML5.php";
+    include "../resources/Includes/FormValidation.php";
     include "../resources/Includes/DatePicker.php";
+    
 ?>
 
     <!-- JQuery FileUpload-->

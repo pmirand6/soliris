@@ -2,6 +2,8 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 var paramPaciente = JSON.parse(window.localStorage.getItem('paramPaciente'));
 var usuario = JSON.parse(window.localStorage.getItem('usuario'));
 
+
+
 $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
     // script is now loaded and executed.
     // put your dependent JS here.
@@ -23,7 +25,7 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
         $.fn.ajaxSelectPicker.locale.es = $.fn.ajaxSelectPicker.locale["es-ES"];
 
         $('.date').datepicker({
-            format: "yyyy-mm-dd",
+            format: "dd-mm-yyyy",
             language: "es",
             endDate: getDate(),
             calendarWeeks: true,
@@ -520,7 +522,7 @@ function l_validate_form() {
                 f_nac: {
                     validators: {
                         date: {
-                            format: 'YYYY-MM-DD',
+                            format: 'DD-MM-YYYY',
                             message: 'El formato es invalido',
                         },
                         notEmpty: {
@@ -528,30 +530,7 @@ function l_validate_form() {
                         },
                     }
                 },
-                /*f_consen: {
-                    validators: {
-                        date: {
-                            format: 'YYYY-MM-DD',
-                            message: 'El formato es invalido',
-                        },
-                        notEmpty: {
-                            message: 'La Fecha de Consentimiento del paciente no puede quedar vacía'
-                        },
-                        callback: {
-                            message: 'La fecha de consentimiento no puede ser menor a la de nacimiento',
-                            callback: function (value, validator, $field) {
-                                var f_nac_date = $("#f_nac").val();
-                                if (value < f_nac_date) {
-                                    return false;
-                                } else {
-                                    return true;
-                                }
-
-                            }
-                        }
-                    }
-                },*/
-                telefono: {
+               telefono: {
                     validators: {
                         regexp: {
                             regexp: /^[0-9 -]+$/,
@@ -568,20 +547,7 @@ function l_validate_form() {
         })
         .on('success.form.fv', function(e) {
             e.preventDefault();
-            switch (usuario.grupo) {
-                case 'ventas':
-                save_ventas();
-                break;
-                case 'marketing':
-                save_ventas();
-                break;
-                case 'fv':
-                save_admin();
-                break;
-                case 'admin':
-                save_admin();
-                break;
-            }
+            save_ventas();
         })
         .submit(function(e) {
             e.preventDefault();
@@ -591,6 +557,8 @@ function l_validate_form() {
 
 function l_set_dom(){
     
+
+    l_validate_form();
     
     if(getQuerystring("id") === ""){
         l_list_patologias();
@@ -598,16 +566,13 @@ function l_set_dom(){
         l_list_paises();
         l_list_os();
         l_sub_estado();
-        l_validate_form();
     } else {
         l_set_paciente();
     }
-
-    
 }
 
 function save_ventas(){
-    
+
     var parametros = $("#frm-paciente").serializeArray();
     if(getQuerystring("id") === ""){
         parametros.push({name: 'oper', value:'savePac'});

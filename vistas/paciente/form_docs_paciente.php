@@ -31,7 +31,7 @@
                 <div class="col-sm-4 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
-                        <input id="f_doc_vac" name="f_doc_vac" type="text" placeholder="YYYY-MM-DD" class="form-control input-md date">
+                        <input id="f_doc_vac" name="f_doc_vac" type="text" placeholder="DD-MM-YYYY" class="form-control input-md date">
                     </div>
                 </div>
             </div>
@@ -50,12 +50,10 @@
                 <div class="col-sm-4 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
-                        <input id="f_doc_otro" name="f_doc_otro" type="text" placeholder="YYYY-MM-DD" class="form-control input-md date">
+                        <input id="f_doc_otro" name="f_doc_otro" type="text" placeholder="DD-MM-YYYY" class="form-control input-md date">
                     </div>
                 </div>
             </div>
-
-
             <!-- File Otro -->
             <div class="form-group">
                 <label class="col-sm-4 col-xs-4 control-label" for="file_otro">Otro</label>
@@ -63,25 +61,18 @@
                     <div id="file_otro">Subir</div>
                 </div>
             </div>
-
-<?=
-    (isset($_GET["id"]) && !empty($_GET["id"])) ?
-        '<!-- Button (Double) -->
+            <!-- Button (Double) -->
             <div class="form-group text-center">
                 <div class="col-sm-12">
-                    <a id="save" name="save" class="btn btn-success" data-loading-text="Loading...">
-                        <span class="fa fa-save"></span>
-                        Guardar
-                    </a>
-                </div>
+                    <button type="submit" id="bot_up_doc" name="bot_up_doc" data-loading-text="Loading..."
+                    class="btn btn-success disabled">
+                    <span class="fa fa-save"></span>
+                    Guardar
+                </button>
             </div>
         </fieldset>
-    </form>' : 'No seleccionó un paciente al cuál adjuntar documentación.'?>
-
-<script>
+    </form>
 
 
 
-
-</script>
         
