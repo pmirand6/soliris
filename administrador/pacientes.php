@@ -54,7 +54,8 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
             <b class="pointer iniciales btn btn-xs btn-info" id="TODOS" style='margin-right: 5px'>TODOS</b>
             <?php
             for ($i=65;$i<=90;$i++) {
-                echo "<b class=\"pointer iniciales btn btn-xs ". f_l_pac(chr($i)) ."\" id=\"" . chr($i) . "\" style=\"margin-right: 5px\">" . strtoupper(chr($i)) . "</b>";
+                echo "<b class=\"pointer iniciales btn btn-xs 
+                ". f_l_pac(chr($i)) ."\" id=\"" . chr($i) . "\" style=\"margin-right: 5px\">" . strtoupper(chr($i)) . "</b>";
             }
             ?>
         </div>
@@ -114,7 +115,7 @@ include "../resources/Includes/DataTables.php";
 
 function f_l_pac($value){
     include $_SERVER['DOCUMENT_ROOT'] . _BD;
-    $SQL = "SELECT count(id) as cant FROM paciente WHERE substring(nombre,1,1) = '$value';";
+    $SQL = "SELECT count(id) as cant FROM paciente WHERE substring(apellido,1,1) = '$value';";
     $result = mysqli_query($db, $SQL);
 
     while ($reg = mysqli_fetch_assoc($result)) {
