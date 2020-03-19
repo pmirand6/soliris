@@ -204,8 +204,8 @@ function l_estado_dictamen($estadoValor, $notas = null, $usuario_mod, $fecha_mod
     
     $("#estadoDictamen").show();
     $("#estado").prop("disabled", true);
-
-    if (usuario.grupo = 'fv' || usuario.grupo == 'admin') {
+    
+    if ((usuario.grupo = 'fv' || usuario.grupo == 'admin')) {
         const content = `
         <nav class="level">
             <div class="level-item has-text-centered">
@@ -224,7 +224,7 @@ function l_estado_dictamen($estadoValor, $notas = null, $usuario_mod, $fecha_mod
         </div>
         
         `;
-        $("#ultimaNota").html(content);
+        ($notas === null) ? '' : $("#ultimaNota").html(content);
     } else {
         const content =`
         <div class="row">
@@ -237,11 +237,6 @@ function l_estado_dictamen($estadoValor, $notas = null, $usuario_mod, $fecha_mod
         </div>`
         $("#estadoDictamen").html(content);
         }
-
-        
-    
-    
-
 }
 
 function l_list_estado($estado_id) {
