@@ -106,10 +106,10 @@ function l_set_paciente() {
                     l_sub_estado(e.sub_estado_id);
                     $("#fechaNacPac").html(e.fecha_nac_formateada);
                     $("#f_edad").html(l_calcular_edad(e.fecha_nac_formateada));
-                    $("#telPac").html(e.telefono);
-                    $("#ciudadPac").html(e.ciudad);
+                    (e.telefono === 'NULL') ? $("#telPac").html('-') : $("#telPac").html(e.telefono);
+                    (e.ciudad == 'NULL') ? $("#ciudadPac").html('-') : $("#ciudadPac").html(e.ciudad);
                     $("#paisPac").html(e.pais_nombre);
-                    $("#emailPac").html(e.mail);
+                    (e.mail == 'NULL') ? $("#emailPac").html('-'): $("#emailPac").html(e.mail);
                     $("#sexoPac").html(e.sexo);
                     $("#osPac").html(e.os_nombre);
                     $("crmId").html(e.crm_id);
