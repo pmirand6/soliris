@@ -134,7 +134,7 @@ function l_set_paciente() {
                     e.estado_id === "7" ? l_estado_dictamen(e.estado_valor) : l_estado_dictamen(e.estado_valor, e.notas);
                     l_sub_estado(e.sub_estado_id);
                     l_list_patologias(e.patologia_id);
-                    l_list_sub_patologia(e.sub_patologia_id, e.sub_patologia_id, null);
+                    (e.sub_patologia_id !== '4') ?  l_list_sub_patologia(e.sub_patologia_id, e.sub_patologia_id, null) : $("#div-sub_pat").hide();
                     l_list_os(true, e.os_id, e.os_nombre);
                     $("#crm_id").val(e.crm_id);    
                 }
