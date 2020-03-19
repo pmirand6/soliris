@@ -16,7 +16,7 @@
     </div>
 
     <div class="buttons has-addons is-centered">
-        <button id="confirmar_pac" name="confirmar_pac" type="submit" class="button is-primary is-centered"><span class="icon is-small"><i class="fa fa-check"></i></span><span>Validar Paciente</span></button>
+        <button id="confirmar_pac" name="confirmar_pac" type="submit" class="button is-primary is-centered"><span class="icon is-small"><i class="fa fa-check"></i></span><span>Guardar Estado</span></button>
     </div>
 
         
