@@ -142,6 +142,10 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
     
 <!-- Custom JS -->
 <script type="text/javascript" src="resources/JS/Develop/defa.js"></script>
+<script>
+l_setUserProfile('<?=$_SESSION["soliris_usuario"]?>', '<?=$_SESSION["grupo"]?>')
+
+</script>
 
 <?php
 //Cierro la condicion que divide entre APM y el resto

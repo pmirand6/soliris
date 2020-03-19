@@ -1,5 +1,6 @@
 var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 var paramPaciente = JSON.parse(window.localStorage.getItem('paramPaciente'));
+var usuario = JSON.parse(window.localStorage.getItem('usuario'));
 
 $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
     // script is now loaded and executed.
@@ -95,7 +96,7 @@ function l_set_paciente() {
         data: {id : getQuerystring("id")},
         success: function (response) {
             $.map($.parseJSON(response), function (e, i) {
-                if (paramPaciente.grupo == 'fv' || paramPaciente.grupo == 'admin') {
+                if (usuario.grupo == 'fv' || usuario.grupo == 'admin') {
                     $("#nombrePac").html(e.apellido + ' ' + e.nombre);
                     $("#idPac").html(e.id);
                     $("#estadoPac").html(e.estado_valor);
@@ -202,7 +203,7 @@ function l_estado_dictamen($estadoValor, $notas = null, $usuario_mod, $fecha_mod
     $("#estadoDictamen").show();
     $("#estado").prop("disabled", true);
 
-    if (paramPaciente.grupo = 'fv' || paramPaciente.grupo == 'admin') {
+    if (usuario.grupo = 'fv' || usuario.grupo == 'admin') {
         const content = `
         <nav class="level">
             <div class="level-item has-text-centered">
@@ -270,7 +271,7 @@ function l_sub_estado($sub_estado_id) {
                 $('#sub_estado').selectpicker('refresh');
                 
                 if(e.id == $sub_estado_id){
-                    ((paramPaciente.grupo == 'fv') || (paramPaciente.grupo == 'admin')) ? $("#subEstadoPac").html(e.valor) : $('#sub_estado').selectpicker('val', e.valor); 
+                    ((usuario.grupo == 'fv') || (usuario.grupo == 'admin')) ? $("#subEstadoPac").html(e.valor) : $('#sub_estado').selectpicker('val', e.valor); 
                 }
             });
         }
@@ -567,7 +568,7 @@ function l_validate_form() {
         })
         .on('success.form.fv', function(e) {
             e.preventDefault();
-            switch (paramPaciente.grupo) {
+            switch (usuario.grupo) {
                 case 'ventas':
                 save_ventas();
                 break;
@@ -590,7 +591,7 @@ function l_validate_form() {
 
 function l_set_dom(){
     
-    //l_disable_form(paramPaciente.grupo);
+    
     if(getQuerystring("id") === ""){
         l_list_patologias();
         l_hide_selectpicker_sub_pat();
@@ -637,7 +638,7 @@ function save_ventas(){
 }
 
 function save_admin(){
-    if (paramPaciente.grupo == 'fv') {
+    if (usuario.grupo == 'fv') {
         var parametros = {
             "oper": "ValidaPac",
             "id": $('#id').val(),

@@ -138,7 +138,6 @@ function callPac(id, grupo){
     localStorage.removeItem('paramPaciente');
     const paramPaciente = {
         idPac: id,
-        grupo: grupo
     }
     window.localStorage.setItem('paramPaciente', JSON.stringify(paramPaciente));
 }

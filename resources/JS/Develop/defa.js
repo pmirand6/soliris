@@ -39,6 +39,16 @@ $(document).ready(function () {
         deleteProfile()
     });
 });
+// Setea los valores del usuario en Local Storage usuario
+function l_setUserProfile($usuario, $grupo) {
+
+    localStorage.removeItem('usuario');
+    const usuario = {
+        username: $usuario,
+        grupo: $grupo
+    }
+    window.localStorage.setItem('usuario', JSON.stringify(usuario));
+}
 
 function pop(url){
     document.getElementById('if_main').src = url;
