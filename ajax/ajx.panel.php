@@ -41,7 +41,14 @@ if($_POST["oper"] == "DataPPA") {
    # include $_SERVER['DOCUMENT_ROOT'] . _FN;
 
     $var = array();
-    $query = "CALL `ST_LIST_PACIENTES_PENDIENTES`()";
+    // FIXME Verificar los permisos de grupo para la visualizacion de panel
+    // si es que se va a implementar el grupo de atencion al paciente
+    if($_SESSION["grupo"] == 'ventas'){
+        $query = "CALL ST_LIST_PACIENTES_NO_APROBADOS()";
+    } else {
+        $query = "CALL `ST_LIST_PACIENTES_PENDIENTES`()";
+    }
+    
 
     $result = mysqli_query($db, $query);
 
