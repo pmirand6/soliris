@@ -44,7 +44,7 @@
             "email" => $row["email"],
             "telefono" => $row["telefono"],
             "notas" => $row["notas"],
-            "estado" => "<div class=\"TBL TBL-" . str_replace(" ", "_", $estado) . "\" title=\"$estado\"><p class=\"hidden\">$estado</p></div>",
+            "estado" => "<div class=\"TBL TBL-" . $estado . "\" title=\"$estado\"><p class=\"hidden\">$estado</p></div>",
             "sub-estado" => $row["sub_estado"],
 			"uventa" => $u_venta
         );
