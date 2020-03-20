@@ -1,6 +1,6 @@
 <div class="container is-fluid">
    <div class="tile is-ancestor">
-      <div class="tile is-parent">
+      <div class="tile is-parent is-7">
          <article class="tile is-child box">
             <section class="hero" id="heroHeadPac">
                <div class="hero-body">
@@ -47,67 +47,63 @@
                   </nav>
                </div>
             </section>
-            <div class="container is-fluid section">
+            <div class="container  section">
                <div class="content-tab" id="datosPac">
-                  <div class="columns">
-                     <div class="column is-one-third ">
-                        <div class="box is-info has-background-white-ter">
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">Sexo </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="sexoPac"></p>
-                           </div>
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">Fecha Nacimiento </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="fechaNacPac"></p>
-                           </div>
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">Edad </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="f_edad"></p>
-                           </div>
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">OS </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="osPac"></p>
-                           </div>
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">CRM ID </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="crmId"></p>
-                           </div>
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">Sub Estado </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="subEstadoPac"></p>
-                           </div>
+                  <div class="box is-info has-background-white-ter">
+                     <div class="columns">
+                        <div class="column">
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">Sexo: </label>
+                              <span class="title is-size-6 has-text-grey-darker" id="sexoPac"></span>
+                           </p>
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">Fecha Nacimiento: </label>
+                              <span class="title is-size-6 has-text-grey-darker" id="fechaNacPac"></span>
+                           </p>
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">Edad: </label>
+                              <span class="title is-size-6 has-text-grey-darker" id="f_edad"></span>
+                           </p>
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">OS: </label> 
+                              <span class="title is-size-6 has-text-grey-darker" id="osPac"></span>
+                           </p>
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">CRM ID: </label>
+                              <span class="title is-size-6 has-text-grey-darker" id="crmId"></span>
+                           </p>
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">Sub Estado: </label>
+                              <span class="title is-size-6 has-text-grey-darker" id="subEstadoPac"></span>
+                           </p>
+                        </div>
+                        <div class="column">
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">Ciudad: </label>
+                              <span class="title is-size-6 has-text-grey-darker" id="ciudadPac"></span>
+                           </p>
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">Pais: </label>
+                              <span class="title is-size-6 has-text-grey-darker" id="paisPac"></span>
+                           </p>                           
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">Mail: </label>
+                              <span class="title is-size-7 has-text-grey-darker" id="emailPac"></span>
+                           </p>
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">Telefono: </label>
+                              <span class="title is-size-6 has-text-grey-darker" id="telPac"></span>
+                           </p>
                         </div>
                      </div>
-                     <div class="column is-one-third">
-                        <div class="box has-background-white-ter">
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">Ciudad </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="ciudadPac"></p>
-                           </div>
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">Pais </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="paisPac"></p>
-                           </div>
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">Mail </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="emailPac"></p>
-                           </div>
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">Telefono </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="telPac"></p>
-                           </div>
+                     <div class="columns">
+                        <div class="column">
+                           <p class="subtitle is-size-6 has-text-grey">Patologia </p>
+                           <p class="title is-size-6 has-text-grey-darker" id="patPac"></p>
                         </div>
-                     </div>
-                     <div class="column is-one-third">
-                        <div class="box is-info has-background-white-ter">
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">Patologia </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="patPac"></p>
-                           </div>
-                           <div class="column">
-                              <p class="subtitle is-size-6 has-text-grey">Sub Patologia </p>
-                              <p class="title is-size-6 has-text-grey-darker" id="subPatPac"></p>
-                           </div>
+                        <div class="column">
+                           <p class="subtitle is-size-6 has-text-grey">Sub Patologia </p>
+                           <p class="title is-size-6 has-text-grey-darker" id="subPatPac"></p>
                         </div>
                      </div>
                   </div>
@@ -123,7 +119,7 @@
          </article>
          
       </div>
-      <div class="tile is-parent">
+      <div class="tile is-parent is-6">  
          <div class="box">
             <section class="hero is-info">
                <div class="hero-body">

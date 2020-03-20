@@ -269,14 +269,13 @@ function l_list_estado($estado_id) {
 }
 
 function l_sub_estado($sub_estado_id) {
-
     $.getJSON("../ajax/ajx.sub_estado.php", {"oper" : 'getSubEstado'},
         function (data) {
             $.map(data, function (e, i) {
                 $('#sub_estado').append('<option value=' + e.id + '>' + e.valor + '</option>');
                 $('#sub_estado').selectpicker('refresh');
-                
-                if(e.id == $sub_estado_id){
+                console.log(e.id, $sub_estado_id)
+                if(e.id === $sub_estado_id){
                     ((usuario.grupo === 'fv') || (usuario.grupo === 'admin')) ? $("#subEstadoPac").html(e.valor) : $('#sub_estado').selectpicker('val', e.valor); 
                 }
             });
