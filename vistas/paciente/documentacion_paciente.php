@@ -78,6 +78,18 @@
                         <div class='container'>
                         <div class='row'>
                 ";
+                echo '<table class="table">
+                        <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Fecha Documento</th>
+                            <th>Fecha Creación</th>
+                            <th>Documento</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        ';
+                        
                 // Listo todos los documentos que esten activos para el paciente
                 $sql = "CALL `ST_LIST_DOCS_ACTIVOS_PAC`('$id')";
                 $resultdoc = mysqli_query($db, $sql);
@@ -89,25 +101,33 @@
                     $extension = strtolower(pathinfo($doc["documento"], PATHINFO_EXTENSION));
                     $tipo = $doc["tipo"];
 
-
                     echo "
-                  
-                        <div class=\"col-sm-6 col-xs-6\" onclick = \"openfile('$documento')\" style='cursor:pointer;'>
-                                    <span class=\"file_extension _$extension\" title=\"$tipo\"></span>
-                                    <b>$tipo</b>
-                            
-                        </div>
-                        
+                    <tr>
+                        <td>
+                            {$tipo}
+                        </td>
+                        <td>
+                            {$doc['fecha_documento']}
+                        </td>
+                        <td>
+                            {$doc['fecha_creacion']}
+                        </td>
+                        <td>
+                            <div class=\"col-sm-6 col-xs-6\" 
+                            onclick=\"openFileInModal('{$documento}')\" style=\"cursor:pointer;\">
+                            <span class=\"file_extension _{$extension}\"></span>
+                        </td>
+                    </tr>
+                    
                     ";
             };
             mysqli_free_result($resultdoc);
-
-            echo "
-            </div>
-                    </div>
-            </fieldset>
-            </form>
-            ";
+                  
+                echo '</tbody>
+              </table>
+                </fieldset>
+            </form>'
+            ;
             
         }
 ?>

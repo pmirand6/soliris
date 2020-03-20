@@ -6,6 +6,8 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 
 $(document).ready(function () {
 
+
+
     window.onload = timerReset;
     document.onkeypress = timerReset;
     document.onmousemove = timerReset;
@@ -41,7 +43,7 @@ $(document).ready(function () {
 });
 // Setea los valores del usuario en Local Storage usuario
 function l_setUserProfile($usuario, $grupo) {
-
+    localStorage.clear();
     localStorage.removeItem('usuario');
     const usuario = {
         username: $usuario,
@@ -108,7 +110,7 @@ function deleteProfile(){
             $("#remember").show();
         }
     });
-    sessionStorage.clear();
+    localStorage.clear();
     window.location.href = 'login.php';
 }
 

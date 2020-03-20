@@ -171,6 +171,8 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "ValidaPac") == 0)){
 	
         $SQL = "CALL ST_VAL_PAC('$idPac', '$comentario', '$estado', '$usuario')";
 
+        
+
         /* Realizo la consulta */
         if (isset($SQL) AND $SQL != ""){
             $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "1");

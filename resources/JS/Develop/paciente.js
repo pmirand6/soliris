@@ -3,7 +3,6 @@ var paramPaciente = JSON.parse(window.localStorage.getItem('paramPaciente'));
 var usuario = JSON.parse(window.localStorage.getItem('usuario'));
 
 
-
 $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
     // script is now loaded and executed.
     // put your dependent JS here.
@@ -69,13 +68,6 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
     });
 });
 
-function l_disable_form(grupo) {
-    if (grupo == 'fv') {
-        $("#frm-paciente input, select").prop("disabled", true);
-
-    }
-}
-
 function l_dictamen_paciente(){
 
     var data = $("#frmDictamenPac").serializeArray();
@@ -92,6 +84,7 @@ function l_dictamen_paciente(){
 }
 
 function l_set_paciente() {
+    
     $.ajax({
         type: "POST",
         url: '../ajax/ajx.paciente.php',
@@ -131,7 +124,7 @@ function l_set_paciente() {
                     l_list_paises(true, e.pais_id, e.pais_nombre);
                     $("#mail").val(e.mail);
                     l_get_estado(e.estado_id);
-                    e.estado_id === "7" ? l_estado_dictamen(e.estado_valor) : l_estado_dictamen(e.estado_valor, e.notas);
+                    e.estado_id === "7" ? l_estado_dictamen(e.estado_valor) : l_estado_dictamen(e.estado_valor, e.notas, e.usuario_mod);
                     l_sub_estado(e.sub_estado_id);
                     l_list_patologias(e.patologia_id);
                     (e.sub_patologia_id !== '4') ?  l_list_sub_patologia(e.sub_patologia_id, e.sub_patologia_id, null) : $("#div-sub_pat").hide();
@@ -165,18 +158,19 @@ function openFileInModal(e) {
     urlImagen = aplicacion + "/documentacion/" + e;
 
     $('#imgModalDocumentacionPaciente').attr("src", urlImagen);
-
-    var modal = document.querySelector('.modal');  // assuming you have only 1
-    var html = document.querySelector('html');
-    modal.classList.add('is-active');
-    html.classList.add('is-clipped');
-
-    modal.querySelector('.modal-background').addEventListener('click', function(e) {
-        e.preventDefault();
-        modal.classList.remove('is-active');
-        html.classList.remove('is-clipped');
-  });
-
+    if (usuario.grupo === 'fv' || usuario.grupo === 'admin') {
+        var modal = document.querySelector('.modal');  // assuming you have only 1
+        var html = document.querySelector('html');
+        modal.classList.add('is-active');
+        html.classList.add('is-clipped');
+        modal.querySelector('.modal-background').addEventListener('click', function(e) {
+            e.preventDefault();
+            modal.classList.remove('is-active');
+            html.classList.remove('is-clipped');        
+        });
+    } else {
+        $('#modalDocumentacionPaciente').modal('toggle');    
+    }
 
  }
 
@@ -205,7 +199,7 @@ function l_estado_dictamen($estadoValor, $notas = null, $usuario_mod, $fecha_mod
     $("#estadoDictamen").show();
     $("#estado").prop("disabled", true);
     
-    if ((usuario.grupo = 'fv' || usuario.grupo == 'admin')) {
+    if ((usuario.grupo === 'fv' || usuario.grupo === 'admin')) {
         const content = `
         <nav class="level">
             <div class="level-item has-text-centered">
@@ -222,19 +216,34 @@ function l_estado_dictamen($estadoValor, $notas = null, $usuario_mod, $fecha_mod
                 <span class="tag is-info">${$fecha_modificacion}</span>
             </div>
         </div>
-        
         `;
         ($notas === null) ? '' : $("#ultimaNota").html(content);
     } else {
-        const content =`
-        <div class="row">
-        <div class="col-sm-6 col-xs-6">
-            <p class="validation_check_alert">Registro en estado: "${$estadoValor}" <br> 
-            ${$notas ? 'Motivo:<i> ' + $notas +'</i>' : ''}
-            </p>
-            <p>Nota creada por: ${$usuario_mod}</p>
-        </div>
-        </div>`
+        switch ($estadoValor) {
+            case 'Pendiente':
+                $class = 'alert-warning'
+                break;
+            case 'Aprobado':
+                $class = 'alert-success'
+                break;
+            case 'Baja':
+                $class = 'alert-danger'
+                break;
+            case 'Rechazado':
+                $class= 'alert-danger'
+                break;
+            default:
+                $class = 'alert-info'
+                break;
+        }
+        const content = `
+                <div class="alert ${$class}" role="alert">
+                    <p>Paciente en estado: <b>"${$estadoValor}" </b></p>
+                    ${$notas ? '<p>Motivo:<i> ' + $notas +'</i></p>' : ''}
+                    ${$usuario_mod !== undefined ? `<p>Nota creada por: <b>${$usuario_mod}</b></p>` : ''}
+                </div>
+        `
+        
         $("#estadoDictamen").html(content);
         }
 }
@@ -268,7 +277,7 @@ function l_sub_estado($sub_estado_id) {
                 $('#sub_estado').selectpicker('refresh');
                 
                 if(e.id == $sub_estado_id){
-                    ((usuario.grupo == 'fv') || (usuario.grupo == 'admin')) ? $("#subEstadoPac").html(e.valor) : $('#sub_estado').selectpicker('val', e.valor); 
+                    ((usuario.grupo === 'fv') || (usuario.grupo === 'admin')) ? $("#subEstadoPac").html(e.valor) : $('#sub_estado').selectpicker('val', e.valor); 
                 }
             });
         }

@@ -1,4 +1,36 @@
+<style>
+
+/*
+Full screen Modal 
+*/
+.fullscreen-modal .modal-dialog {
+  margin: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 60%;
+}
+@media (min-width: 768px) {
+  .fullscreen-modal .modal-dialog {
+    width: 550px;
+  }
+}
+@media (min-width: 992px) {
+  .fullscreen-modal .modal-dialog {
+    width: 770px;
+  }
+}
+@media (min-width: 1200px) {
+  .fullscreen-modal .modal-dialog {
+     width: 970px;
+  }
+}
+
+
+</style>
+
+
 <form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form" autocomplete="off" id="frm-paciente">
+<span id="estadoDictamen"></span>
         <fieldset class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10">
             <!-- Form Name -->
             <legend>Datos del Paciente</legend>
@@ -194,4 +226,23 @@
         </button>
     </div>
 </div>
+
 </form>
+
+<!-- Modal -->
+
+<div class="modal fullscreen-modal fade" id="modalDocumentacionPaciente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	      </div>
+	      <div class="modal-body">
+            <img id="imgModalDocumentacionPaciente" class="img-responsive" src="" alt="">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>

@@ -83,7 +83,7 @@ function deleteProfile(){
             $("#remember").show();
         }
     });
-    sessionStorage.clear();
+    localStorage.clear();
     // window.location.href = window.location.href;
 }
 

@@ -143,13 +143,15 @@
 </div>
 
 <div class="modal" id="modalDocumentacionPaciente">
-   <div class="modal-background"></div>
-   <div class="modal-content">
-      <p class="image is-4by3">
-         <img id="imgModalDocumentacionPaciente" src="" alt="">
-      </p>
-   </div>
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <p class="image is-4by3">
+      <img id="imgModalDocumentacionPaciente" src="" alt="">
+    </p>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
 </div>
+
 <script>
    function openTab(evt, tabName) {
       let i, x, tablinks;
