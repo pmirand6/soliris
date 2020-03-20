@@ -38,9 +38,6 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
             l_hide_selectpicker_sub_pat();            
             l_list_sub_patologia(null, this.value, $('#patologia option:selected').text());
         });
-        $('#patologia').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-            l_list_sub_patologia(null, this.value, $('#patologia option:selected').text());
-        });
 
         if (getQuerystring("id") === "") {
             document.getElementById('masculino').checked = true;
@@ -127,7 +124,7 @@ function l_set_paciente() {
                     e.estado_id === "7" ? l_estado_dictamen(e.estado_valor) : l_estado_dictamen(e.estado_valor, e.notas, e.usuario_mod);
                     l_sub_estado(e.sub_estado_id);
                     l_list_patologias(e.patologia_id);
-                    (e.sub_patologia_id !== '4') ?  l_list_sub_patologia(e.sub_patologia_id, e.sub_patologia_id, null) : $("#div-sub_pat").hide();
+                    (e.sub_patologia_id !== '4') ?  l_list_sub_patologia(e.sub_patologia_id, e.patologia_id, null) : $("#div-sub_pat").hide();
                     l_list_os(true, e.os_id, e.os_nombre);
                     $("#crm_id").val(e.crm_id);    
                 }
@@ -274,7 +271,6 @@ function l_sub_estado($sub_estado_id) {
             $.map(data, function (e, i) {
                 $('#sub_estado').append('<option value=' + e.id + '>' + e.valor + '</option>');
                 $('#sub_estado').selectpicker('refresh');
-                console.log(e.id, $sub_estado_id)
                 if(e.id === $sub_estado_id){
                     ((usuario.grupo === 'fv') || (usuario.grupo === 'admin')) ? $("#subEstadoPac").html(e.valor) : $('#sub_estado').selectpicker('val', e.valor); 
                 }
@@ -311,6 +307,7 @@ function l_list_patologias($patologia_id = null) {
 function l_list_sub_patologia($sub_patologia_id = null, $patologia_id, $patologia_nombre){
     $('#sub_patologia').empty();
     $('#sub_patologia').selectpicker('refresh');
+
                 
     $.get('../ajax/ajx.sub_patologia.php', {oper: 'list_sub_patologia', patologia_id: $patologia_id},
         function (data) {
@@ -319,10 +316,12 @@ function l_list_sub_patologia($sub_patologia_id = null, $patologia_id, $patologi
                 $('#sub_patologia').append('<option value="" selected >Seleccione una Sub Patología</option>');
                 $.map(data, function (e, i) {
                     $('#sub_patologia').append('<option data-subtext=' + $patologia_nombre + ' value=' + e.id + '>' + e.sub_patologia_nombre + '</option>');
-                    $('#sub_patologia').selectpicker('refresh');
+                    
                     if($sub_patologia_id == e.id){
                         $('#sub_patologia').selectpicker('val', e.id);
                     }
+
+                    $('#sub_patologia').selectpicker('refresh');
                 });
             }
         },
