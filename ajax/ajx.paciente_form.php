@@ -32,11 +32,16 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "savePac") == 0)){
                 
         $sub_patologia = (isset($_POST["sub_patologia"]) ? mysqli_real_escape_string($db, $_POST["sub_patologia"]) : 4);
         $os = (isset($_POST["os"]) ? mysqli_real_escape_string($db, $_POST["os"]) : 4);
-        $telefono = parametroEmptyChceck($_POST["telefono"]);
-        $ciudad = parametroEmptyChceck($_POST["ciudad"]);
-        $mail = (isset($_POST["mail"]) ? parametroEmptyChceck($_POST["mail"]) : 'NULL');
-        $cmrid = (isset($_POST["crm_id"]) ? parametroEmptyChceck($_POST["crm_id"]) : 'NULL');
-
+        $telefono = (isset($_POST["telefono"]) ? mysqli_real_escape_string($db, $_POST["telefono"]) : NULL);
+        $ciudad = (isset($_POST["ciudad"]) ? mysqli_real_escape_string($db, $_POST["ciudad"]) : NULL);
+        $mail = (isset($_POST["mail"]) ? mysqli_real_escape_string($db, $_POST["mail"]) : NULL);
+        //$cmrid = ((isset($_POST["crm_id"]) && (!empty($_POST["crm_id"])) ? mysqli_real_escape_string($db, $_POST["crm_id"]) : 0;
+        if (isset($_POST["crm_id"]) && !empty($_POST["crm_id"])) {
+            $cmrid = mysqli_real_escape_string($db, $_POST["crm_id"]);
+        } else {
+            $cmrid = 0;
+        }
+        
         
     
         // Creo Paciente
@@ -55,6 +60,8 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "savePac") == 0)){
             '{$usuario}', 
             '{$sub_estado}', 
             {$cmrid})";
+
+            echo $SQL;
         
         
             /* Realizo la consulta */
@@ -102,10 +109,10 @@ if(isset($_POST["oper"]) AND (strcasecmp($_POST["oper"], "actualizaPac") == 0)){
                 
         $sub_patologia = (isset($_POST["sub_patologia"]) ? mysqli_real_escape_string($db, $_POST["sub_patologia"]) : 4);
         $os = (isset($_POST["os"]) ? mysqli_real_escape_string($db, $_POST["os"]) : 4);
-        $telefono = parametroEmptyChceck($_POST["telefono"]);
-        $ciudad = parametroEmptyChceck($_POST["ciudad"]);
-        $mail = (isset($_POST["mail"]) ? parametroEmptyChceck($_POST["mail"]) : 'NULL');
-        $cmrid = (isset($_POST["crm_id"]) ? parametroEmptyChceck($_POST["crm_id"]) : 'NULL');
+        $telefono = (isset($_POST["telefono"]) ? parametroEmptyChceck($_POST["telefono"]) : NULL);
+        $ciudad = (isset($_POST["ciudad"]) ? parametroEmptyChceck($_POST["ciudad"]) : NULL);
+        $mail = (isset($_POST["mail"]) ? parametroEmptyChceck($_POST["mail"]) : NULL);
+        $cmrid = (isset($_POST["crm_id"]) ? parametroEmptyChceck($_POST["crm_id"]) : NULL);
 
         
     /* -------------- */
@@ -193,4 +200,3 @@ if (isset($_POST["oper"]) AND strcasecmp($_POST["oper"], 'e_edad') == 0) {
     //echo f_l_edad_pac($edad);
     echo f_l_edad_pac($edad, $sexo);
 }
-?>
