@@ -85,7 +85,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                         <th> id </th>
                         <th> Paciente </th>
                         <th> Sexo </th>
-                        <!--<th> C. Gestar </th>-->
+                        <th>Edad </th>
                         <th> F. Nac</th>
                         <th> Patología </th>
                         <th> Sub Patología </th>
