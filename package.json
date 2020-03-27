@@ -1,0 +1,24 @@
+{
+  "name": "soliris",
+  "version": "1.0.0",
+  "description": "Aplicacion soliris",
+  "main": "index.js",
+  "dependencies": {
+    "datatables-bulma": "^1.0.1",
+    "select2-bootstrap-theme": "^0.1.0-beta.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pmirand6/soliris.git"
+  },
+  "author": "Pablo Miranda",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pmirand6/soliris/issues"
+  },
+  "homepage": "https://github.com/pmirand6/soliris#readme"
+}

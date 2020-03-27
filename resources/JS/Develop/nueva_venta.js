@@ -27,44 +27,8 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
     });
 
     l_set_table_pac();
-
-    $('.dataTable').on('click', 'tbody td', function() {
-
-      //get textContent of the TD
-      console.log('TD cell textContent : ', this.textContent)
-    
-      //get the value of the TD using the API 
-      //console.log('value by API : ', table.cell({ row: this.parentNode.rowIndex, column : this.cellIndex }).data());
-    })
-
-    $("#if_nv").load(function() {
-      $("#if_nv").width("100%");
-      $("#if_nv").height("100%");
-    });
-
-    $("#loading").hide();
-    $("#DTlist").hide();
-    $("#new-search").hide();
-
-    $("#loading").hide(200);
-
-    $("#nueva_venta").click(function() {
-      $("#nv").window("open");
-      $("#if_nv").attr(
-        "src",
-        aplicacion + "/main/informes_nue_pres.php?id=" + $("#pac").val()
-      );
-    });
   });
 });
-function l_load_prev_vent(id, id_paciente) {
-  window.location.href =
-    aplicacion +
-    "/main/informes_nue_pres.php?id=" +
-    id_paciente +
-    "&idMst=" +
-    id;
-}
 
 // FUNCION PARA CALCULAR LA EDAD DEL PACIENTE
 
@@ -79,14 +43,15 @@ function l_calcular_edad(fecha) {
 }
 
 function l_set_table_pac() {
-  $("#DataTPacientes").DataTable({
+  var table = $("#DataTPacientes").DataTable({
     bPaginate: true,
     iDisplayLength: 5,
     sPaginationType: "full_numbers",
     processing: true,
     dataSrc: "data",
     sAjaxSource: "../ajax/ajx.pacientes_venta.php",
-    "autoWidth": false,
+    rowId: 'id',
+    autoWidth: false,
     sDom: '<"top"B>frt<"bottom"ip><"clear">',
     deferRender: true,
     aoColumns: [
@@ -144,14 +109,13 @@ function l_set_table_pac() {
       {
         extend: "copyHtml5",
         text: '<i class="fa fa-files-o" aria-hidden="true"></i> Copiar',
-        className: 'button is-primary  is-rounded'
+        className: "button is-primary  is-rounded"
       },
       {
         extend: "print",
         text: '<i class="fa fa-print" aria-hidden="true"></i> Imprimir',
-        className: 'button is-primary  is-rounded'
-      },
-      
+        className: "button is-primary  is-rounded"
+      }
     ],
     oLanguage: {
       sProcessing: "Procesando...",
@@ -190,52 +154,13 @@ function l_set_table_pac() {
       }
     }
   });
+
+  $("#DataTPacientes").on("click", "tr", function() {
+    var id = table.row(this).id();
+    // redirecciono a la pagina de guardar_venta
+  });
 }
 
-function l_load_prev_vent() {}
-
-function l_validate_form() {
-  $(".form")
-    .formValidation({
-      framework: "bootstrap",
-      excluded: ":disabled",
-      fields: {
-        paciente: {
-          message: "Escriba un Paciente",
-          validators: {
-            notEmpty: {
-              message: "Escriba un Paciente"
-            }
-          }
-        }
-      }
-    })
-    .on("success.form.fv", function(e) {
-      // Se esconde el titulo de la seccion
-      $("#titulo").hide();
-      // Se deshabilita el input para elegir paciente
-      $("#form-select :input").prop("disabled", true);
-      // Se deshabilita el span del selector
-      $("span.input-group-addon").css("pointer-events", "none");
-      // Se muestra el boton de nueva busqueda y se habilita el boton
-      $("#new-search").show();
-      $("#new-search").removeAttr("disabled");
-      // Se esconde el boton de buscar
-      $("#buscar").hide();
-      // Prevent form submission
-      e.preventDefault();
-
-      $("#loading").show(200);
-
-      idPac = $("#paciente").val();
-      $("#pac").val($("#paciente").val());
-
-      $("#DTlist").show(300);
-    })
-    .submit(function(e) {
-      e.preventDefault();
-    });
-}
 //FUNCION PARA ESTABLECER LOS ICONOS DE LOS ESTADOS
 function iconos_estado(value) {
   var icon = "TBL TBL-" + value;
@@ -250,26 +175,6 @@ function iconos_sexo(value) {
       <i class='${icon}'></i>
     </span>`;
 }
-
-// Nueva Busqueda
-$("#new-search").click(function(e) {
-  e.preventDefault();
-
-  // Escondemos las tablas
-  $("#DTlist").hide();
-  // Escondemos el boton de nueva busqueda
-  $("#new-search").hide();
-  // Se muestra el titulo de la seccion
-  $("#titulo").show();
-  // Se habilita el input para la busqueda
-  $("#form-select :input").prop("disabled", false);
-  // Se habilita el span del selector
-  $("span.input-group-addon").css("pointer-events", "auto");
-  // Se muestra el boton de busqueda y se habilita el boton
-  $("#buscar").show();
-  // Se refresca el form
-  $("#form-select")[0].reset();
-});
 
 function getCurrentHostname() {
   var protocolo, url, var_port, port;

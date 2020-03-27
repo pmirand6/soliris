@@ -1,0 +1,56 @@
+{
+  "_from": "datatables-bulma",
+  "_id": "datatables-bulma@1.0.1",
+  "_inBundle": false,
+  "_integrity": "sha1-brB2M3zeA+7hq7LC6yyIUE6tWnE=",
+  "_location": "/datatables-bulma",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "datatables-bulma",
+    "name": "datatables-bulma",
+    "escapedName": "datatables-bulma",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/datatables-bulma/-/datatables-bulma-1.0.1.tgz",
+  "_shasum": "6eb076337cde03eee1abb2c2eb2c88504ead5a71",
+  "_spec": "datatables-bulma",
+  "_where": "C:\\laragon\\www\\soliris",
+  "author": {
+    "name": "James Dilleen",
+    "email": "j.dilleen@hotmail.com",
+    "url": "https://jdilleen.me"
+  },
+  "bugs": {
+    "url": "https://github.com/JDilleen/datatables-bulma/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Bulma CSS framework style integration for the DataTables library",
+  "homepage": "https://github.com/JDilleen/datatables-bulma#readme",
+  "keywords": [
+    "datatables",
+    "bulma",
+    "css",
+    "jquery",
+    "plugin"
+  ],
+  "license": "MIT",
+  "main": "js/dataTables.bulma.min.js",
+  "name": "datatables-bulma",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JDilleen/datatables-bulma.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.1"
+}

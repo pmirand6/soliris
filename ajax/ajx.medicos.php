@@ -1,9 +1,10 @@
-<?php 
-    //require_once($_SERVER['DOCUMENT_ROOT'] . '/soliris_pq/config/config.php');   
+<?php
+//require_once($_SERVER['DOCUMENT_ROOT'] . '/soliris_pq/config/config.php');   
 require_once("../config/config.php");
-    include $_SERVER['DOCUMENT_ROOT'] . _BD;
-    
-    if(isset($_GET["ini"]) AND $_GET["ini"] != "TODOS"){
+include $_SERVER['DOCUMENT_ROOT'] . _BD;
+if (isset($_POST["oper"]) == 'getMedicos') {
+
+    if (isset($_GET["ini"]) and $_GET["ini"] != "TODOS") {
         $ini = $_GET["ini"];
         $condicion =  "WHERE LEFT(M.Nombre,1) = '$ini'";
     } else {
@@ -19,44 +20,66 @@ require_once("../config/config.php");
 
     $arr_tbody = array();
     while ($row = mysqli_fetch_assoc($result)) {
-    $id = $row["id"];
-    $name = strtoupper($row["Nombre"]);
-    $matricula_tipo = strtolower($row["matricula_tipo"]);
-    $matricula_numero = $row["matricula_numero"];
-    $c_atencion = $row["C_Atencion"];
-    $estado = $row["estado"];
+        $id = $row["id"];
+        $name = strtoupper($row["Nombre"]);
+        $matricula_tipo = strtolower($row["matricula_tipo"]);
+        $matricula_numero = $row["matricula_numero"];
+        $c_atencion = $row["C_Atencion"];
+        $estado = $row["estado"];
 
-    $arr_row = array(
-        "id" => $row["id"],
-        //"catencion" => "<i title=\"$c_atencion\">" . $c_atencion. "...</i>",
-        "medico" => "<b class=\"pointer\" onclick=\"callMed('$id')\">$name</b>",
-        "matricula" => "<div class=\"TBL TBL-$matricula_tipo\" title=\"$matricula_tipo\"><p style=\"margin-left:20px\">$matricula_numero</p></div>",
-        "especialidad" => $row["especialidad"],
-        //"catencion" => "<i title=\"$c_atencion\">" . substr($c_atencion, 0, 16) . "...</i>",
-        "catencion" => $c_atencion,
-        "tel" => "<b class=\"pointer\">Tel.</b> " . $row["telefono"] . "</br><b class=\"pointer\">Fax</b> " . $row["Fax"],
-        "email" => $row["Mail"],
-        "estado" => "<div class=\"TBL TBL-" . str_replace(" ", "_", $estado) . "\" title=\"$estado\"><p class=\"hidden\">$estado</p></div>",
-        "f_cap" => $row["fecha_cap"],
-        "apm" => l_apm($row["APM_name"]),
-    );
+        $arr_row = array(
+            "id" => $row["id"],
+            //"catencion" => "<i title=\"$c_atencion\">" . $c_atencion. "...</i>",
+            "medico" => "<b class=\"pointer\" onclick=\"callMed('$id')\">$name</b>",
+            "matricula" => "<div class=\"TBL TBL-$matricula_tipo\" title=\"$matricula_tipo\"><p style=\"margin-left:20px\">$matricula_numero</p></div>",
+            "especialidad" => $row["especialidad"],
+            //"catencion" => "<i title=\"$c_atencion\">" . substr($c_atencion, 0, 16) . "...</i>",
+            "catencion" => $c_atencion,
+            "tel" => "<b class=\"pointer\">Tel.</b> " . $row["telefono"] . "</br><b class=\"pointer\">Fax</b> " . $row["Fax"],
+            "email" => $row["Mail"],
+            "estado" => "<div class=\"TBL TBL-" . str_replace(" ", "_", $estado) . "\" title=\"$estado\"><p class=\"hidden\">$estado</p></div>",
+            "f_cap" => $row["fecha_cap"],
+            "apm" => l_apm($row["APM_name"]),
+        );
 
-    array_push($arr_tbody, $arr_row);
+        array_push($arr_tbody, $arr_row);
+    };
 
-}
-;
 
-    
     mysqli_free_result($result);
     mysqli_close($db);
 
     echo "{\"aaData\": " . json_encode($arr_tbody) . "}";
-
-function l_apm($valor){
-  if (strlen($valor) > 0){
-    return substr($valor,0,17);
-  }else{
-    return "<b class=\"text-danger\">$valor Sin APM</b>";
-  }
 }
-?>
+
+
+if (isset($_GET['q'])) {
+
+
+    //select de pacientes 
+    $filtro = mysqli_real_escape_string($db, $_GET['q']);
+
+    $SQL = "CALL `ST_LIST_MEDICOS_ACTIVOS`('$filtro');";
+    $result = mysqli_query($db, $SQL);
+
+    
+
+    $json = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $json[] = ['id' => $row['id'], 'text' => $row['nombre']];
+    }
+
+    echo json_encode($json);
+
+    mysqli_free_result($result);
+}
+
+
+function l_apm($valor)
+{
+    if (strlen($valor) > 0) {
+        return substr($valor, 0, 17);
+    } else {
+        return "<b class=\"text-danger\">$valor Sin APM</b>";
+    }
+}

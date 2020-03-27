@@ -4,7 +4,7 @@ var Receta = upRec();
 var Test_Embarazo = upTest();
 /** ---------------------- */
 
-var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
+var aplicacion = getCurrentHostname() + "/" + getUrlHTTP();
 
 $.getScript(
   aplicacion + "/resources/JS/funciones.min.js",
@@ -23,18 +23,18 @@ $.getScript(
 
       getDocs();
 
-        $("#tbl_ventas").hide();
+      $("#tbl_ventas").hide();
       $(".save").hide();
       $(".change").hide();
       $("#fin_venta").attr("disabled", true);
 
-        if (c_gestar_val == "SI"){
-            var antiguedadRec = 14;    
-        } else {
-            var antiguedadRec = 730;
-        }
-        
-        var diffRec_Test = 3;
+      if (c_gestar_val == "SI") {
+        var antiguedadRec = 14;
+      } else {
+        var antiguedadRec = 730;
+      }
+
+      var diffRec_Test = 3;
 
       $(".popUP").hide();
 
@@ -47,7 +47,7 @@ $.getScript(
           Receta.existingFileNames.length,
           Test_Embarazo.existingFileNames.length
         );
-        });
+      });
 
       dpTest.on("changeDate", function() {
         Test_Embarazo.show();
@@ -68,46 +68,46 @@ $.getScript(
       dpFrec.on("clearDate", function() {
         Receta.hide();
         $("#fin_venta").attr("disabled", true);
-        });
+      });
 
       dpTest.on("clearDate", function() {
         Test_Embarazo.hide();
         $("#fin_venta").attr("disabled", true);
-        });
+      });
 
       dpOtro.on("clearDate", function() {
         Otro.hide();
-        });
+      });
 
       $("#response").click(function() {
         $("#response").hide(300);
       });
 
       $(".form")
-            .formValidation({
+        .formValidation({
           framework: "bootstrap",
-                icon: {
+          icon: {
             valid: "glyphicon glyphicon-ok",
             invalid: "glyphicon glyphicon-remove",
             validating: "glyphicon glyphicon-refresh"
-                },
-                fields: {
-                    f_rec: {
-                        verbose: false,
-                        validators: {
-                            notEmpty: {
+          },
+          fields: {
+            f_rec: {
+              verbose: false,
+              validators: {
+                notEmpty: {
                   message: "Por favor ingrese la fecha de la receta"
-                            },
-                            date: {
+                },
+                date: {
                   format: "YYYY-MM-DD",
                   message: "Formato de fecha invalido"
-                            },
-                            callback: {
+                },
+                callback: {
                   message:
                     "La fecha de Receta no puede superar los " +
                     antiguedadRec +
                     " días de diferencia con la fecha actual",
-                                callback: function(value, validator, $field) {
+                  callback: function(value, validator, $field) {
                     var receta = new Date(
                       l_JS_dateFormat(
                         $("#f_rec")
@@ -119,34 +119,34 @@ $.getScript(
                       l_JS_dateFormat(getDate().replace(/\-/g, "/"))
                     );
 
-                                    var diff = hoy.getTime() - receta.getTime();
-                                    diff = diff / (1000 * 60 * 60 * 24);
+                    var diff = hoy.getTime() - receta.getTime();
+                    diff = diff / (1000 * 60 * 60 * 24);
 
-                                    if (diff <= antiguedadRec && diff >= 0) {
-                                        return true;
+                    if (diff <= antiguedadRec && diff >= 0) {
+                      return true;
                     } else {
                       return false;
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    f_test: {
-                        verbose: false,
-                        validators: {
+                    }
+                  }
+                }
+              }
+            },
+            f_test: {
+              verbose: false,
+              validators: {
                 notEmpty: {
                   message: "Por favor ingrese la fecha de la receta"
                 },
-                            date: {
+                date: {
                   format: "YYYY-MM-DD",
                   message: "Formato de fecha invalido"
-                            },
-                            callback: {
+                },
+                callback: {
                   message:
                     "La fecha de Test de Embarazo no debe superar los " +
                     diffRec_Test +
                     " días de diferencia con la fecha de receta",
-                                callback: function(value, validator, $field) {
+                  callback: function(value, validator, $field) {
                     if ($("#f_test").val() != "") {
                       var receta = new Date(
                         l_JS_dateFormat(
@@ -162,44 +162,44 @@ $.getScript(
                             .replace(/\-/g, "/")
                         )
                       );
-                                        var diff =  receta.getTime() - test.getTime();
-                                        diff = diff / (1000 * 60 * 60 * 24);
+                      var diff = receta.getTime() - test.getTime();
+                      diff = diff / (1000 * 60 * 60 * 24);
 
-                                        if (diff <= diffRec_Test && diff >= 0) {
-                                            return true;
+                      if (diff <= diffRec_Test && diff >= 0) {
+                        return true;
                       } else {
                         $("#fin_venta").attr("disabled", true);
                         return false;
-                                        }
-                                    }else{
+                      }
+                    } else {
                       $("#fin_venta").attr("disabled", false);
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    f_otro: {
-                        verbose: false,
-                        validators: {
-                            date: {
+                      return true;
+                    }
+                  }
+                }
+              }
+            },
+            f_otro: {
+              verbose: false,
+              validators: {
+                date: {
                   format: "YYYY-MM-DD",
                   message: "Formato de fecha invalido"
-                            }
-                        }
-                    }
                 }
-            })
+              }
+            }
+          }
+        })
         .on("success.form.fv", function(e) {
-                e.preventDefault();
+          e.preventDefault();
           chkFech_Doc(
             Receta.existingFileNames.length,
             Test_Embarazo.existingFileNames.length
           );
-            })
-            .submit(function(e){
-                e.preventDefault();
-            });
+        })
+        .submit(function(e) {
+          e.preventDefault();
+        });
 
       /************************************/
 
@@ -256,9 +256,7 @@ $.getScript(
           id_Mst: $("#id").val()
         };
         $.ajax({
-          url:
-            aplicacion +
-    "/ajax/ajx.informe_doc_nue_pres_form.php",
+          url: aplicacion + "/ajax/ajx.informe_doc_nue_pres_form.php",
           type: "POST",
           data: parametros,
           success: function(opciones) {
@@ -267,7 +265,6 @@ $.getScript(
               $("#response").html(opciones);
             } else {
               alert(opciones);
-              
             }
           }
         });
@@ -282,9 +279,7 @@ $.getScript(
           id_Pac: $("#id_Pac").val()
         };
         $.ajax({
-          url:
-            aplicacion +
-    "/ajax/ajx.informe_doc_nue_pres_form.php",
+          url: aplicacion + "/ajax/ajx.informe_doc_nue_pres_form.php",
           type: "POST",
           data: parametros,
           success: function(opciones) {
@@ -339,7 +334,7 @@ function chkFech_Doc(Receta, Test_Embarazo) {
       if (
         dp[0].value.length > 0 &&
         dp[1].value.length > 0 &&
-        (fRec > 0 && fTest > 0)
+        fRec > 0 && fTest > 0
       ) {
         $("#fin_venta").attr("disabled", false);
       } else {
@@ -407,14 +402,14 @@ function setDpOtro() {
 
 function upTest() {
   var Test_Embarazo = $("#t_embarazo").uploadFile({
-            url: "../resources/JQuery-FileUpload/PHP/upload_doc_nv.php",
-            dragDrop: false,
-            fileName: "myfile",
+    url: "../resources/JQuery-FileUpload/PHP/upload_doc_nv.php",
+    dragDrop: false,
+    fileName: "myfile",
     autoSubmit: false,
-            allowedTypes: "jpg,png,gif,doc,pdf,zip,bmp,tif",
-            returnType: "json",
-            dragDropStr: "<span><b>Arrastre y suelte el archivo...</b></span>",
-            maxFileCount: 1,
+    allowedTypes: "jpg,png,gif,doc,pdf,zip,bmp,tif",
+    returnType: "json",
+    dragDropStr: "<span><b>Arrastre y suelte el archivo...</b></span>",
+    maxFileCount: 1,
     showPreview: true,
     previewHeight: "200px",
     previewWidth: "200px",
@@ -423,16 +418,16 @@ function upTest() {
       ' fue subido. <br><p><b>Presione el botón <span style="color: red"><strong> "Cambiar Imagen" </strong></span> para seleccionar otro archivo.</b></p>',
     showDelete: true,
     showDone: true,
-            cancelStr:"Cancelar",
-            abortStr:"Abortar",
+    cancelStr: "Cancelar",
+    abortStr: "Abortar",
     doneStr: '<span class="upOk">Se subió el archivo</span>',
     formData: { id: $("#id").val(), tipo: "Test Embarazo" },
-            onSubmit:function(obj){
+    onSubmit: function(obj) {
       if ($("#f_test").val() == "") {
         alert("No ingreso una fecha para el Test de Embarazo");
         $("#f_test").focus();
         return false;
-                } else {
+      } else {
         f_test = $("#f_test").val();
         l_save_date_doc("Adj_Venta_F_Test", f_test);
       }
@@ -461,21 +456,21 @@ function upTest() {
       $("#can_test").show();
       $("#sub_test").hide();
       $(".ajax-file-upload-green").css("display", "none");
-            }
-        });
+    }
+  });
   return Test_Embarazo;
 }
 
 function upRec() {
   var Receta = $("#receta").uploadFile({
-            url: "../resources/JQuery-FileUpload/PHP/upload_doc_nv.php",
-            dragDrop: false,
-            fileName: "myfile",
+    url: "../resources/JQuery-FileUpload/PHP/upload_doc_nv.php",
+    dragDrop: false,
+    fileName: "myfile",
     autoSubmit: false,
-            allowedTypes: "jpg,png,gif,doc,pdf,zip,bmp,tif",
-            returnType: "json",
-            dragDropStr: "<span><b>Arrastre y suelte el archivo...</b></span>",
-            maxFileCount: 1,
+    allowedTypes: "jpg,png,gif,doc,pdf,zip,bmp,tif",
+    returnType: "json",
+    dragDropStr: "<span><b>Arrastre y suelte el archivo...</b></span>",
+    maxFileCount: 1,
     showPreview: true,
     previewHeight: "200px",
     previewWidth: "200px",
@@ -484,18 +479,18 @@ function upRec() {
     showDelete: true,
     maxFileCountErrorStr:
       ' fue subido. <br><p><b>Presione el botón <span style="color: red"><strong> "Cambiar Imagen" </strong></span> para seleccionar otro archivo.</b></p>',
-            cancelStr:"Cancelar",
-            abortStr:"Abortar",
+    cancelStr: "Cancelar",
+    abortStr: "Abortar",
     doneStr:
       '<span class="upOk" disabled="disabled">Se subió el archivo</span>',
     formData: { id: $("#id").val(), tipo: "Receta" },
-            onSubmit:function(obj){
+    onSubmit: function(obj) {
       //alert(obj);
       if ($("#f_rec").val() == "") {
         alert("No ingreso una fecha para la Receta");
         $("#f_rec").focus();
         return false;
-                } else {
+      } else {
         f_rec = $("#f_rec").val();
         l_save_date_doc("Adj_Venta_F_Rec", f_rec);
         $("#receta_val").val(obj);
@@ -529,21 +524,21 @@ function upRec() {
       $("#can_rec").show();
       $("#sub_rec").hide();
       $(".ajax-file-upload-green").css("display", "none");
-            }
-        });
+    }
+  });
   return Receta;
 }
 
 function upOtro() {
-        var Otro = $("#otro").uploadFile({
-            url: "../resources/JQuery-FileUpload/PHP/upload_doc_nv.php",
-            dragDrop: false,
-            fileName: "myfile",
+  var Otro = $("#otro").uploadFile({
+    url: "../resources/JQuery-FileUpload/PHP/upload_doc_nv.php",
+    dragDrop: false,
+    fileName: "myfile",
     autoSubmit: false,
-            allowedTypes: "jpg,png,gif,doc,pdf,zip,bmp,tif",
-            returnType: "json",
-            dragDropStr: "<span><b>Arrastre y suelte el archivo...</b></span>",
-            maxFileCount: 1,
+    allowedTypes: "jpg,png,gif,doc,pdf,zip,bmp,tif",
+    returnType: "json",
+    dragDropStr: "<span><b>Arrastre y suelte el archivo...</b></span>",
+    maxFileCount: 1,
     showPreview: true,
     previewHeight: "200px",
     previewWidth: "200px",
@@ -552,20 +547,20 @@ function upOtro() {
     showDone: true,
     maxFileCountErrorStr:
       ' fue subido. <br><p><b>Presione el botón <span style="color: red"><strong> "Cambiar Imagen" </strong></span> para seleccionar otro archivo.</b></p>',
-            cancelStr:"Cancelar",
-            abortStr:"Abortar",
+    cancelStr: "Cancelar",
+    abortStr: "Abortar",
     doneStr: "Se subió el archivo",
     formData: { id: $("#id").val(), tipo: "Otro" },
-            onSubmit:function(obj){
+    onSubmit: function(obj) {
       $("#can_otro").hide();
       if ($("#f_otro").val() == "") {
-                    alert("No ingreso una fecha para el archivo 'Otros'");
-                    $("#f_otro").focus();
+        alert("No ingreso una fecha para el archivo 'Otros'");
+        $("#f_otro").focus();
         return false;
-                } else {
-                    f_otro = $("#f_otro").val();
+      } else {
+        f_otro = $("#f_otro").val();
         l_save_date_doc("Adj_Venta_F_Otro", f_otro);
-            }
+      }
     },
     onSelect: function(files) {
       $("#can_otro").hide();
@@ -591,15 +586,15 @@ function upOtro() {
       $("#can_otro").show();
       $("#sub_otro").hide();
       $("#fin_venta").prop("disabled", "true");
-                      }
-        });
+    }
+  });
   return Otro;
-                }
+}
 
 function tbl_ventas() {
-    /********* DATATABLE ****************/
-    // DATATABLES DE ULTIMAS VENTAS
-    $("#UltVenTB").DataTable({
+  /********* DATATABLE ****************/
+  // DATATABLES DE ULTIMAS VENTAS
+  $("#UltVenTB").DataTable({
     ajax: {
       type: "POST",
       url: aplicacion + "/ajax/ajx.informes_ult_vent.php",
@@ -609,8 +604,8 @@ function tbl_ventas() {
         id_Mst: $("#id").val(),
         f_rec: $("#f_rec").val(),
         id_Pac: $("#id_Pac").val()
-            }
-        },
+      }
+    },
     ordering: false,
     destroy: true,
     bFilter: false,
@@ -623,87 +618,87 @@ function tbl_ventas() {
     columns: [
       {
         data: function(data, type, dataToSet) {
-                    if (data.estado.indexOf("NP") == 0) {
-                        return data.id;
-                    } else {
-                        //$("#alerta").show();
-                        return "";
-                    }
-                }
-            }, // 0
-            //{ "data": "fecha_venta"}, // 1
-            {
+          if (data.estado.indexOf("NP") == 0) {
+            return data.id;
+          } else {
+            //$("#alerta").show();
+            return "";
+          }
+        }
+      }, // 0
+      //{ "data": "fecha_venta"}, // 1
+      {
         data: function(data, type, dataToSet) {
-                    if (data.estado.indexOf("NP") == 0) {
-                        return data.fecha_venta;
-                    } else {
-                        //$("#alerta").show();
-                        return "";
-                    }
-                }
-            }, // 1
-            {
+          if (data.estado.indexOf("NP") == 0) {
+            return data.fecha_venta;
+          } else {
+            //$("#alerta").show();
+            return "";
+          }
+        }
+      }, // 1
+      {
         data: "fecha_receta"
-            }, // 2
-            {
+      }, // 2
+      {
         data: "consentimiento"
-            }, // 3
-            {
+      }, // 3
+      {
         data: "dosis"
-            }, // 4
-            {
+      }, // 4
+      {
         data: "unidades"
-            }, // 5 
-            {
+      }, // 5
+      {
         data: "medico"
-            }, // 6
-            {
+      }, // 6
+      {
         data: "institucion"
-            }, // 7
-            {
+      }, // 7
+      {
         data: "canal"
-            }, // 8
-            {
+      }, // 8
+      {
         data: "APM"
-            }, // 9
-            {
+      }, // 9
+      {
         data: "estado"
-            }, // 10
-            {
+      }, // 10
+      {
         data: "documentos"
-            } // 11
-        ],
+      } // 11
+    ],
     columnDefs: [
       {
-            //funcion para obtener los iconos de estado en la columna 10
+        //funcion para obtener los iconos de estado en la columna 10
         render: function(data, type, row) {
-                var datos = data;
-                return estado_icon(data);
-            },
+          var datos = data;
+          return estado_icon(data);
+        },
         targets: [10],
         searchable: false
       },
       {
-            //funcion para obtener los iconos de estado en la columna 10
+        //funcion para obtener los iconos de estado en la columna 10
         render: function(data, type, row) {
-                campo = '<ul class="docs">';
+          campo = '<ul class="docs">';
           if (data.indexOf(";") > -1) {
-                    var string = data.split(";");
+            var string = data.split(";");
             var campo = "";
-                    for (pos = 0; pos < string.length; pos++) {
-                        campo += docs_icon(string[pos]);
-                    }
-                } else {
-                    campo += docs_icon(data);
-                }
+            for (pos = 0; pos < string.length; pos++) {
+              campo += docs_icon(string[pos]);
+            }
+          } else {
+            campo += docs_icon(data);
+          }
           return campo + "</ul>";
         },
         targets: [11],
         visible: true,
         searchable: false
-            },
+      },
       {
-            //funcion para obtener los iconos de estado en la columna 8
+        //funcion para obtener los iconos de estado en la columna 8
         targets: [10],
         searchable: false
       }
@@ -721,7 +716,7 @@ function tbl_ventas() {
         extend: "excel",
         text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel'
       }
-        ],
+    ],
     oLanguage: {
       sProcessing: "Procesando...",
       sLengthMenu: "Mostrar _MENU_ registros",
@@ -741,78 +736,77 @@ function tbl_ventas() {
         sLast: "Último",
         sNext: "Siguiente",
         sPrevious: "Anterior"
-            },
+      },
       oAria: {
         sSortAscending:
           ": Activar para ordenar la columna de manera ascendente",
         sSortDescending:
           ": Activar para ordenar la columna de manera descendente"
-            }
-        }
-    });
-    /********* FIN DATABLE **************/
+      }
+    }
+  });
+  /********* FIN DATABLE **************/
 }
 
 function fecha_alerta(val_dp) {
-    var parametros = {
+  var parametros = {
     oper: "val_fec_rec",
     id_Mst: $("#id").val(),
     f_rec: val_dp,
     id_Pac: $("#id_Pac").val()
-    };
-    $.ajax({
-        type: "POST",
-    url:
-      aplicacion + "/ajax/ajx.informe_doc_nue_pres_form.php",
-        data: parametros,
-        success: function(data) {
-            if (!$.trim(data)) {
+  };
+  $.ajax({
+    type: "POST",
+    url: aplicacion + "/ajax/ajx.informe_doc_nue_pres_form.php",
+    data: parametros,
+    success: function(data) {
+      if (!$.trim(data)) {
         $("#alert_fecha").html("");
-                $("#tbl_ventas").hide();
-            } else {
+        $("#tbl_ventas").hide();
+      } else {
         $("#alert_fecha").html(data);
-                alert("La fecha de receta fue informada anteriormente");
-                tbl_ventas();
-                $("#tbl_ventas").show();
-            }
-        }
-    });
+        alert("La fecha de receta fue informada anteriormente");
+        tbl_ventas();
+        $("#tbl_ventas").show();
+      }
+    }
+  });
 }
 
-function l_enable_docs(id, valor){
+function l_enable_docs(id, valor) {
   if (valor !== 0) {
     $(id).fadeIn(600);
-  }else{
+  } else {
     $(id).fadeOut(600);
   }
 }
 
-function l_JS_dateFormat(valor){
-    var fecha;
-    if(valor.indexOf("-")){
-        fecha = valor.split("/");
-        return fecha[1] + "/" + fecha[2] + "/" + fecha[0];
-    }
-    return valor;
+function l_JS_dateFormat(valor) {
+  var fecha;
+  if (valor.indexOf("-")) {
+    fecha = valor.split("/");
+    return fecha[1] + "/" + fecha[2] + "/" + fecha[0];
+  }
+  return valor;
 }
 
-function l_save_date_doc(oper, fecha){
-    var parametros = {
+function l_save_date_doc(oper, fecha) {
+  var parametros = {
     oper: oper,
     id_Maestro: $("#id").val(),
     fecha: fecha
-    };
-    $.ajax({
+  };
+  $.ajax({
     url: aplicacion + "/ajax/ajx.informe_nue_pres_form.php",
-        type: "POST",
-        data: parametros,
-        success: function (opciones) {
-            if (opciones.indexOf("ERROR")  != 0) {
-            } else {
-                alert(opciones);
-            }
-        }
-    });
+    type: "POST",
+    data: parametros,
+    success: function(opciones) {
+      if (opciones.indexOf("ERROR") != 0) {
+      } else {
+        alert(opciones);
+      }
+    }
+  });
 }
 
 function getDocs() {
@@ -877,12 +871,12 @@ function showDoc(doc) {
   window.open(urlDocs + doc, "_blank");
 }
 
-function getCurrentHostname(){
-    var protocolo, url, var_port, port;
+function getCurrentHostname() {
+  var protocolo, url, var_port, port;
 
-    protocolo = window.location.protocol;
-    url = window.location.hostname;
-    var_port = window.location.port;
+  protocolo = window.location.protocol;
+  url = window.location.hostname;
+  var_port = window.location.port;
 
   if (var_port !== "") {
     port = ":" + var_port;
@@ -921,14 +915,12 @@ function delFile(file) {
         alert("Se eliminó el archivo " + file[0]);
       }
     );
-    } else {
+  } else {
     alert("Se canceló la acción");
-    }
+  }
 }
 
-
 function getUrlHTTP() {
-
   var path = window.location.pathname;
   var appName = path.split("/");
   return appName[1];
