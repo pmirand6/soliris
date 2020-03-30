@@ -216,8 +216,6 @@ $idPaciente = $_GET["idPac"];
     ?>
     
 
-    <script src="../node_modules/formvalidation/dist/js/FormValidation.full.js"></script>
-    <script src="../node_modules/formvalidation/dist/js/plugins/Bulma.js"></script>
     <script type="text/javascript" language="javascript" src="../resources/JS/Develop/generar_venta.js"></script>
 
 </body>
