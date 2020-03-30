@@ -30,7 +30,7 @@ $idPaciente = $_GET["idPac"];
         /* Include Bootstrap Datepicker */
         @import "../resources/Bootstrap-DatePicker/min/datepicker.min.css";
         /* Bootstrap Validator */
-        @import "../node_modules/formvalidation/dist/css/formValidation.css";
+        @import "../resources/formvalidation/dist/css/formValidation.css";
     </style>
 </head>
 
@@ -212,8 +212,9 @@ $idPaciente = $_GET["idPac"];
     include "../resources/Includes/BootstrapHTML5.php";
     include "../resources/Includes/DatePicker.php";
     include "../resources/Includes/EasyUI.php";
+    include "../resources/Includes/formvalidation-bulma.php";
     ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.3/es6-shim.min.js"></script>
+    
 
     <script src="../node_modules/formvalidation/dist/js/FormValidation.full.js"></script>
     <script src="../node_modules/formvalidation/dist/js/plugins/Bulma.js"></script>
