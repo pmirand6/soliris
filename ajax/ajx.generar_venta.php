@@ -82,7 +82,7 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
 
         $sqlDocsReceta = "CALL `ST_GUARDAR_VENTA_DOCUMENTACION`('$idVenta', '3', '$file_name', '$usuario', '$fecha_receta')";
         $response = MySQL_sendFunctionAudit("$sqlDocsReceta", "save_doc_receta", "1");
-        echo $response[0]["mensaje"];
+        //echo $response[0]["mensaje"];
     }
 
     if (isset($_FILES["file_otro"]) && !empty($_FILES["file_otro"]) && !empty($_POST["f_otro"])) {
@@ -94,7 +94,12 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
 
         $sqlDocsReceta = "CALL `ST_GUARDAR_VENTA_DOCUMENTACION`('$idVenta', '4', '$file_name', '$usuario', '$fecha_otro')";
         $response = MySQL_sendFunctionAudit("$sqlDocsReceta", "save_doc_otro", "1");
-        echo $response[0]["mensaje"];
+        //echo $response[0]["mensaje"];
     }
+
+    // FIXME MENSAJE DE REGISTRO DE VENTA GENERADA CORRECTAMENTE
+
+    echo "Se generó el registro de venta: " . $idVenta;
+
 } 
 
