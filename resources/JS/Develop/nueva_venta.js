@@ -80,7 +80,7 @@ function l_set_table_pac() {
       {
         //funcion para obtener los iconos de estado en la columna 10
         render: function(data, type, row) {
-          console.log(data);
+          
           return l_calcular_edad(data);
         },
         targets: [3],
@@ -89,7 +89,7 @@ function l_set_table_pac() {
       {
         //funcion para obtener los iconos de estado en la columna 10
         render: function(data, type, row) {
-          console.log(data);
+          
           return iconos_sexo(data);
         },
         targets: [2],
@@ -158,6 +158,7 @@ function l_set_table_pac() {
   $("#DataTPacientes").on("click", "tr", function() {
     var id = table.row(this).id();
     // redirecciono a la pagina de guardar_venta
+    window.location.href = aplicacion + "/main/generar_venta.php?idPac=" + id
   });
 }
 

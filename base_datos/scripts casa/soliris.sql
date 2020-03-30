@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `apm` (
   `email` varchar(50) DEFAULT NULL,
   `nombre_completo` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla soliris.apm: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `apm` DISABLE KEYS */;
@@ -48,17 +48,77 @@ CREATE TABLE IF NOT EXISTS `auxiliar` (
   `valor` varchar(45) DEFAULT NULL,
   `tipo` varchar(45) DEFAULT NULL,
   `familia` varchar(3) NOT NULL DEFAULT '',
-  `estado` varchar(45) NOT NULL DEFAULT '',
+  `estado` varchar(45) DEFAULT NULL,
   `usuario_audit` varchar(45) DEFAULT NULL,
-  `fecha_audit` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_audit` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla soliris.auxiliar: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.auxiliar: ~62 rows (aproximadamente)
 /*!40000 ALTER TABLE `auxiliar` DISABLE KEYS */;
 INSERT INTO `auxiliar` (`id`, `valor`, `tipo`, `familia`, `estado`, `usuario_audit`, `fecha_audit`) VALUES
-	(1, '', NULL, '', '', NULL, '2020-03-05 13:42:52'),
-	(2, 'bar', NULL, '', '', NULL, '2020-03-05 14:05:31');
+	(3, '10 Mg', 'dosis', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(4, '25 Mg', 'dosis', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(5, '21', 'unidades', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(6, '42', 'unidades', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(7, '63', 'unidades', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(8, 'Scienza', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(9, 'ROS FAR', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(11, 'META', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(13, 'MEDICUS', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(16, 'SMG', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(18, 'Hospital Italiano', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(19, 'OMINT', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(21, 'Hospital Churruca', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(22, 'DRO FAR', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(33, 'Hospital Aleman', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(34, 'Hospital Britanico', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(35, 'IOSE', 'canal', '---', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(44, 'Mieloma Múltiple', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(45, 'Gamapatia monoclonal', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(46, 'Linfoma no Hodgkin', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(47, '15 Mg', 'dosis', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(48, 'Mielodisplasia', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(49, 'Mielofibrosis', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(50, 'LLC', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(51, 'Linfoma de manto', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(52, 'Amiloidosis', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(53, 'Plasmocitoma multiporal', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(54, 'POEMS', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(55, '5 Mg', 'dosis', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(56, 'Linfoma', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(57, 'Linfoma Hodgkin', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(60, 'ONCOFARMA', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(61, 'REDFARM', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(62, 'MONUMENTO', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(64, 'AVANTFAR', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(65, 'WENT', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(67, 'Orien', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(68, 'FARMA KD', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(72, 'MEDITERRANEA', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(73, 'EXCELL PHARMA', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(81, 'CICLOFAR', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(83, 'CITY PHARMA GROUP', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(87, 'In.S.S.Se.P', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(89, 'LPC', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(90, 'SIFAR', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(91, 'Anemia', 'patologia', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(92, 'ONCOLIFE', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(93, 'ABC', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(94, 'MEDIFAR', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(96, 'AUDIFARM', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(98, 'Activo', 'Controles_Farmacologicos', 'RVL', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(99, 'NEO SALUD', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(100, 'SUIZO', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(101, 'METRO KD', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(102, 'PROV HOSPITALARIOS', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(103, 'SOLS', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(104, 'zbc', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(105, 'DIGMA', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(106, 'GLOBAL MED', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(108, 'CSF - Compañia de Servicios Farmaceuticos', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(109, 'OSECAC ( SEGUERMED)', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16'),
+	(110, 'Dospu', 'canal', '', 'Activo', NULL, '2017-08-15 08:33:16');
 /*!40000 ALTER TABLE `auxiliar` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.aux_old
@@ -74,10 +134,10 @@ CREATE TABLE IF NOT EXISTS `aux_old` (
 /*!40000 ALTER TABLE `aux_old` DISABLE KEYS */;
 /*!40000 ALTER TABLE `aux_old` ENABLE KEYS */;
 
--- Volcando estructura para tabla soliris.canal
-CREATE TABLE IF NOT EXISTS `canal` (
+-- Volcando estructura para tabla soliris.canales
+CREATE TABLE IF NOT EXISTS `canales` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `canal_nombre` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
+  `canal` varchar(100) CHARACTER SET latin1 DEFAULT NULL,
   `familia` varchar(10) CHARACTER SET latin1 DEFAULT NULL,
   `direccion` varchar(250) CHARACTER SET latin1 DEFAULT NULL,
   `mail` varchar(200) CHARACTER SET latin1 DEFAULT NULL,
@@ -89,15 +149,69 @@ CREATE TABLE IF NOT EXISTS `canal` (
   `usuario_audit` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
   `fecha_audit` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `estado` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
-  `canal_np_id` varchar(8) DEFAULT NULL,
+  `estado_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla soliris.canal: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `canal` DISABLE KEYS */;
-INSERT INTO `canal` (`id`, `canal_nombre`, `familia`, `direccion`, `mail`, `dir_tec`, `cont_venta`, `cont_otro`, `puntos_entrega`, `documentacion`, `usuario_audit`, `fecha_audit`, `estado`, `canal_np_id`) VALUES
-	(59, 'Canal Test', 'SOL', '', '', '', '', '', '', NULL, 'pmiranda', '2019-12-10 16:19:29', 'Activo', NULL);
-/*!40000 ALTER TABLE `canal` ENABLE KEYS */;
+-- Volcando datos para la tabla soliris.canales: ~55 rows (aproximadamente)
+/*!40000 ALTER TABLE `canales` DISABLE KEYS */;
+INSERT INTO `canales` (`id`, `canal`, `familia`, `direccion`, `mail`, `dir_tec`, `cont_venta`, `cont_otro`, `puntos_entrega`, `documentacion`, `usuario_audit`, `fecha_audit`, `estado`, `estado_id`) VALUES
+	(75, 'Scienza', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:00:31', 'Activo', 24),
+	(76, 'ROS FAR', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:00:35', 'Activo', 24),
+	(77, 'META', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:00:39', 'Activo', 24),
+	(78, 'Medicus', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:00:43', 'Activo', 24),
+	(79, 'SMG', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:00:47', 'Activo', 24),
+	(80, 'Hospital Italiano', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:01:00', 'Activo', 24),
+	(81, 'OMINT', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:01:12', 'Activo', 24),
+	(82, 'Hospital Churruca', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:01:18', 'Activo', 24),
+	(83, 'DroFar', 'RVL', '', '', '', '', '', '', NULL, 'jkiprizlian', '2017-08-15 09:01:24', 'Activo', 24),
+	(84, 'Hospital Aleman', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:01:30', 'Activo', 24),
+	(85, 'Hospital Britanico', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:01:37', 'Activo', 24),
+	(86, 'IOSE', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:01:42', 'Activo', 24),
+	(87, 'ONCOFARMA', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:01:46', 'Activo', 24),
+	(88, 'REDFARM', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:01:53', 'Activo', 24),
+	(89, 'MONUMENTO', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:01:59', 'Activo', 24),
+	(90, 'AVANTFAR', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:02:04', 'Activo', 24),
+	(91, 'WENT', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:02:08', 'Activo', 24),
+	(92, 'ORIEN', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:02:13', 'Activo', 24),
+	(93, 'FARMA KD', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:02:17', 'Activo', 24),
+	(94, 'MEDITERRANEA', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:02:22', 'Activo', 24),
+	(95, 'EXCELL PHARMA', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:02:28', 'Activo', 24),
+	(96, 'CICLOFAR', 'RVL', '', '', '', '', '', '', NULL, 'jkiprizlian', '2017-08-15 09:02:37', 'Activo', 24),
+	(97, 'CITY PHARMA GROUP', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:02:44', 'Activo', 24),
+	(98, 'In.S.S.Se.P', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:02:59', 'Activo', 24),
+	(99, 'SIFAR', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:06:31', 'Activo', 24),
+	(100, 'ONCOLIFE', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:06:36', 'Activo', 24),
+	(101, 'ABC', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:06:52', 'Activo', 24),
+	(102, 'MEDIFAR', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:06:58', 'Activo', 24),
+	(103, 'AUDIFARM', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:07:05', 'Activo', 24),
+	(104, 'NEO SALUD', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:07:12', 'Activo', 24),
+	(105, 'SUIZO', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:07:15', 'Activo', 24),
+	(106, 'METRO KD', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:07:21', 'Activo', 24),
+	(107, 'PROV HOSPITALARIOS', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:07:30', 'Activo', 24),
+	(108, 'SOLS', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:07:35', 'Activo', 24),
+	(109, 'ZBC', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:07:41', 'Activo', 24),
+	(110, 'DIGMA', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:07:44', 'Activo', 24),
+	(111, 'GLOBAL MED', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:07:48', 'Activo', 24),
+	(112, 'CSF-COMPAÑIA DE SERVICIOS FARMACEUTICOS', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:08:13', 'Activo', 24),
+	(113, 'OSECAC (SEGURMED)', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:08:31', 'Activo', 24),
+	(114, 'DOSPU', 'rvl', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sistemas', '2017-08-15 09:08:36', 'Activo', 24),
+	(115, 'Medical Pro', 'RVL', '', '', '', '', '', '', NULL, 'agonzalez', '2017-11-03 15:54:04', 'Activo', 24),
+	(116, 'LOGISTICA MEDICA', 'RVL', '', '', '', '', '', '', NULL, 'jkiprizlian', '2017-11-22 15:37:26', 'Activo', 24),
+	(117, 'C&C Medicals', 'RVL', '', '', '', '', '', '', NULL, 'jkiprizlian', '2017-12-20 08:18:40', 'Activo', 24),
+	(118, 'Alexander Fleming', 'RVL', 'Zabala 2836, CABA', '', '', '', '', 'Zabala 2836, CABA', NULL, 'agonzalez', '2018-07-30 14:04:15', 'Activo', 24),
+	(119, 'COFARMA', 'RVL', '', '', '', '', '', 'SAN JOSÉ 1747, SANTA FE', NULL, 'agonzalez', '2018-08-15 13:17:59', 'Activo', 24),
+	(120, 'CEMIC', 'RVL', 'Av. Galván 4102 – CABA ', '', '', '', '', '', NULL, 'jkiprizlian', '2018-09-12 08:33:06', 'Activo', 24),
+	(121, 'PSCOFARM', 'RVL', '', '', '', '', '', '', NULL, 'agonzalez', '2018-09-14 10:50:40', 'Activo', 24),
+	(122, 'Sitio Salud', 'RVL', '', '', '', '', '', 'HIPOLITO YRIGOYEN 5263/67/69, lanus', NULL, 'agonzalez', '2018-09-20 13:15:46', 'Activo', 24),
+	(123, 'Lider SA', 'RVL', 'Av O Higgins 5591 B', '', '', '', '', 'Av O Higgins 5591 B', NULL, 'eala', '2018-10-26 13:41:09', 'Activo', 24),
+	(124, 'Drogueria Psicofarm SA', 'RVL', 'Condor 1851 ', '', '', '', '', 'Condor 1851 ', NULL, 'eala', '2018-11-02 10:06:55', 'Activo', 24),
+	(125, 'Femani Medical SRL', 'RVL', '', '', '', '', '', '', NULL, 'agonzalez', '2019-02-11 10:20:39', 'Activo', 24),
+	(126, 'Disval', 'RVL', '', '', '', '', '', '', NULL, 'agonzalez', '2019-03-21 08:37:42', 'Activo', 24),
+	(127, 'Drogueria y Distribuidora del Valle SC', 'RVL', '24 de Septiembre 725 - Santiago del Estero', '', 'Valeria Liz Argibay', '', '', '24 de Septiembre 725 - Santiago del Estero', NULL, 'eala', '2019-05-24 09:35:21', 'Activo', 24),
+	(128, 'Drogueria Del Pueblo', 'RVL', 'Jose Rosas 589 - Neuquen ', '', '', '', '', 'Jose Rosas 589 - Neuquen ', NULL, 'eala', '2019-06-26 09:58:06', 'Activo', 24),
+	(129, 'Farma S.R.L.', 'RVL', 'Av. Hipolito Yrigoyen 2972 - Trelew', '', 'Graciela Berta Montangie', '', 'Sergio Oscar Amoroso (Socio Gerente)', 'Av. Hipolito Yrigoyen 2972 - Trelew', NULL, 'eala', '2019-09-03 11:44:59', 'Activo', 24);
+/*!40000 ALTER TABLE `canales` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.configuracion
 CREATE TABLE IF NOT EXISTS `configuracion` (
@@ -145,15 +259,10 @@ CREATE TABLE IF NOT EXISTS `documentos` (
   CONSTRAINT `FK_doc_estado` FOREIGN KEY (`estado_id`) REFERENCES `maestro_estado` (`id`),
   CONSTRAINT `FK_doc_tipo` FOREIGN KEY (`documentos_tipo_id`) REFERENCES `documentos_tipo` (`id`),
   CONSTRAINT `FK_doc_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='Tabla donde se almacenan las referencias a los documentos del sistema';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla donde se almacenan las referencias a los documentos del sistema';
 
--- Volcando datos para la tabla soliris.documentos: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.documentos: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `documentos` DISABLE KEYS */;
-INSERT INTO `documentos` (`id`, `valor`, `documentos_tipo_id`, `fecha_creacion`, `fecha_documento`, `estado_id`, `usuario_id`, `familia`) VALUES
-	(1, 'Vacunacion_1_2020-03-20_test.jpg', 1, '2020-03-20 12:15:13', '2020-03-04', 15, 50, 'SOL'),
-	(2, 'Otro_2_2020-03-20_WIN_20170825_12_07_10_Pro.jpg', 2, '2020-03-20 12:21:05', '2020-03-17', 15, 50, 'SOL'),
-	(3, 'Vacunacion_2_2020-03-20_WIN_20170825_12_07_41_Pro.jpg', 1, '2020-03-20 12:21:05', '2020-03-11', 15, 50, 'SOL'),
-	(4, 'Vacunacion_3_2020-03-25_test.jpg', 1, '2020-03-25 10:11:19', '2020-03-10', 15, 50, 'SOL');
 /*!40000 ALTER TABLE `documentos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.documentos_tipo
@@ -162,13 +271,16 @@ CREATE TABLE IF NOT EXISTS `documentos_tipo` (
   `tipo` varchar(50) NOT NULL DEFAULT '0',
   `referencia` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='referencia de tipos de documentos del sistema';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='referencia de tipos de documentos del sistema';
 
--- Volcando datos para la tabla soliris.documentos_tipo: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.documentos_tipo: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `documentos_tipo` DISABLE KEYS */;
 INSERT INTO `documentos_tipo` (`id`, `tipo`, `referencia`) VALUES
 	(1, 'Vacunacion', 'Paciente'),
-	(2, 'Otro', 'Paciente');
+	(2, 'Otro', 'Paciente'),
+	(3, 'Receta', 'Venta'),
+	(4, 'Otro', 'Venta'),
+	(5, 'Certificado Calidad', 'Venta');
 /*!40000 ALTER TABLE `documentos_tipo` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.doc_error
@@ -186,6 +298,25 @@ CREATE TABLE IF NOT EXISTS `doc_error` (
 -- Volcando datos para la tabla soliris.doc_error: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `doc_error` DISABLE KEYS */;
 /*!40000 ALTER TABLE `doc_error` ENABLE KEYS */;
+
+-- Volcando estructura para tabla soliris.dosis
+CREATE TABLE IF NOT EXISTS `dosis` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `valor` varchar(50) NOT NULL DEFAULT '',
+  `presentacion_id` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_presentacion_dosis` (`presentacion_id`),
+  CONSTRAINT `FK_presentacion_dosis` FOREIGN KEY (`presentacion_id`) REFERENCES `presentacion` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla de dosis de presentaciones';
+
+-- Volcando datos para la tabla soliris.dosis: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `dosis` DISABLE KEYS */;
+INSERT INTO `dosis` (`id`, `valor`, `presentacion_id`) VALUES
+	(1, '10 Mg', 1),
+	(2, '25 Mg', 1),
+	(3, '15 Mg', 1),
+	(4, '5 Mg', 1);
+/*!40000 ALTER TABLE `dosis` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.especialidad
 CREATE TABLE IF NOT EXISTS `especialidad` (
@@ -230,18 +361,287 @@ CREATE TABLE IF NOT EXISTS `institucion` (
   `telefono` varchar(45) DEFAULT NULL,
   `notas` longtext,
   `tipo` varchar(10) DEFAULT NULL,
-  `estado_id` int(11) DEFAULT NULL,
+  `estado` varchar(45) DEFAULT NULL,
   `familia` varchar(3) DEFAULT NULL,
   `usuario_audit` varchar(45) DEFAULT NULL,
-  `fecha_audit` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `codigo_np` varchar(255) DEFAULT NULL,
+  `fecha_audit` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `reporte` int(11) NOT NULL DEFAULT '0',
+  `estado_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1271 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla soliris.institucion: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.institucion: ~269 rows (aproximadamente)
 /*!40000 ALTER TABLE `institucion` DISABLE KEYS */;
-INSERT INTO `institucion` (`id`, `nombre`, `direccion`, `altura`, `localidad`, `provincia`, `contacto`, `mail`, `telefono`, `notas`, `tipo`, `estado_id`, `familia`, `usuario_audit`, `fecha_audit`, `codigo_np`) VALUES
-	(1270, 'Institucion Test', '', 0, '', '', '', '', '', '', '', NULL, 'SOL', 'pmiranda', '2019-12-10 16:19:17', NULL);
+INSERT INTO `institucion` (`id`, `nombre`, `direccion`, `altura`, `localidad`, `provincia`, `contacto`, `mail`, `telefono`, `notas`, `tipo`, `estado`, `familia`, `usuario_audit`, `fecha_audit`, `reporte`, `estado_id`) VALUES
+	(1025, 'Aca Salud', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1026, 'Aca Salud- Hospital Privado', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1027, 'Accord Salud', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1028, 'Accord Salud - Hospital Britanico', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1029, 'AMEBPBA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1030, 'AMR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1031, 'ANDAR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1032, 'ANM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1033, 'APRES', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1034, 'APROSS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Convenio', 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1035, 'APROSS-Drog Mediterranea', '', 0, '', '', '', '', '', '', 'Convenio', 'Activo', 'RVL', 'dcilveti', '2020-03-29 20:05:24', 0, 26),
+	(1036, 'Ase. Policia de Formosa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1037, 'ASOC. MEDICA DPTO CASTELLANOS – RAFAELA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1038, 'ASUNT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1039, 'Bancarios', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1040, 'Banco de Drogas', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Convenio', 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1041, 'C.A.S.A.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1042, 'CEMIC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1043, 'centro de mezclas intravenosas', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1044, 'cimesa', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1045, 'Circulo de Ingenieros', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1046, 'Circulo de San Isidro', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1047, 'CM SALUD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1048, 'Consolidar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1049, 'DAMSU MENDOZA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1050, 'DAS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1051, 'Desarrollo Social', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1052, 'DIBPFA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1053, 'DIRECCION DE SERVICIOS DIRECTOS INSSSEP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1054, 'Dosen', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1055, 'DOSPU', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1056, 'DOSUBA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1057, 'Escribanos', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1058, 'Escribanos de La Plata', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1059, 'Fleming', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1060, 'Fundaleu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1061, 'GALENO', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1062, 'Hospital Aleman', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1063, 'Hospital Aleman', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1064, 'Hospital Británico', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1065, 'Hospital Central', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1066, 'Hospital Churruca', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1067, 'Hospital Italiano', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1068, 'I.A.P.O.S.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1069, 'IAPOS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1070, 'INSSP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1072, 'INSSSEP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1073, 'INSSSEP-Hospital Italiano', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1074, 'Inst. Prev y Seguro Tucuman', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1075, 'Instituto de Seguridad Social de Neuquen', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1076, 'IOMA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Convenio', 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1078, 'IOSCOR', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1079, 'IOSE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1080, 'IOSE campo de mayo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1081, 'IOSE Matienzo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1082, 'IProSS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1083, 'IPS TUCUMAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1084, 'IPSST SEGURIDAD SOCIAL TUCUMAN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1085, 'ISSN', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1086, 'ISSP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1087, 'Jerarquicos', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1088, 'Luis Pasteur', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1089, 'MAPFRE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1090, 'Medicus', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1091, 'MEDICUS- Austral', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1092, 'MEDICUS_ Fleming', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1093, 'MEDIFE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1094, 'META', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1095, 'Min. Desarrollo Social', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1096, 'Ministerio de Desarrollo', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1097, 'Ministerio de la provincia de Rio Negro', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1098, 'Ministerio de Salud. (PROFE)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1099, 'MOA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1100, 'Mutual Federada 25 de Junio', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1101, 'O.S.C.T.C.P.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1102, 'O.S.E.C.A.C.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1103, 'Ob Soc de los empreadores Publicos', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1104, 'Ob. SBA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1105, 'Ob. Social del Servicio Penitenciario', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1106, 'OBSBA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Convenio', 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1107, 'OMINT', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1108, 'OPSA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1109, 'OSAM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1110, 'OSDE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1111, 'OSDE - Hospital Británico', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1112, 'OSDE Hospital Italiano', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1113, 'OSDE _ANM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1114, 'OSDE- Fleming', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1115, 'OSDE-CEMIC', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1116, 'OSDE-Hospital Alemán', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1117, 'osdepym', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1118, 'osecac', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1119, 'OSEP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Convenio', 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1120, 'OSER', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1121, 'OSFATLYF', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1122, 'OSIMRA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1123, 'OSMECOM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1124, 'OSMECON', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1125, 'Ospac', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1126, 'OSPAGA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1127, 'OSPIPRA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1128, 'Osplad', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1129, 'OSPOCE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1130, 'OSPRERA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1131, 'ostatlyf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1132, 'OSTEE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1133, 'OSTEL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1134, 'OSTIG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1135, 'OSUNER-Hospital Italiano', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1136, 'PAMI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Convenio', 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1141, 'PAPO MONOCLONAL', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1142, 'poder judicial', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1143, 'Policlínico Neuquén', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1144, 'Privado', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1145, 'PROFE', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1146, 'PS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1147, 'RosFar', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1148, 'SAMA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1149, 'SANCOR SALUD', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1150, 'Scienza', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1151, 'Seros Chubut', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1152, 'SMG', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1153, 'SMG(cemic)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1154, 'SMG-Fundaleu', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1155, 'Solidaridad (Bancaria)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1156, 'Subsidio', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1157, 'Sutiaga', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1158, 'U.P.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1159, 'U.T.A.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1160, 'UAI', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1161, 'UNS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1162, 'UOM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1163, 'UOMM', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1164, 'UP', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1165, 'UTA', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1166, 'Damsu', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1167, 'Oseg', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1168, 'Ospia', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1169, 'Osseg', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1170, 'Apdis', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1171, 'Centro Gallegos', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1172, 'Ips', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1173, 'Hospital Privado', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1174, 'Samo', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1175, 'Ospip', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1176, 'Ipauss', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1177, 'Iosper', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1178, 'Plan de Salud', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1179, 'Britanico', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1180, 'I.A.S.E.P', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1181, 'Osetya', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1182, 'ASPURC', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1183, 'OSPIA PROVINCIA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1184, 'Ospecom', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1185, 'OSA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1186, 'FATSO', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1187, 'Hospital Central Mendoza', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1188, 'Docthos', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1189, 'Ospadep', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1190, 'Ospedyc', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1191, 'Hospital Ramos Mejia', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1192, 'Hope', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1193, 'OSADEF', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1194, 'SS', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1195, 'Mutual SADAIC', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1196, 'OSUTHGRA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1197, 'DASU', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1198, 'POLICLINICO', 'Av. S. Martin', 326, 'Rafaela', 'Sta. Fe', NULL, NULL, '03492 425087', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1199, 'LUZ Y FUERZA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1200, 'oncofarma', 'CHACABUCO', 2069, 'S.M.DE TUCUMAN ', 'TUCUMAN ', NULL, NULL, '0381-4310011', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1201, 'CIRME', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1202, 'Hospital Juan A. Fernandez', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1203, 'Ospil', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1204, 'Dir. de Obra Social Prov.', '', 0, '', 'san juan', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1205, 'OSPAV', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1206, 'IPS Misiones', '', 0, '', 'Misiones', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1207, 'Federada Salud', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1208, 'Obra Social del P Maritimo', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1209, 'Policia Federal', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1210, 'Hospital Santojanni', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1211, 'OSPESGyPE', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1212, 'Conet Plan', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1213, 'SIMECO', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1214, 'OSUOMRA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1215, 'CAIPO', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1216, 'TV SALUD', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1217, 'O S San Juan', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1218, 'OSPIC', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1219, 'Hospital Schestakow', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1220, 'OSCCPTAC', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1221, 'OSSIMRA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1222, 'OSPERYH', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1223, 'SADAIC', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1224, 'AXXA pharma', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1225, 'Caja de Servicios Sociales', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1226, 'OSMATA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1227, 'SEMPRE', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1228, 'OSDOP', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1229, 'Prensa Salud', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1230, 'DIBA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1231, 'OSOSS', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1232, 'daspu', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1233, 'OSRAC Arte de Curar', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1234, 'FEMEBA SALUD', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1235, 'APSOT', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1236, 'OSDIPP', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1237, 'Medicina Privada', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1238, 'Nativa Salud', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1239, 'Programas Medicos', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1240, 'OSCHOCA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1241, 'IPAM', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1242, 'Red Arg Salud', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1243, 'OSPEGAP', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1244, 'SUMA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1245, 'Fundacion COMEI', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1246, 'SIMEPA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1247, 'UNIMEDICA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1248, 'San Pedro', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1249, 'ELEVAR', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1250, 'Arte de Curar', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1251, 'Inst Seguros Jujuy', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1252, 'osmeba', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1253, 'MUPAYE', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1254, 'AMFFA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1255, 'OSFE', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1256, 'FEMESA San Luis', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1257, 'Sanatorio Adventista del Plata', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1258, 'OS Personal TV', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1259, 'IOSEP', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1260, 'HOSP ARGERICH', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1261, 'INCLUIR SALUD', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1262, 'FEMEDICA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1263, 'CSF', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1264, 'PASTELEROS', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1265, 'Caja Forense', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1266, 'OSSSB', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1267, 'Caja de Ingenieros', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1268, 'ODPF', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1269, 'OSPF', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1270, 'IOSFA', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1271, 'TUCUMAN', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1272, 'Caja Notarial', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1273, '', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1274, 'SANIDAD', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1275, 'OSPM', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1276, 'ISSINNE', '', 0, '', '', NULL, NULL, '', NULL, NULL, 'Activo', 'RVL', NULL, '2020-03-29 20:05:24', 0, 26),
+	(1277, 'CONSEJO PROF.CS.ECONOMICAS', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1278, 'OSAP', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1279, 'OSFATUM', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1280, 'UNR ', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1281, 'AGM', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1282, 'APTM', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1283, 'OBRA SOCIAL DEL MINISTERIO ECONOMIA', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1284, 'OSPEPRI', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1285, 'OSPE', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1286, 'O.S.A.R.P.Y.H', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1287, 'Ministerio de Chaco', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1288, 'OSEF', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'mnorris', '2020-03-29 20:05:24', 0, 26),
+	(1289, 'UOCRA', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'eala', '2020-03-29 20:05:24', 0, 26),
+	(1290, 'Salud Total', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'sbisceglia', '2020-03-29 20:05:24', 0, 26),
+	(1291, 'Hospital Pablo Soria', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'sbisceglia', '2020-03-29 20:05:24', 0, 26),
+	(1292, 'Caja de Escribanos', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'sbisceglia', '2020-03-29 20:05:24', 0, 26),
+	(1293, 'Hospital Lagomaggiore', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'sbisceglia', '2020-03-29 20:05:24', 0, 26),
+	(1294, 'IASEP', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'sbisceglia', '2020-03-29 20:05:24', 0, 26),
+	(1295, 'OSPTF (OS tierra del Fuego)', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'sbisceglia', '2020-03-29 20:05:24', 0, 26),
+	(1296, 'Mi. de Desarollo Formosa', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'sbisceglia', '2020-03-29 20:05:24', 0, 26),
+	(1297, 'Ministerio de desarrollo Formosa', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'sbisceglia', '2020-03-29 20:05:24', 0, 26),
+	(1298, 'OSCA', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'sbisceglia', '2020-03-29 20:05:24', 0, 26),
+	(1299, 'Caja de Sta. Cruz', '', 0, '', '', '', '', '', '', '', 'Activo', 'RVL', 'sbisceglia', '2020-03-29 20:05:24', 0, 26);
 /*!40000 ALTER TABLE `institucion` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.localidades
@@ -276,9 +676,9 @@ CREATE TABLE IF NOT EXISTS `maestro_estado` (
   `tipo` varchar(255) DEFAULT NULL COMMENT 'Ejemplo: Paciente, Venta, Documento',
   `referencia` varchar(255) DEFAULT NULL COMMENT 'Notas al estado',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Volcando datos para la tabla soliris.maestro_estado: ~20 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.maestro_estado: ~27 rows (aproximadamente)
 /*!40000 ALTER TABLE `maestro_estado` DISABLE KEYS */;
 INSERT INTO `maestro_estado` (`id`, `valor`, `tipo`, `referencia`) VALUES
 	(1, 'Activo', 'estado', 'usuario'),
@@ -303,7 +703,11 @@ INSERT INTO `maestro_estado` (`id`, `valor`, `tipo`, `referencia`) VALUES
 	(20, 'Inactivo', 'estado', 'medico'),
 	(21, 'Activo', 'estado', 'presentacion'),
 	(22, 'Venta Registrada', 'estado', 'venta'),
-	(23, 'NP Generada', 'estado', 'venta');
+	(23, 'NP Generada', 'estado', 'venta'),
+	(24, 'Activo', 'estado', 'canales'),
+	(25, 'Inactivo', 'estado', 'canales'),
+	(26, 'Activo', 'estado', 'institucion'),
+	(27, 'Inactivo', 'estado', 'institucion');
 /*!40000 ALTER TABLE `maestro_estado` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.maestro_ventas
@@ -311,6 +715,8 @@ CREATE TABLE IF NOT EXISTS `maestro_ventas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `paciente_id` int(10) unsigned DEFAULT NULL,
   `edad` varchar(10) DEFAULT NULL,
+  `dosis_id` int(10) NOT NULL,
+  `venta_tipo_id` int(10) NOT NULL,
   `medico_id` int(11) unsigned NOT NULL,
   `presentacion_id` int(11) unsigned NOT NULL,
   `unidades` int(10) unsigned NOT NULL,
@@ -333,10 +739,13 @@ CREATE TABLE IF NOT EXISTS `maestro_ventas` (
   KEY `FK_venta_patologia` (`patologia_id`),
   KEY `FK_venta_institucion` (`institucion_id`),
   KEY `FK_venta_sub_patologia` (`sub_patologia_id`),
-  KEY `FK_venta_canal` (`canal_id`),
   KEY `FK_venta_estado` (`estado_id`),
   KEY `FK_venta_usuario` (`usuario_id`),
-  CONSTRAINT `FK_venta_canal` FOREIGN KEY (`canal_id`) REFERENCES `canal` (`id`),
+  KEY `FK_venta_dosis` (`dosis_id`),
+  KEY `FK_venta_tipo` (`venta_tipo_id`),
+  KEY `FK_venta_canal` (`canal_id`),
+  CONSTRAINT `FK_venta_canal` FOREIGN KEY (`canal_id`) REFERENCES `canales` (`id`),
+  CONSTRAINT `FK_venta_dosis` FOREIGN KEY (`dosis_id`) REFERENCES `dosis` (`id`),
   CONSTRAINT `FK_venta_estado` FOREIGN KEY (`estado_id`) REFERENCES `maestro_estado` (`id`),
   CONSTRAINT `FK_venta_institucion` FOREIGN KEY (`institucion_id`) REFERENCES `institucion` (`id`),
   CONSTRAINT `FK_venta_medico` FOREIGN KEY (`medico_id`) REFERENCES `medico` (`id`),
@@ -344,6 +753,7 @@ CREATE TABLE IF NOT EXISTS `maestro_ventas` (
   CONSTRAINT `FK_venta_patologia` FOREIGN KEY (`patologia_id`) REFERENCES `patologia` (`id`),
   CONSTRAINT `FK_venta_presentacion` FOREIGN KEY (`presentacion_id`) REFERENCES `presentacion` (`id`),
   CONSTRAINT `FK_venta_sub_patologia` FOREIGN KEY (`sub_patologia_id`) REFERENCES `sub_patologia` (`id`),
+  CONSTRAINT `FK_venta_tipo` FOREIGN KEY (`venta_tipo_id`) REFERENCES `maestro_venta_tipo` (`id`),
   CONSTRAINT `FK_venta_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Maestro de las ventas efectuadas al paciente';
 
@@ -357,19 +767,38 @@ CREATE TABLE IF NOT EXISTS `maestro_ventas_transaccion` (
   `estado_id` int(11) NOT NULL,
   `usuario_id` int(11) unsigned NOT NULL,
   `maestro_id` int(11) unsigned NOT NULL,
+  `tipo_venta_id` int(11) NOT NULL,
   `fecha_stamp` timestamp NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_estado_venta` (`estado_id`),
   KEY `FK_usuario_venta` (`usuario_id`),
   KEY `FK_venta_id` (`maestro_id`),
+  KEY `FK_venta_tipo_trans` (`tipo_venta_id`),
   CONSTRAINT `FK_estado_venta` FOREIGN KEY (`estado_id`) REFERENCES `maestro_estado` (`id`),
   CONSTRAINT `FK_usuario_venta` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`),
-  CONSTRAINT `FK_venta_id` FOREIGN KEY (`maestro_id`) REFERENCES `maestro_ventas` (`id`)
+  CONSTRAINT `FK_venta_id` FOREIGN KEY (`maestro_id`) REFERENCES `maestro_ventas` (`id`),
+  CONSTRAINT `FK_venta_tipo_trans` FOREIGN KEY (`tipo_venta_id`) REFERENCES `maestro_venta_tipo` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que muestra el historial de estados de las transacciones realizadas sobre una venta';
 
 -- Volcando datos para la tabla soliris.maestro_ventas_transaccion: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `maestro_ventas_transaccion` DISABLE KEYS */;
 /*!40000 ALTER TABLE `maestro_ventas_transaccion` ENABLE KEYS */;
+
+-- Volcando estructura para tabla soliris.maestro_venta_tipo
+CREATE TABLE IF NOT EXISTS `maestro_venta_tipo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `valor` varchar(2) DEFAULT NULL,
+  `descripcion` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tipos de Venta';
+
+-- Volcando datos para la tabla soliris.maestro_venta_tipo: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `maestro_venta_tipo` DISABLE KEYS */;
+INSERT INTO `maestro_venta_tipo` (`id`, `valor`, `descripcion`) VALUES
+	(1, 'RI', 'Registro Inicial'),
+	(2, 'FU', 'Follow Up'),
+	(3, 'CA', 'Cancelado');
+/*!40000 ALTER TABLE `maestro_venta_tipo` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.medico
 CREATE TABLE IF NOT EXISTS `medico` (
@@ -401,7 +830,7 @@ CREATE TABLE IF NOT EXISTS `medico` (
   PRIMARY KEY (`id`),
   KEY `FK_estado_medico` (`estado_id`),
   CONSTRAINT `FK_estado_medico` FOREIGN KEY (`estado_id`) REFERENCES `maestro_estado` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1052 DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 351232 kB';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='InnoDB free: 351232 kB';
 
 -- Volcando datos para la tabla soliris.medico: ~1.041 rows (aproximadamente)
 /*!40000 ALTER TABLE `medico` DISABLE KEYS */;
@@ -1460,7 +1889,7 @@ CREATE TABLE IF NOT EXISTS `os` (
   `usuario` varchar(50) NOT NULL DEFAULT '' COMMENT 'ultimo usuario cambio',
   `estado` varchar(2) NOT NULL DEFAULT 'AC' COMMENT 'activo:1, inactivo:0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='Tabla de Obras Sociales';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Tabla de Obras Sociales';
 
 -- Volcando datos para la tabla soliris.os: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `os` DISABLE KEYS */;
@@ -1514,7 +1943,7 @@ CREATE TABLE IF NOT EXISTS `paciente` (
   CONSTRAINT `FK_sub_patologia_pac` FOREIGN KEY (`sub_patologia_id`) REFERENCES `sub_patologia` (`id`),
   CONSTRAINT `FK_usuario_mod_pac` FOREIGN KEY (`usuario_mod_id`) REFERENCES `usuario` (`id`),
   CONSTRAINT `FK_usuario_pac` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='Tabla de Pacientes';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Tabla de Pacientes';
 
 -- Volcando datos para la tabla soliris.paciente: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
@@ -1537,7 +1966,7 @@ CREATE TABLE IF NOT EXISTS `paises` (
   `iso3166a2` char(3) DEFAULT NULL,
   `nombre` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla soliris.paises: ~240 rows (aproximadamente)
 /*!40000 ALTER TABLE `paises` DISABLE KEYS */;
@@ -1795,7 +2224,7 @@ CREATE TABLE IF NOT EXISTS `patologia` (
   PRIMARY KEY (`id`),
   KEY `FK_pat_estado` (`estado_id`),
   CONSTRAINT `FK_pat_estado` FOREIGN KEY (`estado_id`) REFERENCES `maestro_estado` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COMMENT='Tabla de patologias';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Tabla de patologias';
 
 -- Volcando datos para la tabla soliris.patologia: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `patologia` DISABLE KEYS */;
@@ -1817,12 +2246,12 @@ CREATE TABLE IF NOT EXISTS `presentacion` (
   PRIMARY KEY (`id`),
   KEY `FK_presentacion_estado` (`estado_id`),
   CONSTRAINT `FK_presentacion_estado` FOREIGN KEY (`estado_id`) REFERENCES `maestro_estado` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla soliris.presentacion: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `presentacion` DISABLE KEYS */;
 INSERT INTO `presentacion` (`id`, `codigo_np`, `familia`, `valor`, `estado_id`) VALUES
-	(1, '123', 'sol', 'presentacion prueba', 21);
+	(1, '123', 'SOL', 'presentacion prueba', 21);
 /*!40000 ALTER TABLE `presentacion` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.provincias
@@ -1847,15 +2276,10 @@ CREATE TABLE IF NOT EXISTS `rel_paciente_documentos` (
   KEY `FK_doc_doc` (`documento_id`),
   CONSTRAINT `FK_doc_doc` FOREIGN KEY (`documento_id`) REFERENCES `documentos` (`id`),
   CONSTRAINT `FK_doc_pac` FOREIGN KEY (`paciente_id`) REFERENCES `paciente` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='Tabla de relacion de los documentos de los pacientes en el sistema';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla de relacion de los documentos de los pacientes en el sistema';
 
--- Volcando datos para la tabla soliris.rel_paciente_documentos: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.rel_paciente_documentos: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `rel_paciente_documentos` DISABLE KEYS */;
-INSERT INTO `rel_paciente_documentos` (`id`, `paciente_id`, `documento_id`, `fecha_creacion`) VALUES
-	(1, 1, 1, '2020-03-20 12:15:13'),
-	(2, 2, 2, '2020-03-20 12:21:05'),
-	(3, 2, 3, '2020-03-20 12:21:05'),
-	(4, 3, 4, '2020-03-25 10:11:19');
 /*!40000 ALTER TABLE `rel_paciente_documentos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.rel_patologia_sub_patologia
@@ -1868,7 +2292,7 @@ CREATE TABLE IF NOT EXISTS `rel_patologia_sub_patologia` (
   KEY `FK_sub_patologia` (`sub_patologia_id`),
   CONSTRAINT `FK_patologia` FOREIGN KEY (`patologia_id`) REFERENCES `patologia` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `FK_sub_patologia` FOREIGN KEY (`sub_patologia_id`) REFERENCES `sub_patologia` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COMMENT='tabla de relacion entre patologia y subpatologia';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='tabla de relacion entre patologia y subpatologia';
 
 -- Volcando datos para la tabla soliris.rel_patologia_sub_patologia: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `rel_patologia_sub_patologia` DISABLE KEYS */;
@@ -1889,9 +2313,9 @@ CREATE TABLE IF NOT EXISTS `rel_seguridad_rol` (
   KEY `FK_rol_seguridad` (`rol_id`),
   CONSTRAINT `FK_rol_seguridad` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id`),
   CONSTRAINT `FK_seguridad_rol` FOREIGN KEY (`seguridad_id`) REFERENCES `soliris_seguridad` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=236 DEFAULT CHARSET=latin1 COMMENT='Tabla que vincula las paginas y los roles admitidos para esta';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que vincula las paginas y los roles admitidos para esta';
 
--- Volcando datos para la tabla soliris.rel_seguridad_rol: ~182 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.rel_seguridad_rol: ~181 rows (aproximadamente)
 /*!40000 ALTER TABLE `rel_seguridad_rol` DISABLE KEYS */;
 INSERT INTO `rel_seguridad_rol` (`id`, `seguridad_id`, `rol_id`, `fecha`) VALUES
 	(1, 70, 1, '2020-02-07 14:52:25'),
@@ -2075,8 +2499,31 @@ INSERT INTO `rel_seguridad_rol` (`id`, `seguridad_id`, `rol_id`, `fecha`) VALUES
 	(232, 119, 6, '2020-02-07 14:53:11'),
 	(233, 120, 6, '2020-02-07 14:53:11'),
 	(234, 124, 6, '2020-02-07 14:53:11'),
-	(235, 125, 4, '2020-03-26 00:36:40');
+	(235, 125, 4, '2020-03-26 00:36:40'),
+	(236, 126, 4, '2020-03-27 10:39:44');
 /*!40000 ALTER TABLE `rel_seguridad_rol` ENABLE KEYS */;
+
+-- Volcando estructura para tabla soliris.rel_venta_documentos
+CREATE TABLE IF NOT EXISTS `rel_venta_documentos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `venta_id` int(11) unsigned NOT NULL,
+  `documento_id` int(11) NOT NULL,
+  `fecha_creacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `FK_venta_id_rel` (`venta_id`),
+  KEY `FK_documento_venta` (`documento_id`),
+  CONSTRAINT `FK_documento_venta` FOREIGN KEY (`documento_id`) REFERENCES `documentos` (`id`),
+  CONSTRAINT `FK_venta_id_rel` FOREIGN KEY (`venta_id`) REFERENCES `maestro_ventas` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla de relacion entre los documentos y los registro de la venta';
+
+-- Volcando datos para la tabla soliris.rel_venta_documentos: ~4 rows (aproximadamente)
+/*!40000 ALTER TABLE `rel_venta_documentos` DISABLE KEYS */;
+INSERT INTO `rel_venta_documentos` (`id`, `venta_id`, `documento_id`, `fecha_creacion`) VALUES
+	(1, 1, 1, '2020-03-30 12:46:25'),
+	(2, 9, 2, '2020-03-30 15:04:01'),
+	(3, 10, 3, '2020-03-30 15:06:27'),
+	(4, 11, 4, '2020-03-30 15:06:57');
+/*!40000 ALTER TABLE `rel_venta_documentos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.rol
 CREATE TABLE IF NOT EXISTS `rol` (
@@ -2086,7 +2533,7 @@ CREATE TABLE IF NOT EXISTS `rol` (
   PRIMARY KEY (`id`),
   KEY `FK_rol_estado` (`estado_id`),
   CONSTRAINT `FK_rol_estado` FOREIGN KEY (`estado_id`) REFERENCES `maestro_estado` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla soliris.rol: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `rol` DISABLE KEYS */;
@@ -2126,7 +2573,7 @@ CREATE TABLE IF NOT EXISTS `soliris_documentacion` (
   PRIMARY KEY (`id`),
   KEY `referencia` (`referencia`),
   KEY `idMstr` (`maestro_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1965 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla soliris.soliris_documentacion: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `soliris_documentacion` DISABLE KEYS */;
@@ -2158,9 +2605,9 @@ CREATE TABLE IF NOT EXISTS `soliris_seguridad` (
   `pagina` varchar(100) DEFAULT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Volcando datos para la tabla soliris.soliris_seguridad: ~56 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.soliris_seguridad: ~55 rows (aproximadamente)
 /*!40000 ALTER TABLE `soliris_seguridad` DISABLE KEYS */;
 INSERT INTO `soliris_seguridad` (`id`, `pagina`, `descripcion`) VALUES
 	(70, 'pacientes.php', 'Listado de Pacientes'),
@@ -2218,7 +2665,8 @@ INSERT INTO `soliris_seguridad` (`id`, `pagina`, `descripcion`) VALUES
 	(122, 'prueba2.php', ''),
 	(123, 'docs_hist_paciente.php', 'Historico Documentacion Paciente'),
 	(124, 'diff_med.php', 'Diferencias de Medicos Meditec'),
-	(125, 'nueva_venta.php', 'Nueva Venta');
+	(125, 'nueva_venta.php', 'Nueva Venta'),
+	(126, 'generar_venta.php', 'Generación de Venta');
 /*!40000 ALTER TABLE `soliris_seguridad` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.sub_patologia
@@ -2229,7 +2677,7 @@ CREATE TABLE IF NOT EXISTS `sub_patologia` (
   `usuario_audit` varchar(45) NOT NULL DEFAULT '',
   `fecha_audit` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COMMENT='Tablas de Sub Patoligias';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tablas de Sub Patoligias';
 
 -- Volcando datos para la tabla soliris.sub_patologia: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `sub_patologia` DISABLE KEYS */;
@@ -2252,7 +2700,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   KEY `FK_usuario_estado` (`estado_id`),
   CONSTRAINT `FK_usuario_estado` FOREIGN KEY (`estado_id`) REFERENCES `maestro_estado` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   CONSTRAINT `FK_usuario_rol` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Volcando datos para la tabla soliris.usuario: ~24 rows (aproximadamente)
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
@@ -2514,6 +2962,32 @@ SELECT COUNT(*) FROM rel_seguridad_rol rsr WHERE rsr.seguridad_id = pagina_id AN
 END//
 DELIMITER ;
 
+-- Volcando estructura para procedimiento soliris.ST_GET_CANAL
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_GET_CANAL`(
+	IN `v_filtro` VARCHAR(50)
+)
+    COMMENT 'Obtiene los canales en base a un filtro pasado por parametro'
+BEGIN
+
+SELECT * from canales c where c.estado_id = 24 AND c.canal like CONCAT('%', v_filtro, '%');
+
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento soliris.ST_GET_INSTITUCION
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_GET_INSTITUCION`(
+	IN `v_filtro` VARCHAR(50)
+)
+    COMMENT 'Obtiene las instituciones habilitadas en base a un filtro pasado por parametro'
+BEGIN
+
+SELECT * from institucion i where i.estado_id = 26 AND i.nombre LIKE  CONCAT('%', v_filtro, '%');
+
+END//
+DELIMITER ;
+
 -- Volcando estructura para procedimiento soliris.ST_GET_MAESTRO_ESTADO_ACTIVO
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_GET_MAESTRO_ESTADO_ACTIVO`(
@@ -2572,11 +3046,154 @@ DELIMITER ;
 
 -- Volcando estructura para procedimiento soliris.ST_GUARDAR_VENTA
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_GUARDAR_VENTA`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_GUARDAR_VENTA`(
+	IN `v_id_paciente` INT,
+	IN `v_medico_id` INT,
+	IN `v_presentacion_id` INT,
+	IN `v_dosis_id` INT,
+	IN `v_unidades` INT,
+	IN `v_fecha_venta` DATE,
+	IN `v_institucion_id` INT,
+	IN `v_canal_id` INT,
+	IN `v_usuario` VARCHAR(50)
+
+
+
+
+
+
+
+
+)
     COMMENT 'store que guarda la venta asignada a un paciente'
 BEGIN
 
+	 SET @p_username := v_usuario;
+    SET @id_paciente := v_id_paciente;
+    SET @v_medico_id := v_medico_id;
+    SET @v_presentacion_id := v_presentacion_id;
+    SET @v_unidades := v_unidades;
+    SET @v_fecha_venta := v_fecha_venta;
+    SET @v_institucion_id := v_institucion_id;
+	 SET @v_canal_id := v_canal_id;
+	 SET @v_dosis_id := v_dosis_id;
+    
+    SET @paciente_venta_ri = CONCAT("SELECT COUNT(*) AS ri INTO @p_venta_ri FROM maestro_ventas m WHERE m.paciente_id = ? AND m.venta_tipo_id = 1");
+    PREPARE statement_paciente_venta_ri FROM @paciente_venta_ri;
+    EXECUTE statement_paciente_venta_ri USING @id_paciente;
+    DEALLOCATE PREPARE statement_paciente_venta_ri;
+    
+    IF(@p_venta_ri > 0) THEN
+    	SET @p_tipo_venta_id = 2;
+	 ELSE
+	 	SET @p_tipo_venta_id = 1;
+    END IF;
+    
+    
+    SET @usuario_id = CONCAT("SELECT `FU_GET_ID_USUARIO`(?) INTO @p_usuario_id");
+    PREPARE statement_usuario_id FROM @usuario_id;
+    EXECUTE statement_usuario_id USING @p_username;
+    DEALLOCATE PREPARE statement_usuario_id;
+    
+    SET @query_edad = CONCAT("SELECT `FU_GET_PACIENTE_EDAD`(?) INTO @edad_paciente");
+    PREPARE statement_edad_pac FROM @query_edad;
+    EXECUTE statement_edad_pac USING @id_paciente;
+    DEALLOCATE PREPARE statement_edad_pac;
+    
 
+	 SET @paciente_patologia = CONCAT("SELECT p.patologia_id, p.sub_patologia_id INTO @patologia_id, @sub_patologia_id FROM paciente p WHERE p.id =?");
+    PREPARE statement_paciente_patologia FROM @paciente_patologia;
+    EXECUTE statement_paciente_patologia USING @id_paciente;
+    DEALLOCATE PREPARE statement_paciente_patologia;
+
+	 -- BuildMyString.com generated SQL. Please enjoy your string responsibly.
+
+	SET @query_insert_venta = CONCAT('INSERT INTO maestro_ventas',
+	'	(paciente_id,',
+	'	 edad, ',
+	'	 medico_id, ',
+	'	 presentacion_id, ',
+	'	 dosis_id, ',
+	'	 venta_tipo_id, ',
+	'	 unidades, ',
+	'	 fecha_venta, ',
+	'	 patologia_id, ',
+	'	 sub_patologia_id, ',
+	'	 institucion_id, ',
+	'	 canal_id, ',
+	'	 usuario_id, ',
+	'	 fecha_stamp) ',
+	'	 VALUES ',
+	'	 (',
+	'	 @id_paciente,',
+	'	  @edad_paciente,',
+	'	  @v_medico_id, ',
+	'	  @v_presentacion_id, ',
+	'	  @v_dosis_id, ',
+	'	  @p_tipo_venta_id, ',
+	'	  @v_unidades, ',
+	'	  @v_fecha_venta, ',
+	'	 	@patologia_id,',
+	'	 @sub_patologia_id,',
+	'	 @v_institucion_id, ',
+	'	 @v_canal_id, ',
+	'	 @p_usuario_id,',
+	'	 NOW())',
+	';');
+
+	
+    PREPARE statement_documento_tipo_id FROM @query_insert_venta;
+    EXECUTE statement_documento_tipo_id;
+    DEALLOCATE PREPARE statement_documento_tipo_id;
+    
+
+    SELECT LAST_INSERT_ID() AS mensaje;
+
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento soliris.ST_GUARDAR_VENTA_DOCUMENTACION
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_GUARDAR_VENTA_DOCUMENTACION`(
+	IN `v_idVenta` INT,
+	IN `v_tipoDoc` INT,
+	IN `v_nombreDoc` VARCHAR(255)
+,
+	IN `v_usuario` VARCHAR(50),
+	IN `v_fecha_doc` DATE
+
+
+
+
+)
+    COMMENT 'Store que guarda la documentacion de la venta y la asocia al registro de venta'
+BEGIN
+
+
+SET @p_nombre_doc := v_nombreDoc;
+SET @p_doc_tipo := v_tipoDoc;
+SET @p_username := v_usuario;
+SET @fecha_doc := v_fecha_doc;
+SET @p_idVenta := v_idVenta;
+
+  	SET @usuario_id = CONCAT("SELECT `FU_GET_ID_USUARIO`(?) INTO @p_usuario_id");
+    PREPARE statement_usuario_id FROM @usuario_id;
+    EXECUTE statement_usuario_id USING @p_username;
+    DEALLOCATE PREPARE statement_usuario_id;
+    
+
+
+SET @query_documentos = CONCAT("INSERT INTO documentos (valor, documentos_tipo_id, fecha_creacion, fecha_documento, usuario_id, familia) VALUES (?, ?, NOW(), @fecha_doc, ?, 'SOL')");
+PREPARE statement_query_documentos FROM @query_documentos;
+EXECUTE statement_query_documentos USING @p_nombre_doc, @p_doc_tipo, @p_usuario_id;
+DEALLOCATE PREPARE statement_query_documentos;
+
+SET @query_rel_venta_documentos = CONCAT("INSERT INTO rel_venta_documentos (venta_id, documento_id, fecha_creacion) VALUES (?, LAST_INSERT_ID(), NOW())");
+PREPARE statement_query_rel_venta_documentos FROM @query_rel_venta_documentos;
+EXECUTE statement_query_rel_venta_documentos USING @p_idVenta;
+DEALLOCATE PREPARE statement_query_rel_venta_documentos;
+
+SELECT "SE CREO EL REGISTRO CORRECTAMENTE" AS mensaje;
 
 
 END//
@@ -2684,13 +3301,14 @@ DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_LIST_MEDICOS_ACTIVOS`(
 	IN `v_filtro` VARCHAR(50)
 
+
 )
     COMMENT 'Filtro de medicos activos'
 BEGIN
 SELECT 
-	m.id, CONCAT(m.apellido, ', ',m.nombre) AS nombre
+	m.id, CONCAT(m.apellido,',',m.nombre) AS nombre
 FROM medico m
-WHERE m.estado_id IN (19) AND CONCAT(m.apellido, ', ', m.nombre) like CONCAT('%', v_filtro, '%')
+WHERE m.estado_id IN (19) AND CONCAT(m.apellido,',',m.nombre) like CONCAT('%', v_filtro, '%')
 ORDER BY nombre ASC; 
 END//
 DELIMITER ;
@@ -3427,6 +4045,23 @@ declare nombre varchar(255);
 set nombre = (SELECT GROUP_CONCAT(M.Apellido, ' ', M.Nombre) FROM medicos as M WHERE M.id = v_medico);
 
 RETURN nombre;
+END//
+DELIMITER ;
+
+-- Volcando estructura para función soliris.FU_GET_PACIENTE_EDAD
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `FU_GET_PACIENTE_EDAD`(
+	`v_id_paciente` INT
+
+) RETURNS int(11)
+    COMMENT 'DEVUELVE LA EDAD DEL PACIENTE'
+BEGIN
+
+return (SELECT 
+	YEAR(CURDATE()) - YEAR(p.fecha_nac) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()), '-', MONTH(p.fecha_nac), '-', DAY(p.fecha_nac)) ,'%Y-%c-%e') > CURDATE(), 1, 0) AS edad
+FROM paciente p where p.id = v_id_paciente);
+
+
 END//
 DELIMITER ;
 
@@ -4809,6 +5444,19 @@ return d_resp;
 
 END//
 DELIMITER ;
+
+-- Volcando estructura para disparador soliris.maestro_ventas_after_insert
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `maestro_ventas_after_insert` AFTER INSERT ON `maestro_ventas` FOR EACH ROW BEGIN
+
+INSERT INTO maestro_ventas_transaccion
+	(estado_id, usuario_id, maestro_id, tipo_venta_id, fecha_stamp)
+	VALUES (NEW.estado_id, NEW.usuario_id, NEW.id, NEW.venta_tipo_id, NOW());
+
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

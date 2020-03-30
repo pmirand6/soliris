@@ -9,6 +9,7 @@
  * idPac: (Id del Paciente)
  * idMedico: (Id del Medico)
  * idInstitucion: (Id Institucion)
+ * idPresentacion: (Id Presentacion)
  * idDosis: (Id de la dosis del medicamento)
  * cantUnidades: (cantidad de unidades a vender)
  * idCanal: (Id del Canal)
@@ -32,22 +33,25 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
     $idPac = $_POST["idPac"];
     $idMedico = $_POST["idMedico"];
     $idPresentacion = $_POST["idPresentacion"];
-    $fecha_venta = $_POST["fecha_venta"];
-    $cantUnidades = $_POST["cantUnidades"];
+    $fecha_venta = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["fecha_venta"]))), 'Y-m-d');;
     $idInstitucion = $_POST["idInstitucion"];
-    $idDosis = $_POST["idInstitucion"];
+    $idDosis = $_POST["idDosis"];
+    $cantUnidades = $_POST["cantUnidades"];
     $idCanal = $_POST["idCanal"];
     $usuario = $_SESSION["soliris_usuario"];
 
 
-   $SQL = "CALL `ST_GUARDAR_VENTA`('$idPac',
+    $SQL = "CALL `ST_GUARDAR_VENTA`('$idPac',
      '$idMedico', 
      '$idPresentacion', 
+     '$idDosis', 
      '$cantUnidades', 
      '$fecha_venta', 
      '$idInstitucion', 
      '$idCanal', 
      '$usuario')";
+
+     
 
     if (isset($SQL) and $SQL != "") {
         $response = MySQL_sendFunctionAudit("$SQL", "ajx.guarda_venta.php", "1");
@@ -66,32 +70,31 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
     */
 
     //TODO GUARDAR ARCHIVOS CON EL ID DEL PACIENTE Y EL ID DE LA VENTA
+
     
 
-
-    if (isset($_FILES["file_receta"])) {
+    if (isset($_FILES["file_receta"]) && !empty($_FILES["file_receta"])) {
 
         $file_name = $_FILES["file_receta"]["name"];
         $file_type = $_FILES["file_receta"]["type"];
         $file = $file_name . '.' . $file_type; //FIXME VERIFICAR EL GUARDADO CORRECTO DE LA EXTENSION
-        $fecha_receta = $_POST["fecha_receta"];
+        $fecha_receta = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["f_receta"]))), 'Y-m-d');
 
-        $sqlDocsReceta = "CALL `ST_GUARDAR_VENTA_DOCUMENTACION`('$idVenta', '3', '$file', '$usuario', '$fecha_receta')";
+        $sqlDocsReceta = "CALL `ST_GUARDAR_VENTA_DOCUMENTACION`('$idVenta', '3', '$file_name', '$usuario', '$fecha_receta')";
         $response = MySQL_sendFunctionAudit("$sqlDocsReceta", "save_doc_receta", "1");
         echo $response[0]["mensaje"];
     }
 
-    if (isset($_FILES["file_otro"])) {
+    if (isset($_FILES["file_otro"]) && !empty($_FILES["file_otro"]) && !empty($_POST["f_otro"])) {
 
         $file_name = $_FILES["file_otro"]["name"];
         $file_type = $_FILES["file_otro"]["type"];
-        $file = $file_name . '.' . $file_type; //FIXME VERIFICAR EL GUARDADO CORRECTO DE LA EXTENSION
-        $fecha_receta = $_POST["fecha_otro"];
+        $file_otro = $file_name . '.' . $file_type; //FIXME VERIFICAR EL GUARDADO CORRECTO DE LA EXTENSION
+        $fecha_otro = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["f_otro"]))), 'Y-m-d');
 
-        $sqlDocsReceta = "CALL `ST_GUARDAR_VENTA_DOCUMENTACION`('$idVenta', '4', '$file', '$usuario', '$fecha_receta')";
+        $sqlDocsReceta = "CALL `ST_GUARDAR_VENTA_DOCUMENTACION`('$idVenta', '4', '$file_name', '$usuario', '$fecha_otro')";
         $response = MySQL_sendFunctionAudit("$sqlDocsReceta", "save_doc_otro", "1");
         echo $response[0]["mensaje"];
     }
+} 
 
-
-}

@@ -26,87 +26,70 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
       window.location.href = window.location.href;
     });
     l_set_select_medico();
-    l_set_select_dosis();
     l_set_select_canal();
     l_set_select_institucion();
     l_set_datepicker();
     l_validate_form();
+    l_set_presentacion();
+    l_set_paciente();
   });
 });
 
-function l_validate_form() {
-  /*$("#frm-venta")
-    .formValidation({
-      excluded: ":disabled",
-      icon: {
-        required: "fa fa-warning",
-        valid: "fa fa-asterisk",
-        invalid: "fa fa-times-circle",
-        validating: "fa fa-refresh"
-      },
-      fields: {
-        medico: {
-          validators: {
-            notEmpty: {
-              message: "Debe seleccionar un médico"
-            }
-          }
-        },
-        dosis: {
-          validators: {
-            notEmpty: {
-              message: "Debe seleccionar una dosís"
-            }
-          }
-        },
-        cantDosis: {
-          message: "El nombre de la ciudad no es válida",
-          validators: {
-            regexp: {
-              regexp: /^[0-9]*$/,
-              message: "Este campo debe contener solo números."
-            },
-            notEmpty: {
-              message: "Debe indicar la cantidad de Dosis"
-            }
-          }
-        },
-        canal: {
-          validators: {
-            notEmpty: {
-              message: "Debe seleccionar un canal"
-            }
-          }
-        },
-        institucion: {
-          validators: {
-            notEmpty: {
-              message: "Debe seleccionar una institución"
-            }
-          }
-        },
-        f_receta: {
-          validators: {
-            date: {
-              format: "DD-MM-YYYY",
-              message: "El formato es invalido"
-            },
-            notEmpty: {
-              message: "La Fecha de Receta no puede quedar vacía"
-            }
-          }
-        }
-      }
-    })
-    .on("success.form.fv", function(e) {
-      e.preventDefault();
-      save_ventas();
-    })
-    .submit(function(e) {
-      e.preventDefault();
-      alert("dasd");
-    });*/
+function l_generar_venta() {
+  let myForm = document.getElementById('frmVenta');
+  var form = new FormData(myForm);
+  form.append("oper", "guardar_venta");
+  form.append("idPresentacion", $("#presentacion").val());
+  form.append("idPac", getQuerystring("idPac"));
+  form.append("idMedico", $("#medico").data('id'));
+  form.append("cantUnidades", $("#cantDosis").val());
+  form.append("fecha_venta", getDate());
+  form.append("idInstitucion", $("#institucion").data('id'));
+  form.append("idCanal", $("#canal").data('id'));
+  form.append("idDosis", $("#dosis").val());
 
+  var settings = {
+    url: aplicacion + "/ajax/ajx.generar_venta.php",
+    method: "POST",
+    processData: false,
+    mimeType: "multipart/form-data",
+    contentType: false,
+    data: form
+  };
+
+  $.ajax(settings).done(function(response) {
+    console.log(response)
+  });
+}
+
+function l_set_paciente() {
+  $.post(
+    aplicacion + "/ajax/ajx.paciente.php",
+    { oper: "showPaciente", id: getQuerystring("idPac") },
+    function(data) {
+      $.map(data, function(e) {
+        $("#nombrePaciente").html(e.nombre_completo);
+      });
+    },
+    "json"
+  );
+}
+
+function l_set_presentacion() {
+  $.getJSON(
+    aplicacion + "/ajax/ajx.presentacion.php",
+    { oper: "getPresentacion" },
+    function(data, textStatus, jqXHR) {
+      $.each(data, function(i, v) {
+        $("#presentacion").val(v.id);
+        $("#presentacionTitle").html(v.valor);
+        l_set_select_dosis(v.id);
+      });
+    }
+  );
+}
+
+function l_validate_form() {
   FormValidation.formValidation(document.getElementById("frmVenta"), {
     fields: {
       medico: {
@@ -129,6 +112,10 @@ function l_validate_form() {
           regexp: {
             regexp: /^[0-9]*$/,
             message: "Este campo debe contener solo números."
+          },
+          greaterThan: {
+            min: 1,
+            message: "El valor indicado debe ser mayor a 0"
           },
           notEmpty: {
             message: "Debe indicar la cantidad de Dosis"
@@ -159,6 +146,20 @@ function l_validate_form() {
             message: "La Fecha de Receta no puede quedar vacía"
           }
         }
+      },
+      file_receta: {
+        validators: {
+          notEmpty: {
+            message: "Debe Seleccionar una receta"
+          },
+          file: {
+            extension: "jpg,png,gif,doc,pdf,zip,bmp,tif",
+            type:
+              "image/jpeg,image/png,image/gif,application/msword,application/pdf,application/zip,image/x-ms-bmp,image/tiff",
+            maxSize: 2097152, // 2048 * 1024
+            message: "El archivo seleccionado no es válido"
+          }
+        }
       }
     },
     plugins: {
@@ -171,7 +172,11 @@ function l_validate_form() {
         validating: "fa fa-refresh"
       })
     }
-  });
+  }).on("core.form.invalid", function() {})
+  .on("core.form.valid", function(){
+    l_generar_venta();
+  })
+  ;
 }
 
 function l_set_datepicker() {
@@ -372,16 +377,18 @@ function l_set_select_institucion() {
   });
 }
 
-function l_set_select_dosis() {
-  $.getJSON(aplicacion + "/ajax/ajx.dosis.php", { oper: "getDosis" }, function(
-    data
-  ) {
-    var items = [];
-    $.each(data, function(key, val) {
-      items.push("<option value='" + val.id + "'>" + val.valor + "</option>");
-    });
-    $("#dosis").append(items);
-  });
+function l_set_select_dosis($presentacion) {
+  $.getJSON(
+    aplicacion + "/ajax/ajx.dosis.php",
+    { oper: "getDosis", presentacion: $presentacion },
+    function(data) {
+      var items = [];
+      $.each(data, function(key, val) {
+        items.push("<option value='" + val.id + "'>" + val.valor + "</option>");
+      });
+      $("#dosis").append(items);
+    }
+  );
 }
 
 function getCurrentHostname() {

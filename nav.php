@@ -34,7 +34,7 @@ include './config/config.php';
     <div class="easyui-accordion" style="height: auto;">
     <div title="Gestión" style="overflow:auto;padding:10px;">
         <p class="nav_item" onclick="pop('main/panel.php')"><span class="margin-right fa fa-home"></span>Principal</p>
-        <p class="nav_item" onclick="pop('main/informes.php')"><span class="margin-right fa fa-cart-plus"></span>Alta de Venta</p>
+        <p class="nav_item" onclick="pop('main/nueva_venta.php')"><span class="margin-right fa fa-cart-plus"></span>Alta de Venta</p>
         <p class="nav_item" onclick="pop('main/listado.php')"><span class="margin-right fa fa-shopping-cart"></span>Historial de Ventas</p>
 <!--        <p class="nav_item" onclick="pop('administrador/reasignar.php')"><span class="margin-right fa fa-history"></span>Ventas a Reasignar</p>-->
 <!--        <p class="nav_item" onclick="pop('administrador/reasignados.php')"><span class="margin-right fa fa-share"></span>Vincular Reasignados</p>-->
