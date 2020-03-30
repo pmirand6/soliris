@@ -52,7 +52,7 @@ $idPaciente = $_GET["idPac"];
     <section class="container box">
         <div class="container card">
             <div class="card-content">
-                <form action="" id="frmVenta" enctype="multipart/form-data">
+                <form action="" id="frmVenta" enctype="multipart/form-data" autocomplete="off">
                     <input id="presentacion" name="presentacion" value="" type="text" class="input" style="display: none">
                     <p class="heading">Presentación</p>
                     <p class="subtitle" id="presentacionTitle"></p>

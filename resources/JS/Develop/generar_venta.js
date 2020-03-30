@@ -36,16 +36,16 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
 });
 
 function l_generar_venta() {
-  let myForm = document.getElementById('frmVenta');
+  let myForm = document.getElementById("frmVenta");
   var form = new FormData(myForm);
   form.append("oper", "guardar_venta");
   form.append("idPresentacion", $("#presentacion").val());
   form.append("idPac", getQuerystring("idPac"));
-  form.append("idMedico", $("#medico").data('id'));
+  form.append("idMedico", $("#medico").data("id"));
   form.append("cantUnidades", $("#cantDosis").val());
   form.append("fecha_venta", getDate());
-  form.append("idInstitucion", $("#institucion").data('id'));
-  form.append("idCanal", $("#canal").data('id'));
+  form.append("idInstitucion", $("#institucion").data("id"));
+  form.append("idCanal", $("#canal").data("id"));
   form.append("idDosis", $("#dosis").val());
 
   var settings = {
@@ -58,7 +58,8 @@ function l_generar_venta() {
   };
 
   $.ajax(settings).done(function(response) {
-    console.log(response)
+      alert(response);
+      parent.location.reload();
   });
 }
 
@@ -172,11 +173,11 @@ function l_validate_form() {
         validating: "fa fa-refresh"
       })
     }
-  }).on("core.form.invalid", function() {})
-  .on("core.form.valid", function(){
-    l_generar_venta();
   })
-  ;
+    .on("core.form.invalid", function() {})
+    .on("core.form.valid", function() {
+      l_generar_venta();
+    });
 }
 
 function l_set_datepicker() {
