@@ -32,6 +32,10 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
     l_validate_form();
     l_set_presentacion();
     l_set_paciente();
+
+    $("#canVenta").click(function(e) {
+      parent.location.reload();
+    });
   });
 });
 
@@ -58,8 +62,14 @@ function l_generar_venta() {
   };
 
   $.ajax(settings).done(function(response) {
-      alert(response);
+    Swal.fire({
+      title: "Venta Generada!",
+      type: "success",
+      text: response,
+      timer: 5000
+    }).then(function() {
       parent.location.reload();
+    });
   });
 }
 
@@ -91,93 +101,162 @@ function l_set_presentacion() {
 }
 
 function l_validate_form() {
-  FormValidation.formValidation(document.getElementById("frmVenta"), {
-    fields: {
-      medico: {
-        validators: {
-          notEmpty: {
-            message: "Debe seleccionar un médico"
-          }
-        }
+  const dateValidators = {
+    validators: {
+      date: {
+        format: "DD-MM-YYYY",
+        message: "El formato es invalido"
       },
-      dosis: {
-        validators: {
-          notEmpty: {
-            message: "Debe seleccionar una dosís"
-          }
-        }
-      },
-      cantDosis: {
-        message: "El nombre de la ciudad no es válida",
-        validators: {
-          regexp: {
-            regexp: /^[0-9]*$/,
-            message: "Este campo debe contener solo números."
-          },
-          greaterThan: {
-            min: 1,
-            message: "El valor indicado debe ser mayor a 0"
-          },
-          notEmpty: {
-            message: "Debe indicar la cantidad de Dosis"
-          }
-        }
-      },
-      canal: {
-        validators: {
-          notEmpty: {
-            message: "Debe seleccionar un canal"
-          }
-        }
-      },
-      institucion: {
-        validators: {
-          notEmpty: {
-            message: "Debe seleccionar una institución"
-          }
-        }
-      },
-      f_receta: {
-        validators: {
-          date: {
-            format: "DD-MM-YYYY",
-            message: "El formato es invalido"
-          },
-          notEmpty: {
-            message: "La Fecha de Receta no puede quedar vacía"
-          }
-        }
-      },
-      file_receta: {
-        validators: {
-          notEmpty: {
-            message: "Debe Seleccionar una receta"
-          },
-          file: {
-            extension: "jpg,png,gif,doc,pdf,zip,bmp,tif",
-            type:
-              "image/jpeg,image/png,image/gif,application/msword,application/pdf,application/zip,image/x-ms-bmp,image/tiff",
-            maxSize: 2097152, // 2048 * 1024
-            message: "El archivo seleccionado no es válido"
-          }
-        }
+      notEmpty: {
+        message: "Debe indicar una fecha para este Documento"
       }
-    },
-    plugins: {
-      trigger: new FormValidation.plugins.Trigger(),
-      bulma: new FormValidation.plugins.Bulma(),
-      submitButton: new FormValidation.plugins.SubmitButton(),
-      icon: new FormValidation.plugins.Icon({
-        valid: "fa fa-check",
-        invalid: "fa fa-times",
-        validating: "fa fa-refresh"
-      })
     }
-  })
-    .on("core.form.invalid", function() {})
+  };
+
+  const fileValidators = {
+    validators: {
+      notEmpty: {
+        message: "Debe Seleccionar un Archivo"
+      },
+      file: {
+        extension: "jpg,png,gif,doc,pdf,zip,bmp,tif",
+        type:
+          "image/jpeg,image/png,image/gif,application/msword,application/pdf,application/zip,image/x-ms-bmp,image/tiff",
+        maxSize: 2097152, // 2048 * 1024
+        message: "El archivo seleccionado no es válido"
+      }
+    }
+  };
+  const fv = FormValidation.formValidation(
+    document.getElementById("frmVenta"),
+    {
+      fields: {
+        medico: {
+          validators: {
+            notEmpty: {
+              message: "Debe seleccionar un médico"
+            }
+          }
+        },
+        dosis: {
+          validators: {
+            notEmpty: {
+              message: "Debe seleccionar una dosís"
+            }
+          }
+        },
+        cantDosis: {
+          message: "El nombre de la ciudad no es válida",
+          validators: {
+            regexp: {
+              regexp: /^[0-9]*$/,
+              message: "Este campo debe contener solo números."
+            },
+            greaterThan: {
+              min: 1,
+              message: "El valor indicado debe ser mayor a 0"
+            },
+            notEmpty: {
+              message: "Debe indicar la cantidad de Dosis"
+            }
+          }
+        },
+        canal: {
+          validators: {
+            notEmpty: {
+              message: "Debe seleccionar un canal"
+            }
+          }
+        },
+        institucion: {
+          validators: {
+            notEmpty: {
+              message: "Debe seleccionar una institución"
+            }
+          }
+        },
+        f_receta: dateValidators,
+        file_receta: fileValidators
+      },
+      plugins: {
+        trigger: new FormValidation.plugins.Trigger(),
+        bulma: new FormValidation.plugins.Bulma(),
+        submitButton: new FormValidation.plugins.SubmitButton(),
+        icon: new FormValidation.plugins.Icon({
+          valid: "fa fa-check",
+          invalid: "invalid-fv fa fa-times",
+          validating: "fa fa-refresh"
+        })
+      }
+    }
+  )
+    .on("core.field.invalid", function(e) {
+      if (e == "file_receta") {
+        $('i[data-field="file_receta"').removeClass("fa-times");
+        $("#divFileReceta")
+          .removeClass("is-info")
+          .addClass("is-danger");
+      }
+      if (e == "file_otro") {
+        $('i[data-field="file_otro"').removeClass("fa-times");
+        $("#divFileOtro")
+          .removeClass("is-info")
+          .addClass("is-danger");
+      }
+    })
+    .on("core.field.valid", function(e) {
+      if (e == "file_receta") {
+        $('i[data-field="file_receta"').removeClass("fa-check");
+        $("#iconReceta")
+          .removeClass("fa-upload")
+          .addClass("fa-check");
+        $("#divFileReceta")
+          .removeClass("is-danger")
+          .addClass("is-success");
+      }
+      if (e == "file_otro") {
+        $('i[data-field="file_otro"').removeClass("fa-check");
+        $("#iconFileOtro")
+          .removeClass("fa-upload")
+          .addClass("fa-check");
+        $("#divFileOtro")
+          .removeClass("is-danger")
+          .addClass("is-success");
+      }
+    })
     .on("core.form.valid", function() {
+      $("#divFileReceta")
+        .removeClass("is-danger")
+        .addClass("is-succes");
+      if ($("file_otro" !== "")) {
+        $("#divFileReceta")
+          .removeClass("is-danger")
+          .addClass("is-succes");
+      }
       l_generar_venta();
-    });
+    })
+    .on("core.field.added", function(e) {});
+
+  $("#btnAddDoc").click(function(e) {
+    $("#divOtroDocumento").show();
+    $("#divAddDoc").hide();
+    fv.addField("f_otro", dateValidators).addField("file_otro", fileValidators);
+  });
+  $("#f_otro").change(function() {
+    fv.revalidateField("f_otro");
+  });
+  $("#file_otro").change(function() {
+    fv.revalidateField("file_otro");
+  });
+
+  $("#btnRemDoc").click(function(e) {
+    $("#divOtroDocumento").hide();
+    $("#divAddDoc").show();
+    fv.removeField("f_otro", dateValidators).removeField(
+      "file_otro",
+      fileValidators
+    );
+  });
 }
 
 function l_set_datepicker() {

@@ -25,7 +25,7 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
                 { "mData": "edad", "bSearchable": true, "sWidth": "5%", "sClass": "center"}, // 3
                 { "mData": "patologia", "bSearchable": true, "sWidth": "15%", "sClass": "center"}, // 4
                 { "mData": "estado", "bSearchable": true, "sWidth": "5%", "sClass": "center"}, // 5
-                { "mData": "documentacion", "bSearchable": true, "sWidth": "5%", "sClass": "center"} // 6
+                //{ "mData": "documentacion", "bSearchable": true, "sWidth": "5%", "sClass": "center"} // 6
             ],
               
             "buttons": [

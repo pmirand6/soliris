@@ -3,7 +3,7 @@
 require_once("../config/config.php");
 include $_SERVER['DOCUMENT_ROOT'] . _BD;
 
-if(!empty($_GET["ini"])) {
+if (!empty($_GET["ini"])) {
   $ini = $_GET["ini"];
 } else {
   $ini = "A";
@@ -11,35 +11,34 @@ if(!empty($_GET["ini"])) {
 
 //$SQL = "SELECT MAX(RV.id) as ID FROM soliris_maestro RV WHERE LEFT((SELECT P.Nombre FROM pacientes as P WHERE P.id = RV.Nombre),1) = '$ini' GROUP BY RV.nombre ORDER BY ID;";
 //$SQL = "SELECT MAX(RV.id) as ID FROM pacientes RV WHERE LEFT(RV.Nombre,1) = '$ini' /*GROUP BY RV.nombre*/ ORDER BY ID;";
-$SQL = "SELECT RV.id as ID FROM pacientes RV WHERE LEFT(RV.Nombre,1) = '$ini' /*GROUP BY RV.nombre*/ ORDER BY ID;";
+$SQL = "SELECT id AS ID
+FROM paciente
+WHERE
+LEFT(nombre_completo, 1) = '$ini' /*GROUP BY RV.nombre*/
+ORDER BY ID;";
 
 //echo $SQL . "</ br>";
 
 $arr_ids = mysqli_query($db, $SQL);
 $ids = "";
 
-while ($row_arr_ids = mysqli_fetch_assoc($arr_ids)){
+while ($row_arr_ids = mysqli_fetch_assoc($arr_ids)) {
   $ids .= "" . $row_arr_ids["ID"] . ",";
 }
 
 $ids = trim($ids, ",");
 
-$query = "SELECT
-RV.id AS id,
-RV.nombre as Nombre,
-/*(SELECT P.Nombre FROM pacientes as P WHERE P.id = RV.Nombre) AS name,*/
-RV.estado AS estado,
-RV.sexo AS sexo,
-date_format(RV.fecha_nac, '%d/%m/%Y') AS fnac,
-timestampdiff(year,RV.fecha_nac,now()) AS edad,
-RV.Patologia AS patologia,
-(SELECT GROUP_CONCAT(RD.tipo, ';', RD.documento) FROM soliris_documentacion as RD where RD.referencia = 'pacientes' AND RD.id_maestro = RV.id) as Documentos
-FROM
-pacientes AS RV
-WHERE 
-RV.id in ($ids)
-/*GROUP BY name*/
-ORDER BY RV.id DESC;";
+$query = "SELECT 
+id,
+nombre_completo AS Nombre, 
+(SELECT me.valor FROM maestro_estado me where me.id = estado_id) AS estado,  
+sexo AS sexo, 
+DATE_FORMAT(fecha_nac, '%d/%m/%Y') AS fnac, 
+(SELECT `FU_GET_PACIENTE_EDAD`(id)) AS edad,
+(SELECT p.patologia_nombre FROM patologia p WHERE p.id = patologia_id) AS patologia
+FROM paciente
+WHERE id IN (1,4,5,6)
+ORDER BY id DESC;";
 
 //echo $query;
 
@@ -51,21 +50,18 @@ if ($result) {
   while ($row = mysqli_fetch_assoc($result)) {
     /*  $id = $row["id"];*/
     //$name = ucwords(strtolower($row["name"]));
-	$name = ucwords(strtolower($row["Nombre"]));
+    $name = ucwords(strtolower($row["Nombre"]));
     $sexo = $row["sexo"];
     $estado = $row["estado"];
 
     $arr_row = array(
-     /* "id" => "<div class=\"TBL TBL-zoom_in details\" style=\"cursor: pointer\" title=\"Ver Detalle\" onclick=\"viewDetails('" . $row["Nombre"] . "')\"><p style=\"padding-left: 18px\">" . $row["id"] . "</p></div>",*/
-     "paciente" => "<div class=\"TBL TBL-zoom_in details\" style=\"cursor: pointer\" title=\"Ver Detalle ". $name." \" onclick=\"viewDetails('" . $row["id"] . "')\"><p style=\"padding-left: 18px; width:200px \">" . $name . "</p></div>",
-     "sexo" => "<div class=\"TBL TBL-$sexo\" title=\"" . l_stringSexo($row["sexo"]) . "\"><p class=\"hidden\">$sexo</p></div>",
-     "edad" => $row["edad"],
-     "fnac" => $row["fnac"],
-     "patologia" => $row["patologia"],
-     "estado" => "<div class=\"TBL TBL-" . str_replace(" ", "-", $estado) . "\" title=\"$estado\"><p class=\"hidden\">$estado</p></div>",
-     "documentacion" => "<ul>" . l_str_docus($row["Documentos"]) . "</ul>"
-
-     );
+      "paciente" => "<div class=\"TBL TBL-zoom_in details\" style=\"cursor: pointer\" title=\"Ver Detalle " . $name . " \" onclick=\"viewDetails('" . $row["id"] . "')\"><p style=\"padding-left: 18px; width:200px \">" . $name . "</p></div>",
+      "sexo" => "<div class=\"TBL TBL-$sexo\" title=\"" . l_stringSexo($row["sexo"]) . "\"><p class=\"hidden\">$sexo</p></div>",
+      "edad" => $row["edad"],
+      "fnac" => $row["fnac"],
+      "patologia" => $row["patologia"],
+      "estado" => "<div class=\"TBL TBL-" . str_replace(" ", "-", $estado) . "\" title=\"$estado\"><p class=\"hidden\">$estado</p></div>",
+    );
     array_push($arr_tbody, $arr_row);
   };
 
@@ -79,33 +75,35 @@ if ($result) {
 
 
 
-function l_stringSexo($sex){
+function l_stringSexo($sex)
+{
   switch ($sex) {
     case 'M':
-    return  "Masculino";
-    break;
+      return  "Masculino";
+      break;
     case 'F':
-    return  "Femenino";
-    break;
+      return  "Femenino";
+      break;
 
 
 
     default:
-    return  "N/A";
-    break;
+      return  "N/A";
+      break;
   }
 }
-function l_str_docus($docs){
-    // Consentimiento;Consentimiento_1231_29_9_2011_1424_martin irene consent.JPG ,Tarjeta; Tarjeta_1231_29_9_2011_1424_martin irene tarjeta.JPG
-//    $salida = "";
+function l_str_docus($docs)
+{
+  // Consentimiento;Consentimiento_1231_29_9_2011_1424_martin irene consent.JPG ,Tarjeta; Tarjeta_1231_29_9_2011_1424_martin irene tarjeta.JPG
+  //    $salida = "";
 
   $salida = "";
 
-  if (isset($docs)||(!empty($docs))) {
+  if (isset($docs) || (!empty($docs))) {
 
-    if (strpos($docs, ',')){
+    if (strpos($docs, ',')) {
       $splitDocs = explode(',', $docs);
-      foreach($splitDocs as $docus){
+      foreach ($splitDocs as $docus) {
         if (strpos($docus, ';')) {
           $splitDocus = explode(';', $docus);
           $type = $splitDocus[0];
@@ -124,13 +122,11 @@ function l_str_docus($docs){
       $salida .= "<li class=\"btn btn-sm btn-default\" style='cursor:pointer;' onclick = \"openfile('$file')\" title=\"$type\"><span class=\"TBL TBL-file_extension_$ext\" onclick = \"openfile('$file')\"></span></li>";
     }
     return $salida;
-
-
   } else {
+  }
+  return "<b>" . "Sin Documentación" . "</b>";
 
-  }   return "<b>"."Sin Documentación"."</b>";
-
-    /*if (strpos($docs, ',')){
+  /*if (strpos($docs, ',')){
         $splitDocs = explode(',', $docs);
         foreach($splitDocs as $docus){
             if (strpos($docus, ';')) {
@@ -151,5 +147,4 @@ function l_str_docus($docs){
         $salida .= "<li class=\"btn btn-sm btn-default\" style='cursor:pointer;' onclick = \"openfile('$file')\" title=\"$type\"><span class=\"TBL TBL-file_extension_$ext\" onclick = \"openfile('$file')\"></span></li>";
     }
     return $salida;*/
-  }
-  ?>
+}

@@ -31,6 +31,8 @@ $idPaciente = $_GET["idPac"];
         @import "../resources/Bootstrap-DatePicker/min/datepicker.min.css";
         /* Bootstrap Validator */
         @import "../resources/formvalidation/dist/css/formValidation.css";
+        /**Sweetalert2 */
+        @import "../resources/sweetalert2/dist/sweetalert2.min.css";
     </style>
 </head>
 
@@ -124,20 +126,20 @@ $idPaciente = $_GET["idPac"];
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control has-icons-right">
-                                            <input id="f_receta" name="f_receta" type="text" placeholder="Fecha de Receta" class="form-control input date">
+                                            <input id="f_receta" name="f_receta" type="text" placeholder="Fecha de Documento" class="form-control input date">
                                             <span class="icon is-small is-right">
-                                                <i data-field="firstName" class=""></i>
+                                                <i data-field="f_receta" class=""></i>
                                             </span>
                                         </div>
                                         <div class="fv-plugins-message-container"></div>
                                     </div>
-                                    <div class="field fv-plugins-icon-container">
-                                        <div class="control file is-primary has-icons-right">
+                                    <div class="field">
+                                        <div class="control file is-info has-icons-right" id="divFileReceta">
                                             <label class="file-label">
                                                 <input class="file-input" type="file" name="file_receta" id="file_receta">
                                                 <span class="file-cta">
                                                     <span class="file-icon">
-                                                        <i class="fa fa-upload"></i>
+                                                        <i id="iconReceta" class="fa fa-upload"></i>
                                                     </span>
                                                     <span class="file-label">
                                                         Receta
@@ -153,12 +155,22 @@ $idPaciente = $_GET["idPac"];
                                 </div>
                             </div>
                             <br>
-                            <div class="field is-horizontal">
+                            <div class="field is-grouped is-grouped-centered has-icon-left" id="divAddDoc">
+                                <p class="control">
+                                    <button class="button is-info is-small" id="btnAddDoc" type="button">
+                                        <span class="icon">
+                                            <i class="fa fa-plus"></i>
+                                        </span>
+                                        <span>Agregar Documento</span> 
+                                    </button>
+                                </p>
+                            </div>
+                            <div class="field is-horizontal" id="divOtroDocumento" style="display:none;">
                                 <div class="field-label"><label class="label is-normal">Otro</label></div>
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control has-icons-right">
-                                            <input id="f_otro" name="f_otro" type="text" placeholder="Fecha de Receta" class="input date">
+                                            <input id="f_otro" name="f_otro" type="text" placeholder="Fecha de Documento" class="input date">
                                             <span class="icon is-small is-right">
                                                 <i data-field="f_otro" class=""></i>
                                             </span>
@@ -166,12 +178,12 @@ $idPaciente = $_GET["idPac"];
                                         <div class="fv-plugins-message-container"></div>
                                     </div>
                                     <div class="field fv-plugins-icon-container">
-                                        <div class="control file is-info has-icons-right">
+                                        <div class="control file is-info has-icons-right" id="divFileOtro">
                                             <label class="file-label">
                                                 <input class="file-input" type="file" name="file_otro" id="file_otro">
                                                 <span class="file-cta">
                                                     <span class="file-icon">
-                                                        <i class="fa fa-upload"></i>
+                                                        <i id="iconFileOtro" class="fa fa-upload"></i>
                                                     </span>
                                                     <span class="file-label">
                                                         Otro
@@ -184,6 +196,16 @@ $idPaciente = $_GET["idPac"];
                                         </div>
                                         <div class="fv-plugins-message-container"></div>
                                     </div>
+                                    <div class="field">
+                                        <p class="control">
+                                            <button class="button is-danger is-small" id="btnRemDoc" type="button">
+                                                <span class="icon is-small">
+                                                    <i class="fa fa-times"></i>
+                                                </span>
+                                                <span>Borrar</span> 
+                                            </button>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +217,7 @@ $idPaciente = $_GET["idPac"];
                             </button>
                         </p>
                         <p class="control form-group">
-                            <button class="button is-light">
+                            <button class="button is-light" id="canVenta">
                                 Cancelar
                             </button>
                         </p>
@@ -213,8 +235,9 @@ $idPaciente = $_GET["idPac"];
     include "../resources/Includes/DatePicker.php";
     include "../resources/Includes/EasyUI.php";
     include "../resources/Includes/formvalidation-bulma.php";
+    include "../resources/Includes/sweetalert2.php";
     ?>
-    
+
 
     <script type="text/javascript" language="javascript" src="../resources/JS/Develop/generar_venta.js"></script>
 

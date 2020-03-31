@@ -50,7 +50,7 @@ function l_set_table_pac() {
     processing: true,
     dataSrc: "data",
     sAjaxSource: "../ajax/ajx.pacientes_venta.php",
-    rowId: 'id',
+    rowId: "id",
     autoWidth: false,
     sDom: '<"top"B>frt<"bottom"ip><"clear">',
     deferRender: true,
@@ -74,13 +74,24 @@ function l_set_table_pac() {
       {
         data: "sub-estado"
       },
-      { data: "uventa" }
+      { data: "u_fecha_venta" },
+      {
+        data: "u_idVenta",
+        visible: false
+      },
+      {
+        data: "u_venta_estado_id",
+        visible: false
+      },
+      {
+        data: "u_venta_estado",
+        visible: false
+      }
     ],
     columnDefs: [
       {
         //funcion para obtener los iconos de estado en la columna 10
         render: function(data, type, row) {
-          
           return l_calcular_edad(data);
         },
         targets: [3],
@@ -89,7 +100,6 @@ function l_set_table_pac() {
       {
         //funcion para obtener los iconos de estado en la columna 10
         render: function(data, type, row) {
-          
           return iconos_sexo(data);
         },
         targets: [2],
@@ -157,8 +167,29 @@ function l_set_table_pac() {
 
   $("#DataTPacientes").on("click", "tr", function() {
     var id = table.row(this).id();
-    // redirecciono a la pagina de guardar_venta
-    window.location.href = aplicacion + "/main/generar_venta.php?idPac=" + id
+    var u_idVenta = table.row(this).data().u_idVenta;
+    var u_venta_estado_id = table.row(this).data().u_venta_estado_id;
+    if (u_idVenta !== null && u_venta_estado_id == "22") {
+      Swal.fire({
+        title: "Paciente con venta pendiente",
+        text:
+          "El paciente ya tiene una venta generada en estado pendiente de NP",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ver Venta",
+        CancelButtonText: "Cancelar"
+      }).then(result => {
+        if (result.value) {
+          window.location.href =
+            aplicacion + "/main/modificar_venta.php?idVenta=" + u_venta_estado_id;
+        }
+      });
+    } else {
+      // redirecciono a la pagina de guardar_venta
+      window.location.href = aplicacion + "/main/generar_venta.php?idPac=" + id
+    }
   });
 }
 

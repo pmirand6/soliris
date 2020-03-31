@@ -63,7 +63,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . _SG;
                 <th> Edad </th>
                 <th> Patología </th>
                 <th> Estado </th>
-                <th> Documentación </th>
             </tr>
         </thead>
         <tbody>
@@ -87,7 +86,10 @@ function f_l_pac($value){
     require_once ('../config/config.php');
     include $_SERVER['DOCUMENT_ROOT'] . _BD;
 
-    $SQL = "SELECT count(i.id) as cant FROM soliris_maestro as i inner join pacientes as p on p.id=i.nombre WHERE substring(p.nombre,1,1) = '$value';";
+    $SQL = "SELECT COUNT(mv.id) AS cant
+    FROM maestro_ventas AS mv
+    INNER JOIN paciente AS p ON p.id= mv.paciente_id
+    WHERE SUBSTRING(p.apellido,1,1) = '$value';";
 
     $result = mysqli_query($db, $SQL);
 

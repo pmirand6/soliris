@@ -29,6 +29,8 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         @import "../resources/datatables-bulma/css/dataTables.bulma.css";
         /* Custom CSS */
         @import "../resources/CSS/Develop/nueva_venta.css";
+        /** Sweetalert2 */
+        @import "../resources/sweetalert2/dist/sweetalert2.min.css"
     </style>
 
 </head>
@@ -65,6 +67,9 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                         <th> Estado </th>
                         <th> Sub Estado </th>
                         <th> Última Venta</th>
+                        <th>u_idVenta</th>
+                        <th>u_venta_estado_id</th>
+                        <th>u_venta_estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,6 +83,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
     include "../resources/Includes/EasyUI.php";
     include "../resources/Includes/DataTables.php";
     include "../resources/Includes/datatables-bulma.php";
+    include "../resources/Includes/sweetalert2.php";
     ?>
 
     <script type="text/javascript" language="javascript" src="../resources/JS/Develop/nueva_venta.js"></script>

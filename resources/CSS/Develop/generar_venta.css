@@ -2,21 +2,15 @@ html {
   background: #eee;
 }
 
-.container-form {
-  min-width: 320px;
-  width: 64%;
-  max-width: 40em;
-  margin: 10vh auto;
+
+.fv-has-error > .control > select {
+  border-color: red !important;
+}
+
+.control.has-icons-right .icon .invalid-fv {
+  color: red !important;
 }
 
 .fa.fa-times[data-field="dosis"] {
-  display: none !important;
-}
-
-.fa.fa-times[data-field="file_receta"] {
-  display: none !important;
-}
-
-.fa.fa-times[data-field="file_receta"] {
   display: none !important;
 }

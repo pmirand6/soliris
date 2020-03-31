@@ -15,19 +15,20 @@
     $result = mysqli_query($db, $query);
     $arr_tbody = array();
     while ($row = mysqli_fetch_assoc($result)) {
-        $id = $row["id"];
+        $id = $row["idPac"];
         $name = strtoupper($row["name"]);
         $sexo = $row["sexo"];
-        $estado = $row["estado"];
+        $estado = $row["estadoPac"];
 		
-		if (isset($row["uventa"])){
-			$u_venta=$row["uventa"];
+		if (isset($row["u_fecha_venta"])){
+			$u_fecha_venta=$row["u_fecha_venta"];
 		}else{
-			$u_venta="Sin Ventas";
+			$u_fecha_venta="Sin Ventas";
 		}
 		
         $arr_row = array(
-            "id" => $row["id"],
+            "id" => $row["idPac"],
+            "u_idVenta" => $row["u_idVenta"],
             "paciente" => $name,
             "sexo" => $sexo,
             "fnac" => $row["fnac"],
@@ -39,7 +40,9 @@
             "notas" => $row["notas"],
             "estado" => $estado,
             "sub-estado" => $row["sub_estado"],
-			"uventa" => $u_venta
+            "u_fecha_venta" => $u_fecha_venta,
+            "u_venta_estado" => $row["u_venta_estado"],
+            "u_venta_estado_id"=> $row["u_venta_estado_id"]
         );
         array_push($arr_tbody, $arr_row);
     };
@@ -48,17 +51,4 @@
 
     echo "{\"aaData\": " . json_encode($arr_tbody) . "}";
 
-    function l_stringSexo($sex){
-        switch ($sex) {
-            case 'M':
-                return  "Masculino";
-                break;
-            case 'F':
-                return  "Femenino";
-                break;
-
-            default:
-                return  "N/A";
-                break;
-        }
-    }
+    
