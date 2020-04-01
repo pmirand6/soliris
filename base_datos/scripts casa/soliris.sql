@@ -261,8 +261,22 @@ CREATE TABLE IF NOT EXISTS `documentos` (
   CONSTRAINT `FK_doc_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla donde se almacenan las referencias a los documentos del sistema';
 
--- Volcando datos para la tabla soliris.documentos: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.documentos: ~11 rows (aproximadamente)
 /*!40000 ALTER TABLE `documentos` DISABLE KEYS */;
+INSERT INTO `documentos` (`id`, `valor`, `documentos_tipo_id`, `fecha_creacion`, `fecha_documento`, `estado_id`, `usuario_id`, `familia`) VALUES
+	(1, 'test.jpg', 3, '2020-03-30 15:33:26', '2020-03-24', 15, 50, 'SOL'),
+	(2, 'test.jpg', 3, '2020-03-30 15:34:43', '2020-03-24', 15, 50, 'SOL'),
+	(3, 'test.jpg', 3, '2020-03-30 15:35:53', '2020-03-10', 15, 50, 'SOL'),
+	(4, 'test.jpg', 3, '2020-03-30 15:37:00', '2020-03-03', 15, 50, 'SOL'),
+	(5, 'test.jpg', 3, '2020-03-30 16:03:44', '2014-12-01', 15, 50, 'SOL'),
+	(6, 'test.jpg', 3, '2020-03-30 16:04:08', '2014-12-01', 15, 50, 'SOL'),
+	(7, 'test.jpg', 3, '2020-03-30 16:04:22', '2014-12-01', 15, 50, 'SOL'),
+	(8, 'WIN_20170825_12_07_43_Pro.jpg', 4, '2020-03-30 16:04:22', '2012-11-02', 15, 50, 'SOL'),
+	(9, 'test.jpg', 3, '2020-03-30 23:25:07', '2020-03-01', 15, 50, 'SOL'),
+	(10, 'test.jpg', 3, '2020-03-31 00:30:25', '2020-03-24', 15, 50, 'SOL'),
+	(11, 'WIN_20170825_12_07_02_Pro.jpg', 4, '2020-03-31 00:30:25', '2020-03-17', 15, 50, 'SOL'),
+	(12, 'test.jpg', 3, '2020-03-31 00:49:49', '2020-03-04', 15, 50, 'SOL'),
+	(13, 'test.jpg', 3, '2020-03-31 13:54:33', '2020-03-10', 15, 50, 'SOL');
 /*!40000 ALTER TABLE `documentos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.documentos_tipo
@@ -757,8 +771,21 @@ CREATE TABLE IF NOT EXISTS `maestro_ventas` (
   CONSTRAINT `FK_venta_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Maestro de las ventas efectuadas al paciente';
 
--- Volcando datos para la tabla soliris.maestro_ventas: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.maestro_ventas: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `maestro_ventas` DISABLE KEYS */;
+INSERT INTO `maestro_ventas` (`id`, `paciente_id`, `edad`, `dosis_id`, `venta_tipo_id`, `medico_id`, `presentacion_id`, `unidades`, `fecha_venta`, `patologia_id`, `sub_patologia_id`, `institucion_id`, `canal_id`, `estado_id`, `usuario_id`, `cod_reasignacion`, `crm_id`, `nota`, `nbr`, `fecha_stamp`) VALUES
+	(1, 1, '33', 4, 1, 217, 1, 2, '2020-03-30', 17, 4, 1062, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-30 15:33:26'),
+	(2, 1, '33', 4, 2, 217, 1, 2, '2020-03-30', 17, 4, 1062, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-30 15:34:43'),
+	(3, 1, '33', 4, 2, 217, 1, 2, '2020-03-30', 17, 4, 1062, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-30 15:35:53'),
+	(4, 1, '33', 4, 2, 217, 1, 2, '2020-03-30', 17, 4, 1062, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-30 15:37:00'),
+	(5, 1, '33', 1, 2, 1, 1, 2, '2014-12-01', 17, 4, 1270, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-30 16:03:32'),
+	(6, 1, '33', 1, 2, 1, 1, 2, '2014-12-01', 17, 4, 1270, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-30 16:03:44'),
+	(7, 1, '33', 1, 2, 1, 1, 2, '2014-12-01', 17, 4, 1270, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-30 16:04:08'),
+	(8, 1, '33', 1, 2, 1, 1, 2, '2014-12-01', 17, 4, 1270, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-30 16:04:22'),
+	(9, 1, '33', 4, 2, 217, 1, 2, '2020-03-30', 17, 4, 1062, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-30 23:25:07'),
+	(10, 1, '33', 4, 2, 217, 1, 2, '2020-03-31', 17, 4, 1062, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-31 00:30:25'),
+	(11, 1, '33', 4, 2, 217, 1, 2, '2020-03-31', 17, 4, 1062, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-31 00:49:49'),
+	(12, 2, '18', 4, 1, 57, 1, 2, '2020-03-31', 21, 1, 1067, 75, 22, 50, NULL, NULL, NULL, NULL, '2020-03-31 13:54:33');
 /*!40000 ALTER TABLE `maestro_ventas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.maestro_ventas_transaccion
@@ -780,8 +807,21 @@ CREATE TABLE IF NOT EXISTS `maestro_ventas_transaccion` (
   CONSTRAINT `FK_venta_tipo_trans` FOREIGN KEY (`tipo_venta_id`) REFERENCES `maestro_venta_tipo` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla que muestra el historial de estados de las transacciones realizadas sobre una venta';
 
--- Volcando datos para la tabla soliris.maestro_ventas_transaccion: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.maestro_ventas_transaccion: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `maestro_ventas_transaccion` DISABLE KEYS */;
+INSERT INTO `maestro_ventas_transaccion` (`id`, `estado_id`, `usuario_id`, `maestro_id`, `tipo_venta_id`, `fecha_stamp`) VALUES
+	(1, 22, 50, 1, 1, '2020-03-30 15:33:26'),
+	(2, 22, 50, 2, 2, '2020-03-30 15:34:43'),
+	(3, 22, 50, 3, 2, '2020-03-30 15:35:53'),
+	(4, 22, 50, 4, 2, '2020-03-30 15:37:00'),
+	(5, 22, 50, 5, 2, '2020-03-30 16:03:32'),
+	(6, 22, 50, 6, 2, '2020-03-30 16:03:44'),
+	(7, 22, 50, 7, 2, '2020-03-30 16:04:08'),
+	(8, 22, 50, 8, 2, '2020-03-30 16:04:22'),
+	(9, 22, 50, 9, 2, '2020-03-30 23:25:07'),
+	(10, 22, 50, 10, 2, '2020-03-31 00:30:25'),
+	(11, 22, 50, 11, 2, '2020-03-31 00:49:49'),
+	(12, 22, 50, 12, 1, '2020-03-31 13:54:33');
 /*!40000 ALTER TABLE `maestro_ventas_transaccion` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.maestro_venta_tipo
@@ -1949,9 +1989,9 @@ CREATE TABLE IF NOT EXISTS `paciente` (
 /*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
 INSERT INTO `paciente` (`id`, `apellido`, `nombre`, `nombre_completo`, `fecha_nac`, `sexo`, `telefono`, `ciudad`, `pais_id`, `mail`, `patologia_id`, `sub_patologia_id`, `os_id`, `notas`, `usuario_id`, `c_gestar`, `estado_id`, `sub_estado_id`, `fecha_creacion`, `familia`, `fecha_modificacion`, `usuario_mod_id`, `crm_id`) VALUES
 	(1, 'MIRANDA', 'PABLO', 'MIRANDA, PABLO', '1986-10-22', 'M', '01131218333', 'TIGRE', 13, 'PMIRAND6@GMAIL.COM', 17, 4, 4, 'Se aprueba el paciente', 50, NULL, 11, 8, '2020-03-20 12:15:01', 'SOL', '2020-03-25 11:09:50', 50, NULL),
-	(2, 'GERMAN', 'LOPEZ', 'GERMAN, LOPEZ', '2001-11-11', 'M', 'NULL', 'TIGRE', 13, 'TEST@AOL.COM', 21, 1, 4, NULL, 50, NULL, 7, 8, '2020-03-20 12:20:47', 'SOL', '2020-03-20 12:20:47', 50, NULL),
-	(3, 'PRUEBA ', 'PRUEBA APELLIDO', 'PRUEBA , PRUEBA APELLIDO', '2020-03-25', 'M', 'NULL', 'NULL', 13, 'NULL', 17, 4, 4, NULL, 50, NULL, 7, 8, '2020-03-25 10:11:00', 'SOL', '2020-03-25 10:11:00', 50, NULL),
-	(4, 'MIRANDA', 'GASTON', 'MIRANDA, GASTON', '2020-03-03', 'M', '01131218333', 'TIGRE', 13, 'NULL', 17, 4, 4, NULL, 50, NULL, 7, 8, '2020-03-25 10:17:14', 'SOL', '2020-03-25 10:17:14', 50, NULL),
+	(2, 'GERMAN', 'LOPEZ', 'GERMAN, LOPEZ', '2001-11-11', 'M', 'NULL', 'TIGRE', 13, 'TEST@AOL.COM', 21, 1, 4, NULL, 50, NULL, 11, 8, '2020-03-20 12:20:47', 'SOL', '2020-03-20 12:20:47', 50, NULL),
+	(3, 'PRUEBA ', 'PRUEBA APELLIDO', 'PRUEBA , PRUEBA APELLIDO', '2020-03-25', 'M', 'NULL', 'NULL', 13, 'NULL', 17, 4, 4, NULL, 50, NULL, 11, 8, '2020-03-25 10:11:00', 'SOL', '2020-03-25 10:11:00', 50, NULL),
+	(4, 'MIRANDA', 'GASTON', 'MIRANDA, GASTON', '2020-03-03', 'M', '01131218333', 'TIGRE', 13, 'NULL', 17, 4, 4, NULL, 50, NULL, 11, 8, '2020-03-25 10:17:14', 'SOL', '2020-03-25 10:17:14', 50, NULL),
 	(5, 'MIRANDA', 'PEPE', 'MIRANDA, PEPE', '2020-03-11', 'M', 'NULL', 'TIGRE', 13, 'NULL', 19, 4, 4, NULL, 50, NULL, 7, 8, '2020-03-25 10:19:09', 'SOL', '2020-03-25 10:19:09', 50, NULL),
 	(6, 'MIRANDA', 'DSAD', 'MIRANDA, DSAD', '2020-03-04', 'M', 'NULL', 'NULL', 13, 'NULL', 17, 4, 4, NULL, 50, NULL, 7, 8, '2020-03-25 10:20:05', 'SOL', '2020-03-25 10:20:05', 50, NULL),
 	(7, 'TEST', 'TEST NOMBRE', 'TEST, TEST NOMBRE', '2020-05-04', 'M', 'NULL', 'NULL', 13, 'NULL', 17, 4, 4, NULL, 50, NULL, 7, 8, '2020-03-25 10:27:03', 'SOL', '2020-03-25 10:27:03', 50, NULL),
@@ -2500,7 +2540,11 @@ INSERT INTO `rel_seguridad_rol` (`id`, `seguridad_id`, `rol_id`, `fecha`) VALUES
 	(233, 120, 6, '2020-02-07 14:53:11'),
 	(234, 124, 6, '2020-02-07 14:53:11'),
 	(235, 125, 4, '2020-03-26 00:36:40'),
-	(236, 126, 4, '2020-03-27 10:39:44');
+	(236, 126, 4, '2020-03-27 10:39:44'),
+	(237, 127, 4, '2020-03-31 02:49:12'),
+	(238, 128, 1, '2020-04-01 00:06:36'),
+	(239, 128, 4, '2020-04-01 00:06:36'),
+	(240, 128, 2, '2020-04-01 00:06:36');
 /*!40000 ALTER TABLE `rel_seguridad_rol` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.rel_venta_documentos
@@ -2516,13 +2560,26 @@ CREATE TABLE IF NOT EXISTS `rel_venta_documentos` (
   CONSTRAINT `FK_venta_id_rel` FOREIGN KEY (`venta_id`) REFERENCES `maestro_ventas` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tabla de relacion entre los documentos y los registro de la venta';
 
--- Volcando datos para la tabla soliris.rel_venta_documentos: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla soliris.rel_venta_documentos: ~16 rows (aproximadamente)
 /*!40000 ALTER TABLE `rel_venta_documentos` DISABLE KEYS */;
 INSERT INTO `rel_venta_documentos` (`id`, `venta_id`, `documento_id`, `fecha_creacion`) VALUES
 	(1, 1, 1, '2020-03-30 12:46:25'),
 	(2, 9, 2, '2020-03-30 15:04:01'),
 	(3, 10, 3, '2020-03-30 15:06:27'),
-	(4, 11, 4, '2020-03-30 15:06:57');
+	(4, 11, 4, '2020-03-30 15:06:57'),
+	(5, 1, 1, '2020-03-30 15:33:26'),
+	(6, 2, 2, '2020-03-30 15:34:43'),
+	(7, 3, 3, '2020-03-30 15:35:53'),
+	(8, 4, 4, '2020-03-30 15:37:00'),
+	(9, 6, 5, '2020-03-30 16:03:44'),
+	(10, 7, 6, '2020-03-30 16:04:08'),
+	(11, 8, 7, '2020-03-30 16:04:22'),
+	(12, 8, 8, '2020-03-30 16:04:22'),
+	(13, 9, 9, '2020-03-30 23:25:07'),
+	(14, 10, 10, '2020-03-31 00:30:25'),
+	(15, 10, 11, '2020-03-31 00:30:25'),
+	(16, 11, 12, '2020-03-31 00:49:49'),
+	(17, 12, 13, '2020-03-31 13:54:33');
 /*!40000 ALTER TABLE `rel_venta_documentos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.rol
@@ -2666,7 +2723,9 @@ INSERT INTO `soliris_seguridad` (`id`, `pagina`, `descripcion`) VALUES
 	(123, 'docs_hist_paciente.php', 'Historico Documentacion Paciente'),
 	(124, 'diff_med.php', 'Diferencias de Medicos Meditec'),
 	(125, 'nueva_venta.php', 'Nueva Venta'),
-	(126, 'generar_venta.php', 'Generación de Venta');
+	(126, 'generar_venta.php', 'Generación de Venta'),
+	(127, 'modificar_venta.php', 'Modificación de Venta'),
+	(128, 'historial_ventas.php', 'Historial de Ventas');
 /*!40000 ALTER TABLE `soliris_seguridad` ENABLE KEYS */;
 
 -- Volcando estructura para tabla soliris.sub_patologia
@@ -2998,6 +3057,28 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_GET_MAESTRO_ESTADO_ACTIVO`(
 BEGIN
 
 SELECT m.id FROM maestro_estado m WHERE m.referencia = v_referencia AND m.valor = 'Activo' INTO v_res;
+
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento soliris.ST_GET_PAC_ULTIMA_VENTA
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_GET_PAC_ULTIMA_VENTA`(
+	IN `v_idPac` INT
+,
+	OUT `o_fecha_venta` DATE,
+	OUT `o_estado_id` INT,
+	OUT `o_venta_id` INT
+)
+    COMMENT 'Obtiene la ultima fecha y el estado de la venta con estado NP Generada o Venta Generada'
+BEGIN
+-- SE OBTIENE LA FECHA DE VENTA DE LA ULTIMA VENTA EN ESTADO NP O VENTA GENERADA 
+-- ADEMAS SE FILTRA POR EL TIPO DE VENTA EN RI O FU
+
+SELECT m.fecha_venta, m.estado_id, m.id
+FROM maestro_ventas m
+WHERE m.paciente_id = v_idPac AND m.estado_id IN (22, 23) AND m.venta_tipo_id IN (1, 2) 
+ORDER BY m.id DESC  LIMIT 0,1;
 
 END//
 DELIMITER ;
@@ -3368,11 +3449,47 @@ end if;
 END//
 DELIMITER ;
 
+-- Volcando estructura para procedimiento soliris.ST_LIST_PACIENTES_CON_VENTAS
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_LIST_PACIENTES_CON_VENTAS`()
+    COMMENT 'Lista los datos de los pacientes con ventas realizadas'
+BEGIN
+
+
+SELECT
+	  		  P.id AS idPac, 
+			  (SELECT me.valor FROM maestro_estado me WHERE me.id = P.estado_id) as estadoPac,
+			  P.nombre_completo AS name, 
+	  		  P.sexo AS sexo, 
+	  		  P.c_gestar AS cgestar, 
+	  		  (SELECT FU_GET_PACIENTE_EDAD(P.id)) as edad,
+			  date_format(P.fecha_nac, '%d/%m/%Y') AS fnac, 
+			  (SELECT pat.patologia_nombre FROM  patologia pat WHERE pat.id = P.patologia_id) AS patologia, 
+	  		  (SELECT spat.sub_patologia_nombre FROM sub_patologia spat WHERE spat.id = P.sub_patologia_id) AS subPatologia, 
+   		  (SELECT DATE_FORMAT(`FU_SHOW_FECHA_CONS_PAC`(P.id), '%d/%m/%Y')) as fecha_con,
+				IFNULL(P.mail, '-') AS email, 
+				IFNULL(P.telefono, '-') AS telefono, 
+	  		  IFNULL(P.notas, 'Sin Notas') AS notas, 
+	  		  (SELECT me.valor FROM maestro_estado me WHERE P.sub_estado_id = me.id) AS sub_estado
+			FROM
+	  			paciente AS P 
+  			INNER JOIN maestro_ventas m ON m.paciente_id = P.id
+			GROUP BY P.id HAVING COUNT(*) > 0;
+
+END//
+DELIMITER ;
+
 -- Volcando estructura para procedimiento soliris.ST_LIST_PACIENTES_HABILITADOS
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_LIST_PACIENTES_HABILITADOS`(
 	IN `v_filtro` INT,
 	IN `v_ini` VARCHAR(50)
+
+
+
+
+
+
 
 
 
@@ -3392,10 +3509,21 @@ DECLARE CONTINUE HANDLER FOR SQLSTATE '42S02' SET @err = 1;
         DROP TABLE TEMPORARY_LIST_PACIENTES_HABILITADOS;
         DEALLOCATE PREPARE stmt1;
     END IF;
+    
+
 
 CREATE TEMPORARY TABLE TEMPORARY_LIST_PACIENTES_HABILITADOS(
 			SELECT
-	  		  P.id AS id, 
+			  (SELECT 
+					mv.id
+					FROM maestro_ventas mv 
+					where mv.paciente_id = P.id
+					AND mv.estado_id IN (22, 23) 
+					and mv.venta_tipo_id in (1, 2) 
+					ORDER by mv.id desc limit 0,1)
+					as u_idVenta, 
+	  		  P.id AS idPac, 
+			  (SELECT me.valor FROM maestro_estado me WHERE me.id = P.estado_id) as estadoPac,
 			  concat(P.apellido, ', ', P.nombre) AS name, 
 	  		  P.sexo AS sexo, 
 	  		  P.c_gestar AS cgestar, 
@@ -3406,19 +3534,44 @@ CREATE TEMPORARY TABLE TEMPORARY_LIST_PACIENTES_HABILITADOS(
 				IFNULL(P.mail, '-') AS email, 
 				IFNULL(P.telefono, '-') AS telefono, 
 	  		  IFNULL(P.notas, 'Sin Notas') AS notas, 
-	  		  (SELECT me.valor FROM maestro_estado me WHERE P.estado_id = me.id) AS estado,
---	  		  vRM.fventa AS uventa, VERIFICAR ULTIMA VENTA
+	  		  (SELECT 
+					date_format(mv.fecha_venta, '%d/%m/%Y')
+					FROM maestro_ventas mv 
+					where mv.paciente_id = P.id
+					AND mv.estado_id IN (22, 23) 
+					and mv.venta_tipo_id in (1, 2) 
+					ORDER by mv.id desc limit 0,1)
+					 as u_fecha_venta,
+				(SELECT 
+					me.valor 
+					FROM maestro_estado me 
+					left join maestro_ventas mv on mv.estado_id = me.id 
+					where mv.paciente_id = P.id
+					AND mv.estado_id IN (22, 23) 
+					and mv.venta_tipo_id in (1, 2) 
+					ORDER by mv.id desc limit 0,1)
+					 as u_venta_estado,
+				 (SELECT 
+					me.id
+					FROM maestro_estado me 
+					left join maestro_ventas mv on mv.estado_id = me.id 
+					where mv.paciente_id = P.id
+					AND mv.estado_id IN (22, 23) 
+					and mv.venta_tipo_id in (1, 2) 
+					ORDER by mv.id desc limit 0,1)
+					 as u_venta_estado_id,
 	  		  (SELECT me.valor FROM maestro_estado me WHERE P.sub_estado_id = me.id) AS sub_estado
 			FROM
 	  			paciente AS P 
-			/*LEFT JOIN 
-				vw_lastsale_rm AS vRM 
-			ON (P.id = vRM.pid)*/
+/*	  			LEFT JOIN maestro_ventas mv ON mv.paciente_id = P.id
+	  			LEFT JOIN maestro_estado mev ON mev.id = mv.estado_id
+	  			LEFT JOIN maestro_estado mep ON mep.id = P.estado_id*/
 			WHERE
 			P.estado_id IN (11) -- Se verifica el estado 11 = Aprobado 
 			AND 
 				P.sub_estado_id IN (8) -- Se verifica el sub estado 8 = Activo );
-			);
+			group by P.id);
+
 if(v_filtro = 0) then
 	SELECT * FROM TEMPORARY_LIST_PACIENTES_HABILITADOS;
 else
@@ -3671,6 +3824,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_SHOW_PACIENTE`(
 
 
 
+
 )
     COMMENT 'Muestra la informacion del paciente'
 BEGIN
@@ -3685,6 +3839,7 @@ SELECT
 	p.usuario_id AS usuario_creador_id,
 	(SELECT u.username FROM usuario u WHERE u.id = p.usuario_id) AS usuario_creador,
 	p.usuario_mod_id AS usuario_mod_id,
+	(SELECT FU_GET_PACIENTE_EDAD(v_id)) as edad,
 	(SELECT u.username FROM usuario u WHERE u.id = p.usuario_mod_id) AS usuario_mod,
 	(select me.id from maestro_estado me where me.id = p.estado_id) as estado_id,
 	(select me.valor from maestro_estado me where me.id = p.estado_id) as estado_valor,
@@ -3714,6 +3869,51 @@ FROM
 	paciente p
 WHERE 
 	p.id = v_id;
+
+END//
+DELIMITER ;
+
+-- Volcando estructura para procedimiento soliris.ST_SHOW_VENTAS_PACIENTE
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ST_SHOW_VENTAS_PACIENTE`(
+	IN `v_idPac` INT
+
+)
+    COMMENT 'Devuelve las ventas relacionadas con el paciente'
+BEGIN
+
+SELECT 
+	mv.id,
+	CONCAT(med.apellido, ',', med.nombre) AS medico_nombre,
+	(SELECT FU_GET_PACIENTE_EDAD(p.id)) AS edad,
+	d.valor AS dosis,
+	mv.unidades,
+	date_format(mv.fecha_venta, '%d/%m/%Y') AS fecha_venta,
+	(SELECT DATE_FORMAT(`FU_GET_FECHA_RECETA`(mv.id), '%d/%m/%Y'))AS fecha_receta,
+	c.canal AS canal,
+	i.nombre AS institucion,
+	apm.nombre_completo AS apm,
+	me.valor as estado,
+	(SELECT `FU_GET_DOCUMENTS_VENTA`(mv.id)) AS documentos
+ FROM maestro_ventas mv
+ INNER JOIN paciente p ON p.id = mv.paciente_id
+ INNER JOIN rel_venta_documentos rvd ON rvd.venta_id = mv.id
+ INNER JOIN documentos doc ON doc.id = rvd.documento_id
+ INNER JOIN medico med ON med.id = mv.medico_id
+ INNER JOIN apm ON apm.id = med.apm_id
+ INNER JOIN dosis d ON d.id = mv.dosis_id
+ INNER JOIN canales c ON c.id = mv.canal_id
+ INNER JOIN institucion i ON i.id = mv.institucion_id
+ INNER JOIN maestro_estado me on me.id = mv.estado_id
+WHERE p.id = v_idPac 
+GROUP BY mv.id
+ORDER BY mv.id desc
+
+
+;
+
+
+
 
 END//
 DELIMITER ;
@@ -3992,24 +4192,25 @@ BEGIN
 END//
 DELIMITER ;
 
--- Volcando estructura para función soliris.FU_GET_DOCUMENTS
+-- Volcando estructura para función soliris.FU_GET_DOCUMENTS_VENTA
 DELIMITER //
-CREATE DEFINER=`root`@`localhost` FUNCTION `FU_GET_DOCUMENTS`(
-	`v_id` INT,
-	`v_referencia` VARCHAR(50)
-
-
-
-
-
+CREATE DEFINER=`root`@`localhost` FUNCTION `FU_GET_DOCUMENTS_VENTA`(
+	`v_id` INT
 ) RETURNS varchar(255) CHARSET latin1
     DETERMINISTIC
-    COMMENT 'devuelve un array con los documentos del paciente'
+    COMMENT 'devuelve un array con los documentos de la venta'
 BEGIN
 
 declare s_response varchar(255);
 
-set s_response=(select group_concat(documento SEPARATOR ';') from soliris_documentacion where id_maestro=v_id and referencia=v_referencia);
+set s_response=(
+	SELECT 
+		GROUP_CONCAT(d.valor)
+	FROM rel_venta_documentos rel 
+	INNER JOIN documentos d ON d.id = rel.documento_id
+	WHERE rel.venta_id = v_id
+
+);
 
 if s_response is null  then 
 	set s_response="Sin Documentación";
@@ -4017,6 +4218,31 @@ end if;
 	
 
 return s_response;
+
+END//
+DELIMITER ;
+
+-- Volcando estructura para función soliris.FU_GET_FECHA_RECETA
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `FU_GET_FECHA_RECETA`(
+	`v_id` INT
+) RETURNS date
+    COMMENT 'Obtiene la fecha de la receta de la venta'
+BEGIN
+
+return (
+	SELECT
+		doc.fecha_documento 
+	FROM 
+		documentos doc
+	INNER JOIN rel_venta_documentos rvd
+	ON rvd.documento_id = doc.id
+	INNER JOIN maestro_ventas m
+	ON m.id = rvd.venta_id
+	WHERE 
+		doc.documentos_tipo_id = 3 
+	AND 
+		m.id = v_id);
 
 END//
 DELIMITER ;
