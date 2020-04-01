@@ -4,6 +4,8 @@ var grupo_usuario = ""; //VARIABLE DE GRUPO DE USUARIO
 var aplicacion = getCurrentHostname() + "/" + getUrlHTTP();
 var idPac;
 
+var fv;
+
 $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
   $(document).ready(function() {
     $("#nv").window({
@@ -101,6 +103,17 @@ function l_set_presentacion() {
 }
 
 function l_validate_form() {
+  const noExiste = function() {
+    return {
+      validate: function(input) {
+        return {
+          valid: false,
+          message: "* No se encontraron coincidencias"
+        };
+      }
+    };
+  };
+
   const dateValidators = {
     validators: {
       date: {
@@ -127,69 +140,130 @@ function l_validate_form() {
       }
     }
   };
-  const fv = FormValidation.formValidation(
-    document.getElementById("frmVenta"),
-    {
-      fields: {
-        medico: {
-          validators: {
-            notEmpty: {
-              message: "Debe seleccionar un médico"
+
+  // Registrando custom validator
+  FormValidation.validators.noExiste = noExiste;
+
+  //Instancia del form
+  fv = FormValidation.formValidation(document.getElementById("frmVenta"), {
+    fields: {
+      medico: {
+        validators: {
+          noExiste: {
+            enable: false
+          },
+          stringLength: {
+            min: 3,
+            message: "Ingrese más de 3 letras"
+          },
+          checkMedico: {
+            message: "Seleccione un médico del Listado",
+            callback: function(input) {
+              const medicoSelected = document
+                .getElementById("frmVenta")
+                .querySelector('[name="medicoSelected"]').value;
+              if (input == "" && medicoSelected == "") {
+                return true;
+              } else {
+                return input.value == medicoSelected;
+              }
             }
           }
-        },
-        dosis: {
-          validators: {
-            notEmpty: {
-              message: "Debe seleccionar una dosís"
-            }
-          }
-        },
-        cantDosis: {
-          message: "El nombre de la ciudad no es válida",
-          validators: {
-            regexp: {
-              regexp: /^[0-9]*$/,
-              message: "Este campo debe contener solo números."
-            },
-            greaterThan: {
-              min: 1,
-              message: "El valor indicado debe ser mayor a 0"
-            },
-            notEmpty: {
-              message: "Debe indicar la cantidad de Dosis"
-            }
-          }
-        },
-        canal: {
-          validators: {
-            notEmpty: {
-              message: "Debe seleccionar un canal"
-            }
-          }
-        },
-        institucion: {
-          validators: {
-            notEmpty: {
-              message: "Debe seleccionar una institución"
-            }
-          }
-        },
-        f_receta: dateValidators,
-        file_receta: fileValidators
+        }
       },
-      plugins: {
-        trigger: new FormValidation.plugins.Trigger(),
-        bulma: new FormValidation.plugins.Bulma(),
-        submitButton: new FormValidation.plugins.SubmitButton(),
-        icon: new FormValidation.plugins.Icon({
-          valid: "fa fa-check",
-          invalid: "invalid-fv fa fa-times",
-          validating: "fa fa-refresh"
-        })
-      }
+      dosis: {
+        validators: {
+          notEmpty: {
+            message: "Debe seleccionar una dosís"
+          }
+        }
+      },
+      cantDosis: {
+        message: "El nombre de la ciudad no es válida",
+        validators: {
+          regexp: {
+            regexp: /^[0-9]*$/,
+            message: "Este campo debe contener solo números."
+          },
+          greaterThan: {
+            min: 1,
+            message: "El valor indicado debe ser mayor a 0"
+          },
+          notEmpty: {
+            message: "Debe indicar la cantidad de Dosis"
+          }
+        }
+      },
+      canal: {
+        validators: {
+          noExiste: {
+            enable: false
+          },
+          stringLength: {
+            min: 3,
+            message: "Ingrese más de 3 letras"
+          },
+          checkCanal: {
+            message: "Seleccione un canal del Listado",
+            callback: function(input) {
+              const canalSelected = document
+                .getElementById("frmVenta")
+                .querySelector('[name="canalSelected"]').value;
+              if (input == "" && canalSelected == "") {
+                return true;
+              } else {
+                return input.value == canalSelected;
+              }
+            }
+          }
+        }
+      },
+      institucion: {
+        validators: {
+          noExiste: {
+            enable: false
+          },
+          stringLength: {
+            min: 3,
+            message: "Ingrese más de 3 letras"
+          },
+          checkInstitucion: {
+            message: "Seleccione una Institución del Listado",
+            callback: function(input) {
+              const institucionSelected = document
+                .getElementById("frmVenta")
+                .querySelector('[name="institucionSelected"]').value;
+              if (input == "" && institucionSelected == "") {
+                return true;
+              } else {
+                console.log(input.value)
+                console.log(input.value == institucionSelected)
+                return input.value == institucionSelected;
+              }
+            }
+          }
+        }
+      },
+      f_receta: dateValidators,
+      file_receta: fileValidators
+    },
+    plugins: {
+      alias: new FormValidation.plugins.Alias({
+        // These checkers are treated as callback validator
+        checkMedico: "callback",
+        checkInstitucion: "callback",
+        checkCanal: "callback",
+      }),
+      trigger: new FormValidation.plugins.Trigger(),
+      bulma: new FormValidation.plugins.Bulma(),
+      submitButton: new FormValidation.plugins.SubmitButton(),
+      icon: new FormValidation.plugins.Icon({
+        valid: "fa fa-check",
+        invalid: "invalid-fv fa fa-times",
+        validating: "fa fa-refresh"
+      })
     }
-  )
+  })
     .on("core.field.invalid", function(e) {
       if (e == "file_receta") {
         $('i[data-field="file_receta"').removeClass("fa-times");
@@ -284,9 +358,10 @@ function l_set_select_medico() {
     if (searchField != null && searchField.length >= minlength) {
       $.getJSON(url_json, function(data) {
         if (data.length != 0) {
+          fv.disableValidator("medico", "noExiste").revalidateField("medico");
           $.each(data, function(key, val) {
             if (val.text.search(regex) != -1) {
-              output += `<a class="list-item" id="span_medico" data-id="${val.id}">${val.text}`;
+              output += `<a class="list-item" id="span_medico" name="span_medico" data-id="${val.id}">${val.text}`;
               if (count % 2 == 0) {
                 output += "</a>";
               }
@@ -298,14 +373,14 @@ function l_set_select_medico() {
         } else {
           $("#helpMedico").removeClass("is-success");
           $("#helpMedico").addClass("is-danger");
-          $("#helpMedico").html("* No se encontraron resultados");
+          fv.enableValidator("medico", "noExiste").revalidateField("medico");
+          $("#helpMedico").html("");
           $("#result_medicos").html("");
         }
       });
     } else {
       if (searchField.length < minlength) {
-        output += `<a class="list-item">Ingrese más de 3 letras</a></div>`;
-        $("#result_medicos").html(output);
+        $("#result_medicos").html("");
       }
     }
   });
@@ -317,15 +392,12 @@ function l_set_select_medico() {
     var n_medico = $(this).text();
     $("#medico").data("id", idMedico);
     $("#medico").val(n_medico);
+    $("#medicoSelected").val(n_medico);
     if ($("#medico").val() == n_medico) {
+      fv.disableValidator("medico", "noExiste").revalidateField("medico");
       $("#helpMedico").html("");
-      /*    if (n_usuario === mail_check) {
-        usuario_ok = 1;
-        $(".form").formValidation("revalidateField", "usuario");
-      } else {
-        usuario_ok = 0;
-        $(".form").formValidation("revalidateField", "usuario");
-      }*/
+    } else {
+      fv.enableValidator("medico", "noExiste").revalidateField("medico");
     }
     $("#result_medicos").html("");
   });
@@ -344,6 +416,7 @@ function l_set_select_canal() {
     if (searchField != null && searchField.length >= minlength) {
       $.getJSON(url_json, function(data) {
         if (data.length != 0) {
+          fv.disableValidator("canal", "noExiste").revalidateField("canal");
           $.each(data, function(key, val) {
             if (val.text.search(regex) != -1) {
               output += `<a class="list-item" id="span_canal" data-id="${val.id}">${val.text}`;
@@ -356,20 +429,21 @@ function l_set_select_canal() {
           output += "</div>";
           $("#result_canal").html(output);
         } else {
+          fv.enableValidator("canal", "noExiste").revalidateField("canal");
           $("#result_canal").html("");
           $("#helpCanal").html("");
           $("#helpCanal").removeClass("is-success");
           $("#helpCanal").addClass("is-danger");
-          $("#helpCanal").html("* No se encontraron resultados");
+          $("#helpCanal").html("");
         }
       });
     } else {
       if (searchField.length + 1 < minlength) {
-        output += `<a class="list-item">Ingrese más de 3 letras</a></div>`;
-        $("#result_canal").html(output);
+        $("#result_canal").html("");
       }
     }
   });
+
 
   $(document).on("click", "#span_canal", function() {
     var idCanal = $(this)
@@ -378,16 +452,12 @@ function l_set_select_canal() {
     var n_canal = $(this).text();
     $("#canal").data("id", idCanal);
     $("#canal").val(n_canal);
+    $("#canalSelected").val(n_canal);
     if ($("#canal").val() == n_canal) {
+      fv.disableValidator("canal", "noExiste").revalidateField("canal");
       $("#helpCanal").html("");
-
-      /*    if (n_usuario === mail_check) {
-        usuario_ok = 1;
-        $(".form").formValidation("revalidateField", "usuario");
-      } else {
-        usuario_ok = 0;
-        $(".form").formValidation("revalidateField", "usuario");
-      }*/
+    } else {
+      fv.enableValidator("canal", "noExiste").revalidateField("canal");
     }
     $("#result_canal").html("");
   });
@@ -408,6 +478,9 @@ function l_set_select_institucion() {
     if (searchField != null && searchField.length >= minlength) {
       $.getJSON(url_json, function(data) {
         if (data.length != 0) {
+          fv.disableValidator("institucion", "noExiste").revalidateField(
+            "institucion"
+          );
           $.each(data, function(key, val) {
             if (val.text.search(regex) != -1) {
               output += `<a class="list-item" id="span_institucion" data-id="${val.id}">${val.text}`;
@@ -420,17 +493,18 @@ function l_set_select_institucion() {
           output += "</div>";
           $("#result_institucion").html(output);
         } else {
+          fv.enableValidator("institucion", "noExiste").revalidateField(
+            "institucion"
+          );
           $("#result_institucion").html("");
           $("#helpInstitucion").html("");
           $("#helpInstitucion").removeClass("is-success");
           $("#helpInstitucion").addClass("is-danger");
-          $("#helpInstitucion").html("* No se encontraron resultados");
         }
       });
     } else {
       if (searchField.length + 1 < minlength) {
-        output += `<a class="list-item">Ingrese más de 3 letras</a></div>`;
-        $("#result_institucion").html(output);
+        $("#result_institucion").html("");
       }
     }
   });
@@ -442,16 +516,12 @@ function l_set_select_institucion() {
     var n_institucion = $(this).text();
     $("#institucion").data("id", idInstitucion);
     $("#institucion").val(n_institucion);
+    $("#institucionSelected").val(n_institucion);
     if ($("#institucion").val() == n_institucion) {
+      fv.disableValidator("institucion", "noExiste").revalidateField("institucion");
       $("#helpInstitucion").html("");
-
-      /*    if (n_usuario === mail_check) {
-        usuario_ok = 1;
-        $(".form").formValidation("revalidateField", "usuario");
-      } else {
-        usuario_ok = 0;
-        $(".form").formValidation("revalidateField", "usuario");
-      }*/
+    } else {
+      fv.enableValidator("institucion", "noExiste").revalidateField("institucion");
     }
     $("#result_institucion").html("");
   });

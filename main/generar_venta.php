@@ -68,6 +68,7 @@ $idPaciente = $_GET["idPac"];
                                 <div class="field-body">
                                     <div class="field">
                                         <p class="control has-icons-right form-group">
+                                            <input type="hidden" name="medicoSelected" id="medicoSelected">
                                             <input id="medico" name="medico" type="text" placeholder="Seleccione Médico" class="form-control input" maxlength="45" data-id="" required>
                                         </p>
                                         <p id="helpMedico" class="help"></p>
@@ -97,6 +98,7 @@ $idPaciente = $_GET["idPac"];
                                 <div class="field-body">
                                     <div class="field">
                                         <p class="control has-icons-right form-group">
+                                            <input type="hidden" name="canalSelected" id="canalSelected">
                                             <input id="canal" name="canal" type="text" placeholder="Seleccione Canal" class="form-control input" maxlength="45" data-id="" required>
                                             <p id="helpCanal" class="help"></p>
                                             <div id="result_canal"></div>
@@ -109,6 +111,7 @@ $idPaciente = $_GET["idPac"];
                                 <div class="field-body">
                                     <div class="field">
                                         <p class="control has-icons-right form-group">
+                                        <input type="hidden" name="institucionSelected" id="institucionSelected">
                                             <input id="institucion" name="institucion" type="text" placeholder="Seleccione Institución" class="form-control input" maxlength="45" data-id="" required>
                                             <p id="helpInstitucion" class="help"></p>
                                             <div id="result_institucion"></div>
