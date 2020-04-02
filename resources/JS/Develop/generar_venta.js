@@ -32,7 +32,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
     l_set_select_institucion();
     l_set_datepicker();
     l_validate_form();
-    l_set_presentacion();
+    l_set_producto();
     l_set_paciente();
 
     $("#canVenta").click(function(e) {
@@ -45,14 +45,14 @@ function l_generar_venta() {
   let myForm = document.getElementById("frmVenta");
   var form = new FormData(myForm);
   form.append("oper", "guardar_venta");
-  form.append("idPresentacion", $("#presentacion").val());
+  form.append("idProducto", $("#producto").val());
   form.append("idPac", getQuerystring("idPac"));
   form.append("idMedico", $("#medico").data("id"));
   form.append("cantUnidades", $("#cantDosis").val());
   form.append("fecha_venta", getDate());
   form.append("idInstitucion", $("#institucion").data("id"));
   form.append("idCanal", $("#canal").data("id"));
-  form.append("idDosis", $("#dosis").val());
+  form.append("idPresentacion", $("#presentacion").val());
 
   var settings = {
     url: aplicacion + "/ajax/ajx.generar_venta.php",
@@ -64,13 +64,16 @@ function l_generar_venta() {
   };
 
   $.ajax(settings).done(function(response) {
+  
+  let data = JSON.parse(response)
+  console.log(data)
     Swal.fire({
-      title: "Venta Generada!",
-      type: "success",
-      text: response,
+      title: data.title,
+      icon: data.icon,
+      text: data.text,
       timer: 5000
     }).then(function() {
-      parent.location.reload();
+      //parent.location.reload();
     });
   });
 }
@@ -88,15 +91,15 @@ function l_set_paciente() {
   );
 }
 
-function l_set_presentacion() {
+function l_set_producto() {
   $.getJSON(
-    aplicacion + "/ajax/ajx.presentacion.php",
-    { oper: "getPresentacion" },
+    aplicacion + "/ajax/ajx.producto.php",
+    { oper: "getproducto" },
     function(data, textStatus, jqXHR) {
       $.each(data, function(i, v) {
-        $("#presentacion").val(v.id);
-        $("#presentacionTitle").html(v.valor);
-        l_set_select_dosis(v.id);
+        $("#producto").val(v.id);
+        $("#productoTitle").html(v.valor);
+        l_set_select_presentacion(v.id);
       });
     }
   );
@@ -171,7 +174,7 @@ function l_validate_form() {
           }
         }
       },
-      dosis: {
+      presentacion: {
         validators: {
           notEmpty: {
             message: "Debe seleccionar una dosís"
@@ -236,8 +239,6 @@ function l_validate_form() {
               if (input == "" && institucionSelected == "") {
                 return true;
               } else {
-                console.log(input.value)
-                console.log(input.value == institucionSelected)
                 return input.value == institucionSelected;
               }
             }
@@ -252,7 +253,7 @@ function l_validate_form() {
         // These checkers are treated as callback validator
         checkMedico: "callback",
         checkInstitucion: "callback",
-        checkCanal: "callback",
+        checkCanal: "callback"
       }),
       trigger: new FormValidation.plugins.Trigger(),
       bulma: new FormValidation.plugins.Bulma(),
@@ -444,7 +445,6 @@ function l_set_select_canal() {
     }
   });
 
-
   $(document).on("click", "#span_canal", function() {
     var idCanal = $(this)
       .attr("data-id")
@@ -518,25 +518,29 @@ function l_set_select_institucion() {
     $("#institucion").val(n_institucion);
     $("#institucionSelected").val(n_institucion);
     if ($("#institucion").val() == n_institucion) {
-      fv.disableValidator("institucion", "noExiste").revalidateField("institucion");
+      fv.disableValidator("institucion", "noExiste").revalidateField(
+        "institucion"
+      );
       $("#helpInstitucion").html("");
     } else {
-      fv.enableValidator("institucion", "noExiste").revalidateField("institucion");
+      fv.enableValidator("institucion", "noExiste").revalidateField(
+        "institucion"
+      );
     }
     $("#result_institucion").html("");
   });
 }
 
-function l_set_select_dosis($presentacion) {
+function l_set_select_presentacion($producto) {
   $.getJSON(
-    aplicacion + "/ajax/ajx.dosis.php",
-    { oper: "getDosis", presentacion: $presentacion },
+    aplicacion + "/ajax/ajx.presentacion.php",
+    { oper: "getPresentacion", producto: $producto },
     function(data) {
       var items = [];
       $.each(data, function(key, val) {
         items.push("<option value='" + val.id + "'>" + val.valor + "</option>");
       });
-      $("#dosis").append(items);
+      $("#presentacion").append(items);
     }
   );
 }

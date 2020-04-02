@@ -67,7 +67,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                         <th> ID </th>
                         <th> Médico </th>
                         <th> Edad </th>
-                        <th> Dosis </th>
+                        <th> Presentacion </th>
                         <th> Unid </th>
                         <th title="(YYYY-MM-DD)"> F. Venta</th>
                         <th title="(YYYY-MM-DD)"> F. Receta</th>

@@ -55,9 +55,9 @@ $idPaciente = $_GET["idPac"];
         <div class="container card">
             <div class="card-content">
                 <form action="" id="frmVenta" enctype="multipart/form-data" autocomplete="off">
-                    <input id="presentacion" name="presentacion" value="" type="text" class="input" style="display: none">
-                    <p class="heading">Presentación</p>
-                    <p class="subtitle" id="presentacionTitle"></p>
+                    <input id="producto" name="producto" value="" type="text" class="input" style="display: none">
+                    <p class="heading">Producto</p>
+                    <p class="subtitle" id="productoTitle"></p>
                     <div class="columns">
                         <div class="column">
                             <div class="notification is-success">
@@ -77,18 +77,19 @@ $idPaciente = $_GET["idPac"];
                                 </div>
                             </div>
                             <div class="field is-horizontal">
-                                <div class="field-label"><label class="label is-normal">Dosis</label></div>
+                                <div class="field-label"><label class="label is-normal">Presentación</label></div>
                                 <div class="field-body">
                                     <div class="field">
                                         <p class="control select has-icons-right form-group">
-                                            <select id="dosis" name="dosis" class="form-control">
-                                                <option value="">Selecionar Dosis</option>
+                                            <select id="presentacion" name="presentacion" class="form-control">
+                                                <option value="">Selecionar presentacion</option>
                                             </select>
                                         </p>
                                     </div>
                                     <div class="field">
                                         <p class="control has-icons-right form-group">
-                                            <input class="input form-control" type="number" name="cantDosis" id="cantDosis" placeholder="Cantidad Dosis" min="1">
+                                            <input class="input form-control" type="number" name="cantDosis" id="cantDosis" min="1">
+                                            <p id="helpCantDosis" class="help is-success">* Cantidad</p>
                                         </p>
                                     </div>
                                 </div>

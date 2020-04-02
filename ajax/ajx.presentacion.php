@@ -6,7 +6,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
 
 if (isset($_GET["oper"]) && $_GET["oper"] == 'getPresentacion') {
     // FIXME LAS DOSIS CARGADAS SON LAS DE REVLIMID
-    $SQL = "SELECT id, UPPER(valor) AS valor FROM presentacion ORDER BY valor DESC;";
+    $producto = $_GET["producto"];
+    $SQL = "SELECT id, valor FROM presentacion WHERE producto_id = '$producto' ORDER BY valor DESC;";
     $result = mysqli_query($db, $SQL);
 
     $json = [];

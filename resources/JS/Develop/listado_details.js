@@ -7,15 +7,17 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
   // script is now loaded and executed.
   // put your dependent JS here.
   $(document).ready(function() {
+    const idPac = getQuerystring("id");
     $("#DataDetailsHVentas").dataTable({
       bPaginate: true,
       iDisplayLength: 10,
       sPaginationType: "full_numbers",
       processing: true,
+      dataSrc: "data",
       sAjaxSource:
         aplicacion +
         "/ajax/ajx.listadoDetailsHV.php?ini=" +
-        getQuerystring("id"),
+        idPac,
       bAutoWidth: true,
       sDom: '<"top"B>frt<"bottom"ip><"clear">',
       deferRender: true,
@@ -29,7 +31,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
           sClass: "center"
         }, //1
         { mData: "edad", bSearchable: true, sWidth: "5%", sClass: "center" }, // 2
-        { mData: "dosis", bSearchable: true, sWidth: "5%", sClass: "center" }, // 3
+        { mData: "presentacion", bSearchable: true, sWidth: "5%", sClass: "center" }, // 3
         {
           mData: "unidades",
           bSearchable: true,
@@ -53,7 +55,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
           mData: "institucion",
           bSearchable: true,
           sWidth: "7%",
-          sClass: "center"
+          sClass: "center",
         }, // 8
         { mData: "apm", bSearchable: true, sWidth: "10%", sClass: "center" }, // 9
         { mData: "estado", bSearchable: true, sWidth: "5%", sClass: "center" }, // 10
@@ -67,19 +69,20 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
       columnDefs: [
         {
           //funcion para obtener los iconos de estado en la columna 9
-          render: function(data, type, row) {
-            campo = '<ul class="docs">';
-            if (data == null) {
-              data = "Sin Documentación";
+          render: function(dataRow, type, row) {
+            let idVenta = row.id;
+            let campo = '<ul class="docs">';
+            if (dataRow == null) {
+              dataRow = "Sin Documentación";
             }
-            if (data.indexOf(",") > -1) {
-              var string = data.split(",");
-              var campo = "";
+            if (dataRow.indexOf(",") > -1) {
+              var string = dataRow.split(",");
+              campo = "";
               for (pos = 0; pos < string.length; pos++) {
-                campo += docs_icon(string[pos]);
+                campo += l_docs_icon(string[pos], idVenta, idPac);
               }
             } else {
-              campo += docs_icon(data);
+              campo += l_docs_icon(dataRow, idVenta);
             }
             return campo + "</ul>";
           },
@@ -134,9 +137,9 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
 });
 
 //FUNCION PARA ESTABLECER LOS ICONOS DE LOS DOCUMENTOS
-function docs_icon(value) {
+function l_docs_icon(value, idVenta = null, idPac = null) {
   if (value.indexOf("Sin Documentación") == -1) {
-    var dir = aplicacion + "/documentacion/" + value;
+    var dir = aplicacion + "/documentacion/venta/" + idPac + '/' + idVenta + '/' + value;
     var campo = value.split(".");
 
     var t_titulo = campo[0].split("_");
@@ -147,6 +150,7 @@ function docs_icon(value) {
 
     var icon = "TBL TBL-file_extension_" + extension;
 
+    
     var ret =
       '<a href="' +
       dir +
@@ -155,6 +159,7 @@ function docs_icon(value) {
       '"><span class="' +
       icon +
       '" style="cursor:pointer;")"></span></li>';
+      
     return ret;
   }
 
