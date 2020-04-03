@@ -5,6 +5,10 @@ li {
     display: inline;
 }
 
+.dtVentas .odd,  .dtVentas .even{
+    cursor: pointer;
+}
+
 table tbody tr{
     -webkit-transition: all  400ms ease-in-out;
     -moz-transition: all  400ms ease-in-out;

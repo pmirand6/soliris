@@ -31,6 +31,8 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         @import "../resources/Sprites/spriteListado.css";
         /* Custom CSS */
         @import "../resources/CSS/Develop/listado_details.css";
+        /**SWEETALERT2 */
+        @import "../resources/sweetalert2/dist/sweetalert2.min.css";
     </style>
 
 
@@ -61,7 +63,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         </fieldset>
         <hr>
         <fieldset class="form-horizontal col-sm-10 col-xs-10">
-            <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="DataDetailsHVentas" style="font-size: 13px">
+            <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered dtVentas" id="DataDetailsHVentas" style="font-size: 13px">
                 <thead>
                     <tr>
                         <th> ID </th>
@@ -89,6 +91,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
     include "../resources/Includes/FormValidation.php";
     include "../resources/Includes/BootstrapCombobox.php";
     include "../resources/Includes/DataTables.php";
+    include "../resources/Includes/sweetalert2.php";
     ?>
 
     <!-- Custom JS -->

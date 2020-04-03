@@ -8,16 +8,13 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
   // put your dependent JS here.
   $(document).ready(function() {
     const idPac = getQuerystring("id");
-    $("#DataDetailsHVentas").dataTable({
+    var tableHVentas = $("#DataDetailsHVentas").DataTable({
       bPaginate: true,
       iDisplayLength: 10,
       sPaginationType: "full_numbers",
       processing: true,
       dataSrc: "data",
-      sAjaxSource:
-        aplicacion +
-        "/ajax/ajx.listadoDetailsHV.php?ini=" +
-        idPac,
+      sAjaxSource: aplicacion + "/ajax/ajx.listadoDetailsHV.php?ini=" + idPac,
       bAutoWidth: true,
       sDom: '<"top"B>frt<"bottom"ip><"clear">',
       deferRender: true,
@@ -31,7 +28,12 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
           sClass: "center"
         }, //1
         { mData: "edad", bSearchable: true, sWidth: "5%", sClass: "center" }, // 2
-        { mData: "presentacion", bSearchable: true, sWidth: "5%", sClass: "center" }, // 3
+        {
+          mData: "presentacion",
+          bSearchable: true,
+          sWidth: "5%",
+          sClass: "center"
+        }, // 3
         {
           mData: "unidades",
           bSearchable: true,
@@ -55,7 +57,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
           mData: "institucion",
           bSearchable: true,
           sWidth: "7%",
-          sClass: "center",
+          sClass: "center"
         }, // 8
         { mData: "apm", bSearchable: true, sWidth: "10%", sClass: "center" }, // 9
         { mData: "estado", bSearchable: true, sWidth: "5%", sClass: "center" }, // 10
@@ -133,13 +135,57 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
         }
       }
     });
+    $("#DataDetailsHVentas").on("click", "tr", function() {
+      let idVenta = tableHVentas.row(this).data().id;
+      l_showVenta(idVenta);
+    });
   });
 });
+
+// funcion que redirecciona a la modificacion de venta
+function l_showVenta(idVenta) {
+  $.post(aplicacion + "/ajax/ajx.control_modificacion_venta.php", {
+    idVenta: idVenta,
+    oper: "controlModicacionVenta"
+  }).done(function(data) {
+    
+    if (data.length != 0 ) {
+      $.map(JSON.parse(data), function(e, i) {
+        console.log(e)
+        if (e.mensaje == '1') {
+          window.location.href = aplicacion + '/main/modificar_venta.php/?idVenta=' + idVenta;
+        } else {
+          Swal.fire({
+            title: e.title,
+            icon: "warning",
+            html: e.text,
+            showCloseButton: true,
+            showCancelButton: true,
+            confirmButtonText: "Mostrar Venta",
+            cancelButtonText: "Cerrar"
+          }).then(result => {
+            if(result.value){
+              window.location.href = aplicacion + '/main/modificar_venta.php/?idVenta=' + idVenta + '&read=true';
+            } 
+          });  
+        }
+        
+      });
+    }
+  });
+}
 
 //FUNCION PARA ESTABLECER LOS ICONOS DE LOS DOCUMENTOS
 function l_docs_icon(value, idVenta = null, idPac = null) {
   if (value.indexOf("Sin Documentación") == -1) {
-    var dir = aplicacion + "/documentacion/venta/" + idPac + '/' + idVenta + '/' + value;
+    var dir =
+      aplicacion +
+      "/documentacion/venta/" +
+      idPac +
+      "/" +
+      idVenta +
+      "/" +
+      value;
     var campo = value.split(".");
 
     var t_titulo = campo[0].split("_");
@@ -150,7 +196,6 @@ function l_docs_icon(value, idVenta = null, idPac = null) {
 
     var icon = "TBL TBL-file_extension_" + extension;
 
-    
     var ret =
       '<a href="' +
       dir +
@@ -159,7 +204,7 @@ function l_docs_icon(value, idVenta = null, idPac = null) {
       '"><span class="' +
       icon +
       '" style="cursor:pointer;")"></span></li>';
-      
+
     return ret;
   }
 

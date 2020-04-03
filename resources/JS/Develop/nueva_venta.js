@@ -183,12 +183,15 @@ function l_set_table_pac() {
       }).then(result => {
         if (result.value) {
           window.location.href =
-            aplicacion + "/main/modificar_venta.php?idVenta=" + u_venta_estado_id;
+            aplicacion +
+            "/main/modificar_venta.php/?idVenta=" +
+            u_venta_estado_id +
+            "&read=true";
         }
       });
     } else {
       // redirecciono a la pagina de guardar_venta
-      window.location.href = aplicacion + "/main/generar_venta.php?idPac=" + id
+      window.location.href = aplicacion + "/main/generar_venta.php?idPac=" + id;
     }
   });
 }
