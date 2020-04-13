@@ -11,7 +11,8 @@ require('../config/config.php');
 
 if(isset($_GET["id"])){
     $id = $_GET["id"];
-    $SQL = "SELECT * FROM institucion WHERE id = '$id'";
+    $SQL = "CALL ST_SHOW_INSTITUCION('$id')";
+    free_all_results($db);
     $result = mysqli_query($db, $SQL);
 
     while ($inst = mysqli_fetch_assoc($result)) {

@@ -34,7 +34,7 @@ $(document).ready(function() {
 
 function reloadTBLinitial(){
     $('#DataDosis').html('');
-    $('#DataDosis').load(aplicacion + '/ajax/ajx.dosis.php');
+    $('#DataDosis').load(aplicacion + '/vistas/presentacion/lista_presentaciones.php');
     $('#url').val('');
 }
 function callDosis(id){

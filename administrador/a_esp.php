@@ -13,7 +13,7 @@
 <?php
 if(isset($_GET["id"])){
     $id = $_GET["id"];
-    $SQL = "SELECT * FROM especialidad WHERE id = '$id'";
+    $SQL = "CALL `ST_SHOW_ESPECIALIDAD`('$id')";
     $result = mysqli_query($db, $SQL);
 
     while ($can = mysqli_fetch_assoc($result)) {

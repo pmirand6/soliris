@@ -49,7 +49,6 @@ function l_generar_venta() {
   form.append("idPac", getQuerystring("idPac"));
   form.append("idMedico", $("#medico").data("id"));
   form.append("cantUnidades", $("#cantDosis").val());
-  form.append("fecha_venta", getDate());
   form.append("idInstitucion", $("#institucion").data("id"));
   form.append("idCanal", $("#canal").data("id"));
   form.append("idPresentacion", $("#presentacion").val());

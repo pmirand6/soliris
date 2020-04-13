@@ -1,95 +1,134 @@
 <?php
-    require($_SERVER['DOCUMENT_ROOT'] . '/soliris/config/config.php');    
-    include $_SERVER['DOCUMENT_ROOT'] . _BD;
-    include $_SERVER['DOCUMENT_ROOT'] . _FN;
-    include $_SERVER['DOCUMENT_ROOT'] . _SG;
+require($_SERVER['DOCUMENT_ROOT'] . '/soliris/config/config.php');
+include $_SERVER['DOCUMENT_ROOT'] . _BD;
+include $_SERVER['DOCUMENT_ROOT'] . _FN;
+include $_SERVER['DOCUMENT_ROOT'] . _SG;
 ?>
 
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 
+
 <?php
-    if(isset($_GET["id"]) AND $_GET["id"]!=0 AND !empty($_GET["id"])){
-        $id = $_GET["id"];
-        $SQL = "SELECT M.*, (SELECT RM.fecha_venta FROM soliris_maestro as RM WHERE RM.medico = M.Nombre ORDER BY RM.id DESC LIMIT 1) as u_venta FROM medicos as M WHERE M.id = '$id'";
-        $result = mysqli_query($db, $SQL);
+if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
+    free_all_results($db);
+    
+    $id = $_GET["id"];
+    $SQL = "CALL `ST_SHOW_MEDICO`('$id')";
+    
+    $result = mysqli_query($db, $SQL);
 
-        while ($med = mysqli_fetch_assoc($result)) {
-            $vw_id = $med["id"];
-            $id = $med["id"];
-            $nombre = strtoupper($med["Nombre"]);
-            $matricula_tipo = $med["matricula_tipo"];
-            $matricula_numero = $med["matricula_numero"];
-            $lugar = $med["Lugar"];
-            $c_atencion = $med["C_Atencion"];
-            $telefono = $med["telefono"];
-            $fax = $med["Fax"];
-            $email = $med["Mail"];
-            $nacimiento = $med["nacimiento"];
-            $domicilio = $med["domicilio"];
-            $localidad = $med["localidad"];
-            $fecha_cap = $med["fecha_cap"];
-            if (!empty($med["especialidad"])){
-                $especialidad = $med["especialidad"];
-            }else{
-                $especialidad = "";
-            }
-
-            if (!empty($med["apm"])){
-                $apm = $med["apm"];
-            }else{
-                $apm = "";
-            }
-
-            $u_venta = $med["u_venta"];
-            $estado = $med["estado"];
-        };
-        mysqli_free_result($result);
-
+    while ($med = mysqli_fetch_assoc($result)) {
+        
+        $vw_id = $med["id"];
+        $id = $med["id"];
+        $nombre = strtoupper($med["nombre"]);
+        $nombre = strtoupper($med["apellido"]);
+        $matricula_tipo = $med["matricula_tipo"];
+        $matricula_numero = $med["matricula_numero"];
+        $lugar = $med["lugar"];
+        $c_atencion = $med["c_atencion"];
+        $telefono = $med["telefono"];
+        $fax = $med["fax"];
+        $email = $med["mail"];
+        $domicilio = $med["domicilio"];
+        $localidad = $med["localidad"];
+        $fecha_cap = $med["fecha_cap"];
+        if (!empty($med["especialidad_nombre"])) {
+            $especialidad = $med["especialidad_nombre"];
         } else {
-            $vw_id = "";
-            $id = "";
-            $nombre = "";
-            $matricula_tipo = "";
-            $matricula_numero = "";
-            $lugar = "";
-            $c_atencion = "";
-            $telefono = "";
-            $fax = "";
-            $email = "";
-            $nacimiento = "";
-            $domicilio = "";
-            $localidad = "";
-            $fecha_cap = "";
             $especialidad = "";
+        }
+
+        if (!empty($med["apm_id"])) {
+            $apm = $med["apm_id"];
+        } else {
             $apm = "";
-            $u_venta = "";
-            $estado = "";
+        }
+
+        if (!empty($med["u_venta"])) {
+            $u_venta = $med["u_venta"];
+        } else {
+            $u_venta = "Sin Ventas";
+        }
+        
+        
+        $estado = $med["estado"];
+    };
+    mysqli_free_result($result);
+} else {
+    $vw_id = "";
+    $id = "";
+    $nombre = "";
+    $matricula_tipo = "";
+    $matricula_numero = "";
+    $lugar = "";
+    $c_atencion = "";
+    $telefono = "";
+    $fax = "";
+    $email = "";
+    $nacimiento = "";
+    $domicilio = "";
+    $localidad = "";
+    $fecha_cap = "";
+    $especialidad = "";
+    $apm = "";
+    $u_venta = "";
+    $estado = "";
+}
+
+/* Combo de Especialidad */
+$SQLesp = "CALL ST_LIST_ESPECIALIDADES()";
+free_all_results($db);
+$resultEsp = mysqli_query($db, $SQLesp);
+$arr_select_esp = "";
+$esp_array = explode(',', $especialidad);
+while ($rowEsp = mysqli_fetch_assoc($resultEsp)) {
+    foreach ($esp_array as $esp) {
+        $arr_select_esp .= '<option value="' . $rowEsp["especialidad"] . '" ' . f_p_selected($esp, $rowEsp["especialidad"]) . '>' . $rowEsp["especialidad"] . '</option>;';
     }
+};
 
-    /* Combo de Especialidad */
-        $SQLesp = "SELECT * FROM especialidad WHERE familia = 'SOL'";
-        $resultEsp = mysqli_query($db, $SQLesp);
-        $arr_select_esp = "";
+mysqli_free_result($resultEsp);
+/* ------------------ */
 
-        while ($rowEsp = mysqli_fetch_assoc($resultEsp)) {
-            $arr_select_esp .= '<option value="' . $rowEsp["especialidad"] . '" ' . f_p_selected($especialidad, $rowEsp["especialidad"]) . '>' . $rowEsp["especialidad"] . '</option>;';
-        };
+/* Combo de APM */
+$SQLapm = "CALL `ST_LIST_APM_ACTIVOS`()";
+free_all_results($db);
+$resultAPM = mysqli_query($db, $SQLapm);
+$arr_select_apm = "";
 
-        mysqli_free_result($resultEsp);
-    /* ------------------ */
+while ($rowAPM = mysqli_fetch_assoc($resultAPM)) {
+    $arr_select_apm .= '<option value="' . $rowAPM["id"] . '" ' . f_p_selected($apm, $rowAPM["id"]) . '>' . $rowAPM["nombre_completo"] . '</option>;';
+};
 
-    /* Combo de APM */
-        $SQLapm = "SELECT * FROM apm order by nombre asc";
-        $resultAPM = mysqli_query($db, $SQLapm);
-        $arr_select_apm = "";
+mysqli_free_result($resultAPM);
+/* ------------------ */
 
-        while ($rowAPM = mysqli_fetch_assoc($resultAPM)) {
-            $arr_select_apm .= '<option value="' . $rowAPM["id"] . '" ' . f_p_selected($apm, $rowAPM["id"]) . '>' . $rowAPM["nombre"] . '</option>;';
-        };
+/** Combo Tipo Matriculas */
 
-        mysqli_free_result($resultAPM);
-    /* ------------------ */
+$SQLmat_tipo = "CALL `ST_LIST_MEDICO_TIPO_MATRICULA`()";
+free_all_results($db);
+$resultMat_Tipo = mysqli_query($db, $SQLmat_tipo);
+$arr_select_mat = "";
+
+while ($rowMat = mysqli_fetch_assoc($resultMat_Tipo)) {
+    
+    if ($rowMat["id"] == 24) {
+        $arr_select_mat .= '<optgroup label="'. $rowMat["tipo"] .'">';
+        $arr_select_mat .= '<option value="' . $rowMat["id"] . '" ' . f_p_selected($matricula_tipo, $rowMat["id"]) . '>' . $rowMat["valor"] . '</option>;';
+        $arr_select_mat .= '</optgroup>';
+    } else {
+        $arr_select_mat .= '<optgroup label="'. $rowMat["tipo"] .'">';
+        $arr_select_mat .= '<option value="' . $rowMat["id"] . '" ' . f_p_selected($matricula_tipo, $rowMat["id"]) . '>' . $rowMat["valor"] . '</option>;';
+        $arr_select_mat .= '</optgroup>';
+    
+    }
+    
+};
+
+mysqli_free_result($resultMat_Tipo);
+
 ?>
 
 <head>
@@ -101,39 +140,38 @@
 
     <style type="text/css">
         /* Latest compiled and minified CSS */
-            @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
+        @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
         /* Font-Awesome */
-            @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
+        @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
         /* Include Bootstrap Datepicker */
-            @import "../resources/Bootstrap-DatePicker/min/datepicker.min.css";
+        @import "../resources/Bootstrap-DatePicker/min/datepicker.min.css";
         /* Bootstrap Validator */
-            @import "../resources/Bootstrap-Validator/CSS/formValidation.min.css";
+        @import "../resources/Bootstrap-Validator/CSS/formValidation.min.css";
         /* Bootstrap-select */
-            @import "../resources/Bootstrap-Select/css/bootstrap-select.min.css";
+        @import "../resources/Bootstrap-Select/css/bootstrap-select.min.css";
         /* Custom CSS */
-            @import "../resources/Sprites/file_extension.css";
+        @import "../resources/Sprites/file_extension.css";
         /* Iconos de Estados */
-            @import "../resources/Sprites/TBL-icons.css";
+        @import "../resources/Sprites/TBL-icons.css";
 
-        #editDocs{
+        #editDocs:hover {
+            color: #e35919;
         }
-            #editDocs:hover{
-                color: #e35919;
-            }
-        #histDocs{
-        }
-            #histDocs:hover{
-                color: #5cb811;
-            }
 
-        li{
+        #histDocs:hover {
+            color: #5cb811;
+        }
+
+        li {
             list-style-type: none;
             height: 48px;
             vertical-align: top;
         }
-            li:hover{
-                color: #e35919;
-            }
+
+        li:hover {
+            color: #e35919;
+        }
+
         .form-horizontal .selectContainer .form-control-feedback {
             top: 0;
             right: -15px;
@@ -143,58 +181,58 @@
 
 
 </head>
+
 <body>
-    <form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form">
+    <form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form" autocomplete="off">
         <fieldset class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10">
             <!-- Form Name -->
             <legend>Datos del Medico</legend>
-<?php
-    if (isset($id) AND $id != "") {
-?>
-            <!-- ID -->
-            <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="vw_id">ID</label>
-                <div class="col-sm-3 col-xs-6">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="fa fa-hashtag"></span></div>
-                        <input id="vw_id" name="vw_id" type="text" placeholder="ID" class="form-control input-md disabled" disabled value="<?php echo $id?>">
-                        <input id="id" name="id" type="hidden" class="form-control input-md hidden" value="<?php echo $vw_id?>">
+            <?php
+            if (isset($id) and $id != "") {
+            ?>
+                <!-- ID -->
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-4 control-label" for="vw_id">ID</label>
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="fa fa-hashtag"></span></div>
+                            <input id="vw_id" name="vw_id" type="text" placeholder="ID" class="form-control input-md disabled" disabled value="<?php echo $id ?>">
+                            <input id="id" name="id" type="hidden" class="form-control input-md hidden" value="<?php echo $vw_id ?>">
+                        </div>
                     </div>
                 </div>
-            </div>
-<?php
-    }
-?>
+            <?php
+            }
+            ?>
             <!-- Nombre -->
             <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Apellido, Nombre</label>
+                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Apellido</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-user-md"></span></div>
-                        <input id="nombre" name="nombre" type="text" placeholder="Apellido, Nombre..." class="form-control input-md" maxlength="200" required="" value="<?php echo $nombre?>" <?=disable_campo($_SESSION["grupo"], $id);?>>
+                        <input id="apellido" name="apellido" type="text" placeholder="Apellido" class="form-control input-md" maxlength="200" required="" value="<?php echo $nombre ?>" <?= disable_campo($_SESSION["grupo"], $id); ?>>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Nombre</label>
+                <div class="col-sm-6 col-xs-8">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="fa fa-user-md"></span></div>
+                        <input id="nombre" name="nombre" type="text" placeholder="Nombre" class="form-control input-md" maxlength="200" required="" value="<?php echo $nombre ?>" <?= disable_campo($_SESSION["grupo"], $id); ?>>
                     </div>
                 </div>
             </div>
 
-            <!-- Matricula Tipo -->
+            <!-- Tipo Matricula -->
             <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="matricula_tipo">Matricula Tipo</label>
-                <div class="col-sm-6 col-xs-8">
+                <label class="col-sm-4 col-xs-4 control-label" for="lugar">Tipo Matricula</label>
+                <div class="col-sm-5 col-xs-8 selectContainer">
                     <div class="input-group">
-                        <div class="btn btn-xs btn-default">
-                            <input type="radio" name="matricula_tipo" id="nacional" value="Nacional" <?php  echo f_p_checked($matricula_tipo, 'Nacional') ?>>
-                            <label class="radio-inline" for="nacional" style="vertical-align: top">
-                                <span class="TBL TBL-nacional"></span>
-                                Nacional
-                            </label>
-                        </div>
-                        <div class="btn btn-xs btn-default">
-                            <input type="radio" name="matricula_tipo" id="provincial" value="Provincial" <?php  echo f_p_checked($matricula_tipo, 'Provincial') ?>>
-                            <label class="radio-inline" for="provincial" style="vertical-align: top">
-                                <span class="TBL TBL-provincial"></span>
-                                Provincial
-                            </label>
-                        </div>
+                    <div class="input-group-addon"><span class="fa fa-id-card"></span></div>
+                        <select class="selectpicker form-control" id="matricula_tipo" name="matricula_tipo" data-live-search="true" title="Seleccione el tipo de Matricula">
+                            <?=$arr_select_mat;?>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -205,7 +243,7 @@
                 <div class="col-sm-4 col-xs-5">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-graduation-cap"></span></div>
-                        <input id="matricula_numero" name="matricula_numero" type="text" placeholder="Nro Matricula..." class="form-control input-md" maxlength="45" required="" value="<?php echo $matricula_numero?>" <?=disable_campo($_SESSION["grupo"], $id);?>>
+                        <input id="matricula_numero" name="matricula_numero" type="text" placeholder="Nro Matricula..." class="form-control input-md" maxlength="45" required="" value="<?php echo $matricula_numero ?>" <?= disable_campo($_SESSION["grupo"], $id); ?>>
                     </div>
                 </div>
             </div>
@@ -217,10 +255,10 @@
                     <div class="input-group">
                         <div class="input-group-addon"><span id="icon_lugar" class="fa fa-hospital-o"></span></div>
                         <select id="lugar" name="lugar" class="form-control selectpicker">
-                            <option value="HOSPITAL" <?php  echo f_p_selected('HOSPITAL', $lugar) ?>>Hospital</option>
-                            <option value="INSTITUCION" <?php  echo f_p_selected('INSTITUCION', $lugar) ?>>Institución</option>
-                            <option value="CONSULTORIO" <?php  echo f_p_selected('CONSULTORIO', $lugar) ?>>Consultorio</option>
-                            <option value="SANATORIO" <?php  echo f_p_selected('SANATORIO', $lugar) ?>>Sanatorio</option>
+                            <option value="HOSPITAL" <?php echo f_p_selected('HOSPITAL', $lugar) ?>>Hospital</option>
+                            <option value="INSTITUCION" <?php echo f_p_selected('INSTITUCION', $lugar) ?>>Institución</option>
+                            <option value="CONSULTORIO" <?php echo f_p_selected('CONSULTORIO', $lugar) ?>>Consultorio</option>
+                            <option value="SANATORIO" <?php echo f_p_selected('SANATORIO', $lugar) ?>>Sanatorio</option>
                         </select>
                     </div>
                 </div>
@@ -232,7 +270,7 @@
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-medkit"></span></div>
-                        <input id="c_atencion" name="c_atencion" type="text" placeholder="Centro de Atención..." class="form-control input-md" maxlength="255" value="<?php echo $c_atencion?>">
+                        <input id="c_atencion" name="c_atencion" type="text" placeholder="Centro de Atención..." class="form-control input-md" maxlength="255" value="<?php echo $c_atencion ?>">
                     </div>
                 </div>
             </div>
@@ -243,7 +281,7 @@
                 <div class="col-sm-4 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-phone"></span></div>
-                        <input id="telefono" name="telefono" type="text" placeholder="45097100..." class="form-control input-md" maxlength="45" value="<?php echo $telefono?>">
+                        <input id="telefono" name="telefono" type="text" placeholder="45097100..." class="form-control input-md" maxlength="45" value="<?php echo $telefono ?>">
                     </div>
                 </div>
             </div>
@@ -254,30 +292,19 @@
                 <div class="col-sm-4 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-fax"></span></div>
-                        <input id="fax" name="fax" type="text" placeholder="45097100..." class="form-control input-md" maxlength="45" value="<?php echo $fax?>">
-                    </div>
-                </div>
-            </div>
-            
-             <!-- Email -->
-            <div class="form-group">
-              
-                <label class="col-sm-4 col-xs-4 control-label" for="mail">e-Mail</label>
-                <div class="col-sm-6 col-xs-8">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="fa fa-envelope"></span></div>
-                        <input id="email" name="email" type="text" placeholder="e-Mail..." class="form-control input-md" maxlength="100" value="<?php echo $email?>">
+                        <input id="fax" name="fax" type="text" placeholder="45097100..." class="form-control input-md" maxlength="45" value="<?php echo $fax ?>">
                     </div>
                 </div>
             </div>
 
-            <!-- Fecha Nacimiento -->
+            <!-- Email -->
             <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="nacimiento">Cumpleaños</label>
-                <div class="col-sm-4 col-xs-6">
+
+                <label class="col-sm-4 col-xs-4 control-label" for="mail">e-Mail</label>
+                <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
-                        <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
-                        <input id="nacimiento" name="nacimiento" type="text" placeholder="DD-MMM" class="form-control input-md nac" value="<?php echo f_p_date($nacimiento)?>">
+                        <div class="input-group-addon"><span class="fa fa-envelope"></span></div>
+                        <input id="email" name="email" type="text" placeholder="e-Mail..." class="form-control input-md" maxlength="100" value="<?php echo $email ?>">
                     </div>
                 </div>
             </div>
@@ -288,7 +315,7 @@
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-building"></span></div>
-                        <input id="domicilio" name="domicilio" type="text" placeholder="Domicilio..." class="form-control input-md" maxlength="255" value="<?php echo $domicilio?>">
+                        <input id="domicilio" name="domicilio" type="text" placeholder="Domicilio..." class="form-control input-md" maxlength="255" value="<?php echo $domicilio ?>">
                     </div>
                 </div>
             </div>
@@ -299,18 +326,7 @@
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-building"></span></div>
-                        <input id="localidad" name="localidad" type="text" placeholder="Localidad..." class="form-control input-md" maxlength="255" value="<?php echo $localidad?>">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Fecha Capacitación -->
-            <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="fecha_cap">Fecha de Capacitación</label>
-                <div class="col-sm-4 col-xs-6">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
-                        <input id="fecha_cap" name="fecha_cap" type="text" placeholder="YYYY-MM-DD" class="form-control input-md date" value="<?php echo f_p_date($fecha_cap)?>">
+                        <input id="localidad" name="localidad" type="text" placeholder="Localidad..." class="form-control input-md" maxlength="255" value="<?php echo $localidad ?>">
                     </div>
                 </div>
             </div>
@@ -321,10 +337,8 @@
                 <div class="col-sm-5 col-xs-8 selectContainer">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-heartbeat"></span></div>
-                        <select id="especialidad" name="especialidad" class="form-control selectpicker">
-                            <option value="" selected >Seleccione una Especialidad</option>
-                            <?php  echo $arr_select_esp; ?>
-                            <option value="otro" <?php  echo f_p_selected($especialidad, 'otro') ?> >Otro</option>;
+                        <select id="especialidad" name="especialidad" class="form-control selectpicker" title="Seleccione la/s especialidad/es" multiple>
+                            <?php echo $arr_select_esp; ?>
                         </select>
                     </div>
                 </div>
@@ -337,41 +351,46 @@
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-user"></span></div>
                         <select id="apm" name="apm" class="form-control selectpicker">
-                            <option value="" selected >Seleccione un APM</option>
-                            <?php  echo $arr_select_apm; ?>
+                            <option value="" selected>Seleccione un APM</option>
+                            <?php echo $arr_select_apm; ?>
                         </select>
                     </div>
                 </div>
             </div>
 
             <!-- Última Venta -->
-            <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="u_venta">Última Venta</label>
-                <div class="col-sm-4 col-xs-6">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="fa fa-shopping-cart"></span></div>
-                        <input id="u_venta" name="u_venta" type="text" placeholder="Última Venta..." class="form-control input-md disabled" disabled maxlength="255" value="<?php echo $u_venta?>">
+            <?php if (isset($_GET['id'])) { ?>
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-4 control-label" for="u_venta">Última Venta</label>
+                    <div class="col-sm-4 col-xs-6">
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="fa fa-shopping-cart"></span></div>
+                            <input id="u_venta" name="u_venta" type="text" placeholder="Última Venta..." class="form-control input-md disabled" disabled maxlength="255" value="<?php echo $u_venta ?>">
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Estado -->
-            <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="estado">Estado</label>
-                <div class="col-sm-5 col-xs-8 selectContainer">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span id="icon_estado" class="fa fa-check-circle-o"></span></div>
-                        <select id="estado" name="estado" class="form-control selectpicker" <?=disable_campo($_SESSION["grupo"], $id);?>>
-                            <option > Seleccione Estado</option>
-                            <option value="Activo" <?php  echo f_p_selected('Activo', $estado) ?>>Activo</option>
-                            <option value="Inactivo" <?php  echo f_p_selected('Inactivo', $estado) ?>>Inactivo</option>
-                        </select>
+                <!-- Estado -->
+
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-4 control-label" for="estado">Estado</label>
+                    <div class="col-sm-5 col-xs-8 selectContainer">
+                        <div class="input-group">
+                            <div class="input-group-addon"><span id="icon_estado" class="fa fa-check-circle-o"></span></div>
+                            <select id="estado" name="estado" class="form-control selectpicker" <?= disable_campo($_SESSION["grupo"], $id); ?>>
+                                <option> Seleccione Estado</option>
+                                <option value="Activo" <?php echo f_p_selected('Activo', $estado) ?>>Activo</option>
+                                <option value="Inactivo" <?php echo f_p_selected('Inactivo', $estado) ?>>Inactivo</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php
+            }
+            ?>
 
-<?php
-            if(isset($id) AND $id != "") {
+            <?php
+            if (isset($id) and $id != "") {
 
                 echo "<div class='form-group'>
                 <fieldset>
@@ -382,14 +401,8 @@
                     </legend>
                     ";
 
-                $SQLdoc = " SELECT *
-                    FROM soliris_documentacion a
-                    WHERE a.id_maestro = '$id' AND a.tipo = 'Capacitacion'  AND referencia = 'medicos' AND a.id = (
-                      SELECT MAX(b.id)
-                      FROM soliris_documentacion b
-                      WHERE b.id_maestro = a.id_maestro AND referencia = 'medicos' AND b.tipo = a.tipo
-                    );";
-
+                $SQLdoc = "CALL `ST_LIST_DOCS_MED`($id)";
+                free_all_results($db);
                 $resultdoc = mysqli_query($db, $SQLdoc);
 
                 while ($doc = mysqli_fetch_assoc($resultdoc)) {
@@ -400,11 +413,12 @@
                     $documento = urlencode($doc["documento"]);
                     $extension = strtolower(pathinfo($doc["documento"], PATHINFO_EXTENSION));
                     $tipo = $doc["tipo"];
-                    $fecha = $doc["fecha"];
+                    $estado = $doc["estado"];
+                    $fecha = $doc["fecha_documento"];
 
 
                     echo "
-            <div class=\"col-sm-4 col-xs-4\" onclick = \"openfile('$documento')\"  style='cursor:pointer;'>
+            <div class=\"col-sm-4 col-xs-4\" onclick = \"f_openfileMed('$id', '$documento')\"  style='cursor:pointer;'>
                 <ul>
                     <li class=\"li\">
                         <span class=\"file_extension _$extension\" title=\"$tipo\"></span>
@@ -434,17 +448,18 @@
                     </button>
                 </div>
             </div>
-            </fieldset>
+        </fieldset>
     </form>
-<?php
+    <?php
     include "../resources/Includes/BootstrapHTML5.php";
     include "../resources/Includes/DatePicker.php";
     include "../resources/Includes/FormValidation.php";
     include "../resources/Includes/BootstrapSelect.php";
-?>
+    ?>
 
     <!-- Custom JS -->
-       <script type="text/javascript" src="../resources/JS/Develop/medico.js"></script>
-<!--        <script type="text/javascript" src="../resources/JS/medico.min.js"></script>-->
+    <script type="text/javascript" src="../resources/JS/Develop/medico.js"></script>
+    <!--        <script type="text/javascript" src="../resources/JS/medico.min.js"></script>-->
 </body>
+
 </html>

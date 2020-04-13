@@ -17,6 +17,8 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
             var regex = new RegExp(searchField, "i");
             var output = '<ul class="list-group">';
             var count = 1;
+
+            //FIXME revisar la busqueda del nombre del apm
             var url_json = "https://192.168.0.106/u_ad_js/";
             if (searchField != null && searchField.length >= minlength) {
                 $.getJSON(url_json, function(data) {

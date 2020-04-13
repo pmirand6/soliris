@@ -43,7 +43,7 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
     if (isset($SQL) AND $SQL != ""){
         // echo $SQL;
         $response = MySQL_sendFunctionAudit("$SQL", "apm_form.php", "1");
-        echo("$response");
+        echo $response[0]["mensaje"];
     }
 
     mysqli_close($db);
@@ -57,12 +57,13 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Eliminar"){
     if (isset($_POST["id"]) AND $_POST["id"] != ""){
         $id = $_POST["id"];
 
-        $SQL = "UPDATE apm SET estado = 'Inactivo' WHERE id = $id";
+        //FIXME revisar harcode del estado
+        $SQL = "UPDATE apm SET estado_id = 18 WHERE id = $id";
 
         if (isset($SQL) AND $SQL != ""){
-            // echo $SQL;
+             echo $SQL;
             $response = MySQL_sendFunctionAudit("$SQL", "apms_form.php", "1");
-            echo("$response");
+            echo $response[0]["mensaje"];
         }
 
         mysqli_close($db);
@@ -75,13 +76,13 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Reactivar"){
     
     if (isset($_POST["id"]) AND $_POST["id"] != ""){
         $id = $_POST["id"];
-
-        $SQL = "UPDATE apm SET estado = 'Activo' WHERE id = $id";
+        //FIXME revisar harcode de estado
+        $SQL = "UPDATE apm SET estado_id = 17 WHERE id = $id";
 
         if (isset($SQL) AND $SQL != ""){
             // echo $SQL;
             $response = MySQL_sendFunctionAudit("$SQL", "apms_form.php", "1");
-            echo("$response");
+            echo $response[0]["mensaje"];
         }
 
         mysqli_close($db);

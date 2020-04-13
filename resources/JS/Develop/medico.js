@@ -10,7 +10,7 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
        console.log(matricula);
 
         $('.date').datepicker({
-            format: "yyyy-mm-dd",
+            format: "dd/mm/yyyy",
             language: "es",
 			//startDate: '-2y',
             endDate: getDate(),
@@ -64,7 +64,7 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
                     matricula_tipo: {
                         validators: {
                             notEmpty: {
-                                message: 'El tipo de matricula no puede quedar vacío'
+                                message: 'Debe Seleccionar el Tipo de Matricula'
                             }
                         }
                     },
@@ -127,14 +127,6 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
 							}
 						}
 					},
-                    /*nacimiento: { DC001 Se quito la validacion de fecha
-                        validators: {
-                            date: {
-                                format: 'DD-MMM',
-                                message: 'Formato de fecha invalido'
-                            }
-                        }
-                    },*/
                     domicilio: {
                         validators: {
                             stringLength: {
@@ -157,22 +149,13 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
                                 message: 'la fecha de capacitacion no puede quedar vacío'
                             },
                             date: {
-                                format: 'YYYY-MM-DD',
+                                format: 'DD/MM/YYYY',
                                 message: 'Formato de fecha invalido'
-                            }/*,
-							date:{
-								min:'01-03-2017',
-								alert();
-								message:'La fecha no puede ser inferior al año en curso'
-							}*/
+                            }
                         }
                     },
                     especialidad: {
                         validators: {
-                            stringLength: {
-                                min: 4,
-                                message: 'La especialidad del médico no puede quedar vacío'
-                            },
                             notEmpty: {
                                 message: 'La especialidad no puede quedar vacía'
                             }
@@ -203,22 +186,23 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
                     "oper": "Guardar",
                     "id" : $("#id").val(),
                     "nombre" : $("#nombre").val(),
-                    "matricula_tipo" : $('input:radio[name=matricula_tipo]:checked').val(),
+                    "apellidos" : $("#apellido").val(),
+                    "matricula_tipo" : $("#matricula_tipo").val(),
                     "matricula_numero" : $("#matricula_numero").val(),
                     "lugar" : $("#lugar").val(),
                     "c_atencion" : $("#c_atencion").val(),
                     "telefono" : $("#telefono").val(),
                     "fax" : $("#fax").val(),
 					"email" : $("#email").val(),
-                    "nacimiento" : $("#nacimiento").val(),
                     "domicilio" : $("#domicilio").val(),
                     "localidad" : $("#localidad").val(),
-                    "fecha_cap" : $("#fecha_cap").val(),
+                    
                     "especialidad" : $("#especialidad").val(),
                     "apm" : $("#apm").val(),
                     "u_venta" : $("#u_venta").val(),
                     "estado" : $("#estado").val()
                 };
+                
                 $.ajax({
                     url: getCurrentHostname() + '/soliris/ajax/ajx.medico_form.php',
                     type: "POST",

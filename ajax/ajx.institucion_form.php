@@ -6,14 +6,14 @@
  * Time: 05:04 PM
  */
 
-if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
-    
+if (isset($_POST["oper"]) and $_POST["oper"] == "Guardar") {
+
     require_once("../config/config.php");
     include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
     include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
 
-    
-    if (isset($_POST["id"]) AND $_POST["id"] != ""){
+
+    if (isset($_POST["id"]) and $_POST["id"] != "") {
         $id = $_POST["id"];
     };
 
@@ -36,50 +36,51 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
 
     /* -------------- */
 
-    if (isset($id) AND $id != ""){
-            $SQL = "SELECT FU_UP_INST('$nombre', '$direccion', '$altura', '$localidad', '$provincia', '$contacto', '$mail', '$telefono', '$notas', '$tipo', '$estado', '$familia', '$usuario', '$id') as response";
-
+    if (isset($id) and $id != "") {
+        $SQL = "SELECT FU_UP_INST('$nombre', '$direccion', '$altura', '$localidad', '$provincia', '$contacto', '$mail', '$telefono', '$notas', '$tipo', '$estado', '$familia', '$usuario', '$id') as response";
+    } else {
+        /* Verifico que no exista la Institucion en la base */
+        $arr_exists = mysqli_query($db, "select id from institucion where nombre = '$nombre';");
+        /* Determinar el número de filas del resultado */
+        //FIXME controlar la carga de las instituciones con el mismo nombre
+        $row_cnt = mysqli_num_rows($arr_exists);
+        if ($row_cnt == 0) {
+            if(empty($altura)) $altura = 'NULL';
+            $SQL = "SELECT FU_NEW_INST('$nombre', '$direccion', {$altura} , '$localidad', '$provincia', '$contacto', '$mail', '$telefono', '$notas', '$tipo', '$familia', '$usuario') as response";
+            echo $SQL;
         } else {
-            /* Verifico que no exista el Medico en la base */
-                $arr_exists = mysqli_query($db, "select id from institucion where nombre = '$nombre';");
-            /* Determinar el número de filas del resultado */
-                $row_cnt = mysqli_num_rows($arr_exists);
-                if ($row_cnt == 0){
-                    $SQL = "SELECT FU_NEW_INST('$nombre', '$direccion', '$altura', '$localidad', '$provincia', '$contacto', '$mail', '$telefono', '$notas', '$tipo', '$familia', '$usuario') as response";
-                }else{
-                    echo "ERROR: Ya existe un institución con ese nombre";
-                }
-                mysqli_free_result($arr_exists);
+            echo "ERROR: Ya existe un institución con ese nombre";
         }
+        mysqli_free_result($arr_exists);
+    }
 
     /* Realizo la consulta */
-    if (isset($SQL) AND $SQL != ""){
+    if (isset($SQL) and $SQL != "") {
         // echo $SQL;
-            $response = MySQL_sendFunctionAudit("$SQL", "institucion_form.php", "1");
-            echo("$response");
+        $response = MySQL_sendFunctionAudit("$SQL", "institucion_form.php", "1");
+        echo $response[0]["mensaje"];
     }
 
     mysqli_close($db);
 }
 
-if(isset($_POST["oper"]) AND $_POST["oper"] == "Eliminar"){
-    
+if (isset($_POST["oper"]) and $_POST["oper"] == "Eliminar") {
+
     require_once("../config/config.php");
     include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
     include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
-    
-    if (isset($_POST["id"]) AND $_POST["id"] != ""){
+
+    if (isset($_POST["id"]) and $_POST["id"] != "") {
         $id = $_POST["id"];
 
         $SQL = "DELETE FROM institucion WHERE id = $id";
 
-        if (isset($SQL) AND $SQL != ""){
+        if (isset($SQL) and $SQL != "") {
             // echo $SQL;
             $response = MySQL_sendFunctionAudit("$SQL", "institucion_form.php", "1");
-            echo("$response");
+            echo $response[0]["mensaje"];
         }
 
         mysqli_close($db);
     };
 }
-?>

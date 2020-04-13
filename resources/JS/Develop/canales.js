@@ -36,7 +36,7 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 
 function reloadTBLinitial(){
     $('#DataCanal').html('');
-    $('#DataCanal').load(aplicacion + '/ajax/ajx.canales.php');
+    $('#DataCanal').load(aplicacion + '/vistas/canal/vista_canales.php');
     $('#url').val('');
 }
 function callCanal(id){

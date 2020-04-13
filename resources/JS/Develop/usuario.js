@@ -16,11 +16,11 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
             //var output = '<div class="row">';
             var output = '<ul class="list-group">';
             var count = 1;
+            //FIXME ver de traer de AD los usuarios
             var url_json = "https://192.168.0.106/u_ad_js/";
             if (searchField != null && searchField.length >= minlength) {
                 $.getJSON(url_json, function(data) {
                   $.each(data, function(key, val){
-                    
                     if ((val.SamAccountName.search(regex) != -1) || (val.CN.search(regex) != -1)) {
                       output += '<li class="list-group-item link-class">'
                       output += '<span class="text-muted" id="span_user" data="'+val.mail+'" u="'+val.SamAccountName+'">'+ val.CN + ' (' + '<b>' + val.SamAccountName + '</b>' + ')'

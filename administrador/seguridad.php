@@ -1,11 +1,12 @@
-<?php 
+<?php
 
 require('../config/config.php');
-    include $_SERVER['DOCUMENT_ROOT'] . _SG;
-    include $_SERVER['DOCUMENT_ROOT'] . _FN;
+include $_SERVER['DOCUMENT_ROOT'] . _SG;
+include $_SERVER['DOCUMENT_ROOT'] . _FN;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,21 +16,22 @@ require('../config/config.php');
 
     <style type="text/css">
         /* Latest compiled and minified CSS */
-            @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
+        @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
         /* Optional theme */
-            @import "../resources/Bootstrap-3.3.1/css/bootstrap-theme.min.css";
+        @import "../resources/Bootstrap-3.3.1/css/bootstrap-theme.min.css";
         /* Font-Awesome */
-            @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
+        @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
         /* Bootstrap Validator */
-            @import "../resources/Bootstrap-Validator/CSS/formValidation.min.css";
+        @import "../resources/Bootstrap-Validator/CSS/formValidation.min.css";
         /* Style DataTables Bootstrap*/
-            @import "../resources/DataTables/datatables.min.css";
+        @import "../resources/DataTables/datatables.min.css";
         /* Iconos de Estados */
-            @import "../resources/Sprites/TBL-icons.css";
+        @import "../resources/Sprites/TBL-icons.css";
         /* Custom CSS */
-            @import "../resources/CSS/Develop/seguridad.css";
+        @import "../resources/CSS/Develop/seguridad.css";
     </style>
 </head>
+
 <body>
     <div class="row col-sm-12 col-xs-12">
         <div class="col-sm-11 col-xs-11 text-left" style="margin-left: 10px">
@@ -49,7 +51,7 @@ require('../config/config.php');
                         <th> Ventas </th>
                         <th> Auditor </th>
                         <th> APM </th>
-						<th> Acción </th>
+                        <th> Acción </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,7 +76,7 @@ require('../config/config.php');
                             <div class="col-sm-8 col-xs-8">
                                 <div class="input-group">
                                     <div class="input-group-addon"><span class="fa fa-navicon"></span></div>
-                                    <input id="pagina" name="pagina" type="text" autocomplete="off" placeholder="Página..." class="form-control input-md" maxlength="90" required="" >
+                                    <input id="pagina" name="pagina" type="text" autocomplete="off" placeholder="Página..." class="form-control input-md" maxlength="90" required="">
                                 </div>
                             </div>
                         </div>
@@ -84,7 +86,7 @@ require('../config/config.php');
                             <div class="col-sm-8 col-xs-8">
                                 <div class="input-group">
                                     <div class="input-group-addon"><span class="fa fa-desktop"></span></div>
-                                    <input id="descripcion" name="descripcion" type="text" autocomplete="off" placeholder="Descripción..." class="form-control input-md" maxlength="255" >
+                                    <input id="descripcion" name="descripcion" type="text" autocomplete="off" placeholder="Descripción..." class="form-control input-md" maxlength="255">
                                 </div>
                             </div>
                         </div>
@@ -107,16 +109,17 @@ require('../config/config.php');
     </div>
 
 
-    <?php 
+    <?php
     include "../resources/Includes/BootstrapHTML5.php";
     include "../resources/Includes/FormValidation.php";
     include "../resources/Includes/DataTables.php";
     ?>
-      <!-- Custom JS -->
-        <script type="text/javascript" src="../resources/JS/Develop/seguridad.js"></script>
-<!--        <script type="text/javascript" src="../resources/JS/seguridad.min.js"></script>-->
+    <!-- Custom JS -->
+    <script type="text/javascript" src="../resources/JS/Develop/seguridad.js"></script>
+    <!--        <script type="text/javascript" src="../resources/JS/seguridad.min.js"></script>-->
 
-<!-- ################## -->
+    <!-- ################## -->
 
 </body>
+
 </html>

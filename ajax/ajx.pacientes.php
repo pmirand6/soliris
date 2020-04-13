@@ -36,7 +36,7 @@
             "id" => $row["id"],
             "paciente" => "<b class=\"pointer\" onclick=\"callPac('$id', '{$_SESSION["grupo"]}')\">$name</b>",
             "sexo" => "<div class=\"TBL TBL-$sexo\" title=\"" . l_stringSexo($row["sexo"]) . "\"><p class=\"hidden\">$sexo</p></div>",
-            //"cgestar" => $row["cgestar"],
+            "edad" => $row["edad"],
             "fnac" => $row["fnac"],
             "patologia" => $row["patologia"],
             "subPatologia" => $row["subPatologia"],

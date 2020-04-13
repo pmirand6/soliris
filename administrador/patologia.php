@@ -12,12 +12,12 @@ require('../config/config.php');
 <?php 
     if(isset($_GET["id"])){
     $id = $_GET["id"];
-    $SQL = "SELECT * FROM patologias WHERE id = '$id' ORDER BY patologia DESC;";
+    $SQL = "CALL `ST_SHOW_PATOLOGIA`('$id');";
     $result = mysqli_query($db, $SQL);
     while ($can = mysqli_fetch_assoc($result)) {
         $id = $can["id"];
         $vw_id = $can["id"];
-        $nombre = $can["patologia"];
+        $nombre = $can["patologia_nombre"];
         $estado = $can["estado"];
         $familia = $can["familia"];
     };

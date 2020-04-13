@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require('../config/config.php');
 include $_SERVER['DOCUMENT_ROOT'] . _SG;
@@ -6,6 +6,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,10 +29,11 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
 
 
 </head>
+
 <body>
     <section id="titulo">
         <div class="text-center">
-        <h3>Listado de Especialidades</h3>
+            <h3>Listado de Especialidades</h3>
             <hr>
             <p style="float: left;margin-left: 22px;"><strong>Seleccionar una especialidad para ver el detalle</strong></p>
             <br>
@@ -50,11 +52,11 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
     </div>
 
     <!--  PopUP de Especialidades  -->
-    <div id="win" class="easyui-window" style="height: 1000px; top: 50px;"  data-options="modal:true, closed:true, minimizable:false, title:'Editar Especialidad', closeOnEscape: true, maximized:true, inline:true">
+    <div id="win" class="easyui-window" style="height: 1000px; top: 50px;" data-options="modal:true, closed:true, minimizable:false, title:'Editar Especialidad', closeOnEscape: true, maximized:true, inline:true">
         <iframe src="" id="win_dos" marginheight="0" marginwidth="0" scrolling="yes" noresize frameborder="0" style="width: 100%;height: 99%;"></iframe>
     </div>
 
-    <?php 
+    <?php
     include "../resources/Includes/BootstrapHTML5.php";
     include "../resources/Includes/EasyUI.php";
     include "../resources/Includes/DataTables.php";
@@ -64,4 +66,5 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
     <script type="text/javascript" src="../resources/JS/Develop/especialidades.js"></script>
     <!--<script type="text/javascript" src="../resources/JS/especialidades.min.js"></script>-->
 </body>
+
 </html>

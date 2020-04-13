@@ -44,7 +44,7 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
 
     /* Realizo la consulta */
     if (isset($SQL) AND $SQL != ""){
-        // echo $SQL;
+         echo $SQL;
             $response = MySQL_sendFunctionAudit("$SQL", "esp_form.php", "1");
             echo("$response");
     }
@@ -60,13 +60,13 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Eliminar"){
 
     if (isset($_POST["id"]) AND $_POST["id"] != ""){
         $id = $_POST["id"];
+        // FIXME revisar el hardcode de estado
+        $SQL = "UPDATE especialidad SET estado_id = 29 WHERE id = $id";
 
-        $SQL = "UPDATE especialidad SET estado = 'Inactivo' WHERE id = $id";
-
+        
         if (isset($SQL) AND $SQL != ""){
-            // echo $SQL;
             $response = MySQL_sendFunctionAudit("$SQL", "esp_form.php", "1");
-            echo("$response");
+            echo $response[0]["mensaje"];
         }
 
         mysqli_close($db);
@@ -82,8 +82,10 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Activar"){
     if (isset($_POST["id"]) AND $_POST["id"] != ""){
         $id = $_POST["id"];
 
-        $SQL = "UPDATE especialidad SET estado = 'Activo' WHERE id = $id";
-
+        //FIXME REVISAR HARCODE DE ESTADO
+        
+        $SQL = "UPDATE especialidad SET estado_id = 28 WHERE id = $id";
+        
         if (isset($SQL) AND $SQL != ""){
             // echo $SQL;
             $response = MySQL_sendFunctionAudit("$SQL", "esp_form.php", "1");

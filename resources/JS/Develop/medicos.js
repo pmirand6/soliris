@@ -1,6 +1,5 @@
-
-var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
-$(document).ready(function() {
+var aplicacion = getCurrentHostname() + "/" + getUrlHTTP();
+$(document).ready(function () {
   $("#win").window({
     modal: true,
     closed: true,
@@ -13,23 +12,20 @@ $(document).ready(function() {
     inline: true,
     collapsible: false,
     constrain: true,
-    onBeforeClose: function() {
+    onBeforeClose: function () {
       window.location.href = window.location.href;
-    }
+    },
   });
 
-  $("#nwMed").click(function() {
+  $("#nwMed").click(function () {
     $("#win").window("open"); // close a window
-    $("#win_med").attr(
-      "src",
-      aplicacion + "/administrador/medico.php"
-    );
+    $("#win_med").attr("src", aplicacion + "/administrador/medico.php");
   });
-  $(".iniciales").click(function() {
+  $(".iniciales").click(function () {
     var initial = $(this).attr("id");
     reloadTBLinitial(initial);
   });
-  $(".panel-tool-close").click(function() {
+  $(".panel-tool-close").click(function () {
     reloadTBLinitial($("#url").val());
   });
 
@@ -38,85 +34,92 @@ $(document).ready(function() {
     iDisplayLength: 5,
     sPaginationType: "full_numbers",
     processing: true,
-    sAjaxSource: aplicacion + "/ajax/ajx.medicos.php",
+    ajax: {
+      url: aplicacion + '/ajax/ajx.medicos.php',
+      type: "POST",
+      data: {
+        oper: 'getMedicos',
+      }
+    },
     sDom: '<"top"B>frt<"bottom"ip><"clear">',
     deferRender: true,
     autoWidth: false,
     order: [1, "asc"],
-    "aoColumns": [{
-        "mData": "id",
-        "bSearchable": true,
-        "bVisible": false,
-        "sClass": "center"
+    aoColumns: [
+      {
+        mData: "id",
+        bSearchable: true,
+        bVisible: false,
+        sClass: "center",
       },
       {
-        "mData": "medico",
-        "bSearchable": true,
-        "sWidth": "20%",
-        "sClass": "center"
+        mData: "medico",
+        bSearchable: true,
+        sWidth: "20%",
+        sClass: "center",
       },
       {
-        "mData": "matricula",
-        "bSearchable": true,
-        "sWidth": "10%",
-        "sClass": "center"
+        mData: "matricula",
+        bSearchable: true,
+        sWidth: "10%",
+        sClass: "center",
       },
       {
-        "mData": "especialidad",
-        "bSearchable": true,
-        "sWidth": "10%",
-        "sClass": "center"
+        mData: "especialidad",
+        bSearchable: true,
+        sWidth: "10%",
+        sClass: "center",
       },
       {
-        "mData": "catencion",
-        "bSearchable": true,
-        "sWidth": "20%",
-        "sClass": "center"
+        mData: "catencion",
+        bSearchable: true,
+        sWidth: "20%",
+        sClass: "center",
       },
       {
-        "mData": "tel",
-        "bSearchable": true,
-        "sWidth": "10%",
-        "sClass": "center"
+        mData: "tel",
+        bSearchable: true,
+        sWidth: "10%",
+        sClass: "center",
       },
       {
-        "mData": "email",
-        "bSearchable": true,
-        "sWidth": "15%",
-        "sClass": "center"
+        mData: "email",
+        bSearchable: true,
+        sWidth: "15%",
+        sClass: "center",
       },
       {
-        "mData": "estado",
-        "bSearchable": true,
-        "sWidth": "3%",
-        "sClass": "center"
+        mData: "estado",
+        bSearchable: true,
+        sWidth: "3%",
+        sClass: "center",
       },
       {
-        "mData": "f_cap",
-        "bSearchable": true,
-        "sWidth": "7%",
-        "sClass": "center"
+        mData: "f_cap",
+        bSearchable: true,
+        sWidth: "7%",
+        sClass: "center",
       },
       {
-        "mData": "apm",
-        "bSearchable": true,
-        "sWidth": "15%",
-        "sClass": "center"
-      }
+        mData: "apm",
+        bSearchable: true,
+        sWidth: "15%",
+        sClass: "center",
+      },
     ],
     buttons: [
       {
         extend: "copyHtml5",
-        text: '<i class="fa fa-files-o" aria-hidden="true"></i> Copiar'
+        text: '<i class="fa fa-files-o" aria-hidden="true"></i> Copiar',
       },
       {
         extend: "print",
-        text: '<i class="fa fa-print" aria-hidden="true"></i> Imprimir'
+        text: '<i class="fa fa-print" aria-hidden="true"></i> Imprimir',
       },
       {
         extend: "excel",
-        text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel'
-      }
+        text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel',
+      },
     ],
     oLanguage: {
       sProcessing: "Procesando...",
@@ -136,13 +139,13 @@ $(document).ready(function() {
         sFirst: "Primero",
         sLast: "Último",
         sNext: "Siguiente",
-        sPrevious: "Anterior"
+        sPrevious: "Anterior",
       },
       oAria: {
         sSortAscending:
           ": Activar para ordenar la columna de manera ascendente",
         sSortDescending:
-          ": Activar para ordenar la columna de manera descendente"
+          ": Activar para ordenar la columna de manera descendente",
       },
       buttons: {
         copyTitle: "Copiado al Portapapeles",
@@ -150,27 +153,22 @@ $(document).ready(function() {
           "Presione <i>CRTL</i> ó <i>\u2318</i> + <i>C</i> para copiar la tabla en el documento que desee. <br><br>Para cancelar, haga click sobre este mensaje o presione la tecla ESC.",
         copySuccess: {
           _: "%d líneas copiadas",
-          1: "1 línea copiada"
-        }
-      }
-    }
+          1: "1 línea copiada",
+        },
+      },
+    },
   });
 });
 
 function reloadTBLinitial(init) {
   $("#" + init).html('<span class="fa fa-spinner fa-pulse"></span>');
   if (init != "") {
-    $.get(
-      aplicacion + "/ajax/ajx.medicos.php?ini=" + init,
-      function(data) {
-        doRefresh(data, "#DataTMedicos");
-        $("#" + init).html(init);
-      }
-    );
+    $.get(aplicacion + "/ajax/ajx.medicos.php?ini=" + init, function (data) {
+      doRefresh(data, "#DataTMedicos");
+      $("#" + init).html(init);
+    });
   } else {
-    $.get(aplicacion + "/ajax/ajx.medicos.php", function(
-      data
-    ) {
+    $.get(aplicacion + "/ajax/ajx.medicos.php", function (data) {
       doRefresh(data, "#DataTMedicos");
       $("#" + init).html(init);
     });
@@ -180,37 +178,18 @@ function doRefresh(data, id) {
   // data is a string
   data = jQuery.parseJSON(data);
 
-  $(id)
-    .dataTable()
-    .fnClearTable();
-  if (data.aaData.length)
-    $(id)
-      .dataTable()
-      .fnAddData(data.aaData);
-  $(id)
-    .dataTable()
-    .fnDraw();
+  $(id).dataTable().fnClearTable();
+  if (data.aaData.length) $(id).dataTable().fnAddData(data.aaData);
+  $(id).dataTable().fnDraw();
 }
 function getData(idDest, aRow, id, nroCol) {
-  if (
-    $(id)
-      .dataTable()
-      .fnGetData(aRow) != "" ||
-    nroCol != ""
-  ) {
-    $("#" + idDest).val(
-      $(id)
-        .dataTable()
-        .fnGetData(aRow)[nroCol]
-    );
+  if ($(id).dataTable().fnGetData(aRow) != "" || nroCol != "") {
+    $("#" + idDest).val($(id).dataTable().fnGetData(aRow)[nroCol]);
   }
 }
 function callMed(id) {
   $("#win").window("open"); // close a window
-  $("#win_med").attr(
-    "src",
-    aplicacion + "/administrador/medico.php?id=" + id
-  );
+  $("#win_med").attr("src", aplicacion + "/administrador/medico.php?id=" + id);
 }
 
 function getCurrentHostname() {
@@ -230,7 +209,6 @@ function getCurrentHostname() {
 }
 
 function getUrlHTTP() {
-
   var path = window.location.pathname;
   var appName = path.split("/");
   return appName[1];

@@ -3,9 +3,9 @@
 select table_name
 from information_schema.KEY_COLUMN_USAGE
 where table_schema = 'soliris'
-and referenced_table_name = 'dosis';
+and referenced_table_name = 'maestro_ventas';
 
 
 SELECT DISTINCT ROUTINE_NAME, ROUTINE_TYPE 
 FROM INFORMATION_SCHEMA.ROUTINES
-WHERE ROUTINE_DEFINITION LIKE '%dosis%';
+WHERE ROUTINE_DEFINITION LIKE '%mestro_ventas%';

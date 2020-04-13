@@ -4,6 +4,7 @@
   "description": "Aplicacion soliris",
   "main": "index.js",
   "dependencies": {
+    "blueimp-file-upload": "^10.13.0",
     "datatables-bulma": "^1.0.1",
     "devextreme": "19.2.7",
     "formvalidation": "^0.6.2-dev",

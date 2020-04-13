@@ -39,6 +39,14 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 
 
     <?php
+     
+     // include plugins
+     include "../resources/Includes/BootstrapHTML5.php";
+     include "../resources/Includes/DatePicker.php";
+     include "../resources/Includes/EasyUI.php";
+     include "../resources/Includes/formvalidation-bulma.php";
+     include "../resources/Includes/sweetalert2.php";
+
     // include vistas
     $idVenta = $_GET["idVenta"];
 
@@ -55,11 +63,14 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         $medico_id = $row["medico_id"];
         $medico = $row["medico_nombre"];
         $presentacion = $row["presentacion"];
+        $presentacion_id = $row["presentacion_id"];
         $unidades = $row["unidades"];
         $fecha_venta = $row["fecha_venta"];
         $usuario_creador = $row["usuario_creador"];
         $fecha_mod = $row["fecha_mod"];
         $usuario_mod = $row["usuario_mod"];
+        $f_mod = $row["f_mod"]; // fechas sin formatear
+        $f_venta = $row["f_venta"]; // fechas sin formatear
         $doc_receta = $row["doc_receta"];
         $fecha_receta = $row["fecha_receta"];
         $doc_otro = $row["doc_otro"];
@@ -79,12 +90,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         include "../vistas/venta/form_modificar_venta.php";
     }
 
-    // include plugins
-    include "../resources/Includes/BootstrapHTML5.php";
-    include "../resources/Includes/DatePicker.php";
-    include "../resources/Includes/EasyUI.php";
-    include "../resources/Includes/formvalidation-bulma.php";
-    include "../resources/Includes/sweetalert2.php";
+   
 
     ?>
 

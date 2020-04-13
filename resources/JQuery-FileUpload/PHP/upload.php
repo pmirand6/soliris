@@ -4,6 +4,7 @@ include_once '../../../config/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
 $output_dir = realpath($_SERVER["DOCUMENT_ROOT"]) . "/". _NAME . "/documentacion/";
 $date = date('Y-m-d');
+$fecha_cap = date_format(date_create_from_format('d/m/Y', mysqli_real_escape_string($db, strtoupper($_POST["fecha_cap"]))), 'Y-m-d');
 
 if(isset($_FILES["myfile"])){
 	$ret = array();

@@ -5,7 +5,7 @@
     
     
 
-    $SQL = "SELECT * FROM soliris_usuarios;";
+    $SQL = "CALL `ST_LIST_USUARIOS`();";
     $result = mysqli_query($db, $SQL);
 
     $arr_tbody = '
@@ -31,7 +31,6 @@
                                { "bSearchable": true, "sWidth": "20%", "sClass": "center"},
                                { "bSearchable": true, "sWidth": "20%", "sClass": "center"},
                                { "bSearchable": true, "sWidth": "30%", "sClass": "center"},
-                               { "bSearchable": true, "sWidth": "10%", "sClass": "center"},
                                { "bSearchable": true, "sWidth": "10%", "sClass": "center"},
                                { "bSearchable": true, "sWidth": "10%", "sClass": "center" }
                     ],
@@ -76,11 +75,10 @@
         <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="TBLUsr" style="font-size: 13px">
             <thead>
                 <tr>
-                    <th> id </th>
+                    <th> ID </th>
                     <th> Nombre </th>
-                    <th> Grupo </th>
+                    <th> Rol </th>
                     <th> E-Mail </th>
-                    <th> Familia </th>
                     <th> Estado </th>
                     <th> Acciones </th>
                 </tr>
@@ -89,15 +87,13 @@
     while ($row = mysqli_fetch_assoc($result)) {
         $arr_tbody .= "<tr class=\"TBLrows\">";
         $arr_tbody .= '<td>' . $row["id"] . '</td>';
-        $arr_tbody .= '<td><b class="pointer" onclick="callUsr(\'' . $row["id"] . '\')">' . ucwords(strtolower($row["usuario"])) . '</b></td>';
-        $arr_tbody .= '<td>' . $row["grupo"] . '</td>';
-        $arr_tbody .= '<td>' . $row["mail"] . '</td>';
-        $arr_tbody .= '<td>' . $row["familia"] . '</td>';
+        $arr_tbody .= '<td><b class="pointer" onclick="callUsr(\'' . $row["id"] . '\')">' . ucwords(strtolower($row["username"])) . '</b></td>';
+        $arr_tbody .= '<td>' . $row["rol_nombre"] . '</td>';
+        $arr_tbody .= '<td>' . $row["email"] . '</td>';
         $arr_tbody .= '<td><span class="TBL TBL-' . str_replace(" ", "_", $row["estado"]) . '" title="' . $row["estado"] . '"><p class="hidden">' . $row["estado"] . '</p></span></td>';
-        //$arr_tbody .= '<td><span class="pointer TBL TBL-Baja" title="Desactivar" onclick="delUsr(\'' . $row["id"] . '\')"></span></td>';
         if ($row["estado"]=='Activo'){
             $arr_tbody .= '<td><button type=\'button\' class=\'del_can btn btn-danger\' title=\'Desactivar\' style=\'margin-left: 13px;\' onclick="delUsr(\'' . $row["id"] . '\')"><i class=\'fa fa-ban\'></i></button></td>';
-            }else{
+            }else{  
             $arr_tbody .= '<td><button type=\'button\' class=\'act_can btn btn-success\' title=\'Activar\' style=\'margin-left: 13px;\' onclick="actUsr(\'' . $row["id"] . '\')"><i class=\'fa fa-undo\'></i></button></td>';
 
         }
@@ -116,4 +112,3 @@
 </html>";
 
     echo $arr_tbody;
-?>

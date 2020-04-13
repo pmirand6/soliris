@@ -4,44 +4,37 @@ require_once("../config/config.php");
 include $_SERVER['DOCUMENT_ROOT'] . _BD;
 if (isset($_POST["oper"]) == 'getMedicos') {
 
-    if (isset($_GET["ini"]) and $_GET["ini"] != "TODOS") {
-        $ini = $_GET["ini"];
-        $condicion =  "WHERE LEFT(M.Nombre,1) = '$ini'";
+    if (isset($_POST["ini"]) and $_POST["ini"] != "TODOS") {
+        $ini = $_POST["ini"];
+        $query = "CALL ST_LIST_MEDICOS('$ini')";
     } else {
-        $condicion = "";
+        $query = "CALL ST_LIST_MEDICOS('')";
     }
 
-    // $query = "SELECT P.id AS id, P.Nombre AS name, P.sexo AS sexo, P.c_gestar AS cgestar, P.fecha_nac AS fnac, P.Patologia AS patologia, P.Fecha_Con AS fconsen, P.mail AS email, P.telefono AS telefono, P.notas AS notas, P.estado AS estado, vRM.fventa AS uventa FROM pacientes AS P LEFT JOIN (SELECT RM.nombre as nombre, RM.fecha_venta as fventa FROM soliris_maestro AS RM WHERE RM.estado <> 'eliminado' GROUP BY RM.Nombre  ORDER BY RM.id DESC) as vRM ON (P.id = vRM.nombre) $condicion ORDER BY P.id ASC" ;
-    $query = "SELECT id, Apellido, Nombre, especialidad, matricula_tipo, matricula_numero, estado, Lugar, C_Atencion, telefono,
-    Fax, Mail, date_format(nacimiento, '%d/%m/%Y') as nacimiento, date_format(fecha_cap, '%d/%m/%Y') as fecha_cap,
-        (SELECT nombre FROM apm A WHERE A.id = M.apm) as APM_name FROM medicos as M $condicion order by M.Nombre asc;";
 
     $result = mysqli_query($db, $query);
 
     $arr_tbody = array();
     while ($row = mysqli_fetch_assoc($result)) {
         $id = $row["id"];
-        $name = strtoupper($row["Nombre"]);
+        $name = strtoupper($row["nombre"]);
         $matricula_tipo = strtolower($row["matricula_tipo"]);
         $matricula_numero = $row["matricula_numero"];
-        $c_atencion = $row["C_Atencion"];
+        $c_atencion = $row["c_atencion"];
         $estado = $row["estado"];
 
         $arr_row = array(
             "id" => $row["id"],
-            //"catencion" => "<i title=\"$c_atencion\">" . $c_atencion. "...</i>",
             "medico" => "<b class=\"pointer\" onclick=\"callMed('$id')\">$name</b>",
             "matricula" => "<div class=\"TBL TBL-$matricula_tipo\" title=\"$matricula_tipo\"><p style=\"margin-left:20px\">$matricula_numero</p></div>",
             "especialidad" => $row["especialidad"],
-            //"catencion" => "<i title=\"$c_atencion\">" . substr($c_atencion, 0, 16) . "...</i>",
             "catencion" => $c_atencion,
-            "tel" => "<b class=\"pointer\">Tel.</b> " . $row["telefono"] . "</br><b class=\"pointer\">Fax</b> " . $row["Fax"],
-            "email" => $row["Mail"],
+            "tel" => "<b class=\"pointer\">Tel.</b> " . $row["telefono"] . "</br><b class=\"pointer\">Fax</b> " . $row["fax"],
+            "email" => $row["mail"],
             "estado" => "<div class=\"TBL TBL-" . str_replace(" ", "_", $estado) . "\" title=\"$estado\"><p class=\"hidden\">$estado</p></div>",
             "f_cap" => $row["fecha_cap"],
-            "apm" => l_apm($row["APM_name"]),
+            "apm" => l_apm($row["apm_nombre"]),
         );
-
         array_push($arr_tbody, $arr_row);
     };
 
@@ -52,7 +45,7 @@ if (isset($_POST["oper"]) == 'getMedicos') {
     echo "{\"aaData\": " . json_encode($arr_tbody) . "}";
 }
 
-
+// Busqueda de médicos desde la venta
 if (isset($_GET['q'])) {
 
 
@@ -62,7 +55,7 @@ if (isset($_GET['q'])) {
     $SQL = "CALL `ST_LIST_MEDICOS_ACTIVOS`('$filtro');";
     $result = mysqli_query($db, $SQL);
 
-    
+
 
     $json = [];
     while ($row = mysqli_fetch_assoc($result)) {

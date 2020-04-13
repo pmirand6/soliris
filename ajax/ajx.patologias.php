@@ -1,15 +1,15 @@
-<?php 
-    
-    require_once("../config/config.php");
-    include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
-    include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
-    
-    
+<?php
 
-    $SQL = "SELECT * FROM patologia ORDER BY patologia DESC;";
-    $result = mysqli_query($db, $SQL);
+require_once("../config/config.php");
+include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
+include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
 
-    $arr_tbody = '
+
+
+$SQL = "CALL `ST_LIST_PATOLOGIAS`();";
+$result = mysqli_query($db, $SQL);
+
+$arr_tbody = '
 <html>
     <head>
         <style type="text/css">
@@ -84,27 +84,24 @@
                 </tr>
             </thead>
             <tbody>';
-    while ($row = mysqli_fetch_assoc($result)) {
-        $arr_tbody .= "<tr class=\"TBLrows\">";
-        $arr_tbody .= '<td>' . $row["id"] . '</td>';
-        $arr_tbody .= '<td><b class="pointer" onclick="callPatologia(\'' . $row["id"] . '\')">' . ucwords(strtolower($row["patologia"])) . '</b></td>';
-//        $arr_tbody .= '<td>' . $row["estado"] . '</td>';
-        $arr_tbody .= "<td><div class=\"TBL TBL-" . str_replace(" ", "_", $row["estado"]) . "\" title=\"" . $row["estado"] . "\"><p class=\"hidden\">" . $row["estado"] . "</p></div></td>";
-        $arr_tbody .= '<td>' . $row["familia"] . '</td>';
-        //$arr_tbody .= '<td><span class="pointer TBL TBL-Baja" title="Desactivar" onclick="delPatologia(\'' . $row["id"] . '\')"></span></td>';
-        if ($row["estado"]=='Activo'){
-            $arr_tbody .= '<td><button type=\'button\' class=\'del_can btn btn-danger\' title=\'Desactivar\' style=\'margin-left: 13px;\' onclick="delPatologia(\'' . $row["id"] . '\')"><i class=\'fa fa-ban\'></i></button></td>';
-            }else{
-            $arr_tbody .= '<td><button type=\'button\' class=\'act_can btn btn-success\' title=\'Activar\' style=\'margin-left: 13px;\' onclick="actPatologia(\'' . $row["id"] . '\')"><i class=\'fa fa-undo\'></i></button></td>';
+while ($row = mysqli_fetch_assoc($result)) {
+    $arr_tbody .= "<tr class=\"TBLrows\">";
+    $arr_tbody .= '<td>' . $row["id"] . '</td>';
+    $arr_tbody .= '<td><b class="pointer" onclick="callPatologia(\'' . $row["id"] . '\')">' . ucwords(strtolower($row["patologia_nombre"])) . '</b></td>';
+    $arr_tbody .= "<td><div class=\"TBL TBL-" . str_replace(" ", "_", $row["estado"]) . "\" title=\"" . $row["estado"] . "\"><p class=\"hidden\">" . $row["estado"] . "</p></div></td>";
+    $arr_tbody .= '<td>' . $row["familia"] . '</td>';
+    if ($row["estado"] == 'Activo') {
+        $arr_tbody .= '<td><button type=\'button\' class=\'del_can btn btn-danger\' title=\'Desactivar\' style=\'margin-left: 13px;\' onclick="delPatologia(\'' . $row["id"] . '\')"><i class=\'fa fa-ban\'></i></button></td>';
+    } else {
+        $arr_tbody .= '<td><button type=\'button\' class=\'act_can btn btn-success\' title=\'Activar\' style=\'margin-left: 13px;\' onclick="actPatologia(\'' . $row["id"] . '\')"><i class=\'fa fa-undo\'></i></button></td>';
+    }
+    $arr_tbody .= '</tr>';
+};
 
-            }
-        $arr_tbody .= '</tr>';
-    };
+mysqli_free_result($result);
+mysqli_close($db);
 
-    mysqli_free_result($result);
-    mysqli_close($db);
-
-    $arr_tbody .= "
+$arr_tbody .= "
 
 
             </tbody>
@@ -112,5 +109,4 @@
     </body>
 </html>";
 
-    echo $arr_tbody;
-?>
+echo $arr_tbody;

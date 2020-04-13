@@ -35,7 +35,6 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
     $idPac = $_POST["idPac"];
     $idMedico = $_POST["idMedico"];
     $idProducto = $_POST["idProducto"];
-    $fecha_venta = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["fecha_venta"]))), 'Y-m-d');;
     $idInstitucion = $_POST["idInstitucion"];
     $idPresentacion = $_POST["idPresentacion"];
     $cantUnidades = $_POST["cantUnidades"];
@@ -49,7 +48,6 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
      '$idProducto', 
      '$idPresentacion', 
      '$cantUnidades', 
-     '$fecha_venta', 
      '$idInstitucion', 
      '$idCanal', 
      '$usuario')";

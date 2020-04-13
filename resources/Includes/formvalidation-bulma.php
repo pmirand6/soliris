@@ -9,6 +9,6 @@
 
 echo '
     <!-- Bulma Validation -->
-        <script type="text/javascript" src="'. HTTP .'/resources/formvalidation/dist/js/formValidation.min.js"></script>
+        <script type="text/javascript" src="'. HTTP .'/resources/formvalidation/dist/js/FormValidation.full.js"></script>
         <script type="text/javascript" src="'. HTTP .'/resources/formvalidation/dist/js/plugins/Bulma.min.js"></script>';
 ?>

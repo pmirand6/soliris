@@ -31,9 +31,9 @@ include $_SERVER['DOCUMENT_ROOT'] . _BD;
 <body>
   <section id="titulo">
     <div class="text-center">
-      <h3>Listado de Dosis Habilitadas</h3>
+      <h3>Listado de Presentaciones</h3>
       <hr>
-      <p style="float: left;margin-left: 22px;"><strong>Seleccionar dosis para ver el detalle</strong></p>
+      <p style="float: left;margin-left: 22px;"><strong>Seleccionar una presentación para ver el detalle</strong></p>
       <br>
     </div>
   </section>

@@ -12,14 +12,16 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 <?php 
 if(isset($_GET["id"])){
     $id = $_GET["id"];
-    $SQL = "SELECT * FROM apm WHERE id = '$id' ORDER BY id DESC;";
+    $SQL = "CALL `ST_SHOW_APM`('$id');";
+    free_all_results($db);
     $result = mysqli_query($db, $SQL);
 
-    while ($can = mysqli_fetch_assoc($result)) {
-        $id = $can["id"];
-        $vw_id = $can["id"];
-        $nombre = $can["nombre"];
-        $estado = $can["estado"];
+    while ($apm = mysqli_fetch_assoc($result)) {
+        echo $apm['id'];
+        $id = $apm["id"];
+        $vw_id = $apm["id"];
+        $nombre = $apm["nombre_completo"];
+        $estado = $apm["estado"];
     };
     mysqli_free_result($result);
     mysqli_close($db);

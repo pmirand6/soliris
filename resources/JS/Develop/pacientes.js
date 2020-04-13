@@ -45,7 +45,7 @@ $(document).ready(function() {
       { mData: "id", bSearchable: true, bVisible: false, sClass: "center" },
       { mData: "paciente", bSearchable: true, sWidth: "20%", sClass: "center" },
       { mData: "sexo", bSearchable: true, sWidth: "2%", sClass: "center" },
-      //            { "mData": "cgestar", "bSearchable": true, "sWidth": "3%", "sClass": "center"},
+      { mData: "edad", bSearchable: true, sWidth: "3%", sClass: "center" },
       { mData: "fnac", bSearchable: true, sWidth: "10%", sClass: "center" },
       {
         mData: "patologia",

@@ -475,6 +475,39 @@ function free_all_results($dbCon)
     } while ($dbCon->more_results() && $dbCon->next_result());
 }
 
+function f_saveDocCapMedico($idMedico, $fecha_capacitacion)
+{
+
+    // FIXME implementar log de error de documentos
+
+    $output_dir = realpath($_SERVER["DOCUMENT_ROOT"]) . "/" . _NAME . "/documentacion/medico/" . $idMedico . "/capacitacion/";
+
+    //Check if the directory with the name already exists
+    if (!is_dir($output_dir)) {
+        //Create our directory if it does not exist
+        if (!mkdir($output_dir, 0777, true)) {
+            return f_l_errorDocumentacion('Error al crear la carpeta: ' . $output_dir);
+        }
+    }
+
+
+
+    if (isset($_FILES["file_capacitacion"]) && !empty($_FILES["file_capacitacion"])) {
+
+        $ret = array();
+
+        $fileNameCap = str_replace(' ', '-', $_FILES["file_capacitacion"]["name"]);
+        $tmpNameCap = $_FILES["file_capacitacion"]["tmp_name"];
+        $finalNameCap = 'capacitacion' . "_" . $idMedico . "_" . $fecha_capacitacion . "_" . $fileNameCap;
+        $fulldestCap = $output_dir . $finalNameCap;
+        if (move_uploaded_file($tmpNameCap, $fulldestCap)) {
+            return true;
+        } else {
+            return f_l_errorDocumentacion('Error al mover el archivo a la carpeta: ' . $fulldestCap, $fulldestCap);
+        }
+    }
+}
+
 function f_saveDocVentas(&$files, $idVenta, $fecha_documento, $idPac, $tipoDocumento)
 {
 
@@ -486,7 +519,7 @@ function f_saveDocVentas(&$files, $idVenta, $fecha_documento, $idPac, $tipoDocum
     //Check if the directory with the name already exists
     if (!is_dir($output_dir)) {
         //Create our directory if it does not exist
-        if(!mkdir($output_dir, 0777, true)) {
+        if (!mkdir($output_dir, 0777, true)) {
             return f_l_errorDocumentacion('Error al crear la carpeta: ' . $output_dir);
         }
     }

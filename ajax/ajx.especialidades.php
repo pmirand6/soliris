@@ -6,7 +6,7 @@ require_once("../config/config.php");
     include_once '../resources/Includes/master.php';
     
 
-    $SQL = "SELECT * FROM especialidad ORDER BY especialidad DESC;";
+    $SQL = "CALL `ST_LIST_ESPECIALIDADES`();";
     $result = mysqli_query($db, $SQL);
 
     $arr_tbody = '

@@ -29,7 +29,8 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
             $SQL = "SELECT FU_UP_PATOLOGIA('$nombre', '$familia', '$estado', '$usuario', '$id') as response";
         } else {
             /* Verifico que no exista el Medico en la base */
-                $arr_exists = mysqli_query($db, "SELECT id FROM patologias WHERE patologia = '$nombre';");
+            //FIXME migrar control de existencia a la función
+                $arr_exists = mysqli_query($db, "SELECT id FROM patologia WHERE patologia_nombre = '$nombre';");
             /* Determinar el número de filas del resultado */
                 $row_cnt = mysqli_num_rows($arr_exists);
                 if ($row_cnt == 0){
@@ -42,9 +43,10 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
 
     /* Realizo la consulta */
     if (isset($SQL) AND $SQL != ""){
-        // echo $SQL;
+            // echo $SQL;
+        // FIXME VER HARCODE MENSAJE
             $response = MySQL_sendFunctionAudit("$SQL", "ajx.patologia_form.php", "1");
-            echo("$response");
+            echo $response[0]["response"];
     }
 
     mysqli_close($db);
@@ -57,13 +59,14 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Eliminar"){
 
     if (isset($_POST["id"]) AND $_POST["id"] != ""){
         $id = $_POST["id"];
-
-        $SQL = "UPDATE patologias SET estado = 'Inactivo' WHERE id = $id";
+        // FIXME ver harcode del estado
+        $SQL = "UPDATE patologia SET estado_id = 6 WHERE id = $id";
 
         if (isset($SQL) AND $SQL != ""){
             // echo $SQL;
-            $response = MySQL_sendFunctionAudit("$SQL", "ajx.patologia_form.php", "1");
-            echo("$response");
+            $response = MySQL_sendFunctionAudit("$SQL", "ajx.patologia_form.php", "0");
+            //FIXME ver hardcode de mensaje
+            //var_dump($response);
         }
 
         mysqli_close($db);
@@ -77,13 +80,14 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Activar"){
 
     if (isset($_POST["id"]) AND $_POST["id"] != ""){
         $id = $_POST["id"];
-
-        $SQL = "UPDATE patologias SET estado = 'Activo' WHERE id = $id";
+        //FIXME ver harcode del estado
+        $SQL = "UPDATE patologia SET estado_id = 5 WHERE id = $id";
 
         if (isset($SQL) AND $SQL != ""){
-            // echo $SQL;
-            $response = MySQL_sendFunctionAudit("$SQL", "ajx.patologia_form.php", "1");
-            echo("$response");
+            
+            $response = MySQL_sendFunctionAudit("$SQL", "ajx.patologia_form.php", "0");
+            //FIXME ver harcode mensaje
+            //echo $response[0]["mensaje"];
         }
 
         mysqli_close($db);

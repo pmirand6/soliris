@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User: jgallina
  * Date: 15/04/2015
@@ -6,61 +7,123 @@
  */
 
 
-if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
+if (isset($_POST["oper"]) and $_POST["oper"] == "Guardar") {
+
+
     require($_SERVER['DOCUMENT_ROOT'] . '/soliris/config/config.php');
     include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
     include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
 
-    if (isset($_POST["id"]) AND $_POST["id"] != ""){
-        $id = $_POST["id"];
-    };
 
-    /* Seteo de variables */
-        $nombre = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["nombre"])));
-        if (isset($_POST["matricula_tipo"])){
-            $matricula_tipo = $_POST["matricula_tipo"];
-        }else{
-            $matricula_tipo = "";
-        }
-        $matricula_numero = mysqli_real_escape_string($db, $_POST["matricula_numero"]);
-        $lugar = mysqli_real_escape_string($db, $_POST["lugar"]);
-        $c_atencion = mysqli_real_escape_string($db, strtoupper($_POST["c_atencion"]));
-        $telefono = mysqli_real_escape_string($db, $_POST["telefono"]);
-        $fax = mysqli_real_escape_string($db, $_POST["fax"]);
-		$email = mysqli_real_escape_string($db, $_POST["email"]);
-        $nacimiento = mysqli_real_escape_string($db, $_POST["nacimiento"]);
-        $domicilio = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["domicilio"])));
-        $localidad = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["localidad"])));
-        $fecha_cap = mysqli_real_escape_string($db, $_POST["fecha_cap"]);
-        $especialidad = mysqli_real_escape_string($db, $_POST["especialidad"]);
-        $apm = mysqli_real_escape_string($db, $_POST["apm"]);
-        $u_venta = mysqli_real_escape_string($db, $_POST["u_venta"]);
-        $estado = mysqli_real_escape_string($db, $_POST["estado"]);
-        $usuario = $_SESSION["soliris_usuario"];
+    $nombre = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["nombre"])));
+    $apellido = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["apellidos"])));
+    $matricula_tipo = $_POST["matricula_tipo"];
+    $matricula_numero = mysqli_real_escape_string($db, $_POST["matricula_numero"]);
+    $lugar = mysqli_real_escape_string($db, $_POST["lugar"]);
+    $c_atencion = mysqli_real_escape_string($db, strtoupper($_POST["c_atencion"]));
+    $telefono = mysqli_real_escape_string($db, $_POST["telefono"]);
+    $fax = mysqli_real_escape_string($db, $_POST["fax"]);
+    $email = mysqli_real_escape_string($db, $_POST["email"]);
+    $domicilio = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["domicilio"])));
+    $localidad = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["localidad"])));
 
-    /* -------------- */
+    $especialidades = $_POST["especialidad"];
+    $apm = mysqli_real_escape_string($db, $_POST["apm"]);
+    $usuario = $_SESSION["soliris_usuario"];
 
-    if (isset($id) AND $id != ""){
-            $SQL = "SELECT FU_UP_MED('$nombre', '$matricula_tipo', '$matricula_numero', '$lugar', '$c_atencion', '$telefono', '$fax', '$nacimiento', '$domicilio', '$localidad', '$fecha_cap', '$especialidad', '$apm', '$estado', '$usuario', '$id','$email') as response";
-        } else {
-            /* Verifico que no exista el Medico en la base */
-                $arr_exists = mysqli_query($db, "select id from medicos where nombre = '$nombre' and matricula_numero = '$matricula_numero';");
-            /* Determinar el número de filas del resultado */
-                $row_cnt = mysqli_num_rows($arr_exists);
-                if ($row_cnt == 0){
-                    $SQL = "SELECT FU_NEW_MED('$nombre', '$matricula_tipo', '$matricula_numero', '$lugar', '$c_atencion', '$telefono', '$fax', '$nacimiento', '$domicilio', '$localidad', '$fecha_cap', '$especialidad', '$apm', '$estado','$email') as response";
-                }else{
-                    echo "ERROR: Ya existe un médico con ese nombre y número de matricula registrado";
-                }
-                mysqli_free_result($arr_exists);
-        }
+    $SQL = "CALL ST_NEW_MEDICO(
+    '$nombre', 
+    '$apellido', 
+    '$matricula_tipo', 
+    '$matricula_numero', 
+    '$lugar', 
+    '$c_atencion', 
+    '$telefono', 
+    '$fax', 
+    '$domicilio', 
+    '$localidad', 
+    '$apm', 
+    '$email',
+    '$usuario')";
 
-    /* Realizo la consulta */
-    if (isset($SQL) AND $SQL != ""){
+
+    // Realizo la consulta
+    if (isset($SQL) and $SQL != "") {
         // echo $SQL;
-            $response = MySQL_sendFunctionAudit("$SQL", "medico_form.php", "1");
-            echo("$response");
+        $response = MySQL_sendFunctionAudit("$SQL", "medico_form.php", "1");
+        $idMedico = $response[0]["mensaje"];
+        if (is_numeric($idMedico)) {
+            foreach ($especialidades as $esp) {
+                $SQL = "CALL ST_REL_ESP_MED($idMedico, '$esp')";
+                mysqli_query($db, $SQL);
+            }
+            echo $idMedico;
+        } else {
+            echo $response[0]["mensaje"];
+        }
     }
     mysqli_close($db);
 }
-?>
+
+if (isset($_POST["oper"]) and $_POST["oper"] == "Actualizar") {
+
+
+    require($_SERVER['DOCUMENT_ROOT'] . '/soliris/config/config.php');
+    include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
+    include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
+
+
+
+
+    if (isset($_POST["id"]) and $_POST["id"] != "") {
+        $id = $_POST["id"];
+    };
+
+    $nombre = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["nombre"])));
+    if (isset($_POST["matricula_tipo"])) {
+        $matricula_tipo = $_POST["matricula_tipo"];
+    } else {
+        $matricula_tipo = "";
+    }
+    $matricula_numero = mysqli_real_escape_string($db, $_POST["matricula_numero"]);
+    $lugar = mysqli_real_escape_string($db, $_POST["lugar"]);
+    $c_atencion = mysqli_real_escape_string($db, strtoupper($_POST["c_atencion"]));
+    $telefono = mysqli_real_escape_string($db, $_POST["telefono"]);
+    $fax = mysqli_real_escape_string($db, $_POST["fax"]);
+    $email = mysqli_real_escape_string($db, $_POST["email"]);
+    $nacimiento = mysqli_real_escape_string($db, $_POST["nacimiento"]);
+    $domicilio = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["domicilio"])));
+    $localidad = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["localidad"])));
+    $fecha_cap = mysqli_real_escape_string($db, $_POST["fecha_cap"]);
+    $especialidades = mysqli_real_escape_string($db, $_POST["especialidad"]);
+    $apm = mysqli_real_escape_string($db, $_POST["apm"]);
+    $u_venta = mysqli_real_escape_string($db, $_POST["u_venta"]);
+    if (isset($_POST['estado'])) {
+        $estado = mysqli_real_escape_string($db, $_POST["estado"]);
+    }
+
+    $usuario = $_SESSION["soliris_usuario"];
+
+    if (isset($id) and $id != "") {
+        $SQL = "SELECT FU_UP_MED('$nombre', '$matricula_tipo', '$matricula_numero', '$lugar', '$c_atencion', '$telefono', '$fax', '$nacimiento', '$domicilio', '$localidad', '$fecha_cap', '$apm', '$estado', '$usuario', '$id','$email') as response";
+        foreach ($especialidades as $esp) {
+            $SQL = "CALL ST_REL_ESP_MED($id, '$esp')";
+            mysqli_query($db, $SQL);
+        }
+    } else {
+        $SQL = "CALL FU_NEW_MED('$nombre', '$matricula_tipo', '$matricula_numero', '$lugar', '$c_atencion', '$telefono', '$fax', '$nacimiento', '$domicilio', '$localidad', '$fecha_cap', '$apm', '$email') as response";
+    }
+
+    // Realizo la consulta
+    if (isset($SQL) and $SQL != "") {
+        // echo $SQL;
+        $response = MySQL_sendFunctionAudit("$SQL", "medico_form.php", "1");
+        foreach ($especialidades as $esp) {
+            $SQL = "CALL ST_REL_ESP_MED($response[0]['mensaje'], '$esp')";
+            mysqli_query($db, $SQL);
+        }
+
+        echo ("$response[0]['mensaje']");
+    }
+    mysqli_close($db);
+}
