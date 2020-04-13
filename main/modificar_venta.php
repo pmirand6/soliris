@@ -54,7 +54,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 
     $SQL = "CALL `ST_SHOW_VENTA`('$idVenta')";
 
-    echo $SQL;
+    
 
     $result = mysqli_query($db, $SQL);
 
@@ -85,6 +85,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         $nbr = $row["nbr"];
     }
 
+    echo $_SESSION["grupo"];
 
     if (isset($_GET["read"]) || $_SESSION["grupo"] !== 'ventas') {
         include "../vistas/venta/form_vista_venta.php";
