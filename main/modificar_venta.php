@@ -85,9 +85,9 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         $nbr = $row["nbr"];
     }
 
-    echo $_SESSION["grupo"];
+    
 
-    if (isset($_GET["read"]) || $_SESSION["grupo"] !== 'ventas') {
+    if (isset($_GET["read"]) || $_SESSION["grupo"] != 'ventas') {
         include "../vistas/venta/form_vista_venta.php";
     } else {
         include "../vistas/venta/form_modificar_venta.php";
