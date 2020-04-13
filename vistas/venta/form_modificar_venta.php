@@ -11,8 +11,8 @@
     </div>
 </section>
 
-<section class=" box">
-    <div class=" card">
+<section class="box">
+    <div class="card">
         <div class="card-content">
             <form action="" id="frmModVenta" enctype="multipart/form-data" autocomplete="off">
                 <input id="producto" name="producto" value="<?= $producto; ?>" type="text" class="input" style="display: none">
