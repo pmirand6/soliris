@@ -54,6 +54,8 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 
     $SQL = "CALL `ST_SHOW_VENTA`('$idVenta')";
 
+    echo $SQL;
+
     $result = mysqli_query($db, $SQL);
 
     while ($row = mysqli_fetch_assoc($result)) {
