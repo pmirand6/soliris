@@ -78,7 +78,7 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'modificar_venta') {
     if (is_numeric($response)) {
 
         $flagUpDoc = false;
-var_dump($_FILES);
+
                
         if (isset($_FILES["file_receta"]) && !empty($_FILES["file_receta"]) && !empty($_POST["f_receta"]) && $_FILES["file_receta"]["error"] == 0) {
             
