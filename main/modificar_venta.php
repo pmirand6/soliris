@@ -97,7 +97,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 
     ?>
 
-    <script src="<?php echo HTTP?>/resources/JS/funciones.min.js"></script>
+    <!--<script src="<?php echo HTTP?>/resources/JS/funciones.min.js"></script>-->
     <!--<script type="text/javascript" language="javascript" src="../resources/JS/Develop/generar_venta.js"></script>-->
 
 </body>

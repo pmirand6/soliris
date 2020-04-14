@@ -40,7 +40,7 @@
                             </div>
                             <div class="column">
                                 <p class="heading">Fecha Modificación</p>
-                                <p class="subtitle" id="productoTitle"> ' . $fecha_mod .'</p>
+                                <p class="subtitle" id="productoTitle"> ' . $fecha_mod . '</p>
                             </div>';
                     } ?>
                 </div>
@@ -127,7 +127,7 @@
                                 <div class="field">
                                     <div class="control file is-info has-icons-right" id="divFileReceta">
                                         <label class="file-label">
-                                            <input class="file-input" type="file" name="file_receta" id="file_receta" value="<?=$doc_receta;?>">
+                                            <input class="file-input" type="file" name="file_receta" id="file_receta" value="<?= $doc_receta; ?>">
                                             <span class="file-cta" id="span-receta" onClick="window.open('<?php echo _DOC_VENTAS . $paciente_id . '/' . $idVenta . '/' . $doc_receta; ?>');">
                                                 <span class="file-icon">
                                                     <i id="iconReceta" class="fa fa-search"></i>
@@ -146,7 +146,7 @@
                                 <div class="field">
                                     <p class="control">
                                         <button class="button is-danger" id="btnRemDocReceta" type="button">
-                                        <span class="icon is-small" title="Borrar Documento">
+                                            <span class="icon is-small" title="Borrar Documento">
                                                 <i class="fa fa-times"></i>
                                             </span>
                                         </button>
@@ -155,7 +155,11 @@
                             </div>
                         </div>
                         <br>
-                        <div class="field is-grouped is-grouped-centered has-icon-left" id="divAddDoc" style="display:<?php if(isset($fecha_otro)){echo 'none';} else {echo '';}?>">
+                        <div class="field is-grouped is-grouped-centered has-icon-left" id="divAddDoc" style="display:<?php if (isset($fecha_otro)) {
+                                                                                                                            echo 'none';
+                                                                                                                        } else {
+                                                                                                                            echo '';
+                                                                                                                        } ?>">
                             <p class="control">
                                 <button class="button is-info is-small" id="btnAddDoc" type="button">
                                     <span class="icon">
@@ -165,12 +169,18 @@
                                 </button>
                             </p>
                         </div>
-                        <div class="field is-horizontal" id="divOtroDocumento" style="display:<?php if(isset($fecha_otro)){echo '';} else {echo 'none';}?>">
+                        <div class="field is-horizontal" id="divOtroDocumento" style="display:<?php if (isset($fecha_otro)) {
+                                                                                                    echo '';
+                                                                                                } else {
+                                                                                                    echo 'none';
+                                                                                                } ?>">
                             <div class="field-label"><label class="label is-normal">Otro</label></div>
                             <div class="field-body">
                                 <div class="field">
                                     <div class="control has-icons-right">
-                                        <input id="f_otro" name="f_otro" type="text" value="<?php if(isset($fecha_otro)){echo $fecha_otro;}?>" placeholder="Fecha de Documento" class="input date " disabled>
+                                        <input id="f_otro" name="f_otro" type="text" value="<?php if (isset($fecha_otro)) {
+                                                                                                echo $fecha_otro;
+                                                                                            } ?>" placeholder="Fecha de Documento" class="input date " disabled>
                                         <span class="icon is-small is-right">
                                             <i data-field="f_otro" class=""></i>
                                         </span>
@@ -211,13 +221,27 @@
                 </div>
                 <div class="field is-grouped is-grouped-centered">
                     <p class="control form-group">
-                        <button class="form-control button is-danger" id="btn-modificar" type="submit">
-                            Modificar
+                        <button class="form-control button is-primary" id="btn-modificar" type="submit">
+                            <span class="icon">
+                                <i class="fa fa-edit"></i>
+                            </span>
+                            <span>Modificar</span>
+                        </button>
+                    </p>
+                    <p class="control form-group">
+                        <button class="button is-danger" id="canVenta">
+                            <span class="icon">
+                                <i class="fa fa-trash"></i>
+                            </span>
+                            <span>Cancelar Venta</span>
                         </button>
                     </p>
                     <p class="control form-group">
                         <button class="button is-light" id="canModificacion">
-                            Cancelar
+                            <span class="icon">
+                                <i class="fa fa-sign-out"></i>
+                            </span>
+                            <span>Salir</span>
                         </button>
                     </p>
                 </div>
