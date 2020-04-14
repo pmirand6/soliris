@@ -16,6 +16,7 @@
         <div class="card-content">
             <form action="" id="frmModVenta" enctype="multipart/form-data" autocomplete="off">
                 <input id="producto" name="producto" value="<?= $producto; ?>" type="text" class="input" style="display: none">
+                <input id="idPac" name="idPac" value="<?= $paciente_id; ?>" type="text" class="input" style="display: none">
                 <div class="columns">
                     <div class="column">
                         <p class="heading">Producto</p>

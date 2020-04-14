@@ -33,6 +33,7 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'modificar_venta') {
     $flagUpDoc = false;
 
     $idVenta = $_POST["idVenta"];
+    $idPac = $_POST["idPac"];
     $idMedico = $_POST["idMedico"];
     $idProducto = $_POST["idProducto"];
     $idInstitucion = $_POST["idInstitucion"];
@@ -51,6 +52,8 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'modificar_venta') {
      '$idInstitucion', 
      '$idCanal', 
      '$usuario')";
+
+     
 
 
 
@@ -72,30 +75,33 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'modificar_venta') {
 
     //TODO GUARDAR ARCHIVOS CON EL ID DEL PACIENTE Y EL ID DE LA VENTA
 
-    if (is_bool($response)) {
+    if (is_numeric($response)) {
 
-
-        if (isset($_FILES["file_receta"]) && !empty($_FILES["file_receta"]) && !empty($_POST["f_receta"])) {
+        $flagUpDoc = false;
+var_dump($_FILES);
+               
+        if (isset($_FILES["file_receta"]) && !empty($_FILES["file_receta"]) && !empty($_POST["f_receta"]) && $_FILES["file_receta"]["error"] == 0) {
             
             $f_receta = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["f_receta"]))), 'Y-m-d');
             // Salvo el archivo
             $tipoArchivo = 'receta';
 
             $fileNameReceta = f_saveDocVentas($_FILES["file_receta"], $idVenta, $f_receta, $idPac, $tipoArchivo);
-
+            
             if ($fileNameReceta) {
                 $fileName = str_replace(' ', '-', $_FILES["file_receta"]["name"]);
                 $finalName = 'receta' . "_" . $idPac . "_" . $f_receta . "_" . $fileName;
 
                 
                 $sqlDocsReceta = "CALL `ST_GUARDAR_VENTA_DOCUMENTACION`('$idVenta', '3', '$finalName', '$usuario', '$f_receta')";
+                
                 $response = MySQL_sendFunctionAudit("$sqlDocsReceta", "save_doc_receta", "1");
             } else {
                 $flagUpDoc = true;
             }
         }
 
-        if (isset($_FILES["file_otro"]) && !empty($_FILES["file_otro"]) && !empty($_POST["f_otro"])) {
+        if (isset($_FILES["file_otro"]) && !empty($_FILES["file_otro"]) && !empty($_POST["f_otro"]) && $_FILES["file_otro"]["error"] == 0) {
             $tipoArchivo = 'otro';
             $f_otro = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["f_otro"]))), 'Y-m-d');
             //Salvo el archivo

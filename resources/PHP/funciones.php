@@ -528,11 +528,15 @@ function f_saveDocVentas(&$files, $idVenta, $fecha_documento, $idPac, $tipoDocum
 
         if (isset($_FILES["file_receta"]) && !empty($_FILES["file_receta"])) {
 
+            
+
             $fileNameReceta = str_replace(' ', '-', $_FILES["file_receta"]["name"]);
             $tmpNameReceta = $_FILES["file_receta"]["tmp_name"];
             $finalNameReceta = 'receta' . "_" . $idPac . "_" . $fecha_documento . "_" . $fileNameReceta;
             $fulldestReceta = $output_dir . $finalNameReceta;
+            
             if (move_uploaded_file($tmpNameReceta, $fulldestReceta)) {
+                
                 return true;
             } else {
                 return f_l_errorDocumentacion('Error al mover el archivo a la carpeta: ' . $fulldestReceta, $fulldestReceta);

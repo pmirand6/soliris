@@ -27,23 +27,18 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
     $(".panel-tool-close").click(function () {
       window.location.href = window.location.href;
     });
+  
+    //Contadores de llamados a funciones de seteo
+    // Se establecen para no llamar a la funcion de seteo mas de una vez
+    var countCallFMed = 0;
+    var countCallFCan = 0;
+    var countCallFInt = 0;
+    
 
     l_validate_form();
-    $('#medico').change(function (e) { 
-      e.preventDefault();
-      l_set_select_medico();
-    });
-
-    $("#canal").change(function (e) { 
-      e.preventDefault();
-      l_set_select_canal();  
-    });
-    
-    $("#institucion").change(function (e) { 
-      e.preventDefault();
-      l_set_select_institucion();  
-    });
-    
+    l_set_select_medico();  
+    l_set_select_canal();  
+    l_set_select_institucion();
     l_set_producto();
     l_set_paciente();
 
@@ -57,6 +52,7 @@ function l_modificar_venta() {
   let myForm = document.getElementById("frmModVenta");
   var form = new FormData(myForm);
   form.append("oper", "modificar_venta");
+  form.append("idPac", $("#idPac").val());
   form.append("idProducto", $("#producto").val());
   form.append("idVenta", getQuerystring("idVenta"));
   form.append("idMedico", $("#medico").data("id"));
@@ -116,7 +112,6 @@ function l_set_producto() {
 }
 
 function l_validate_form() {
-
   const noExiste = function () {
     return {
       validate: function (input) {
@@ -177,7 +172,7 @@ function l_validate_form() {
             message: "Seleccione un médico del Listado",
             callback: function (input) {
               const medicoSelected = document
-                .getElementById("frmVenta")
+                .getElementById("frmModVenta")
                 .querySelector('[name="medicoSelected"]').value;
               if (input == "" && medicoSelected == "") {
                 return true;
@@ -221,13 +216,13 @@ function l_validate_form() {
             message: "Ingrese más de 3 letras",
           },
           notEmpty: {
-            message: "Debe Seleccionar un Canal"
+            message: "Debe Seleccionar un Canal",
           },
           checkCanal: {
             message: "Seleccione un canal del Listado",
             callback: function (input) {
               const canalSelected = document
-                .getElementById("frmVenta")
+                .getElementById("frmModVenta")
                 .querySelector('[name="canalSelected"]').value;
               if (input == "" && canalSelected == "") {
                 return true;
@@ -251,7 +246,7 @@ function l_validate_form() {
             message: "Seleccione una Institución del Listado",
             callback: function (input) {
               const institucionSelected = document
-                .getElementById("frmVenta")
+                .getElementById("frmModVenta")
                 .querySelector('[name="institucionSelected"]').value;
               if (input == "" && institucionSelected == "") {
                 return true;
@@ -456,6 +451,7 @@ function l_set_datepicker() {
 function l_set_select_medico() {
   $("#helpMedico").addClass("is-success");
   $("#helpMedico").html("* Comience a escribir para seleccionar un médico");
+  fv.disableValidator("medico", "noExiste").revalidateField("medico");
   $("#medico").keyup(function () {
     var minlength = 3;
     var searchField = $("#medico").val();
