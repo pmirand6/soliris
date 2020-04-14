@@ -58,7 +58,7 @@ function l_modificar_venta() {
   var form = new FormData(myForm);
   form.append("oper", "modificar_venta");
   form.append("idProducto", $("#producto").val());
-  form.append("idPac", getQuerystring("idPac"));
+  form.append("idVenta", getQuerystring("idVenta"));
   form.append("idMedico", $("#medico").data("id"));
   form.append("cantUnidades", $("#cantDosis").val());
   form.append("idInstitucion", $("#institucion").data("id"));
