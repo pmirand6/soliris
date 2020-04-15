@@ -10,6 +10,7 @@ class MailNotificaciones
         $transport = (new Swift_SmtpTransport('192.168.0.66', 25))
             ->setUsername('cron')
             ->setPassword('cron2014');
+            
 
         // Create the Mailer using your created Transport
         $mailer = new Swift_Mailer($transport);
