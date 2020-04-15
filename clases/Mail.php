@@ -35,7 +35,7 @@ class Mail extends PHPMailer
         $this->isSMTP();
         
         $this->Host = '192.168.0.66';
-        $this->SMTPAuth = true;
+        $this->SMTPAuth = false;
         $this->Username = 'raffo/cron';
         $this->Password = 'cron2014';
         $this->Port = 25;
