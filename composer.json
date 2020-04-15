@@ -7,5 +7,7 @@
             "email": "pmiranda@raffo.com.ar"
         }
     ],
-    "require": {}
+    "require": {
+        "swiftmailer/swiftmailer": "^5.4.12"
+    }
 }
