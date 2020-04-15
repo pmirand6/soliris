@@ -33,11 +33,12 @@ class Mail extends PHPMailer
         $this->setFrom('cron@raffo.com.ar', 'Cron');
         //Send via SMTP
         $this->isSMTP();
-        //Equivalent to setting `Host`, `Port` and `SMTPSecure` all at once
+        
         $this->Host = '192.168.0.66';
         $this->SMTPAuth = true;
         $this->Username = 'raffo/cron';
         $this->Password = 'cron2014';
+        $this->Port = 25;
         //Set an HTML and plain-text body, import relative image references
         $this->msgHTML($body, './images/');
         //Show debug output
