@@ -1,7 +1,5 @@
 <?php
 
-
-
 require '../vendor/autoload.php';
 
 class MailNotificaciones
@@ -20,7 +18,7 @@ class MailNotificaciones
         $message = (new Swift_Message($subject))
             ->setFrom(['cron@raffo.com.ar' => 'Cron'])
             ->setTo($destinatarios)
-            ->setBody($body);
+            ->setBody($body, 'text/html');
 
         // Send the message
         $result = $mailer->send($message);

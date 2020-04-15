@@ -9,7 +9,7 @@ define("_NAME_NP", 'nota_pedido');
 define("_BD", "/"  . _NAME . "/base.php");
 define("_FN", "/"  . _NAME . "/resources/PHP/funciones.php");
 define("_SG", "/"  . _NAME . "/resources/PHP/accesos_seguridad.php");
-define("_MAIL","/"  . _NAME . "/resources/PHP/fn_mails.php");
+define("_MAIL","/"  . _NAME . "/helpers/mailFunciones.php");
 define("HTTP", 'http://' . $_SERVER['HTTP_HOST'] . '/' . _NAME);
 define("_RESOURCES", _NAME . '/resources/');
 define("_ADMIN_MAIL", 'pmiranda@raffo.com.ar');

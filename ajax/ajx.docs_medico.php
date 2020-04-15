@@ -28,7 +28,7 @@ if ($flagUpDoc) {
     $ret[] = "Hubo un error al subir el archivo";
     echo json_encode($ret);
 } else {
-
+    \sendMail_AltaMedico($idMedico, $usuarioCreador);
     $ret[] = " El archivo: '$fileNameCap'. \n Se subió correctamente";
     echo json_encode($ret);
 }
