@@ -1,7 +1,11 @@
 <?php
 
-require '../clases/MailNotificaciones.php';
+require_once("../config/config.php");
+include $_SERVER['DOCUMENT_ROOT'] . _MAIL;
 
 
-MailNotificaciones::sendMessage('mail prueba', 'este es el body', ['pmiranda@raffo.com.ar' => 'Pablo Miranda']);
+sendMail_AltaMedico('3', 'pmiranda');
+
+
+
 

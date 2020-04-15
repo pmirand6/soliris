@@ -7,7 +7,6 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
     $(document).ready(function() {
 
        var matricula = $("#matricula_numero").val();
-       console.log(matricula);
 
         $('.date').datepicker({
             format: "dd/mm/yyyy",
@@ -26,17 +25,6 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
         $('#fecha_cap').change(function () {
             $('.form').formValidation('revalidateField', 'fecha_cap');
         });
-
-		/*$('.fecha_cap').datepicker({
-            format: "dd-MM-YYYY",
-            language: "es",
-            //endDate: getDate(),
-            calendarWeeks: true,
-            autoclose: true,
-            clearBtn: true,
-            todayHighlight: true
-        });*/
-
 		
         $('.form')
             .formValidation({
@@ -143,17 +131,6 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
                             }
                         }
                     },
-                    fecha_cap: {
-                         validators: {
-                            notEmpty: {
-                                message: 'la fecha de capacitacion no puede quedar vacío'
-                            },
-                            date: {
-                                format: 'DD/MM/YYYY',
-                                message: 'Formato de fecha invalido'
-                            }
-                        }
-                    },
                     especialidad: {
                         validators: {
                             notEmpty: {
@@ -182,26 +159,51 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
                 // Prevent form submission
                 e.preventDefault();
 
-                var parametros = {
-                    "oper": "Guardar",
-                    "id" : $("#id").val(),
-                    "nombre" : $("#nombre").val(),
-                    "apellidos" : $("#apellido").val(),
-                    "matricula_tipo" : $("#matricula_tipo").val(),
-                    "matricula_numero" : $("#matricula_numero").val(),
-                    "lugar" : $("#lugar").val(),
-                    "c_atencion" : $("#c_atencion").val(),
-                    "telefono" : $("#telefono").val(),
-                    "fax" : $("#fax").val(),
-					"email" : $("#email").val(),
-                    "domicilio" : $("#domicilio").val(),
-                    "localidad" : $("#localidad").val(),
-                    
-                    "especialidad" : $("#especialidad").val(),
-                    "apm" : $("#apm").val(),
-                    "u_venta" : $("#u_venta").val(),
-                    "estado" : $("#estado").val()
-                };
+                if(getQuerystring(id)){
+                    var parametros = {
+                        "oper": "Actualizar",
+                        "id" : getQuerystring(id),
+                        "nombre" : $("#nombre").val(),
+                        "apellidos" : $("#apellido").val(),
+                        "matricula_tipo" : $("#matricula_tipo").val(),
+                        "matricula_numero" : $("#matricula_numero").val(),
+                        "lugar" : $("#lugar").val(),
+                        "c_atencion" : $("#c_atencion").val(),
+                        "telefono" : $("#telefono").val(),
+                        "fax" : $("#fax").val(),
+                        "email" : $("#email").val(),
+                        "domicilio" : $("#domicilio").val(),
+                        "localidad" : $("#localidad").val(),
+                        "especialidad" : $("#especialidad").val(),
+                        "apm" : $("#apm").val(),
+                        "u_venta" : $("#u_venta").val(),
+                        "estado" : $("#estado").val()
+                    };
+
+                } else {
+
+                    var parametros = {
+                        "oper": "Guardar",
+                        "id" : $("#id").val(),
+                        "nombre" : $("#nombre").val(),
+                        "apellidos" : $("#apellido").val(),
+                        "matricula_tipo" : $("#matricula_tipo").val(),
+                        "matricula_numero" : $("#matricula_numero").val(),
+                        "lugar" : $("#lugar").val(),
+                        "c_atencion" : $("#c_atencion").val(),
+                        "telefono" : $("#telefono").val(),
+                        "fax" : $("#fax").val(),
+                        "email" : $("#email").val(),
+                        "domicilio" : $("#domicilio").val(),
+                        "localidad" : $("#localidad").val(),
+                        
+                        "especialidad" : $("#especialidad").val(),
+                        "apm" : $("#apm").val(),
+                        "u_venta" : $("#u_venta").val(),
+                        "estado" : $("#estado").val()
+                    };
+                }
+
                 
                 $.ajax({
                     url: getCurrentHostname() + '/soliris/ajax/ajx.medico_form.php',
