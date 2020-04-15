@@ -36,7 +36,7 @@ class Mail extends PHPMailer
         
         $this->Host = '192.168.0.66';
         $this->SMTPAuth = true;
-        $this->AuthType = 'NTLM';
+        //$this->AuthType = 'NTLM';
         
         //$this->Workstation = "10.33.9.37";
         //$this->SMTPAutoTLS = false;
