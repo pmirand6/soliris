@@ -7,5 +7,7 @@
             "email": "pmiranda@raffo.com.ar"
         }
     ],
-    "require": {}
+    "require": {
+        "jamesiarmes/php-ntlm": "^1.0"
+    }
 }
