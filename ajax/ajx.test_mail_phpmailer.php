@@ -69,7 +69,7 @@
 		
    if(!$exito)
    {
-	echo "Problemas enviando correo electrónico a ".$valor;
+	echo "Problemas enviando correo electrónico!";
 	echo "<br/>".$mail->ErrorInfo;	
    }
    else
