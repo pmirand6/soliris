@@ -15,6 +15,8 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
     
     $id = $_GET["id"];
     $SQL = "CALL `ST_SHOW_MEDICO`('$id')";
+
+    echo $SQL;
     
     $result = mysqli_query($db, $SQL);
 
@@ -23,7 +25,7 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
         $vw_id = $med["id"];
         $id = $med["id"];
         $nombre = strtoupper($med["nombre"]);
-        $nombre = strtoupper($med["apellido"]);
+        $apellido = strtoupper($med["apellido"]);
         $matricula_tipo = $med["matricula_tipo"];
         $matricula_numero = $med["matricula_numero"];
         $lugar = $med["lugar"];
@@ -204,13 +206,13 @@ mysqli_free_result($resultMat_Tipo);
             <?php
             }
             ?>
-            <!-- Nombre -->
+            <!-- Apellido -->
             <div class="form-group">
                 <label class="col-sm-4 col-xs-4 control-label" for="nombre">Apellido</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-user-md"></span></div>
-                        <input id="apellido" name="apellido" type="text" placeholder="Apellido" class="form-control input-md" maxlength="200" required="" value="<?php echo $nombre ?>" <?= disable_campo($_SESSION["grupo"], $id); ?>>
+                        <input id="apellido" name="apellido" type="text" placeholder="Apellido" class="form-control input-md" maxlength="200" required="" value="<?php echo $apellido ?>" <?= disable_campo($_SESSION["grupo"], $id); ?>>
                     </div>
                 </div>
             </div>

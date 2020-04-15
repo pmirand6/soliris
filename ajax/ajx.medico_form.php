@@ -49,7 +49,7 @@ if (isset($_POST["oper"]) and $_POST["oper"] == "Guardar") {
 
     // Realizo la consulta
     if (isset($SQL) and $SQL != "") {
-        // echo $SQL;
+         echo $SQL;
         $response = MySQL_sendFunctionAudit("$SQL", "medico_form.php", "1");
         $idMedico = $response[0]["mensaje"];
         if (is_numeric($idMedico)) {
