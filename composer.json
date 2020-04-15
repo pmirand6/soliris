@@ -1,0 +1,11 @@
+{
+    "name": "raffo/soliris",
+    "description": "Aprobacion de venta de soliris",
+    "authors": [
+        {
+            "name": "Pablo Miranda",
+            "email": "pmiranda@raffo.com.ar"
+        }
+    ],
+    "require": {}
+}
