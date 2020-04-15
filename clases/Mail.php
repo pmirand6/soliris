@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This example shows how to extend PHPMailer to simplify your coding.
  * If PHPMailer doesn't do something the way you want it to, or your code
@@ -17,51 +18,20 @@ require '../vendor/autoload.php';
 /**
  * Use PHPMailer as a base class and extend it
  */
-class Mail extends PHPMailer
+class Mail
 {
-    /**
-     * myPHPMailer constructor.
-     *
-     * @param bool|null $exceptions
-     * @param string    $body A default HTML message body
-     */
-    public function __construct($exceptions, $body = '')
+    public static function sendMessage($subject, $body)
     {
-        //Don't forget to do this or other things may not be set correctly!
-        parent::__construct($exceptions);
-        //Set a default 'From' address
-        $this->setFrom('cron@raffo.com.ar', 'Cron');
-        //Send via SMTP
-        $this->isSMTP();
-        
-        $this->Host = '192.168.0.66';
-        $this->SMTPAuth = true;
-        $this->AuthType = 'NTLM';
-        
-        //$this->Workstation = "10.33.9.37";
-        //$this->SMTPAutoTLS = false;
-        //$this->SMTPSecure = false;
-        $this->Username = 'cron';
-        $this->Password = 'cron2014';
-        $this->Port = 25;
-        //Set an HTML and plain-text body, import relative image references
-        $this->msgHTML($body, './images/');
-        //Show debug output
-        $this->SMTPDebug = SMTP::DEBUG_SERVER;
-        //Inject a new debug output handler
-        $this->Debugoutput = static function ($str, $level) {
-            echo "Debug level $level; message: $str\n";
-        };
-    }
+        // automatic use smtp.domain.com, username, password ??
+        $transport = Swift_MailTransport::newInstance();
+        $mailer = Swift_Mailer::newInstance($transport);
 
-    //Extend the send function
-    public function send()
-    {
-        $this->Subject = '[Yay for me!] ' . $this->Subject;
-        $r = parent::send();
-        echo 'I sent a message with subject '. $this->Subject;
+        $message = Swift_Message::newInstance('Test')
+            ->setSubject($subject)
+            ->setFrom(array('mail@domain.com' => 'from user'))
+            ->setTo(array('mail@domain.com' => 'from user'))
+            ->setBody($body);
 
-        return $r;
+        $result = $mailer->send($message);
     }
 }
-
