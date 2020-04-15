@@ -1,8 +1,9 @@
 <?php
 
-require_once("../config/config.php");
+
 include $_SERVER['DOCUMENT_ROOT'] . _BD;
 include $_SERVER['DOCUMENT_ROOT'] . _FN;
+include $_SERVER['DOCUMENT_ROOT'] . _MAIL;
 
 $flagUpDoc = false;
 
@@ -28,7 +29,7 @@ if ($flagUpDoc) {
     $ret[] = "Hubo un error al subir el archivo";
     echo json_encode($ret);
 } else {
-    \sendMail_AltaMedico($idMedico, $usuarioCreador);
+    sendMail_AltaMedico($idMedico, $usuario);
     $ret[] = " El archivo: '$fileNameCap'. \n Se subió correctamente";
     echo json_encode($ret);
 }
