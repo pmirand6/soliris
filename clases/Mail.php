@@ -34,7 +34,7 @@ class Mail extends PHPMailer
         //Send via SMTP
         $this->isSMTP();
         //Equivalent to setting `Host`, `Port` and `SMTPSecure` all at once
-        $this->Host = 'tls://smtp.example.com:587';
+        $this->Host = 'tls://smtp.raffo.com.ar:587';
         //Set an HTML and plain-text body, import relative image references
         $this->msgHTML($body, './images/');
         //Show debug output
