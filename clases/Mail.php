@@ -22,9 +22,32 @@ class Mail
 {
     public static function sendMessage($subject, $body)
     {
-        // automatic use smtp.domain.com, username, password ??
-        $transport = Swift_MailTransport::newInstance();
-        $mailer = Swift_Mailer::newInstance($transport);
+        //Don't forget to do this or other things may not be set correctly!
+        parent::__construct($exceptions);
+        //Set a default 'From' address
+        $this->setFrom('cron@raffo.com.ar', 'Cron');
+        //Send via SMTP
+        $this->isSMTP();
+        
+        $this->Host = '192.168.0.66';
+        $this->SMTPAuth = true;
+        //$this->AuthType = 'NTLM';
+        
+        //$this->Workstation = "10.33.9.37";
+        //$this->SMTPAutoTLS = false;
+        //$this->SMTPSecure = false;
+        $this->Username = 'cron';
+        $this->Password = 'cron2014';
+        $this->Port = 25;
+        //Set an HTML and plain-text body, import relative image references
+        $this->msgHTML($body, './images/');
+        //Show debug output
+        $this->SMTPDebug = SMTP::DEBUG_SERVER;
+        //Inject a new debug output handler
+        $this->Debugoutput = static function ($str, $level) {
+            echo "Debug level $level; message: $str\n";
+        };
+    }
 
         $message = Swift_Message::newInstance('Test')
             ->setSubject($subject)
