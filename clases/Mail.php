@@ -35,8 +35,13 @@ class Mail extends PHPMailer
         $this->isSMTP();
         
         $this->Host = '192.168.0.66';
-        $this->SMTPAuth = false;
-        $this->Username = 'raffo/cron';
+        $this->SMTPAuth = true;
+        $this->AuthType = 'NTLM';
+        
+        //$this->Workstation = "10.33.9.37";
+        //$this->SMTPAutoTLS = false;
+        //$this->SMTPSecure = false;
+        $this->Username = 'cron';
         $this->Password = 'cron2014';
         $this->Port = 25;
         //Set an HTML and plain-text body, import relative image references

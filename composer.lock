@@ -4,8 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "88bbda801b8056180506cfb358ae8220",
+    "content-hash": "c727e87717496bd7f83f41e091e756f3",
     "packages": [
+        {
+            "name": "jamesiarmes/php-ntlm",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jamesiarmes/php-ntlm.git",
+                "reference": "08fa988af7506b8dc366737b06c86633ba8cecbc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jamesiarmes/php-ntlm/zipball/08fa988af7506b8dc366737b06c86633ba8cecbc",
+                "reference": "08fa988af7506b8dc366737b06c86633ba8cecbc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-soap": "*",
+                "php": ">=5.3.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "jamesiarmes\\PhpNtlm\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Armes",
+                    "email": "jamesiarmes@gmail.com"
+                }
+            ],
+            "description": "Library for communicating with Microsoft services using NTLM authentication.",
+            "time": "2017-10-04T01:14:17+00:00"
+        },
         {
             "name": "phpmailer/phpmailer",
             "version": "v6.1.5",
