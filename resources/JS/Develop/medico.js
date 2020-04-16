@@ -195,15 +195,14 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
 					"email" : $("#email").val(),
                     "domicilio" : $("#domicilio").val(),
                     "localidad" : $("#localidad").val(),
-                    
                     "especialidad" : $("#especialidad").val(),
                     "apm" : $("#apm").val(),
                     "u_venta" : $("#u_venta").val(),
-                    "estado" : $("#estado").val()
                 };
 
                 if(getQuerystring("id")){
                     parametros.oper = 'Actualizar'
+                    parametros.estado = $("#estado").find(':selected').attr('data-id')
                 } else{
                     parametros.oper = 'Guardar'
                 }

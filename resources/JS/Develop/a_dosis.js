@@ -54,7 +54,7 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 				var parametros = {
 					"oper": "Guardar",
 					"id": $('#id').val(),
-					"nombre": $('#nombre').val() + " " + "Mg",
+					"nombre": $('#nombre').val(),
 					"familia": $('#familia').val()
 				};
 				$.ajax({

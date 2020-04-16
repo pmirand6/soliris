@@ -16,7 +16,6 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
     $id = $_GET["id"];
     $SQL = "CALL `ST_SHOW_MEDICO`('$id')";
 
-    echo $SQL;
     
     $result = mysqli_query($db, $SQL);
 
@@ -62,6 +61,7 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
     $vw_id = "";
     $id = "";
     $nombre = "";
+    $apellido = "";
     $matricula_tipo = "";
     $matricula_numero = "";
     $lugar = "";
@@ -91,7 +91,19 @@ while ($rowEsp = mysqli_fetch_assoc($resultEsp)) {
     }
 };
 
-mysqli_free_result($resultEsp);
+/* Combo de Especialidad */
+$sqlEstados = "SELECT * FROM maestro_estado m WHERE m.referencia = 'medico'";
+free_all_results($db);
+$resultEst = mysqli_query($db, $sqlEstados);
+$arr_select_est = "";
+$est_array = explode(',', $estado);
+while ($rowEst = mysqli_fetch_assoc($resultEst)) {
+    foreach ($est_array as $est) {
+        $arr_select_est .= '<option data-id= "' . $rowEst["id"] .'" value="' . $rowEst["valor"] . '" ' . f_p_selected($est, $rowEst["valor"]) . '>' . $rowEst["valor"] . '</option>;';
+    }
+};
+
+mysqli_free_result($resultEst);
 /* ------------------ */
 
 /* Combo de APM */
@@ -380,9 +392,7 @@ mysqli_free_result($resultMat_Tipo);
                         <div class="input-group">
                             <div class="input-group-addon"><span id="icon_estado" class="fa fa-check-circle-o"></span></div>
                             <select id="estado" name="estado" class="form-control selectpicker" <?= disable_campo($_SESSION["grupo"], $id); ?>>
-                                <option> Seleccione Estado</option>
-                                <option value="Activo" <?php echo f_p_selected('Activo', $estado) ?>>Activo</option>
-                                <option value="Inactivo" <?php echo f_p_selected('Inactivo', $estado) ?>>Inactivo</option>
+                                <?=$arr_select_est;?>
                             </select>
                         </div>
                     </div>
