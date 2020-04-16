@@ -521,10 +521,10 @@ function l_validate_form() {
               message: "Este campo debe contener solo letras."
             },
             stringLength: {
-              min: 2,
+              min: 1,
               max: 100,
               message:
-                "El nombre del paciente debe contener como mínimo 4 y como máximo 100 letras"
+                "El nombre del paciente debe contener como mínimo 1 y como máximo 100 letras"
             }
           }
         },
@@ -539,10 +539,10 @@ function l_validate_form() {
               message: "Este campo debe contener solo letras."
             },
             stringLength: {
-              min: 2,
+              min: 1,
               max: 100,
               message:
-                "El apellido del paciente debe contener como mínimo 4 y como máximo 100 letras"
+                "El apellido del paciente debe contener como mínimo 1 y como máximo 100 letras"
             }
           }
         },
