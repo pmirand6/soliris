@@ -22,7 +22,7 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
     $dir_tec = mysqli_real_escape_string($db, $_POST["dir_tec"]);
     $cont_venta = mysqli_real_escape_string($db, $_POST["cont_venta"]);
     $cont_otro = mysqli_real_escape_string($db, $_POST["cont_otro"]);
-    $puntos_entrega = mysqli_real_escape_string($db, $_POST["puntos_entrega"]);
+
     $estado = mysqli_real_escape_string($db, $_POST["estado"]);
     $usuario = $_SESSION["soliris_usuario"];
 
@@ -32,14 +32,14 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
     /* -------------- */
 
     if (isset($id) AND $id != ""){
-            $SQL = "SELECT FU_UP_CANAL('$nombre', '$familia', '$direccion', '$mail', '$dir_tec', '$cont_venta', '$cont_otro', '$puntos_entrega', '$estado', '$usuario', '$id') as response";
+            $SQL = "SELECT FU_UP_CANAL('$nombre', '$familia', '$direccion', '$mail', '$dir_tec', '$cont_venta', '$cont_otro', '$estado', '$usuario', '$id') as response";
         } else {
             /* Verifico que no exista el Medico en la base */
                 $arr_exists = mysqli_query($db, "SELECT id FROM canales WHERE canal = '$nombre';");
             /* Determinar el número de filas del resultado */
                 $row_cnt = mysqli_num_rows($arr_exists);
                 if ($row_cnt == 0){
-                    $SQL = "SELECT FU_NEW_CANAL('$nombre', '$familia', '$direccion', '$mail', '$dir_tec', '$cont_venta', '$cont_otro', '$puntos_entrega', '$usuario') as response";
+                    $SQL = "SELECT FU_NEW_CANAL('$nombre', '$familia', '$direccion', '$mail', '$dir_tec', '$cont_venta', '$cont_otro', '$usuario') as response";
                 }else{
                     echo "ERROR: Ya existe un canal con ese nombre";
                 }

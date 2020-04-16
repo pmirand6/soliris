@@ -23,7 +23,7 @@ if(isset($_GET["id"]) AND $_GET["id"]!=0 AND !empty($_GET["id"])){
         $dir_tec = $can["dir_tec"];
         $cont_venta = $can["cont_venta"];
         $cont_otro = $can["cont_otro"];
-        $puntos_entrega = $can["puntos_entrega"];
+        
         $estado = $can["estado"];
     };
     mysqli_free_result($result);
@@ -38,7 +38,7 @@ if(isset($_GET["id"]) AND $_GET["id"]!=0 AND !empty($_GET["id"])){
     $dir_tec = "";
     $cont_venta = "";
     $cont_otro = "";
-    $puntos_entrega = "";
+    
     $estado = "";
 }
 ?>
@@ -174,17 +174,7 @@ if(isset($_GET["id"]) AND $_GET["id"]!=0 AND !empty($_GET["id"])){
                 </div>
             </div>
 
-            <!-- Puntos de Entrega -->
-            <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="puntos_entrega">Puntos de Entrega</label>
-                <div class="col-sm-6 col-xs-8">
-                    <div class="input-group">
-                        <div class="input-group-addon"><span class="fa fa-map-marker"></span></div>
-                        <input id="puntos_entrega" name="puntos_entrega" type="text" placeholder="Puntos de Entrega..." class="form-control input-md" value="<?php echo $puntos_entrega?>">
-                    </div>
-                </div>
-            </div>
-
+            
             <!-- Familia -->
             <div class="form-group">
                 <label class="col-sm-4 col-xs-4 control-label" for="familia">Familia</label>

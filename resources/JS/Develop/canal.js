@@ -138,7 +138,7 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 					"dir_tec": $('#dir_tec').val(),
 					"cont_venta": $('#cont_venta').val(),
 					"cont_otro": $('#cont_otro').val(),
-					"puntos_entrega": $('#puntos_entrega').val(),
+					
 					"estado": $('#estado').val()
 				};
 				$.ajax({
