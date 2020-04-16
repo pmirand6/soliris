@@ -214,7 +214,12 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
                     success: function (opciones) {
                         if (opciones.indexOf("ERROR")  != 0) {
                             alert('Se registró correctamente.\t Continue con la carga de la documentacion.');
-                            window.location.href = getCurrentHostname() + '/soliris/administrador/docs_medico.php?id=' + opciones;
+                            if(getQuerystring('id')){
+                                window.location.href = getCurrentHostname() + '/soliris/administrador/docs_medico.php?id=' + getQuerystring('id');
+                            } else {
+                                window.location.href = getCurrentHostname() + '/soliris/administrador/docs_medico.php?id=' + opciones;
+                            }
+                            
                         }else{
                             alert(opciones);
                         }
