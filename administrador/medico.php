@@ -461,7 +461,6 @@ mysqli_free_result($resultMat_Tipo);
 
     <!-- Custom JS -->
     <script type="text/javascript" src="../resources/JS/Develop/medico.js"></script>
-    <!--        <script type="text/javascript" src="../resources/JS/medico.min.js"></script>-->
 </body>
 
 </html>

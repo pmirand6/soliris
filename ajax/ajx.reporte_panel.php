@@ -71,13 +71,7 @@ require_once('../config/config.php');
             mysqli_free_result($subResult);
         };
 
-//        $arr_tTail = array(
-//            "Paciente" => '',
-//            "UMes" => '',
-//            "UAnio" => '',
-//            "Esperado"  => $tot_ven_pac
-//        );
-//        array_push($arr_tbody, $arr_tTail);
+
 
         mysqli_free_result($result);
         mysqli_close($db);

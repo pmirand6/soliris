@@ -183,7 +183,6 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
                 e.preventDefault();
 
                 var parametros = {
-                    "oper": "Guardar",
                     "id" : $("#id").val(),
                     "nombre" : $("#nombre").val(),
                     "apellidos" : $("#apellido").val(),
@@ -202,6 +201,12 @@ $.getScript(getCurrentHostname() + '/soliris/resources/JS/funciones.min.js', fun
                     "u_venta" : $("#u_venta").val(),
                     "estado" : $("#estado").val()
                 };
+
+                if(getQuerystring("id")){
+                    parametros.oper = 'Actualizar'
+                } else{
+                    parametros.oper = 'Guardar'
+                }
                 
                 $.ajax({
                     url: getCurrentHostname() + '/soliris/ajax/ajx.medico_form.php',

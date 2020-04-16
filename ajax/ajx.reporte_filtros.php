@@ -3,40 +3,14 @@
     include $_SERVER['DOCUMENT_ROOT'] . _BD;
 
     if (isset($_GET['aoIni']) AND isset($_GET['aoFin'])){
-        $aoIni = (isset($_GET['aoIni'])) ? $_GET["aoIni"] : '';
-        $aoFin = (isset($_GET['aoFin'])) ? $_GET["aoFin"] : '';
-        $condicion = "WHERE RM.fecha_venta BETWEEN '$aoIni' AND '$aoFin' and RM.Estado not in ('Cancelado','Rechazado','Cancelada','Cancela', 'eliminado','Error', 'Operacion Cancelada', 'Operacion-Cancelada', 'Postergado', 'Documentacion')";
-	}else{
-		$condicion=" WHERE year(RM.fecha_venta)=year(now()) and RM.Estado not in ('Cancelado','Rechazado','Cancelada','Cancela', 'eliminado','Error', 'Operacion Cancelada', 'Operacion-Cancelada', 'Postergado', 'Documentacion')"; 
-	}
-	if (isset($condicion)){
+        $aoIni = (isset($_GET['aoIni'])) ? date_format(date_create_from_format('d-m-Y', $_GET["aoIni"]), 'Y-m-d') : '';
+        $aoFin = (isset($_GET['aoFin'])) ? date_format(date_create_from_format('d-m-Y', $_GET["aoFin"]), 'Y-m-d') : '';
 
-        $SQL = "SELECT
-        RM.id as Registro,
-        (select p.Nombre from pacientes as p where p.id=RM.Nombre) as Paciente,
-        (select p.sexo from pacientes as p where p.id=RM.Nombre) as Sexo,
-        date_format(RM.fecha_nac, '%d/%m/%Y') as Fecha_Nacimiento,
-        (select p.c_gestar from pacientes as p where p.id=RM.Nombre) as C_Gestar,
-        RM.edad as Edad,
-        /*PGM 29/01/2019 UPPER(RM.medico) as Medico, */
-        (select upper(m.Nombre) from medicos m where m.id = RM.id_medico) as Medico,
-        date_format(RM.fecha_venta, '%d/%m/%Y') as Fecha_Venta,
-        date_format(RM.consentimiento, '%d/%m/%Y') as Fecha_Cons,
-        (select p.patologia from pacientes as p where p.id=RM.Nombre) as Patologia,
-        RM.institucion as Institucion, 
-        RM.canal as Canal,
-        RM.APM as APM,
-        (select c_atencion from medicos where nombre=RM.medico and estado='Activo') as C_Atencion,
-        RM.tipo as tipo,
-        RM.estado as Estado,
-                  RM.Dosis as Dosis,
-        RM.Unidades as Unidades
-        FROM
-            soliris_maestro as RM
-            $condicion
-        ORDER BY RM.id DESC;
-        ";
-        
+        $SQL = "CALL `ST_REPORTE_FILTROS`('$aoIni', '$aoFin')";
+	}else{
+		$SQL = "CALL `ST_REPORTE_FILTROS`('', '')";
+	}
+	    
         $result = mysqli_query($db, $SQL);
 
         $arr_tbody = array();
@@ -48,9 +22,9 @@
             $Sexo = strtoupper($row["Sexo"]);
             $Fecha_Nacimiento = $row["Fecha_Nacimiento"];
             $C_Gestar = $row["C_Gestar"];
-            $Edad = $row["Edad"];
+            $Edad = $row["edad"];
             $Medico = $row["Medico"];
-			$Dosis = $row["Dosis"];
+			$Dosis = $row["Presentacion"];
 			$Unidades = $row["Unidades"];
             $Fecha_Venta = $row["Fecha_Venta"];
             $Fecha_Cons = $row["Fecha_Cons"];
@@ -91,9 +65,7 @@
         mysqli_close($db);
 
         echo "{\"aaData\": " . json_encode($arr_tbody) . "}";
-    }else{
-        echo "{\"aaData\": []}";
-    };
+    
 
 function l_abrev($nombre){
   $respuesta = "";
@@ -103,4 +75,3 @@ function l_abrev($nombre){
   }
   return $respuesta;
 }
-?>

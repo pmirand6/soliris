@@ -49,7 +49,7 @@ if (isset($_POST["oper"]) and $_POST["oper"] == "Guardar") {
 
     // Realizo la consulta
     if (isset($SQL) and $SQL != "") {
-         echo $SQL;
+        // echo $SQL;
         $response = MySQL_sendFunctionAudit("$SQL", "medico_form.php", "1");
         $idMedico = $response[0]["mensaje"];
         if (is_numeric($idMedico)) {
@@ -75,23 +75,35 @@ if (isset($_POST["oper"]) and $_POST["oper"] == "Actualizar") {
 
 
 
+    if (isset($_POST["id"]) and $_POST["id"] != "") {
+        $id = $_POST["id"];
+    };
+
     $nombre = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["nombre"])));
-    $apellido = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["apellidos"])));
-    $matricula_tipo = $_POST["matricula_tipo"];
+    if (isset($_POST["matricula_tipo"])) {
+        $matricula_tipo = $_POST["matricula_tipo"];
+    } else {
+        $matricula_tipo = "";
+    }
     $matricula_numero = mysqli_real_escape_string($db, $_POST["matricula_numero"]);
     $lugar = mysqli_real_escape_string($db, $_POST["lugar"]);
     $c_atencion = mysqli_real_escape_string($db, strtoupper($_POST["c_atencion"]));
     $telefono = mysqli_real_escape_string($db, $_POST["telefono"]);
     $fax = mysqli_real_escape_string($db, $_POST["fax"]);
     $email = mysqli_real_escape_string($db, $_POST["email"]);
+    $nacimiento = mysqli_real_escape_string($db, $_POST["nacimiento"]);
     $domicilio = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["domicilio"])));
     $localidad = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["localidad"])));
-
-    $especialidades = $_POST["especialidad"];
+    $fecha_cap = mysqli_real_escape_string($db, $_POST["fecha_cap"]);
+    $especialidades = mysqli_real_escape_string($db, $_POST["especialidad"]);
     $apm = mysqli_real_escape_string($db, $_POST["apm"]);
+    $u_venta = mysqli_real_escape_string($db, $_POST["u_venta"]);
+    if (isset($_POST['estado'])) {
+        $estado = mysqli_real_escape_string($db, $_POST["estado"]);
+    }
+
     $usuario = $_SESSION["soliris_usuario"];
 
-    
     if (isset($id) and $id != "") {
         $SQL = "SELECT FU_UP_MED('$nombre', '$matricula_tipo', '$matricula_numero', '$lugar', '$c_atencion', '$telefono', '$fax', '$nacimiento', '$domicilio', '$localidad', '$fecha_cap', '$apm', '$estado', '$usuario', '$id','$email') as response";
         foreach ($especialidades as $esp) {

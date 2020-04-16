@@ -7,6 +7,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,9 +33,10 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         @import "../resources/CSS/Develop/reportes_panel.css";
     </style>
 </head>
+
 <body>
     <section>
-        <div class="container"> 
+        <div class="container">
             <h1 class="display-1 text-center" id="titulo-venta"></h1>
             <hr>
             <br>
@@ -42,12 +44,10 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
             <br>
         </div>
     </section>
+    <!-- form de seleccion de fecha para las consultas de los reportes -->
     <div class="container" style="text-align: center;">
         <form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form">
             <fieldset>
-                <!-- Form Name -->
-                <!--<legend>Seleccione Periodo a Consultar</legend>-->
-
                 <div class="form-group col-sm-10 col-xs-10">
                     <label class="col-sm-4 col-xs-4 control-label" for="fecha">Fecha:</label>
                     <div class="col-sm-4 col-xs-4">
@@ -68,38 +68,40 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         </form>
     </div>
 
+    <!-- Seccion de graficos -->
+
     <section id="datos">
-        <div class="col-sm-6 col-xs-6 text-center" style="margin-top: 15px;
-        ">
-        <fieldset>
-            <div id="graph1" class="table-bordered" style="margin-bottom: 20px;"></div>
-        </fieldset>
-        <fieldset>
-            <div id="graph2" class="table-bordered"></div>
-        </fieldset>
+        <div class="col-sm-6 col-xs-6 text-center" style="margin-top: 15px;">
+            <fieldset>
+                <!-- Gráfico con tipos de reporte (RI, FU) -->
+                <div id="graphTiposReporte" class="table-bordered" style="margin-bottom: 20px;"></div>
+            </fieldset>
+            <fieldset>
+                <div id="graph2" class="table-bordered"></div>
+            </fieldset>
 
-    </div>
-    <div class="col-sm-6 col-xs-6 text-center">
-        <br>
-        <fieldset style="margin-bottom: 21px;">
-            <div id="graph3" class="table-bordered"></div>
-        </fieldset>
-        <fieldset>
-            <div id="graph4" class="table-bordered"></div>
-        </fieldset>
-    </div>
-</div>
-</section>
+        </div>
+        <div class="col-sm-6 col-xs-6 text-center">
+            <br>
+            <fieldset style="margin-bottom: 21px;">
+                <div id="graph3" class="table-bordered"></div>
+            </fieldset>
+            <fieldset>
+                <div id="graph4" class="table-bordered"></div>
+            </fieldset>
+        </div>
+        </div>
+    </section>
 
-<?php
-include "../resources/Includes/BootstrapHTML5.php";
-include "../resources/Includes/FormValidation.php";
-include "../resources/Includes/DataTables.php";
-include "../resources/Includes/DatePicker.php";
-include "../resources/Includes/HighCharts.php";
-?>
-<!-- Custom JS -->
-<script src="../resources/JS/Develop/reportes_panel.js"></script>
+    <?php
+    include "../resources/Includes/BootstrapHTML5.php";
+    include "../resources/Includes/FormValidation.php";
+    include "../resources/Includes/DataTables.php";
+    include "../resources/Includes/DatePicker.php";
+    include "../resources/Includes/HighCharts.php";
+    ?>
+    <!-- Custom JS -->
+    <script src="../resources/JS/Develop/reportes_panel.js"></script>
     <!--<script src="../resources/JS/reportes_panel.min.js"></script>
 </body>
 </html>
