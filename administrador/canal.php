@@ -76,8 +76,7 @@ if(isset($_GET["id"]) AND $_GET["id"]!=0 AND !empty($_GET["id"])){
             li:hover{
                 color: #e35919;
             }
-        #editDocsCanal{
-        }
+       
             #editDocsCanal:hover{
                 color: #e35919;
             }

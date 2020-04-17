@@ -24,7 +24,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . _SG;
     /* Latest compiled and minified CSS */
     @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
     /* Bulma CSS */
-    <?php if ($_SESSION["grupo"] !== 'ventas') { ?> @import "../resources/CSS/bulma/css/bulma.css"; <?php  } ?> 
+    <?= ($_SESSION["grupo"] !== 'ventas') ?: '@import "../resources/CSS/bulma/css/bulma.css";'; ?>
     /* Font-Awesome */
     @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
     /* Include Bootstrap Datepicker */
