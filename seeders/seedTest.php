@@ -2,7 +2,7 @@
 require '../vendor/autoload.php';
 try{
     $count = 1000;
-    $faker = Faker\Factory::create('es_ES');;
+    $faker = Faker\Factory::create('es_AR');;
     //Connecting MySQL Database
     $pdo  = new PDO('mysql:host=localhost;dbname=soliris;charset=utf8', 'root', '', array(
         PDO::ATTR_PERSISTENT => true
