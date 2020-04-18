@@ -70,6 +70,8 @@ function fl_tipo_rep($valor)
         $fl_tipo = "<span class='tipo_ri'>RI</span>";
     } elseif (strcasecmp($valor, 'FU') == 0) {
         $fl_tipo = "<span class='tipo_fu'>FU</span>";
+    } else {
+        $fl_tipo = "<span class='tipo_ca'>CA</span>";
     }
 
     return $fl_tipo;

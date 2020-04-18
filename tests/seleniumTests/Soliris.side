@@ -1,0 +1,161 @@
+{
+  "id": "becad25b-dbe7-4075-aee1-e7161eb8095e",
+  "version": "2.0",
+  "name": "Soliris",
+  "url": "http://localhost:88/soliris/",
+  "tests": [{
+    "id": "7b9a8f7f-c788-4af7-a0e2-b6825e5c3f53",
+    "name": "testLoginFail",
+    "commands": [{
+      "id": "18444407-f55d-4f5f-89e8-cb8fa0458388",
+      "comment": "",
+      "command": "open",
+      "target": "/soliris/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fd04ac35-6389-4c90-b816-110547cc8238",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1050x708",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "73ae27f7-37f3-4203-993f-eae4d579163c",
+      "comment": "",
+      "command": "click",
+      "target": "id=inputUser",
+      "targets": [
+        ["id=inputUser", "id"],
+        ["css=#inputUser", "css:finder"],
+        ["xpath=//input[@id='inputUser']", "xpath:attributes"],
+        ["xpath=//form[@id='form']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6cb0d0ca-4e74-46af-aabd-866a25c8bc71",
+      "comment": "",
+      "command": "type",
+      "target": "id=inputUser",
+      "targets": [
+        ["id=inputUser", "id"],
+        ["css=#inputUser", "css:finder"],
+        ["xpath=//input[@id='inputUser']", "xpath:attributes"],
+        ["xpath=//form[@id='form']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "pmiranda"
+    }, {
+      "id": "100f0240-5058-44a6-b940-2b5c75537233",
+      "comment": "",
+      "command": "type",
+      "target": "id=inputPassword",
+      "targets": [
+        ["id=inputPassword", "id"],
+        ["css=#inputPassword", "css:finder"],
+        ["xpath=//input[@id='inputPassword']", "xpath:attributes"],
+        ["xpath=//form[@id='form']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "test"
+    }, {
+      "id": "21a95150-543f-4562-a56e-4a2a748b340c",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//form[@id='form']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Ingresar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bc1f1c43-ecb6-4470-9a54-2e836e4a8bfd",
+      "comment": "",
+      "command": "assertAlert",
+      "target": "Verifique el usuario y la contraseña introducidos",
+      "targets": [],
+      "value": ""
+    }]
+  }, {
+    "id": "ffea5eb5-ad46-4ccb-91ff-93d056cd19c3",
+    "name": "testLoginSuccess",
+    "commands": [{
+      "id": "96c2c1fe-791d-4560-97a3-cfe5327d4e92",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:88/soliris/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a23def00-794c-45ae-8f7f-fbd975bb56f9",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1050x708",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a092c296-209b-41fd-b9fb-63e560edefbe",
+      "comment": "",
+      "command": "type",
+      "target": "id=inputUser",
+      "targets": [
+        ["id=inputUser", "id"],
+        ["css=#inputUser", "css:finder"],
+        ["xpath=//input[@id='inputUser']", "xpath:attributes"],
+        ["xpath=//form[@id='form']/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "pmiranda"
+    }, {
+      "id": "8680ee44-2587-4ad0-b316-089d1bf172b4",
+      "comment": "",
+      "command": "type",
+      "target": "id=inputPassword",
+      "targets": [
+        ["id=inputPassword", "id"],
+        ["css=#inputPassword", "css:finder"],
+        ["xpath=//input[@id='inputPassword']", "xpath:attributes"],
+        ["xpath=//form[@id='form']/input[2]", "xpath:idRelative"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": "nanu2912"
+    }, {
+      "id": "c21e9596-cceb-4cac-80f6-dc3de103b7bb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.btn",
+      "targets": [
+        ["css=.btn", "css:finder"],
+        ["xpath=//form[@id='form']/button", "xpath:idRelative"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Ingresar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ae259bfb-1e7f-4f4a-845c-a87f9bb71585",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=#user > b",
+      "targets": [
+        ["css=#user > b", "css:finder"],
+        ["xpath=//button[@id='user']/b", "xpath:idRelative"],
+        ["xpath=//b", "xpath:position"],
+        ["xpath=//b[contains(.,'PMIRANDA')]", "xpath:innerText"]
+      ],
+      "value": "PMIRANDA"
+    }]
+  }],
+  "suites": [{
+    "id": "fe15f373-fab5-4703-9ca3-360c7d25375b",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["7b9a8f7f-c788-4af7-a0e2-b6825e5c3f53"]
+  }],
+  "urls": ["http://localhost:88/", "http://localhost:88/soliris/"],
+  "plugins": []
+}
