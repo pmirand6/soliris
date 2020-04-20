@@ -14,8 +14,8 @@ define("HTTP", 'http://' . $_SERVER['HTTP_HOST'] . '/' . _NAME);
 define("_RESOURCES", _NAME . '/resources/');
 define("_ADMIN_MAIL", 'pmiranda@raffo.com.ar');
 define("_DOC_VENTAS", HTTP . '/documentacion/venta/');
-define("_URL_SERVIDOR", '192.168.0.139');
-define("_USUARIO_BD", 'soliris_ap');
-define("_PASSWORD_BD", 'acceso_app');
+define("_URL_SERVIDOR", 'localhost');
+define("_USUARIO_BD", 'admin');
+define("_PASSWORD_BD", '');
 define("_TABLA_BD", 'soliris');
 
