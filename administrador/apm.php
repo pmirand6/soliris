@@ -93,9 +93,10 @@ if(isset($_GET["id"])){
                 <?php 
             }
             ?>
+            
 
             <!-- Nombre -->
-            <div class="form-group" <?php if(isset($id)) {?> style="display: none" <?php } ?>>
+            <div class="form-group" <?php if($id != '') {?> style="display: none" <?php } ?>>
                 <label class="col-sm-4 col-xs-4 control-label" for="nombre">Apellido, Nombre</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
@@ -108,7 +109,7 @@ if(isset($_GET["id"])){
 
 
             <!-- Nombre -->
-            <div class="form-group">
+            <div class="form-group" <?php if($id == '') {?> style="display: none" <?php } ?>>
                 <label class="col-sm-4 col-xs-4 control-label" for="nombre">Apellido, Nombre</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
