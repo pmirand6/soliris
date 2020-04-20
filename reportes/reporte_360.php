@@ -44,6 +44,8 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
 
 <body>
 	<div class="container">
+		<h1>Reporte 360</h1>
+		<br>
 		<div id="pivotgrid-chart" style="display: none"></div>
 		<div id="pivotgrid"></div>
 	</div>
