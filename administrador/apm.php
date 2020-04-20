@@ -17,7 +17,7 @@ if(isset($_GET["id"])){
     $result = mysqli_query($db, $SQL);
 
     while ($apm = mysqli_fetch_assoc($result)) {
-        echo $apm['id'];
+        
         $id = $apm["id"];
         $vw_id = $apm["id"];
         $nombre = $apm["nombre_completo"];
