@@ -9,7 +9,8 @@
     ],
     "require": {
         "swiftmailer/swiftmailer": "^5.4.12",
-        "fzaninotto/faker": "^1.9"
+        "fzaninotto/faker": "^1.9",
+        "adldap2/adldap2": "^10.2"
     },
     "require-dev": {
         "codeception/codeception": "^4.1",

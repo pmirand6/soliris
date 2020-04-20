@@ -1,23 +1,63 @@
 <?php
 
 
-        require_once('../config/config.php');
+require_once('../config/config.php');
 include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
+include('../vendor/autoload.php');
+
+$query = $_GET["q"];
 
 
-//$key=$_GET['search_keyword'];
-$array = array();
+// Construct new Adldap instance.
+$ad = new \Adldap\Adldap();
 
-//$SQL = "SELECT nombre FROM helpdesk.usuarios where nombre like '%$key%' ORDER BY nombre DESC;";
-$SQL = "SELECT nombre FROM helpdesk.usuarios ORDER BY nombre DESC;";
+// Create a configuration array.
+$config = [
+  // An array of your LDAP hosts. You can use either
+  // the host name or the IP address of your host.
+  'hosts'    => ['192.168.0.27'],
 
-$result = mysqli_query($db, $SQL);
+  // The base distinguished name of your domain to perform searches upon.
+  'base_dn'  => 'OU=OU MUNRO,DC=raffo,DC=local',
 
-    while($row = mysqli_fetch_assoc($result)) {
-      //SE CREA EL ARRAY QUE VA A CONTENER LOS DATOS PARA EL JSON
-        $array[] = $row["nombre"];
+  // The account to use for querying / modifying LDAP records. This
+  // does not need to be an admin account. This can also
+  // be a full distinguished name of the user account.
+  'username' => 'cron',
+  'password' => 'cron2014',
+];
+
+// Add a connection provider to Adldap.
+$ad->addProvider($config);
+
+
+try {
+  // If a successful connection is made to your server, the provider will be returned.
+  $provider = $ad->connect();
+
+
+  // Performing a query.
+  $search = $provider->search();
+
+  $record = $search
+                ->where('displayName', 'contains', $query)
+                ->whereHas('mail')
+                ->limit(10)->get();
+
+  
+
+  $json = [];
+
+  if ($record) {
+    foreach ($record as $a) {
+      $json[] = ['id' => $a->getAttribute('mail', 0), 'text' => $a->getDisplayName(), 'username' => $a->getAccountName()];
     }
     
-  echo json_encode($array);
-  mysqli_free_result($result);
-  mysqli_close($db);
+  }
+
+  echo json_encode($json);
+} catch (\Adldap\Auth\BindException $e) {
+
+  // There was an issue binding / connecting to the server.
+
+}
