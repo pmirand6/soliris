@@ -315,13 +315,18 @@ function l_sub_estado($sub_estado_id) {
 }
 
 function l_calcular_edad(fecha) {
+  /**The magic number: 31557600000 is 24 * 3600 * 365.25 * 1000 
+   * Which is the length of a year, the length of a year is 365 days and 6 hours which is 0.25 day. 
+   * In the end i floor the result which gives us the final age.
+  https://stackoverflow.com/questions/4060004/calculate-age-given-the-birth-date-in-the-format-yyyymmdd
+ */
+
   var array_fecha = fecha.split("-");
-  todayDate = new Date();
-  todayYear = todayDate.getFullYear();
-  todayMonth = todayDate.getMonth();
-  todayDay = todayDate.getDate();
-  age = todayYear - array_fecha[2];
-  return age;
+  let dateFormat = array_fecha[2]  + "-" + array_fecha[1] + "-" + array_fecha[0];
+  var birthday = +new Date(dateFormat);
+  return ~~((Date.now() - birthday) / (31557600000));
+
+
 }
 
 function l_list_patologias($patologia_id = null) {
