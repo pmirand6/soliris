@@ -39,13 +39,22 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
       //e.preventDefault();
 
       if (this.value != "") {
-        alert(this.value);
         $.ajax({
           type: "POST",
           url: aplicacion + "/ajax/ajx.docs_venta.php",
-          data: "data",
-          dataType: "dataType",
-          success: function (response) {},
+          data: {
+            oper: "checkDocFechaVenta",
+            f_receta: this.value,
+            idPac: getQuerystring("idPac"),
+          },
+          dataType: "json",
+          success: function (response) {
+            Swal.fire({
+              title: response.title,
+              icon: response.icon,
+              html: response.html,
+            });
+          },
         });
       }
     });
