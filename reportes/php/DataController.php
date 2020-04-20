@@ -10,7 +10,7 @@ class DataController {
     private $dbSet;
     public function __construct() {
         //TODO: use your database credentials
-        $mySQL = new mysqli(_URL_SERVIDOR, _USUARIO_BD, _PASSWORD_BD, _TABLA_BD);
+        $mySQL = new mysqli(constant("_URL_SERVIDOR"), constant("_USUARIO_BD"), constant("_PASSWORD_BD"),constant("_TABLA_BD"));
         $this->dbSet = new DbSet($mySQL, "vw_reporte_360"); //selecciono tabla
     }
     public function FillDbIfEmpty() {
