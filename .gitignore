@@ -6,3 +6,4 @@ ll.php
 resources/PHP/db.php
 
 /vendor/
+config/config.php

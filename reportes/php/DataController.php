@@ -1,4 +1,5 @@
 <?php
+require_once("../../config/config.php");
 require_once("../DevExtreme/LoadHelper.php");
 spl_autoload_register(array("DevExtreme\LoadHelper", "LoadModule"));
 
@@ -9,7 +10,7 @@ class DataController {
     private $dbSet;
     public function __construct() {
         //TODO: use your database credentials
-        $mySQL = new mysqli("localhost", "root", "", "soliris");
+        $mySQL = new mysqli(_URL_SERVIDOR, _USUARIO_BD, _PASSWORD_BD, _TABLA_BD);
         $this->dbSet = new DbSet($mySQL, "vw_reporte_360"); //selecciono tabla
     }
     public function FillDbIfEmpty() {
