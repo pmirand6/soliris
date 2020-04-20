@@ -9,7 +9,7 @@
     "commands": [{
       "id": "18444407-f55d-4f5f-89e8-cb8fa0458388",
       "comment": "",
-      "command": "open",
+      "command": "storeValue",
       "target": "/soliris/",
       "targets": [],
       "value": ""
@@ -147,6 +147,143 @@
       ],
       "value": "PMIRANDA"
     }]
+  }, {
+    "id": "2a0e259e-e296-4120-9acd-d49a0e0885b3",
+    "name": "testCreacionPresentacionSuccess",
+    "commands": [{
+      "id": "b7ca706b-6232-4046-aaf5-bbc88d002b56",
+      "comment": "",
+      "command": "//run",
+      "target": "testLoginSuccess",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d36ae369-5a3a-4ec6-905f-89bd88fd5bb2",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1050x708",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1a0c2912-7e55-4398-a4c7-031da25464c7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.panel:nth-child(3) .panel-title",
+      "targets": [
+        ["css=.panel:nth-child(3) .panel-title", "css:finder"],
+        ["xpath=//div[@id='nav']/div/div[3]/div/div", "xpath:idRelative"],
+        ["xpath=//div[2]/div/div[3]/div/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9ee110b9-cfc1-44f1-adf4-5b825bb9cd71",
+      "comment": "",
+      "command": "click",
+      "target": "css=.panel:nth-child(3) .nav_item:nth-child(6)",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "399e335e-4082-49a5-9671-f2fc4a23fe2e",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.panel:nth-child(3) .nav_item:nth-child(5)",
+      "targets": [
+        ["css=.panel:nth-child(3) .nav_item:nth-child(5)", "css:finder"],
+        ["xpath=//p[@onclick=\"pop('administrador/canales.php')\"]", "xpath:attributes"],
+        ["xpath=//div[@id='nav']/div/div[3]/div[2]/p[5]", "xpath:idRelative"],
+        ["xpath=//div[3]/div[2]/p[5]", "xpath:position"],
+        ["xpath=//p[contains(.,'Canal')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "1b134e60-54b0-47d7-b24a-29a5783b18db",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "e1acc031-9e54-440a-8a5a-e00fd097a39a",
+      "comment": "",
+      "command": "click",
+      "target": "id=newDosis",
+      "targets": [
+        ["id=newDosis", "id"],
+        ["css=#newDosis", "css:finder"],
+        ["xpath=//button[@id='newDosis']", "xpath:attributes"],
+        ["xpath=//button", "xpath:position"],
+        ["xpath=//button[contains(.,'Nueva Presentacion')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "6a41078c-2437-4cd7-80d7-1930cdfc8132",
+      "comment": "",
+      "command": "selectFrame",
+      "target": "index=0",
+      "targets": [
+        ["index=0"]
+      ],
+      "value": ""
+    }, {
+      "id": "043189d7-e4c4-4c99-a625-b4526f742359",
+      "comment": "",
+      "command": "click",
+      "target": "id=nombre",
+      "targets": [
+        ["id=nombre", "id"],
+        ["name=nombre", "name"],
+        ["css=#nombre", "css:finder"],
+        ["xpath=//input[@id='nombre']", "xpath:attributes"],
+        ["xpath=//form[@id='frm-dosis']/fieldset/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "29df4148-d57e-4b8d-824c-42281e56f788",
+      "comment": "",
+      "command": "type",
+      "target": "id=nombre",
+      "targets": [
+        ["id=nombre", "id"],
+        ["name=nombre", "name"],
+        ["css=#nombre", "css:finder"],
+        ["xpath=//input[@id='nombre']", "xpath:attributes"],
+        ["xpath=//form[@id='frm-dosis']/fieldset/div/div/div/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "4900"
+    }, {
+      "id": "bd59c62d-890c-4436-b5b4-044727acfece",
+      "comment": "",
+      "command": "click",
+      "target": "id=bot_guardar",
+      "targets": [
+        ["id=bot_guardar", "id"],
+        ["name=bot_guardar", "name"],
+        ["css=#bot_guardar", "css:finder"],
+        ["xpath=//button[@id='bot_guardar']", "xpath:attributes"],
+        ["xpath=//form[@id='frm-dosis']/fieldset/div[3]/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,' Guardar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "54032be3-0048-4c11-b91b-b001b8f03373",
+      "comment": "",
+      "command": "assertAlert",
+      "target": "Se registró correctamente, ya puede cerrar esta ventana",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "566060fc-b8f7-43d3-97f9-fd56cccf4d8f",
+      "comment": "",
+      "command": "webdriverChooseOkOnVisibleConfirmation",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
   }],
   "suites": [{
     "id": "fe15f373-fab5-4703-9ca3-360c7d25375b",
@@ -155,6 +292,13 @@
     "parallel": false,
     "timeout": 300,
     "tests": ["7b9a8f7f-c788-4af7-a0e2-b6825e5c3f53"]
+  }, {
+    "id": "2dd6e3b4-8955-47f8-abf8-d399e85f1028",
+    "name": "Presentacion",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["2a0e259e-e296-4120-9acd-d49a0e0885b3", "ffea5eb5-ad46-4ccb-91ff-93d056cd19c3"]
   }],
   "urls": ["http://localhost:88/", "http://localhost:88/soliris/"],
   "plugins": []
