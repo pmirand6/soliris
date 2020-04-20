@@ -15,7 +15,7 @@ define("_RESOURCES", _NAME . '/resources/');
 define("_ADMIN_MAIL", 'pmiranda@raffo.com.ar');
 define("_DOC_VENTAS", HTTP . '/documentacion/venta/');
 define("_URL_SERVIDOR", $_SERVER['SERVER_NAME']);
-define("_USUARIO_BD", 'admin');
-define("_PASSWORD_BD", '');
+define("_USUARIO_BD", 'soliris_ap');
+define("_PASSWORD_BD", 'acceso_app');
 define("_TABLA_BD", 'soliris');
 
