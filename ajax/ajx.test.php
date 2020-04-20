@@ -1,6 +1,8 @@
 <?php
 
 require_once("../config/config.php");
+
+
 include $_SERVER['DOCUMENT_ROOT'] . _MAIL;
 
 

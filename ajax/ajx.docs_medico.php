@@ -30,7 +30,7 @@ if ($flagUpDoc) {
     echo json_encode($ret);
 } else {
     //FIXME VERIFICAR DE ENVIAR EL MAIL 
-    //sendMail_AltaMedico($idMedico, $usuario);
+    sendMail_AltaMedico($idMedico, $usuario);
     $ret[] = " El archivo: '$fileNameCap'. \n Se subió correctamente";
     echo json_encode($ret);
 }
