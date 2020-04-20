@@ -147,9 +147,10 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 					data: parametros,
 					success: function (opciones) {
 						if (opciones.indexOf("ERROR")  != 0) {
-							alert('Se registró correctamente.\nPuede subir la documentación.');
+							alert('Se registró correctamente.');
 							//window.location.href = 'http://' + window.location.hostname + '/administrador/docs_canales.php?id=' + opciones;
-							window.location.href = aplicacion + '/administrador/docs_canales.php?id=' + opciones;
+							//window.location.href = aplicacion + '/administrador/docs_canales.php?id=' + opciones;
+							parent.location.reload();
 						}else{
 							alert(opciones);
 						}

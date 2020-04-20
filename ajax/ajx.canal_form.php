@@ -39,7 +39,7 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
             /* Determinar el número de filas del resultado */
                 $row_cnt = mysqli_num_rows($arr_exists);
                 if ($row_cnt == 0){
-                    $SQL = "SELECT FU_NEW_CANAL('$nombre', '$familia', '$direccion', '$mail', '$dir_tec', '$cont_venta', '$cont_otro', '$usuario') as response";
+                    $SQL = "SELECT FU_NEW_CANAL('$nombre', '$familia', '$direccion', '$mail', '$dir_tec', '$cont_venta', '$cont_otro', '$usuario', '$estado') as response";
                 }else{
                     echo "ERROR: Ya existe un canal con ese nombre";
                 }
