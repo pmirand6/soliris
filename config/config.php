@@ -14,7 +14,7 @@ define("HTTP", 'http://' . $_SERVER['HTTP_HOST'] . '/' . _NAME);
 define("_RESOURCES", _NAME . '/resources/');
 define("_ADMIN_MAIL", 'pmiranda@raffo.com.ar');
 define("_DOC_VENTAS", HTTP . '/documentacion/venta/');
-define("_URL_SERVIDOR", $_SERVER['SERVER_ADDR']);
+define("_URL_SERVIDOR", $_SERVER['SERVER_NAME']);
 define("_USUARIO_BD", 'admin');
 define("_PASSWORD_BD", '');
 define("_TABLA_BD", 'soliris');
