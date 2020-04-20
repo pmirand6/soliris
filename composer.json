@@ -9,6 +9,13 @@
     ],
     "require": {
         "swiftmailer/swiftmailer": "^5.4.12",
-        "jamesiarmes/php-ntlm": "^1.0"
+        "fzaninotto/faker": "^1.9"
+    },
+    "require-dev": {
+        "codeception/codeception": "^4.1",
+        "codeception/module-phpbrowser": "^1.0.0",
+        "codeception/module-asserts": "^1.0.0",
+        "codeception/module-webdriver": "^1.0",
+        "codeception/module-db": "^1.0"
     }
 }

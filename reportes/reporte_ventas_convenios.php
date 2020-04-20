@@ -11,32 +11,31 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 include $_SERVER['DOCUMENT_ROOT'] . _FN;
 
 
-if (isset($_POST['sel_year'])&&(isset($_POST['sel_mes']))) {
+if (isset($_POST['sel_year']) && (isset($_POST['sel_mes']))) {
 
     $anio = $_POST['sel_year'];
     $mes = $_POST['sel_mes'];
-    
-} else { 
+} else {
 
     $query = "SELECT 
-    YEAR(MAX(RM.fecha_venta)) as anio, MONTH(MAX(RM.fecha_venta)) as mes
-    FROM soliris_maestro as RM LEFT JOIN institucion as I ON (RM.institucion = I.nombre)
+    YEAR(MAX(m.fecha_venta)) as anio, MONTH(MAX(m.fecha_venta)) as mes
+    FROM maestro_ventas as m LEFT JOIN institucion as I ON (m.institucion_id = I.id)
     WHERE I.tipo = 'convenio'";
-
+    free_all_results($db);
     $result = mysqli_query($db, $query);
-	
+
     while ($row = mysqli_fetch_assoc($result)) {
 
         $anio = $row["anio"];
         $mes = $row["mes"];
     }
-
 }
 
-function nombremes($mes){
- setlocale(LC_TIME, 'es_ES.UTF-8');  
- $nombre=strftime("%B",mktime(0, 0, 0, $mes, 1, 2000)); 
- return $nombre;
+function nombremes($mes)
+{
+    setlocale(LC_TIME, 'es_ES.UTF-8');
+    $nombre = strftime("%B", mktime(0, 0, 0, $mes, 1, 2000));
+    return $nombre;
 }
 
 $mes_sel = nombremes($mes);
@@ -47,6 +46,7 @@ $mes_sel = nombremes($mes);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -63,31 +63,29 @@ $mes_sel = nombremes($mes);
         @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
         /* Custom CSS */
         @import "../resources/CSS/Develop/reporte_ventas_convenios.css";
-
     </style>
-    
+
 </head>
+
 <body>
 
     <section>
-        <div class="container"> 
+        <div class="container">
             <h1 class="display-1 text-center" id="titulo-venta">Ventas por convenio</h1>
             <hr>
-                <h3 class="text-center">Reporte <?php echo ucwords($mes_sel) . " del " . $anio;?></h3>
+            <h3 class="text-center">Reporte <?php echo ucwords($mes_sel) . " del " . $anio; ?></h3>
             <br>
         </div>
     </section>
 
 
     <?php
+    free_all_results($db);
+    $year = "SELECT DISTINCT YEAR(mv.fecha_venta) AS 'Year'
+    FROM maestro_ventas mv
+    ORDER BY 'Year' DESC;";
 
-    $year = "SELECT DISTINCT
-    YEAR(RM.fecha_venta) AS 'Year'
-    FROM
-    soliris_maestro AS RM
-    WHERE
-    RM.fecha_venta != 0
-    ORDER BY RM.fecha_venta DESC;";
+    //echo $year;
 
 
     echo "<section class=\"pick-dates\">
@@ -98,13 +96,12 @@ $mes_sel = nombremes($mes);
                     <label class=\"control-label\" for=\"sel_year\">Año</label>                         
                     <select id=\"sel_year\" class=\"form-control\" name=\"sel_year\">
     <option disabled value=\"\">Seleccione</option>";
-                        if ($result = mysqli_query($db, $year)) { 
-                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<option>'.$row['Year'].'</option>';
-                        }
-						
-                    }
-                    echo "</select>
+    if ($result = mysqli_query($db, $year)) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo '<option>' . $row['Year'] . '</option>';
+        }
+    }
+    echo "</select>
                 </div>
                 <div class=\"col-md-4\">
                     <label class=\"control-label\" for=\"sel_mes\">Mes</label>                         
@@ -135,27 +132,27 @@ $mes_sel = nombremes($mes);
 <br>
 ";
 
-/* free result set */
-mysqli_free_result($result);
+    /* free result set */
+    mysqli_free_result($result);
 
 
-?>
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<?php
-include "../resources/Includes/BootstrapHTML5.php";
-include "../resources/Includes/HighCharts_Drilldown.php";
-?>
+    ?>
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <?php
+    include "../resources/Includes/BootstrapHTML5.php";
+    include "../resources/Includes/HighCharts_Drilldown.php";
+    ?>
 
-<!-- Custom JS -->
-<script type="text/javascript">
-    $(document).ready(function() {
+    <!-- Custom JS -->
+    <script type="text/javascript">
+        $(document).ready(function() {
             // Create the chart - http://jsfiddle.net/6LXVQ/97/
             $('#container').highcharts({
                 chart: {
                     type: 'pie'
                 },
                 title: {
-                    text: 'Ventas por Convenio'                    
+                    text: 'Ventas por Convenio'
                 },
                 xAxis: {
                     type: 'category'
@@ -166,9 +163,9 @@ include "../resources/Includes/HighCharts_Drilldown.php";
 
                         dataLabels: {
                             enabled: true,
-			                format: '<b>{point.name}</b>: {point.percentage:.1f}%',	
+                            format: '<b>{point.name}</b>: {point.percentage:.1f}%',
                             formatter: function() {
-                                return Math.round(this.percentage*100)/100 + ' %';
+                                return Math.round(this.percentage * 100) / 100 + ' %';
                             },
                         }
                     }
@@ -177,115 +174,136 @@ include "../resources/Includes/HighCharts_Drilldown.php";
                     id: 'toplevel',
                     name: 'Convenios',
                     data: [
-<?php
-$SQL = "
-SELECT RM.institucion as Nombre, COUNT(*) as Cantidad
-FROM soliris_maestro as RM LEFT JOIN institucion as I ON (RM.institucion = I.nombre)
+                        <?php
+                        $SQL = "
+SELECT I.nombre as Nombre, COUNT(*) as Cantidad
+FROM maestro_ventas as RM LEFT JOIN institucion as I ON (RM.institucion_id = I.id)
 WHERE YEAR(RM.fecha_venta) = $anio AND MONTH(RM.fecha_venta) = $mes AND I.tipo = 'convenio'
-GROUP BY RM.institucion
+GROUP BY I.nombre
 
 union
 SELECT  'Privados', count(*) as Cantidad
-FROM soliris_maestro as RM LEFT JOIN institucion as I on (RM.institucion = I.nombre)
+FROM maestro_ventas as RM LEFT JOIN institucion as I on (RM.institucion_id = I.id)
 WHERE YEAR(RM.fecha_venta) =$anio AND MONTH(RM.fecha_venta) = $mes AND (I.tipo='' or I.tipo is null);
 
 
 ;
 ";
-$arr_data_str = "";
-$arr_convenios = array();
-                    if($result = mysqli_query($db, $SQL)){
-                      
-while ($row = mysqli_fetch_assoc($result)) {
-                        $arr_data_str .= "{name: '" . $row["Nombre"] . "', y: " . $row["Cantidad"] . ", drilldown: 'Patologías " . $row["Nombre"] . "'},";
- array_push($arr_convenios, $row["Nombre"]);
-}
-$arr_data_str = trim($arr_data_str, ",");
-echo $arr_data_str;
-                    } else {
-                      echo $arr_data_str;  
+                        $arr_data_str = "";
+                        $result = mysqli_query($db, $SQL);
+                        $rowcount = mysqli_num_rows($result);
+                        if ($rowcount > 0) {
+                            $arr_convenios = array();
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                if($row["Nombre"] == 'Privados' && $row["Cantidad"] != 0) {
+                                    $arr_data_str .= "{name: '" . $row["Nombre"] . "', y: " . $row["Cantidad"] . ", drilldown: 'Patologías " . $row["Nombre"] . "'},";
+                                    array_push($arr_convenios, $row["Nombre"]);
+                                } 
+                                if($row["Nombre"] != 'Privados' && $row["Cantidad"] != 0) {
+                                    $arr_data_str .= "{name: '" . $row["Nombre"] . "', y: " . $row["Cantidad"] . ", drilldown: 'Patologías " . $row["Nombre"] . "'},";
+                                    array_push($arr_convenios, $row["Nombre"]);
+                                }
+                            }
+                            $arr_data_str = trim($arr_data_str, ",");
+                            echo $arr_data_str;
+                        } else {
+                            echo $arr_data_str;
+                        }
+                        ?>
+                    ],
+                }],
+                lang: {
+                    noData: "Sin Datos"
+                },
+                noData: {
+                    style: {
+                        fontWeight: 'bold',
+                        fontSize: '15px',
+                        color: '#303030'
                     }
-                    
-?>
-                 ],
-}],
-drilldown: {
-    series: [
-    <?php
-    $arr_data_pat_str = "";
-    foreach($arr_convenios as $convenio){
-        $SQLdrillLvl1= "
-        SELECT RM.patologia as Nombre, COUNT(*) as Cantidad
-        FROM soliris_maestro as RM LEFT JOIN institucion as I ON (RM.institucion = I.nombre) LEFT JOIN auxiliar as AUX ON (RM.patologia = AUX.valor)
-        WHERE  YEAR(RM.fecha_venta) = $anio AND MONTH(RM.fecha_venta) AND I.nombre = '$convenio'
-        GROUP BY RM.patologia;
-        ";
-        $resultdrillLvl1 = mysqli_query($db, $SQLdrillLvl1);
-        $arr_data_pat_str .= " {
+                },
+                drilldown: {
+                    series: [
+                        <?php
+                        $arr_data_pat_str = "";
+                        foreach ($arr_convenios as $convenio) {
+                            $SQLdrillLvl1 = "
+        SELECT pat.patologia_nombre AS Nombre, COUNT(*) AS Cantidad
+        FROM maestro_ventas AS RM
+        LEFT JOIN institucion AS I ON (RM.institucion_id = I.id)
+        LEFT JOIN patologia AS pat ON (RM.patologia_id= pat.id)
+        WHERE YEAR(RM.fecha_venta) = $anio AND MONTH(RM.fecha_venta) AND I.nombre = '$convenio'
+        GROUP BY pat.patologia_nombre;
+                ";
+
+                            $resultdrillLvl1 = mysqli_query($db, $SQLdrillLvl1);
+                            $arr_data_pat_str .= " {
             id:'Patologias " . $convenio . "',
             name: 'Patologias " . $convenio . "',
             data: [
             ";
-            $arr_patologias = array();
-            while ($rowdLvl1 = mysqli_fetch_assoc($resultdrillLvl1)) {
-             $arr_data_pat_str .= "{name: '" . $rowdLvl1["Nombre"] . "', y: " . $rowdLvl1["Cantidad"] . ", drilldown: 'Dosis " . $convenio . ' ' . $rowdLvl1["Nombre"] . "'},";
-             array_push($arr_patologias, $rowdLvl1["Nombre"]);
-         }
-         $arr_data_pat_str = trim($arr_data_pat_str, ",");
-         $arr_data_pat_str .= "]},";
-     }
-//                    $arr_data_pat_str = trim($arr_data_pat_str, ",");
-     echo $arr_data_pat_str;
+                            $arr_patologias = array();
+                            while ($rowdLvl1 = mysqli_fetch_assoc($resultdrillLvl1)) {
+                                $arr_data_pat_str .= "{name: '" . $rowdLvl1["Nombre"] . "', y: " . $rowdLvl1["Cantidad"] . ", drilldown: 'Dosis " . $convenio . ' ' . $rowdLvl1["Nombre"] . "'},";
+                                array_push($arr_patologias, $rowdLvl1["Nombre"]);
+                            }
+                            $arr_data_pat_str = trim($arr_data_pat_str, ",");
+                            $arr_data_pat_str .= "]},";
+                        }
+                        //                    $arr_data_pat_str = trim($arr_data_pat_str, ",");
+                        echo $arr_data_pat_str;
 
-     $arr_data_doc_str = "";
-     foreach($arr_convenios as $convenio){
+                        $arr_data_doc_str = "";
+                        foreach ($arr_convenios as $convenio) {
 
-        foreach($arr_patologias as $patologia){
-            $SQLdrillLvl2= "
-            SELECT RM.dosis as Nombre, COUNT(*) as Cantidad
-            FROM soliris_maestro as RM LEFT JOIN institucion as I ON (RM.institucion = I.nombre) LEFT JOIN auxiliar as AUX ON (RM.patologia = AUX.valor)
-            WHERE  YEAR(RM.fecha_venta) = $anio AND MONTH(RM.fecha_venta) AND I.nombre = '$convenio' AND RM.patologia = '$patologia'
-            GROUP BY RM.dosis;
-            ";
-            $resultdrillLvl2 = mysqli_query($db, $SQLdrillLvl2);
-            $arr_data_doc_str .= " {
+                            foreach ($arr_patologias as $patologia) {
+                                $SQLdrillLvl2 = "
+            SELECT pre.valor AS Nombre, COUNT(*) AS Cantidad
+            FROM maestro_ventas AS RM
+            LEFT JOIN institucion AS I ON (RM.institucion_id = I.id)
+            LEFT JOIN patologia AS p ON (RM.patologia_id = p.id)
+            LEFT JOIN presentacion AS pre ON (RM.presentacion_id = pre.id)
+            WHERE YEAR(RM.fecha_venta) = $anio AND MONTH(RM.fecha_venta) AND I.nombre = '$convenio' AND p.patologia_nombre = '$patologia'
+            GROUP BY pre.valor;            ";
+
+            
+                                $resultdrillLvl2 = mysqli_query($db, $SQLdrillLvl2);
+                                $arr_data_doc_str .= " {
                 id:'Dosis " . $convenio . ' ' . $patologia . "',
                 name: 'Dosis " . $convenio . ' ' . $patologia . "',
                 data: [
                 ";
-                while ($rowdLvl2 = mysqli_fetch_assoc($resultdrillLvl2)) {
-                 $arr_data_doc_str .= "{name: '" . $rowdLvl2["Nombre"] . "', y: " . $rowdLvl2["Cantidad"] . "},";
-             }
-             $arr_data_doc_str = trim($arr_data_doc_str, ",");
-             $arr_data_doc_str .= "]},";
-         }
+                                while ($rowdLvl2 = mysqli_fetch_assoc($resultdrillLvl2)) {
+                                    $arr_data_doc_str .= "{name: '" . $rowdLvl2["Nombre"] . "', y: " . $rowdLvl2["Cantidad"] . "},";
+                                }
+                                $arr_data_doc_str = trim($arr_data_doc_str, ",");
+                                $arr_data_doc_str .= "]},";
+                            }
+                        }
+                        $arr_data_doc_str = trim($arr_data_doc_str, ",");
+                        echo $arr_data_doc_str;
 
-     }
-     $arr_data_doc_str = trim($arr_data_doc_str, ",");
-     echo $arr_data_doc_str;
+                        ?>
+                    ]
+                }
+            })
+        });
+    </script>
 
-     ?>
-     ]
- }
-})
-});
-</script>
+    <script type="text/javascript">
+        var anio = "<?php echo $anio; ?>";
+        var mes = "<?php echo $mes; ?>";
+        if (mes) {
+            var mes_sel = $("#sel_mes option[value= " + mes + " ]").attr("selected", "selected");
+            $('select[name="sel_year"]').val(anio);
+            $("#sel_mes option[value= " + mes + " ]").attr("selected", "selected");
 
-<script type="text/javascript">
-    var anio = "<?php echo $anio;?>";
-    var mes = "<?php echo $mes;?>";
-	if (mes){
-		var mes_sel = $("#sel_mes option[value= "+ mes +" ]").attr("selected","selected");
-		$('select[name="sel_year"]').val(anio);
-		$("#sel_mes option[value= "+ mes +" ]").attr("selected","selected");    
-
-		$("p span").last().after(mes_sel);
-	}
-</script>
+            $("p span").last().after(mes_sel);
+        }
+    </script>
 
 
 
 </body>
+
 </html>
-
-

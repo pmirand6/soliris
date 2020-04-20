@@ -2,7 +2,7 @@
 var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 $(document).ready(function() {
     // DOM ready
-    getProfile();
+//    getProfile();
 
     $('#form').on('submit' ,function(e){
         e.preventDefault();
@@ -28,7 +28,6 @@ function setProfile(){
         async: false,
         success: function (data) {
             if (data.indexOf("ERROR") == -1) {
-                //if($('#remember_me').prop('checked')) {sessionStorage.setItem("REVL-RememberUser", $('#inputUser').val());};
                 respuesta = true;
             } else {
                 respuesta = false;

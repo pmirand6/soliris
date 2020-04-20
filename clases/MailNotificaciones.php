@@ -4,6 +4,7 @@ require '../vendor/autoload.php';
 
 class MailNotificaciones
 {
+
     public static function sendMessage($subject, $body, Array $destinatarios)
     {
         // Create the Transport

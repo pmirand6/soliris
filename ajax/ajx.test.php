@@ -1,12 +1,24 @@
 <?php
 
-require_once("../config/config.php");
+require '../clases/claseSuma.php';
 
 
-include $_SERVER['DOCUMENT_ROOT'] . _MAIL;
+//Instancio la clase
+$auto = new Auto('variable color', 'constructor');
+
+echo $auto->sumaInterfaz('1', '2');
 
 
-sendMail_AltaMedico('3', 'pmiranda');
+/*echo 'los valores por defecto son: ' . $auto->getColorAuto(); 
+
+echo '</br>';
+//llamo al metodo setColorAuto
+echo $auto->setColorAuto('desde', 'el metodo');
+
+// llamo al metodo getColorAuto
+echo 'los valores cambiados son: ' . $auto->getColorAuto();*/ 
+
+
 
 
 
