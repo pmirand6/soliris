@@ -95,7 +95,7 @@ function l_generar_venta() {
       text: data.text,
       timer: 5000,
     }).then(function () {
-      //parent.location.reload();
+      parent.location.reload();
     });
   });
 }
