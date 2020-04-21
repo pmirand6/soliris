@@ -15,7 +15,7 @@ $ad = new \Adldap\Adldap();
 $config = [
   // An array of your LDAP hosts. You can use either
   // the host name or the IP address of your host.
-  'hosts'    => ['192.168.0.27'],
+  'domain_controllers'    => ['192.168.0.27'],
 
   // The base distinguished name of your domain to perform searches upon.
   'base_dn'  => 'OU=OU MUNRO,DC=raffo,DC=local',
@@ -23,8 +23,8 @@ $config = [
   // The account to use for querying / modifying LDAP records. This
   // does not need to be an admin account. This can also
   // be a full distinguished name of the user account.
-  'username' => 'cron',
-  'password' => 'cron2014',
+  'admin_username' => 'cron',
+  'admin_password' => 'cron2014',
 ];
 
 // Add a connection provider to Adldap.
