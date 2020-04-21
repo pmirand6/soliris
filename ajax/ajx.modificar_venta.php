@@ -150,3 +150,41 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'modificar_venta') {
         echo json_encode($resp, JSON_PRETTY_PRINT);
     }
 }
+
+if (isset($_POST["oper"]) && $_POST["oper"] == 'cancelar_venta') {
+
+    $idVenta = $_POST["idVenta"];
+    $usuario = $_SESSION["soliris_usuario"];
+    $SQL = "CALL ST_CANCELAR_VENTA($idVenta, '$usuario')";
+
+    
+
+    if (isset($SQL) and $SQL != "") {
+        $response = MySQL_sendFunctionAudit("$SQL", "ajx.modificar_venta.php", "1");
+        $res = $response[0]["mensaje"];
+        // TODO VER ENVIO DE MAIL CANCELACION VENTA
+        //  sendMailPM('Paciente Pendiente', $nombre, '', '');
+    }
+
+    if (is_numeric($res)) {
+
+        $resp = array(
+            'title' => $response[0]["title"],
+            'icon' => $response[0]["icon"],
+            'text' => $response[0]["text"],
+        );
+        echo json_encode($resp, JSON_PRETTY_PRINT);
+
+        if($res == '1'){
+            //TODO enviar mail con cancelacion de la venta
+        }
+    
+
+    }
+
+    
+
+}
+
+
+

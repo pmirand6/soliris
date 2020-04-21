@@ -27,23 +27,54 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
     $(".panel-tool-close").click(function () {
       window.location.href = window.location.href;
     });
-  
+
     //Contadores de llamados a funciones de seteo
     // Se establecen para no llamar a la funcion de seteo mas de una vez
     var countCallFMed = 0;
     var countCallFCan = 0;
     var countCallFInt = 0;
-    
 
     l_validate_form();
-    l_set_select_medico();  
-    l_set_select_canal();  
+    l_set_select_medico();
+    l_set_select_canal();
     l_set_select_institucion();
     l_set_producto();
     l_set_paciente();
 
-    $("#canVenta").click(function (e) {
+    $("#canModificacion").click(function (e) {
       parent.location.reload();
+    });
+    $("#canVenta").click(function (e) {
+      e.preventDefault();
+      Swal.fire({
+        title: "¿Esta seguro/a de cancelar la venta?",
+        text: "Este estado no se puede revertir!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, cancelar!",
+      }).then((result) => {
+        if (result.value) {
+          $.post(
+            aplicacion + "/ajax/ajx.modificar_venta.php",
+            {
+              idVenta: getQuerystring("idVenta"),
+              oper: "cancelar_venta",
+            },
+            function (data, textStatus, jqXHR) {
+              Swal.fire({
+                title: data.title,
+                text: data.text,
+                icon: data.icon,
+              }).then((result) => {
+                parent.location.reload();
+              });
+            },
+            "json"
+          );
+        }
+      });
     });
   });
 });
