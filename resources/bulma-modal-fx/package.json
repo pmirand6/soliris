@@ -1,0 +1,61 @@
+{
+  "_from": "bulma-modal-fx",
+  "_id": "bulma-modal-fx@1.1.1",
+  "_inBundle": false,
+  "_integrity": "sha512-Ma1e/uczogPd0MzpeOsYJau1ocavO2wlnGg1ZVg+/mrsKyeasrdtyfbOH1kRdzqCH9DMrZAw7WEW0Oa3lKr6Fw==",
+  "_location": "/bulma-modal-fx",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "bulma-modal-fx",
+    "name": "bulma-modal-fx",
+    "escapedName": "bulma-modal-fx",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/bulma-modal-fx/-/bulma-modal-fx-1.1.1.tgz",
+  "_shasum": "36e1a800cf25e37bbd3963f2ed3136612c8a350a",
+  "_spec": "bulma-modal-fx",
+  "_where": "C:\\laragon\\www\\soliris",
+  "author": {
+    "name": "Francesco Apruzzese",
+    "email": "inerba@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/postare/bulma-modal-fx/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "A set of modal window effects with CSS transitions and animations for Bulma.",
+  "devDependencies": {
+    "autoprefixer": "^7.2.3",
+    "browser-sync": "^2.23.6",
+    "bulma": "^0.7.0",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-expect-file": "^0.0.7",
+    "gulp-postcss": "^7.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-scss-lint": "^0.4.0",
+    "gulp-sourcemaps": "^2.6.2",
+    "gulp-uglify": "^3.0.0"
+  },
+  "homepage": "https://github.com/postare/bulma-modal-fx#readme",
+  "license": "MIT",
+  "main": "index.js",
+  "name": "bulma-modal-fx",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/postare/bulma-modal-fx.git"
+  },
+  "version": "1.1.1"
+}

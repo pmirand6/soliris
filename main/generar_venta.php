@@ -21,6 +21,8 @@ $idPaciente = $_GET["idPac"];
     <style type="text/css">
         /* Bulma CSS */
         @import "../resources/CSS/bulma/css/bulma.css";
+        /** Bulma Modal */
+        @import "../resources/bulma-modal-fx/dist/css/modal-fx.min.css";
         /* Font-Awesome */
         @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
         /* Iconos de Estados */
@@ -112,7 +114,7 @@ $idPaciente = $_GET["idPac"];
                                 <div class="field-body">
                                     <div class="field">
                                         <p class="control has-icons-right form-group">
-                                        <input type="hidden" name="institucionSelected" id="institucionSelected">
+                                            <input type="hidden" name="institucionSelected" id="institucionSelected">
                                             <input id="institucion" name="institucion" type="text" placeholder="Seleccione Institución" class="form-control input" maxlength="45" data-id="" required>
                                             <p id="helpInstitucion" class="help"></p>
                                             <div id="result_institucion"></div>
@@ -149,10 +151,31 @@ $idPaciente = $_GET["idPac"];
                                                         Receta
                                                     </span>
                                                 </span>
+                                                <span class="file-name">
+                                                    No file uploaded
+                                                </span>
                                             </label>
                                             <span class="icon is-small is-right">
                                                 <i data-field="lastName" class=""></i>
                                             </span>
+                                        </div>
+                                        <div class="field">
+                                            <div class="file is-centered is-boxed is-success has-name">
+                                                <label class="file-label">
+                                                    <input class="file-input" type="file" name="resume">
+                                                    <span class="file-cta">
+                                                        <span class="file-icon">
+                                                            <i class="fa fa-upload"></i>
+                                                        </span>
+                                                        <span class="file-label">
+                                                            Centered file…
+                                                        </span>
+                                                    </span>
+                                                    <span class="file-name">
+                                                        Screen Shot 2017-07-29 at 15.54.25.png
+                                                    </span>
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="fv-plugins-message-container"></div>
                                     </div>
@@ -165,7 +188,7 @@ $idPaciente = $_GET["idPac"];
                                         <span class="icon">
                                             <i class="fa fa-plus"></i>
                                         </span>
-                                        <span>Agregar Documento</span> 
+                                        <span>Agregar Documento</span>
                                     </button>
                                 </p>
                             </div>
@@ -206,7 +229,7 @@ $idPaciente = $_GET["idPac"];
                                                 <span class="icon is-small">
                                                     <i class="fa fa-times"></i>
                                                 </span>
-                                                <span>Borrar</span> 
+                                                <span>Borrar</span>
                                             </button>
                                         </p>
                                     </div>
@@ -232,6 +255,18 @@ $idPaciente = $_GET["idPac"];
 
     </section>
 
+    <!-- trigger button -->
+    <span class="button modal-button" data-target="modal-id">Open modal</span>
+
+    <!-- related modal with fx class "modal-fx-fadeInScale" -->
+    <div id="modal-id" class="modal modal-fx-fadeInScale">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <!-- Any other Bulma elements you want -->
+        </div>
+        <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+
 
 
     <?php
@@ -240,6 +275,7 @@ $idPaciente = $_GET["idPac"];
     include "../resources/Includes/EasyUI.php";
     include "../resources/Includes/formvalidation-bulma.php";
     include "../resources/Includes/sweetalert2.php";
+    include "../resources/Includes/BulmaModal.php";
     ?>
 
 

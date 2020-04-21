@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "blueimp-file-upload": "^10.13.0",
+    "bulma-modal-fx": "^1.1.1",
     "datatables-bulma": "^1.0.1",
     "devextreme": "19.2.7",
     "dhx-pivot": "^1.4.1",
