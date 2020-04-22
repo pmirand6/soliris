@@ -267,9 +267,7 @@ $.getScript(
 
       $("#histDocs").click(function () {
         window.location.href =
-          getCurrentHostname() +
-          "/soliris/administrador/docs_hist_medico.php?id=" +
-          getQuerystring("id");
+          aplicacion + '/vistas/medico/docs_hist_medico.php?id=' + getQuerystring('id');
       });
     });
   }

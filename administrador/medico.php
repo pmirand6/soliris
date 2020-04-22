@@ -204,12 +204,7 @@ mysqli_free_result($resultMat_Tipo);
 </head>
 
 <body>
-    <div class="container">
-        <div class="alert alert-info" role="alert">
-
-        </div>
-
-    </div>
+   
     <form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form" autocomplete="off">
         <fieldset class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10">
             <!-- Form Name -->
@@ -432,52 +427,9 @@ mysqli_free_result($resultMat_Tipo);
             <?php
             if (isset($id) and $id != "") {
 
-                include "../vistas/medico/docs_hist_medico.php";
-
-                echo "<div class='form-group'>
-                <fieldset>
-                    <legend>
-                        Documentación
-                        <i id=\"editDocs\" class='fa fa-edit' title='Editar Documentación' style='cursor:pointer;'></i>
-                        <i id=\"histDocs\" class='fa fa-history' title='Historial de Documentación' style='cursor:pointer;'></i>
-                    </legend>
-                    ";
-
-                $SQLdoc = "CALL `ST_LIST_DOCS_MED`($id)";
-                free_all_results($db);
-                $resultdoc = mysqli_query($db, $SQLdoc);
-
-                while ($doc = mysqli_fetch_assoc($resultdoc)) {
-                    $extension = "";
-                    $tipo = "";
-                    $documento = "";
-
-                    $documento = urlencode($doc["documento"]);
-                    $extension = strtolower(pathinfo($doc["documento"], PATHINFO_EXTENSION));
-                    $tipo = $doc["tipo"];
-                    $estado = $doc["estado"];
-                    $fecha = $doc["fecha_documento"];
-
-
-                    echo "
-            <div class=\"col-sm-4 col-xs-4\" onclick = \"f_openfileMed('$id', '$documento')\"  style='cursor:pointer;'>
-                <ul>
-                    <li class=\"li\">
-                        <span class=\"file_extension _$extension\" title=\"$tipo\"></span>
-                        <b>$tipo - $fecha</b>
-                    </li>
-                </ul>
-            </div>
-            ";
-                };
-                mysqli_free_result($resultdoc);
-
-                echo "
-            </fieldset>
-        </div>
-        ";
+                include "../vistas/medico/documentacion_medico.php";
             }
-            ?>
+           ?>
 
             <hr>
 
