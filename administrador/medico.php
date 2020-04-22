@@ -12,15 +12,15 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 <?php
 if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
     free_all_results($db);
-    
+
     $id = $_GET["id"];
     $SQL = "CALL `ST_SHOW_MEDICO`('$id')";
 
-    
+
     $result = mysqli_query($db, $SQL);
 
     while ($med = mysqli_fetch_assoc($result)) {
-        
+
         $vw_id = $med["id"];
         $id = $med["id"];
         $nombre = strtoupper($med["nombre"]);
@@ -34,6 +34,7 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
         $email = $med["mail"];
         $domicilio = $med["domicilio"];
         $localidad = $med["localidad"];
+        $notas_mod = $med["notas_mod"];
         $fecha_cap = $med["fecha_cap"];
         if (!empty($med["especialidad_nombre"])) {
             $especialidad = $med["especialidad_nombre"];
@@ -52,8 +53,8 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
         } else {
             $u_venta = "Sin Ventas";
         }
-        
-        
+
+
         $estado = $med["estado"];
     };
     mysqli_free_result($result);
@@ -77,6 +78,7 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
     $apm = "";
     $u_venta = "";
     $estado = "";
+    $notas_mod = "";
 }
 
 /* Combo de Especialidad */
@@ -99,14 +101,13 @@ $arr_select_est = "";
 $est_array = explode(',', $estado);
 while ($rowEst = mysqli_fetch_assoc($resultEst)) {
     foreach ($est_array as $est) {
-        
-        if($rowEst["id"] == '30') {
-            $arr_select_est .= '<option data-id= "' . $rowEst["id"] .'" value="' . $rowEst["valor"] . '" ' . f_p_selected($est, $rowEst["valor"]) . ' disabled>' . $rowEst["valor"] . '</option>;';
+
+        if ($rowEst["id"] == '30') {
+            $arr_select_est .= '<option data-id= "' . $rowEst["id"] . '" value="' . $rowEst["valor"] . '" ' . f_p_selected($est, $rowEst["valor"]) . ' disabled>' . $rowEst["valor"] . '</option>;';
         } else {
-            $arr_select_est .= '<option data-id= "' . $rowEst["id"] .'" value="' . $rowEst["valor"] . '" ' . f_p_selected($est, $rowEst["valor"]) . '>' . $rowEst["valor"] . '</option>;';
+            $arr_select_est .= '<option data-id= "' . $rowEst["id"] . '" value="' . $rowEst["valor"] . '" ' . f_p_selected($est, $rowEst["valor"]) . '>' . $rowEst["valor"] . '</option>;';
         }
-        
-    } 
+    }
 };
 
 mysqli_free_result($resultEst);
@@ -133,18 +134,16 @@ $resultMat_Tipo = mysqli_query($db, $SQLmat_tipo);
 $arr_select_mat = "";
 
 while ($rowMat = mysqli_fetch_assoc($resultMat_Tipo)) {
-    
+
     if ($rowMat["id"] == 24) {
-        $arr_select_mat .= '<optgroup label="'. $rowMat["tipo"] .'">';
+        $arr_select_mat .= '<optgroup label="' . $rowMat["tipo"] . '">';
         $arr_select_mat .= '<option value="' . $rowMat["id"] . '" ' . f_p_selected($matricula_tipo, $rowMat["id"]) . '>' . $rowMat["valor"] . '</option>;';
         $arr_select_mat .= '</optgroup>';
     } else {
-        $arr_select_mat .= '<optgroup label="'. $rowMat["tipo"] .'">';
+        $arr_select_mat .= '<optgroup label="' . $rowMat["tipo"] . '">';
         $arr_select_mat .= '<option value="' . $rowMat["id"] . '" ' . f_p_selected($matricula_tipo, $rowMat["id"]) . '>' . $rowMat["valor"] . '</option>;';
         $arr_select_mat .= '</optgroup>';
-    
     }
-    
 };
 
 mysqli_free_result($resultMat_Tipo);
@@ -205,6 +204,12 @@ mysqli_free_result($resultMat_Tipo);
 </head>
 
 <body>
+    <div class="container">
+        <div class="alert alert-info" role="alert">
+
+        </div>
+
+    </div>
     <form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form" autocomplete="off">
         <fieldset class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10">
             <!-- Form Name -->
@@ -251,9 +256,9 @@ mysqli_free_result($resultMat_Tipo);
                 <label class="col-sm-4 col-xs-4 control-label" for="lugar">Tipo Matricula</label>
                 <div class="col-sm-5 col-xs-8 selectContainer">
                     <div class="input-group">
-                    <div class="input-group-addon"><span class="fa fa-id-card"></span></div>
+                        <div class="input-group-addon"><span class="fa fa-id-card"></span></div>
                         <select class="selectpicker form-control" id="matricula_tipo" name="matricula_tipo" data-live-search="true" title="Seleccione el tipo de Matricula">
-                            <?=$arr_select_mat;?>
+                            <?= $arr_select_mat; ?>
                         </select>
                     </div>
                 </div>
@@ -400,7 +405,7 @@ mysqli_free_result($resultMat_Tipo);
                         <div class="input-group">
                             <div class="input-group-addon"><span id="icon_estado" class="fa fa-check-circle-o"></span></div>
                             <select id="estado" name="estado" class="form-control selectpicker" <?= disable_campo($_SESSION["grupo"], $id); ?>>
-                                <?=$arr_select_est;?>
+                                <?= $arr_select_est; ?>
                             </select>
                         </div>
                     </div>
@@ -409,8 +414,25 @@ mysqli_free_result($resultMat_Tipo);
             }
             ?>
 
+            <!-- Notas -->
+            <?php if ($notas_mod != '') { ?>
+
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-4 control-label" for="nota_mod">Última Nota</label>
+                    <div class="col-sm-4 col-xs-6">
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="fa fa-sticky-note-o"></span></div>
+                            <textarea type="text" class="form-control disabled" disabled><?php echo $notas_mod ?></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            <?php } ?>
+
             <?php
             if (isset($id) and $id != "") {
+
+                include "../vistas/medico/docs_hist_medico.php";
 
                 echo "<div class='form-group'>
                 <fieldset>
@@ -479,7 +501,7 @@ mysqli_free_result($resultMat_Tipo);
     ?>
 
     <!-- Custom JS -->
-    <script  src="../resources/JS/Develop/medico.js" type="module"></script>
+    <script src="../resources/JS/Develop/medico.js" type="module"></script>
 </body>
 
 </html>
