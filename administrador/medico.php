@@ -106,7 +106,7 @@ while ($rowEst = mysqli_fetch_assoc($resultEst)) {
             $arr_select_est .= '<option data-id= "' . $rowEst["id"] .'" value="' . $rowEst["valor"] . '" ' . f_p_selected($est, $rowEst["valor"]) . '>' . $rowEst["valor"] . '</option>;';
         }
         
-    }
+    } 
 };
 
 mysqli_free_result($resultEst);
