@@ -92,14 +92,20 @@ while ($rowEsp = mysqli_fetch_assoc($resultEsp)) {
 };
 
 /* Combo de Especialidad */
-$sqlEstados = "SELECT * FROM maestro_estado m WHERE m.referencia = 'medico'";
+$sqlEstados = "SELECT id, valor FROM maestro_estado m WHERE m.referencia = 'medico'";
 free_all_results($db);
 $resultEst = mysqli_query($db, $sqlEstados);
 $arr_select_est = "";
 $est_array = explode(',', $estado);
 while ($rowEst = mysqli_fetch_assoc($resultEst)) {
     foreach ($est_array as $est) {
-        $arr_select_est .= '<option data-id= "' . $rowEst["id"] .'" value="' . $rowEst["valor"] . '" ' . f_p_selected($est, $rowEst["valor"]) . '>' . $rowEst["valor"] . '</option>;';
+        
+        if($rowEst["id"] == '30') {
+            $arr_select_est .= '<option data-id= "' . $rowEst["id"] .'" value="' . $rowEst["valor"] . '" ' . f_p_selected($est, $rowEst["valor"]) . ' disabled>' . $rowEst["valor"] . '</option>;';
+        } else {
+            $arr_select_est .= '<option data-id= "' . $rowEst["id"] .'" value="' . $rowEst["valor"] . '" ' . f_p_selected($est, $rowEst["valor"]) . '>' . $rowEst["valor"] . '</option>;';
+        }
+        
     }
 };
 
@@ -155,6 +161,8 @@ mysqli_free_result($resultMat_Tipo);
     <style type="text/css">
         /* Latest compiled and minified CSS */
         @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
+        /**sweeralert2 */
+        @import '../resources/sweetalert2/dist/sweetalert2.css';
         /* Font-Awesome */
         @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
         /* Include Bootstrap Datepicker */
@@ -467,10 +475,11 @@ mysqli_free_result($resultMat_Tipo);
     include "../resources/Includes/DatePicker.php";
     include "../resources/Includes/FormValidation.php";
     include "../resources/Includes/BootstrapSelect.php";
+    include "../resources/Includes/sweetalert2.php";
     ?>
 
     <!-- Custom JS -->
-    <script type="text/javascript" src="../resources/JS/Develop/medico.js"></script>
+    <script  src="../resources/JS/Develop/medico.js" type="module"></script>
 </body>
 
 </html>
