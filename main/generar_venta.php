@@ -127,8 +127,41 @@ $idPaciente = $_GET["idPac"];
                             <div class="notification is-success">
                                 <p class="heading">Documentación</p>
                             </div>
+                            <div class="field">
+                                <label class="label">Fecha Receta</label>
+                                <div class="control has-icons-left has-icons-right">
+                                    <input id="f_receta" name="f_receta" type="text" placeholder="Fecha de Documento" class="form-control input date">
+                                    <span class="icon is-small is-left">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                    <span class="icon is-small is-right">
+                                        <i data-field="f_receta" class=""></i>
+                                    </span>
+                                </div>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Documento Receta</label>
+                                <div class="control file is-small is-info is-boxed has-name" id="divFileReceta">
+                                    <label class="file-label">
+                                        <input class="file-input" type="file" name="file_receta" id="file_receta">
+                                        <span class="file-cta">
+                                            <span class="file-icon">
+                                                <i class="fa fa-upload"></i>
+                                            </span>
+                                            <span class="file-label">
+                                                Receta
+                                            </span>
+                                        </span>
+                                        <span class="file-name">
+
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="fv-plugins-message-container"></div>
+                            </div>
                             <div class="field is-horizontal">
-                                <div class="field-label"><label class="label is-normal">Receta</label></div>
+                                <div class="field-label"><label class="label is-normal">Fecha Receta</label></div>
                                 <div class="field-body">
                                     <div class="field">
                                         <div class="control has-icons-right">
@@ -139,7 +172,9 @@ $idPaciente = $_GET["idPac"];
                                         </div>
                                         <div class="fv-plugins-message-container"></div>
                                     </div>
-                                    <div class="field">
+
+
+                                    <!--<div class="field">
                                         <div class="control file is-info has-icons-right" id="divFileReceta">
                                             <label class="file-label">
                                                 <input class="file-input" type="file" name="file_receta" id="file_receta">
@@ -159,23 +194,29 @@ $idPaciente = $_GET["idPac"];
                                                 <i data-field="lastName" class=""></i>
                                             </span>
                                         </div>
-                                        <div class="field">
-                                            <div class="file is-centered is-boxed is-success has-name">
-                                                <label class="file-label">
-                                                    <input class="file-input" type="file" name="resume">
-                                                    <span class="file-cta">
-                                                        <span class="file-icon">
-                                                            <i class="fa fa-upload"></i>
-                                                        </span>
-                                                        <span class="file-label">
-                                                            Centered file…
-                                                        </span>
+                                        <div class="fv-plugins-message-container"></div>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label"><label class="label is-normal"></label></div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="control file is-small is-info is-boxed has-name" id="divFileReceta">
+                                            <label class="file-label">
+                                                <input class="file-input" type="file" name="file_receta" id="file_receta">
+                                                <span class="file-cta">
+                                                    <span class="file-icon">
+                                                        <i class="fa fa-upload"></i>
                                                     </span>
-                                                    <span class="file-name">
-                                                        Screen Shot 2017-07-29 at 15.54.25.png
+                                                    <span class="file-label">
+                                                        Receta
                                                     </span>
-                                                </label>
-                                            </div>
+                                                </span>
+                                                <span class="file-name">
+
+                                                </span>
+                                            </label>
                                         </div>
                                         <div class="fv-plugins-message-container"></div>
                                     </div>
