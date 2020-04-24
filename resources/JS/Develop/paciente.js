@@ -172,25 +172,10 @@ function l_get_estado($estado_id) {
   });
 }
 
-function openFileInModal(e) {
+function openFile(e) {
   urlImagen = aplicacion + "/documentacion/" + e;
 
-  $("#imgModalDocumentacionPaciente").attr("src", urlImagen);
-  if (usuario.grupo === "fv" || usuario.grupo === "admin") {
-    var modal = document.querySelector(".modal"); // assuming you have only 1
-    var html = document.querySelector("html");
-    modal.classList.add("is-active");
-    html.classList.add("is-clipped");
-    modal
-      .querySelector(".modal-background")
-      .addEventListener("click", function(e) {
-        e.preventDefault();
-        modal.classList.remove("is-active");
-        html.classList.remove("is-clipped");
-      });
-  } else {
-    $("#modalDocumentacionPaciente").modal("toggle");
-  }
+  window.open(urlImagen);
 }
 
 function l_set_hero_style($estado_id) {

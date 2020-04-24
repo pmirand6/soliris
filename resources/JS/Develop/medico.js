@@ -273,6 +273,13 @@ $.getScript(
   }
 );
 
+
+function openFile(e) {
+  urlImagen = aplicacion + "/documentacion/medico/" + getQuerystring('id') + '/capacitacion/' + e;
+
+  window.open(urlImagen);
+}
+
 function saveMed(parametros) {
   $.ajax({
     url: getCurrentHostname() + "/soliris/ajax/ajx.medico_form.php",
