@@ -368,18 +368,16 @@ function l_validate_form() {
     );
   });
 
-  $("#fileOtroDelete").click(function (e) { 
+  $("#fileRecetaPreviewDelete").click(function (e) { 
     e.preventDefault();
     $("#file_receta").val('');
     l_ResetFileReceta();
-    
   });
 
   $("#fileOtroDelete").click(function (e) { 
     e.preventDefault();
     $("#file_otro").val('');
     l_ResetFileOtro();
-    
   });
 }
 
