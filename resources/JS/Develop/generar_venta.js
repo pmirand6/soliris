@@ -367,6 +367,20 @@ function l_validate_form() {
       fileValidators
     );
   });
+
+  $("#fileOtroDelete").click(function (e) { 
+    e.preventDefault();
+    $("#file_receta").val('');
+    l_ResetFileReceta();
+    
+  });
+
+  $("#fileOtroDelete").click(function (e) { 
+    e.preventDefault();
+    $("#file_otro").val('');
+    l_ResetFileOtro();
+    
+  });
 }
 
 function l_setValidatedOtro() {
