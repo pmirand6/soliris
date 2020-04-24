@@ -16,6 +16,12 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
     });
 });    
 
+function openFile(e) {
+    urlImagen = aplicacion + "/documentacion/medico/" + getQuerystring('id') + '/capacitacion/' + e;
+  
+    window.open(urlImagen);
+  }
+
 function getCurrentHostname(){
     var protocolo, url, var_port, port;
 

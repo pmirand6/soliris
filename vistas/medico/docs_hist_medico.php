@@ -100,7 +100,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                 <td>$documento</td>
                 <td>$fecha</td>
                 <td>$estado</td>
-                <td><span class=\"file_extension _$extension\" title=\"$tipo\" onclick = \"openfile('$documento')\"  style='cursor:pointer;'></span></td>
+                <td><span class=\"file_extension _$extension\" title=\"$tipo\" onclick = \"openFile('$documento')\"  style='cursor:pointer;'></span></td>
             </tr>";
                 }
 
