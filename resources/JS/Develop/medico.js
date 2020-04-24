@@ -307,7 +307,7 @@ function saveMed(parametros) {
         if (getQuerystring("id")) {
           if (parametros.estado == "19") {
             Swal.fire({
-              title: "Actualización Correcta. Desea la documentación?",
+              title: "Actualización Correcta. Desea actualizar la documentación?",
               icon: "info",
               showCancelButton: true,
               confirmButtonColor: "#3085d6",
