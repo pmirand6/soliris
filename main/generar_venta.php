@@ -122,6 +122,19 @@ $idPaciente = $_GET["idPac"];
                                     </div>
                                 </div>
                             </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label"><label class="label is-normal">Orden Compra</label></div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control has-icons-right form-group">
+                                            <input type="hidden" name="institucionSelected" id="institucionSelected">
+                                            <input id="institucion" name="institucion" type="text" placeholder="Seleccione Institución" class="form-control input" maxlength="45" data-id="" required>
+                                            <p id="helpInstitucion" class="help"></p>
+                                            <div id="result_institucion"></div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="column">
                             <div class="notification is-success">
@@ -235,6 +248,7 @@ $idPaciente = $_GET["idPac"];
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                     <div class="field is-grouped is-grouped-centered">

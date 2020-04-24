@@ -101,6 +101,7 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
             //Salvo el archivo
             $fileNameOtro = f_saveDocVentas($_FILES["file_otro"], $idVenta, $f_otro, $idPac, $tipoArchivo);
             
+            
             if ($fileNameOtro) {
                 $fileName = str_replace(' ', '-', $_FILES["file_otro"]["name"]);
                 $tmpName = $_FILES["file_otro"]["tmp_name"];

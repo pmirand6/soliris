@@ -370,6 +370,7 @@ function l_validate_form() {
 
   $("#fileRecetaPreviewDelete").click(function (e) { 
     e.preventDefault();
+    
     $("#file_receta").val('');
     l_ResetFileReceta();
   });
