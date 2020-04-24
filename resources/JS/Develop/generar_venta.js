@@ -8,6 +8,33 @@ var fv;
 
 $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
   $(document).ready(function () {
+    
+    const fileReceta = document.querySelector(
+      "#divFileReceta input[type=file]"
+    );
+    fileReceta.onchange = () => {
+      if (fileReceta.files.length > 0) {
+        const fileName = document.querySelector("#divFileReceta .file-name");
+        fileName.textContent = fileReceta.files[0].name;
+        $("#fileRecetaPreviewShow").on('click', function () {
+          window.open(window.URL.createObjectURL(fileReceta.files[0]));
+        });
+      }
+    };
+
+    const fileOtro = document.querySelector(
+      "#divFileOtro input[type=file]"
+    );
+    fileOtro.onchange = () => {
+      if (fileOtro.files.length > 0) {
+        const fileNameOtro = document.querySelector("#divFileOtro .file-name");
+        fileNameOtro.textContent = fileOtro.files[0].name;
+        $("#fileOtroPreviewShow").on('click', function () {
+          window.open(window.URL.createObjectURL(fileOtro.files[0]));
+        });
+      }
+    };
+
     $("#nv").window({
       modal: true,
       closed: true,
@@ -65,6 +92,14 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
   });
 });
 
+function previewReceta() {
+ 
+}
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+  }
+}
 function l_generar_venta() {
   let myForm = document.getElementById("frmVenta");
   var form = new FormData(myForm);
@@ -160,7 +195,7 @@ function l_validate_form() {
         extension: "jpg,png,gif,doc,pdf,zip,bmp,tif",
         type:
           "image/jpeg,image/png,image/gif,application/msword,application/pdf,application/zip,image/x-ms-bmp,image/tiff",
-        maxSize: 2097152, // 2048 * 1024
+        maxSize: 12097152, // 2048 * 1024
         message: "El archivo seleccionado no es válido",
       },
     },
@@ -289,24 +324,18 @@ function l_validate_form() {
   })
     .on("core.field.invalid", function (e) {
       if (e == "file_receta") {
-        $('i[data-field="file_receta"').removeClass("fa-times");
-        $("#divFileReceta").removeClass("is-info").addClass("is-danger");
+        l_ResetFileReceta();
       }
       if (e == "file_otro") {
-        $('i[data-field="file_otro"').removeClass("fa-times");
-        $("#divFileOtro").removeClass("is-info").addClass("is-danger");
+        l_ResetFileOtro();
       }
     })
     .on("core.field.valid", function (e) {
       if (e == "file_receta") {
-        $('i[data-field="file_receta"').removeClass("fa-check");
-        $("#iconReceta").removeClass("fa-upload").addClass("fa-check");
-        $("#divFileReceta").removeClass("is-danger").addClass("is-success");
+        l_setValidatedReceta();
       }
       if (e == "file_otro") {
-        $('i[data-field="file_otro"').removeClass("fa-check");
-        $("#iconFileOtro").removeClass("fa-upload").addClass("fa-check");
-        $("#divFileOtro").removeClass("is-danger").addClass("is-success");
+        l_setValidatedOtro();
       }
     })
     .on("core.form.valid", function () {
@@ -338,6 +367,43 @@ function l_validate_form() {
       fileValidators
     );
   });
+}
+
+function l_setValidatedOtro() {
+  $("#btnOtroActions").show();
+  $('#iconFileOtro').addClass("fa-check");
+  $('#iconFileOtro').removeClass("fa-exclamation-circle");
+  $('i[data-field="file_otro"').removeClass("fa-check");
+  $("#iconFileOtro").removeClass("fa-upload").addClass("fa-check");
+  $("#divFileOtro").removeClass("is-danger").addClass("is-success");
+}
+
+function l_setValidatedReceta() {
+  $("#btnRecetaActions").show();
+  $('#iconReceta').addClass("fa-check");
+  $('#iconReceta').removeClass("fa-exclamation-circle");
+  $('i[data-field="file_receta"').removeClass("fa-check");
+  $("#iconReceta").removeClass("fa-upload").addClass("fa-check");
+  $("#divFileReceta").removeClass("is-danger").addClass("is-success");
+}
+
+function l_ResetFileOtro() {
+  $("#btnOtroActions").hide();
+  $('#iconFileOtro').removeClass("fa-check");
+  $('#iconFileOtro').addClass("fa-exclamation-circle");
+  $("#divFileOtro .file-name").html('Seleccione Documento');
+  $('i[data-field="file_otro"').removeClass("fa-times");
+  $('i[data-field="file_otro"').addClass("fa-error");
+  $("#divFileOtro").removeClass("is-info").addClass("is-danger");
+}
+
+function l_ResetFileReceta() {
+  $("#btnRecetaActions").hide();
+  $('#iconReceta').removeClass("fa-check");
+  $('#iconReceta').addClass("fa-exclamation-circle");
+  $("#divFileReceta .file-name").html('Seleccione Documento');
+  $('i[data-field="file_receta"').removeClass("fa-times");
+  $("#divFileReceta").removeClass("is-info").addClass("is-danger");
 }
 
 function l_set_datepicker() {
