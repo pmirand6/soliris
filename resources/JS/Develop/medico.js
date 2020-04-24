@@ -52,10 +52,24 @@ $.getScript(
                   message: "El nombre del médico no puede quedar vacío",
                 },
                 stringLength: {
-                  min: 4,
+                  min: 2,
                   max: 100,
                   message:
-                    "El nombre del médico debe contener como mínimo 4 y como máximo 100 letras",
+                    "El nombre del médico debe contener como mínimo 3 y como máximo 100 letras",
+                },
+              },
+            },
+            apellido: {
+              message: "El apellido del médico no es válido",
+              validators: {
+                notEmpty: {
+                  message: "El apellido del médico no puede quedar vacío",
+                },
+                stringLength: {
+                  min: 3,
+                  max: 100,
+                  message:
+                    "El apellido del médico debe contener como mínimo 3 y como máximo 100 letras",
                 },
               },
             },
