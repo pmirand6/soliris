@@ -40,6 +40,7 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
     $cantUnidades = $_POST["cantUnidades"];
     $idCanal = $_POST["idCanal"];
     $usuario = $_SESSION["soliris_usuario"];
+    if(isset($_POST["oc"])){ $oc = $_POST["oc"];} else {$oc = '';}
 
 
 
@@ -50,7 +51,8 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
      '$cantUnidades', 
      '$idInstitucion', 
      '$idCanal', 
-     '$usuario')";
+     '$usuario',
+     '$oc')";
 
 
 

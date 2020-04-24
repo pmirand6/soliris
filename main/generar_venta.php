@@ -127,10 +127,7 @@ $idPaciente = $_GET["idPac"];
                                 <div class="field-body">
                                     <div class="field">
                                         <p class="control has-icons-right form-group">
-                                            <input type="hidden" name="institucionSelected" id="institucionSelected">
-                                            <input id="institucion" name="institucion" type="text" placeholder="Seleccione Institución" class="form-control input" maxlength="45" data-id="" required>
-                                            <p id="helpInstitucion" class="help"></p>
-                                            <div id="result_institucion"></div>
+                                            <input id="oc" name="oc" type="text" placeholder="Orden de Compra" class="form-control input" required>
                                         </p>
                                     </div>
                                 </div>

@@ -8,7 +8,6 @@ var fv;
 
 $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
   $(document).ready(function () {
-    
     const fileReceta = document.querySelector(
       "#divFileReceta input[type=file]"
     );
@@ -16,20 +15,18 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
       if (fileReceta.files.length > 0) {
         const fileName = document.querySelector("#divFileReceta .file-name");
         fileName.textContent = fileReceta.files[0].name;
-        $("#fileRecetaPreviewShow").on('click', function () {
+        $("#fileRecetaPreviewShow").on("click", function () {
           window.open(window.URL.createObjectURL(fileReceta.files[0]));
         });
       }
     };
 
-    const fileOtro = document.querySelector(
-      "#divFileOtro input[type=file]"
-    );
+    const fileOtro = document.querySelector("#divFileOtro input[type=file]");
     fileOtro.onchange = () => {
       if (fileOtro.files.length > 0) {
         const fileNameOtro = document.querySelector("#divFileOtro .file-name");
         fileNameOtro.textContent = fileOtro.files[0].name;
-        $("#fileOtroPreviewShow").on('click', function () {
+        $("#fileOtroPreviewShow").on("click", function () {
           window.open(window.URL.createObjectURL(fileOtro.files[0]));
         });
       }
@@ -92,9 +89,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
   });
 });
 
-function previewReceta() {
- 
-}
+function previewReceta() {}
 
 function readURL(input) {
   if (input.files && input.files[0]) {
@@ -111,6 +106,7 @@ function l_generar_venta() {
   form.append("idInstitucion", $("#institucion").data("id"));
   form.append("idCanal", $("#canal").data("id"));
   form.append("idPresentacion", $("#presentacion").val());
+  form.append("oc", $("#oc").val());
 
   var settings = {
     url: aplicacion + "/ajax/ajx.generar_venta.php",
@@ -121,18 +117,46 @@ function l_generar_venta() {
     data: form,
   };
 
-  $.ajax(settings).done(function (response) {
-    let data = JSON.parse(response);
-    console.log(data);
+  if ($("#oc").val() == "") {
     Swal.fire({
-      title: data.title,
-      icon: data.icon,
-      text: data.text,
-      timer: 5000,
-    }).then(function () {
-      parent.location.reload();
+      title: "Orden de Compra",
+      text: "No se especificó una orden de compra, desea continuar",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Cargar Venta",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.value) {
+        $.ajax(settings).done(function (response) {
+          let data = JSON.parse(response);
+          console.log(data);
+          Swal.fire({
+            title: data.title,
+            icon: data.icon,
+            text: data.text,
+            timer: 5000,
+          }).then(function () {
+            parent.location.reload();
+          });
+        });
+      } 
     });
-  });
+  } else {
+    $.ajax(settings).done(function (response) {
+      let data = JSON.parse(response);
+      console.log(data);
+      Swal.fire({
+        title: data.title,
+        icon: data.icon,
+        text: data.text,
+        timer: 5000,
+      }).then(function () {
+        parent.location.reload();
+      });
+    });
+  }
 }
 
 function l_set_paciente() {
@@ -368,24 +392,24 @@ function l_validate_form() {
     );
   });
 
-  $("#fileRecetaPreviewDelete").click(function (e) { 
+  $("#fileRecetaPreviewDelete").click(function (e) {
     e.preventDefault();
-    
-    $("#file_receta").val('');
+
+    $("#file_receta").val("");
     l_ResetFileReceta();
   });
 
-  $("#fileOtroDelete").click(function (e) { 
+  $("#fileOtroDelete").click(function (e) {
     e.preventDefault();
-    $("#file_otro").val('');
+    $("#file_otro").val("");
     l_ResetFileOtro();
   });
 }
 
 function l_setValidatedOtro() {
   $("#btnOtroActions").show();
-  $('#iconFileOtro').addClass("fa-check");
-  $('#iconFileOtro').removeClass("fa-exclamation-circle");
+  $("#iconFileOtro").addClass("fa-check");
+  $("#iconFileOtro").removeClass("fa-exclamation-circle");
   $('i[data-field="file_otro"').removeClass("fa-check");
   $("#iconFileOtro").removeClass("fa-upload").addClass("fa-check");
   $("#divFileOtro").removeClass("is-danger").addClass("is-success");
@@ -393,8 +417,8 @@ function l_setValidatedOtro() {
 
 function l_setValidatedReceta() {
   $("#btnRecetaActions").show();
-  $('#iconReceta').addClass("fa-check");
-  $('#iconReceta').removeClass("fa-exclamation-circle");
+  $("#iconReceta").addClass("fa-check");
+  $("#iconReceta").removeClass("fa-exclamation-circle");
   $('i[data-field="file_receta"').removeClass("fa-check");
   $("#iconReceta").removeClass("fa-upload").addClass("fa-check");
   $("#divFileReceta").removeClass("is-danger").addClass("is-success");
@@ -402,9 +426,9 @@ function l_setValidatedReceta() {
 
 function l_ResetFileOtro() {
   $("#btnOtroActions").hide();
-  $('#iconFileOtro').removeClass("fa-check");
-  $('#iconFileOtro').addClass("fa-exclamation-circle");
-  $("#divFileOtro .file-name").html('Seleccione Documento');
+  $("#iconFileOtro").removeClass("fa-check");
+  $("#iconFileOtro").addClass("fa-exclamation-circle");
+  $("#divFileOtro .file-name").html("Seleccione Documento");
   $('i[data-field="file_otro"').removeClass("fa-times");
   $('i[data-field="file_otro"').addClass("fa-error");
   $("#divFileOtro").removeClass("is-info").addClass("is-danger");
@@ -412,9 +436,9 @@ function l_ResetFileOtro() {
 
 function l_ResetFileReceta() {
   $("#btnRecetaActions").hide();
-  $('#iconReceta').removeClass("fa-check");
-  $('#iconReceta').addClass("fa-exclamation-circle");
-  $("#divFileReceta .file-name").html('Seleccione Documento');
+  $("#iconReceta").removeClass("fa-check");
+  $("#iconReceta").addClass("fa-exclamation-circle");
+  $("#divFileReceta .file-name").html("Seleccione Documento");
   $('i[data-field="file_receta"').removeClass("fa-times");
   $("#divFileReceta").removeClass("is-info").addClass("is-danger");
 }
