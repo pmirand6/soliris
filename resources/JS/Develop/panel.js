@@ -63,8 +63,11 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
                     "data": "patologia"
                 }, // 5
                 {
-                    "data": "uventa"
+                    "data": "venta"
                 }, // 6
+                {
+                    "data": "tventa"
+                }, 
 				{
                     "data": "estado"
                 }               
