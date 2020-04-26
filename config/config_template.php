@@ -5,11 +5,12 @@
 $nombreApp = explode(DIRECTORY_SEPARATOR, __DIR__);
 
 /**
+ * UTILIZAR ESTE ARCHIVO COMO TEMPLATE PARA 
+ * SETEAR LA CONFIGURACION DE LA APLICACIÓN
  * 
- * archivo de configuracion local
- * agregado al gitignore
  * 
  */
+
 
 define("_NAME", $nombreApp[3]);
 define("_NAME_NP", 'nota_pedido');
