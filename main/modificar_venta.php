@@ -52,6 +52,8 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 
     free_all_results($db);
 
+    // Se llama al store de modificacion de venta
+
     $SQL = "CALL `ST_SHOW_VENTA`('$idVenta')";
 
     
