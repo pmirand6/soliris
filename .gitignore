@@ -3,3 +3,9 @@ svn
 documentacion/
 resources/PHP/db.php
 ll.php
+resources/PHP/db.php
+
+/vendor/
+ajax/ajx.test.php
+config/config.php
+

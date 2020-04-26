@@ -1,0 +1,20 @@
+# Codeception Test Suite Configuration
+#
+# Suite for acceptance tests.
+# Perform tests in browser using the WebDriver or PhpBrowser.
+# If you need both WebDriver and PHPBrowser tests - create a separate suite.
+
+actor: AcceptanceTester
+modules:
+    enabled:
+        - WebDriver:
+             url: 'http://localhost:88/soliris'
+             browser: chrome # 'chrome' or 'firefox'
+             port: 4445 #en casa lo configure asi
+             window_size: false # disabled in ChromeDriver
+             restart: false
+         
+        #- PhpBrowser:
+        #    url: http://localhost:88/soliris
+        - \Helper\Acceptance
+    step_decorators: ~        

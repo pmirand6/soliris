@@ -26,7 +26,90 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
             window.location.href = window.location.href;
           }
         });
-
+		//VENTAS SIN NP
+		 $("#DataDVP").DataTable({
+            ajax: {
+                url: aplicacion + '/ajax/ajx.panel.php',
+                data: {
+                    oper: 'DataDVP'
+                },
+                method: 'POST'
+            },
+            "bPaginate": true,
+            "iDisplayLength": 5,
+            "sPaginationType": "full_numbers",
+            "processing": true,
+            //"sAjaxSource": aplicacion + '/ajax/ajx.panel.php?oper=DataPPA',
+            "bAutoWidth": true,
+            "sDom": '<"top"B>frt<"bottom"ip><"clear">',
+            "deferRender": true,
+            "columns": [
+				{
+                "data": "id_venta"
+                }, // 0
+                {
+                    "data": "name"
+                }, // 1
+                {
+                    "data": "sexo"
+                }, // 2
+                {
+                    "data": "cgestar"
+                }, // 4
+                {
+                    "data": "edad"
+                },
+                {
+                    "data": "patologia"
+                }, // 5
+                {
+                    "data": "uventa"
+                }, // 6
+				{
+                    "data": "estado"
+                }               
+                
+                ],
+                "columnDefs": [
+               
+                {"render": function(data, type, row) {
+                            var sexo = data;
+                            return sexo_icon(data);
+                        },
+                    "targets": [2],
+                    "searchable": false
+                }],
+                "buttons": [
+                { extend: 'copyHtml5', text: '<i class="fa fa-files-o" aria-hidden="true"></i> Copiar'},
+                { extend: 'print', text: '<i class="fa fa-print" aria-hidden="true"></i> Imprimir'},
+                { extend: 'excel', text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel'}
+                ],
+                "oLanguage": {
+                    "sSearch": "Filtrar:",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sPrevious": "Anterior",
+                        "sNext": "Siguiente",
+                        "sLast": "Último"
+                    },
+                    "sEmptyTable": "No se encontraron registros",
+                    "sZeroRecords": "No se encontraron registros",
+                    "sInfo": "Mostrando (_START_ a _END_ registro/s). Total de registro/s: _TOTAL_ ",
+                    "sInfoEmpty": "No se encontraron registros",
+                    "sProcessing": "Procesando",
+                    "sInfoFiltered": "(Filtrados de un total de _TOTAL_ registros)",
+                    buttons: {
+                        copyTitle: 'Copiado al Portapapeles',
+                        copyKeys: 'Presione <i>CRTL</i> ó <i>\u2318</i> + <i>C</i> para copiar la tabla en el documento que desee. <br><br>Para cancelar, haga click sobre este mensaje o presione la tecla ESC.',
+                        copySuccess: {
+                            _: '%d líneas copiadas',
+                            1: '1 línea copiada'
+                        }
+                    }
+                }
+            });
+   
 
         // // DataTable Ventas Pendientes de NP
         // $("#DataDVP").dataTable({

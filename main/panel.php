@@ -43,7 +43,7 @@ $session_grupo = $_SESSION["grupo"];
 
     switch ($var_grupo) {
         case 1:
-        $titulo = "Documentos Pendientes de Autorizar";
+        $titulo = "Ventas con Notas de Pedido Pendientes";
         $estado = " (RM.estado IN ('Pendiente', 'FV', 'Postergado') OR RM.estado IS NULL)";
         $limite = "";
         $acc = "nu";
@@ -87,14 +87,11 @@ $session_grupo = $_SESSION["grupo"];
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Sexo</th>
-                    <th>C. Ges</th>
-                    <th>F. Nac (DD/MM/YYYY)</th>
-                    <th>U. Venta (DD/MM/YYYY)</th>
-                    <th>Edad</th>
-                    <th>Patología</th>
+					<th>C. Gestar</th>
+					<th>Edad</th>
+					<th>Patología</th>
+                    <th>U. Venta</th>
                     <th>Estado</th>
-                    <th>Documentación</th>
-                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>

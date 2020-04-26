@@ -5,7 +5,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _BD;
 
 if (isset($_POST["id"]) and $_POST["id"] != 0 and !empty($_POST["id"] and $_POST["oper"] == 'showPaciente')) {
     $id = $_POST["id"];
-    $SQL = "CALL `ST_SHOW_PACIENTE`('$id');";
+    $SQL = "CALL ST_SHOW_PACIENTE('$id');";
     $result = mysqli_query($db, $SQL);
 
     $data = array();

@@ -11,7 +11,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _BD;
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
 
-  <title>Dosis</title>
+  <title>Presentaciones</title>
 
   <style type="text/css">
     /* Latest compiled and minified CSS */
@@ -40,7 +40,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _BD;
   <br>
   <div class="row col-sm-12 col-xs-12">
     <div class="col-sm-11 col-xs-11 text-left" style="margin-left: 10px">
-      <button type="button" title="Nueva Dosis" id="newDosis" class="btn btn-xs btn-warning pointer fa fa- text-right" style="margin-right: 10px;margin-bottom: 5px;"> Nueva Dosis</button>
+      <button type="button" title="Nueva Presentacion" id="newDosis" class="btn btn-xs btn-warning pointer fa fa- text-right" style="margin-right: 10px;margin-bottom: 5px;"> Nueva Presentacion</button>
       <br>
       <!-- Text Input para reconstruir las Tablas -->
       <input type="hidden" name="url" id="url">

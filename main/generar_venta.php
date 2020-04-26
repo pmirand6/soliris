@@ -21,6 +21,8 @@ $idPaciente = $_GET["idPac"];
     <style type="text/css">
         /* Bulma CSS */
         @import "../resources/CSS/bulma/css/bulma.css";
+        /** Bulma Modal */
+        @import "../resources/bulma-modal-fx/dist/css/modal-fx.min.css";
         /* Font-Awesome */
         @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
         /* Iconos de Estados */
@@ -112,10 +114,20 @@ $idPaciente = $_GET["idPac"];
                                 <div class="field-body">
                                     <div class="field">
                                         <p class="control has-icons-right form-group">
-                                        <input type="hidden" name="institucionSelected" id="institucionSelected">
+                                            <input type="hidden" name="institucionSelected" id="institucionSelected">
                                             <input id="institucion" name="institucion" type="text" placeholder="Seleccione Institución" class="form-control input" maxlength="45" data-id="" required>
                                             <p id="helpInstitucion" class="help"></p>
                                             <div id="result_institucion"></div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label"><label class="label is-normal">Orden Compra</label></div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control has-icons-right form-group">
+                                            <input id="oc" name="oc" type="text" placeholder="Orden de Compra" class="form-control input" required>
                                         </p>
                                     </div>
                                 </div>
@@ -126,19 +138,24 @@ $idPaciente = $_GET["idPac"];
                                 <p class="heading">Documentación</p>
                             </div>
                             <div class="field is-horizontal">
-                                <div class="field-label"><label class="label is-normal">Receta</label></div>
+                                <div class="field-label is-normal">
+                                    <label class="label">Receta</label>
+                                </div>
                                 <div class="field-body">
                                     <div class="field">
-                                        <div class="control has-icons-right">
+                                        <p class="control is-expanded has-icons-left has-icons-right">
                                             <input id="f_receta" name="f_receta" type="text" placeholder="Fecha de Documento" class="form-control input date">
+                                            <span class="icon is-small is-left">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
                                             <span class="icon is-small is-right">
                                                 <i data-field="f_receta" class=""></i>
                                             </span>
-                                        </div>
-                                        <div class="fv-plugins-message-container"></div>
+                                            <span class="fv-plugins-message-container"></span>
+                                        </p>
                                     </div>
                                     <div class="field">
-                                        <div class="control file is-info has-icons-right" id="divFileReceta">
+                                        <p class="control file is-expanded is-small is-info is-boxed has-icons-left has-icons-right" id="divFileReceta">
                                             <label class="file-label">
                                                 <input class="file-input" type="file" name="file_receta" id="file_receta">
                                                 <span class="file-cta">
@@ -149,40 +166,52 @@ $idPaciente = $_GET["idPac"];
                                                         Receta
                                                     </span>
                                                 </span>
+                                                <span class="file-name">
+                                                    Seleccione Documento
+                                                </span>
+                                                <span class="fv-plugins-message-container"></span>
                                             </label>
-                                            <span class="icon is-small is-right">
-                                                <i data-field="lastName" class=""></i>
-                                            </span>
-                                        </div>
-                                        <div class="fv-plugins-message-container"></div>
+                                        </p>
+                                        <span class="buttons" style="display: none" id="btnRecetaActions">
+                                            <a class="button is-link is-light" title="Ver Documento" id="fileRecetaPreviewShow"><i class="fa fa-search-plus"></i></a>
+                                            <a class="button is-danger is-light" title="Borrar Documento"><i id="fileRecetaPreviewDelete" class="fa fa-trash"></i></a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                            <br>
+
+
+                            <!-- Agregar Otro Documento -->
                             <div class="field is-grouped is-grouped-centered has-icon-left" id="divAddDoc">
                                 <p class="control">
                                     <button class="button is-info is-small" id="btnAddDoc" type="button">
                                         <span class="icon">
                                             <i class="fa fa-plus"></i>
                                         </span>
-                                        <span>Agregar Documento</span> 
+                                        <span>Agregar Documento</span>
                                     </button>
                                 </p>
                             </div>
+                            <!-- Fields Otro Documento -->
                             <div class="field is-horizontal" id="divOtroDocumento" style="display:none;">
-                                <div class="field-label"><label class="label is-normal">Otro</label></div>
+                                <div class="field-label is-normal">
+                                    <label class="label">Otro</label>
+                                </div>
                                 <div class="field-body">
                                     <div class="field">
-                                        <div class="control has-icons-right">
+                                        <p class="control is-expanded has-icons-left has-icons-right">
                                             <input id="f_otro" name="f_otro" type="text" placeholder="Fecha de Documento" class="input date">
+                                            <span class="icon is-small is-left">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
                                             <span class="icon is-small is-right">
                                                 <i data-field="f_otro" class=""></i>
                                             </span>
-                                        </div>
-                                        <div class="fv-plugins-message-container"></div>
+                                            <span class="fv-plugins-message-container"></span>
+                                        </p>
                                     </div>
-                                    <div class="field fv-plugins-icon-container">
-                                        <div class="control file is-info has-icons-right" id="divFileOtro">
+                                    <div class="field">
+                                        <p class="control file is-expanded is-small is-info is-boxed has-icons-left has-icons-right" id="divFileOtro">
                                             <label class="file-label">
                                                 <input class="file-input" type="file" name="file_otro" id="file_otro">
                                                 <span class="file-cta">
@@ -193,25 +222,30 @@ $idPaciente = $_GET["idPac"];
                                                         Otro
                                                     </span>
                                                 </span>
+                                                <span class="file-name">
+                                                    Seleccione Documento
+                                                </span>
+                                                <span class="buttons is-centered" style="display: none" id="btnOtroActions">
+                                                    <span class="button is-link is-light" title="Ver Documento" id="fileOtroPreviewShow"><i class="fa fa-search-plus"></i></span>
+                                                    <span class="button is-danger is-light" title="Borrar Documento" id="fileOtroDelete"><i class="fa fa-trash"></i></span>
+                                                </span>
+                                                <span class="fv-plugins-message-container"></span>
                                             </label>
-                                            <span class="icon is-small is-right">
-                                                <i data-field="f_otro" class=""></i>
-                                            </span>
-                                        </div>
-                                        <div class="fv-plugins-message-container"></div>
+                                        </p>
                                     </div>
                                     <div class="field">
-                                        <p class="control">
+                                        <p class="control is-expanded">
                                             <button class="button is-danger is-small" id="btnRemDoc" type="button">
                                                 <span class="icon is-small">
                                                     <i class="fa fa-times"></i>
                                                 </span>
-                                                <span>Borrar</span> 
+                                                <span>Borrar</span>
                                             </button>
                                         </p>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                     <div class="field is-grouped is-grouped-centered">
@@ -232,14 +266,13 @@ $idPaciente = $_GET["idPac"];
 
     </section>
 
-
-
     <?php
     include "../resources/Includes/BootstrapHTML5.php";
     include "../resources/Includes/DatePicker.php";
     include "../resources/Includes/EasyUI.php";
     include "../resources/Includes/formvalidation-bulma.php";
     include "../resources/Includes/sweetalert2.php";
+    include "../resources/Includes/BulmaModal.php";
     ?>
 
 

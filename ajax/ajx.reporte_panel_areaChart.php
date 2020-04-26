@@ -1,55 +1,63 @@
-<?php 
-    
+<?php
+
 require_once('../config/config.php');
-    include $_SERVER['DOCUMENT_ROOT'] . _BD;
-    include $_SERVER['DOCUMENT_ROOT'] . _FN;
-	if(isset($_GET["fecha"]) AND !empty($_GET["fecha"])){
-        $fecha = $_GET["fecha"];
-	}
-	else
-	{
-		$fecha= date('Y-m');
-	}
-		
-	
-    $anio = substr($fecha, 0, 4);
+include $_SERVER['DOCUMENT_ROOT'] . _BD;
+include $_SERVER['DOCUMENT_ROOT'] . _FN;
+if (isset($_GET["fecha"]) and !empty($_GET["fecha"])) {
+    $fecha = $_GET["fecha"];
+} else {
+    $fecha = date('Y-m');
+}
 
-    $totYears = "";
-    $SQL = "
-            SELECT DISTINCT(YEAR(fecha_venta)) as anios
-            FROM soliris_maestro
-            WHERE estado IN ('NP','Historico');";
 
-    $result = mysqli_query($db, $SQL);
-    while ($row = mysqli_fetch_assoc($result)) {
-        $totYears .= $row["anios"] . ",";
-    }
-    $totYears = trim($totYears,",");
+$anio = substr($fecha, 0, 4);
 
-    $firstAnio = substr($totYears, 0, 4);
+$totYears = "";
+$SQL = "
+    SELECT DISTINCT(YEAR(fecha_venta)) as anios
+    FROM maestro_ventas
+    WHERE estado_id IN (23);";
 
-    if (empty($firstAnio)) {
-        $firstAnio = 'normal';
-    }
+$result = mysqli_query($db, $SQL);
+while ($row = mysqli_fetch_assoc($result)) {
+    $totYears .= $row["anios"] . ",";
+}
+$totYears = trim($totYears, ",");
 
-    $RI = "";
-    $SQLRI = "SELECT COUNT(*) as CANT, YEAR(RM.fecha_venta) FROM soliris_maestro as RM WHERE RM.tipo = 'RI' GROUP BY YEAR(RM.fecha_venta);";
-    $resultRI = mysqli_query($db, $SQLRI);
-    while ($row2 = mysqli_fetch_assoc($resultRI)) {
-        $RI .= $row2["CANT"] . ",";
-    }
-    $RI = trim($RI,",");
+$firstAnio = substr($totYears, 0, 4);
 
-    $FU = "";
-    $SQLFU = "SELECT COUNT(*) as CANT, YEAR(RM.fecha_venta) FROM soliris_maestro as RM WHERE RM.tipo = 'FU' GROUP BY YEAR(RM.fecha_venta);";
-    $resultFU = mysqli_query($db, $SQLFU);
-    while ($row3 = mysqli_fetch_assoc($resultFU)) {
-        $FU .= $row3["CANT"] . ",";
-    }
-    $FU = trim($FU,",");
+if (empty($firstAnio)) {
+    $firstAnio = 'normal';
+}
+
+$RI = "";
+$SQLRI = "SELECT COUNT(*) AS CANT, YEAR(m.fecha_venta)
+FROM maestro_ventas AS m
+WHERE m.venta_tipo_id = 1
+GROUP BY YEAR(m.fecha_venta)
+;";
+$resultRI = mysqli_query($db, $SQLRI);
+while ($row2 = mysqli_fetch_assoc($resultRI)) {
+    $RI .= $row2["CANT"] . ",";
+}
+$RI = trim($RI, ",");
+
+$FU = "";
+$SQLFU = "SELECT COUNT(*) AS CANT, YEAR(m.fecha_venta)
+FROM maestro_ventas AS m
+WHERE m.venta_tipo_id = 2
+GROUP BY YEAR(m.fecha_venta)
+;";
+$resultFU = mysqli_query($db, $SQLFU);
+while ($row3 = mysqli_fetch_assoc($resultFU)) {
+    $FU .= $row3["CANT"] . ",";
+}
+$FU = trim($FU, ",");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -59,19 +67,19 @@ require_once('../config/config.php');
 
     <style type="text/css">
         /* Latest compiled and minified CSS */
-            @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
+        @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
         /* Optional theme */
-            @import "../resources/Bootstrap-3.3.1/css/bootstrap-theme.min.css";
+        @import "../resources/Bootstrap-3.3.1/css/bootstrap-theme.min.css";
         /* Font-Awesome */
-            @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
+        @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
         /* Custom CSS */
-
     </style>
 </head>
+
 <body>
 
 
-    <div class="col-sm-12 col-xs-12 text-right" >
+    <div class="col-sm-12 col-xs-12 text-right">
         <div class="area" style="min-width: 210px; height: 300px; margin: 0 auto; border: thin 1px"></div>
     </div>
 
@@ -89,7 +97,7 @@ require_once('../config/config.php');
                 xAxis: {
                     allowDecimals: false,
                     labels: {
-                        formatter: function () {
+                        formatter: function() {
                             return this.value; // clean, unformatted number for year
                         }
                     }
@@ -99,7 +107,7 @@ require_once('../config/config.php');
                         text: 'Unidades Vendidas'
                     },
                     labels: {
-                        formatter: function () {
+                        formatter: function() {
                             return this.value / 1000 + 'k';
                         }
                     }
@@ -109,7 +117,7 @@ require_once('../config/config.php');
                 },
                 plotOptions: {
                     area: {
-                        pointStart: '<?php echo $firstAnio;?>',
+                        pointStart: '<?php echo $firstAnio; ?>',
                         marker: {
                             enabled: false,
                             symbol: 'circle',
@@ -124,15 +132,14 @@ require_once('../config/config.php');
                 },
                 series: [{
                     name: 'FU',
-                    <?php  echo "data: [" . $FU . "]";?>
+                    <?php echo "data: [" . $FU . "]"; ?>
                 }, {
                     name: 'RI',
-                    <?php  echo "data: [" . $RI . "]";?>
+                    <?php echo "data: [" . $RI . "]"; ?>
                 }]
             });
         });
     </script>
 </body>
+
 </html>
-
-

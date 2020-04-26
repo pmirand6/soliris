@@ -185,7 +185,7 @@ function l_set_table_pac() {
           window.location.href =
             aplicacion +
             "/main/modificar_venta.php/?idVenta=" +
-            u_venta_estado_id +
+            u_idVenta +
             "&read=true";
         }
       });

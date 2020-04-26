@@ -12,18 +12,19 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 <?php
 if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
     free_all_results($db);
-    
+
     $id = $_GET["id"];
     $SQL = "CALL `ST_SHOW_MEDICO`('$id')";
-    
+
+
     $result = mysqli_query($db, $SQL);
 
     while ($med = mysqli_fetch_assoc($result)) {
-        
+
         $vw_id = $med["id"];
         $id = $med["id"];
         $nombre = strtoupper($med["nombre"]);
-        $nombre = strtoupper($med["apellido"]);
+        $apellido = strtoupper($med["apellido"]);
         $matricula_tipo = $med["matricula_tipo"];
         $matricula_numero = $med["matricula_numero"];
         $lugar = $med["lugar"];
@@ -33,6 +34,7 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
         $email = $med["mail"];
         $domicilio = $med["domicilio"];
         $localidad = $med["localidad"];
+        $notas_mod = $med["notas_mod"];
         $fecha_cap = $med["fecha_cap"];
         if (!empty($med["especialidad_nombre"])) {
             $especialidad = $med["especialidad_nombre"];
@@ -51,8 +53,8 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
         } else {
             $u_venta = "Sin Ventas";
         }
-        
-        
+
+
         $estado = $med["estado"];
     };
     mysqli_free_result($result);
@@ -60,6 +62,7 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
     $vw_id = "";
     $id = "";
     $nombre = "";
+    $apellido = "";
     $matricula_tipo = "";
     $matricula_numero = "";
     $lugar = "";
@@ -75,6 +78,7 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
     $apm = "";
     $u_venta = "";
     $estado = "";
+    $notas_mod = "";
 }
 
 /* Combo de Especialidad */
@@ -89,7 +93,24 @@ while ($rowEsp = mysqli_fetch_assoc($resultEsp)) {
     }
 };
 
-mysqli_free_result($resultEsp);
+/* Combo de Especialidad */
+$sqlEstados = "SELECT id, valor FROM maestro_estado m WHERE m.referencia = 'medico'";
+free_all_results($db);
+$resultEst = mysqli_query($db, $sqlEstados);
+$arr_select_est = "";
+$est_array = explode(',', $estado);
+while ($rowEst = mysqli_fetch_assoc($resultEst)) {
+    foreach ($est_array as $est) {
+
+        if ($rowEst["id"] == '30') {
+            $arr_select_est .= '<option data-id= "' . $rowEst["id"] . '" value="' . $rowEst["valor"] . '" ' . f_p_selected($est, $rowEst["valor"]) . ' disabled>' . $rowEst["valor"] . '</option>;';
+        } else {
+            $arr_select_est .= '<option data-id= "' . $rowEst["id"] . '" value="' . $rowEst["valor"] . '" ' . f_p_selected($est, $rowEst["valor"]) . '>' . $rowEst["valor"] . '</option>;';
+        }
+    }
+};
+
+mysqli_free_result($resultEst);
 /* ------------------ */
 
 /* Combo de APM */
@@ -113,18 +134,16 @@ $resultMat_Tipo = mysqli_query($db, $SQLmat_tipo);
 $arr_select_mat = "";
 
 while ($rowMat = mysqli_fetch_assoc($resultMat_Tipo)) {
-    
+
     if ($rowMat["id"] == 24) {
-        $arr_select_mat .= '<optgroup label="'. $rowMat["tipo"] .'">';
+        $arr_select_mat .= '<optgroup label="' . $rowMat["tipo"] . '">';
         $arr_select_mat .= '<option value="' . $rowMat["id"] . '" ' . f_p_selected($matricula_tipo, $rowMat["id"]) . '>' . $rowMat["valor"] . '</option>;';
         $arr_select_mat .= '</optgroup>';
     } else {
-        $arr_select_mat .= '<optgroup label="'. $rowMat["tipo"] .'">';
+        $arr_select_mat .= '<optgroup label="' . $rowMat["tipo"] . '">';
         $arr_select_mat .= '<option value="' . $rowMat["id"] . '" ' . f_p_selected($matricula_tipo, $rowMat["id"]) . '>' . $rowMat["valor"] . '</option>;';
         $arr_select_mat .= '</optgroup>';
-    
     }
-    
 };
 
 mysqli_free_result($resultMat_Tipo);
@@ -141,6 +160,8 @@ mysqli_free_result($resultMat_Tipo);
     <style type="text/css">
         /* Latest compiled and minified CSS */
         @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
+        /**sweeralert2 */
+        @import '../resources/sweetalert2/dist/sweetalert2.css';
         /* Font-Awesome */
         @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
         /* Include Bootstrap Datepicker */
@@ -183,6 +204,7 @@ mysqli_free_result($resultMat_Tipo);
 </head>
 
 <body>
+   
     <form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form" autocomplete="off">
         <fieldset class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10">
             <!-- Form Name -->
@@ -204,13 +226,13 @@ mysqli_free_result($resultMat_Tipo);
             <?php
             }
             ?>
-            <!-- Nombre -->
+            <!-- Apellido -->
             <div class="form-group">
                 <label class="col-sm-4 col-xs-4 control-label" for="nombre">Apellido</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-user-md"></span></div>
-                        <input id="apellido" name="apellido" type="text" placeholder="Apellido" class="form-control input-md" maxlength="200" required="" value="<?php echo $nombre ?>" <?= disable_campo($_SESSION["grupo"], $id); ?>>
+                        <input id="apellido" name="apellido" type="text" placeholder="Apellido" class="form-control input-md" maxlength="200" required="" value="<?php echo $apellido ?>" <?= disable_campo($_SESSION["grupo"], $id); ?>>
                     </div>
                 </div>
             </div>
@@ -229,9 +251,9 @@ mysqli_free_result($resultMat_Tipo);
                 <label class="col-sm-4 col-xs-4 control-label" for="lugar">Tipo Matricula</label>
                 <div class="col-sm-5 col-xs-8 selectContainer">
                     <div class="input-group">
-                    <div class="input-group-addon"><span class="fa fa-id-card"></span></div>
+                        <div class="input-group-addon"><span class="fa fa-id-card"></span></div>
                         <select class="selectpicker form-control" id="matricula_tipo" name="matricula_tipo" data-live-search="true" title="Seleccione el tipo de Matricula">
-                            <?=$arr_select_mat;?>
+                            <?= $arr_select_mat; ?>
                         </select>
                     </div>
                 </div>
@@ -378,9 +400,7 @@ mysqli_free_result($resultMat_Tipo);
                         <div class="input-group">
                             <div class="input-group-addon"><span id="icon_estado" class="fa fa-check-circle-o"></span></div>
                             <select id="estado" name="estado" class="form-control selectpicker" <?= disable_campo($_SESSION["grupo"], $id); ?>>
-                                <option> Seleccione Estado</option>
-                                <option value="Activo" <?php echo f_p_selected('Activo', $estado) ?>>Activo</option>
-                                <option value="Inactivo" <?php echo f_p_selected('Inactivo', $estado) ?>>Inactivo</option>
+                                <?= $arr_select_est; ?>
                             </select>
                         </div>
                     </div>
@@ -389,53 +409,27 @@ mysqli_free_result($resultMat_Tipo);
             }
             ?>
 
+            <!-- Notas -->
+            <?php if ($notas_mod != '') { ?>
+
+                <div class="form-group">
+                    <label class="col-sm-4 col-xs-4 control-label" for="nota_mod">Última Nota</label>
+                    <div class="col-sm-4 col-xs-6">
+                        <div class="input-group">
+                            <div class="input-group-addon"><span class="fa fa-sticky-note-o"></span></div>
+                            <textarea type="text" class="form-control disabled" disabled><?php echo $notas_mod ?></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            <?php } ?>
+
             <?php
             if (isset($id) and $id != "") {
 
-                echo "<div class='form-group'>
-                <fieldset>
-                    <legend>
-                        Documentación
-                        <i id=\"editDocs\" class='fa fa-edit' title='Editar Documentación' style='cursor:pointer;'></i>
-                        <i id=\"histDocs\" class='fa fa-history' title='Historial de Documentación' style='cursor:pointer;'></i>
-                    </legend>
-                    ";
-
-                $SQLdoc = "CALL `ST_LIST_DOCS_MED`($id)";
-                free_all_results($db);
-                $resultdoc = mysqli_query($db, $SQLdoc);
-
-                while ($doc = mysqli_fetch_assoc($resultdoc)) {
-                    $extension = "";
-                    $tipo = "";
-                    $documento = "";
-
-                    $documento = urlencode($doc["documento"]);
-                    $extension = strtolower(pathinfo($doc["documento"], PATHINFO_EXTENSION));
-                    $tipo = $doc["tipo"];
-                    $estado = $doc["estado"];
-                    $fecha = $doc["fecha_documento"];
-
-
-                    echo "
-            <div class=\"col-sm-4 col-xs-4\" onclick = \"f_openfileMed('$id', '$documento')\"  style='cursor:pointer;'>
-                <ul>
-                    <li class=\"li\">
-                        <span class=\"file_extension _$extension\" title=\"$tipo\"></span>
-                        <b>$tipo - $fecha</b>
-                    </li>
-                </ul>
-            </div>
-            ";
-                };
-                mysqli_free_result($resultdoc);
-
-                echo "
-            </fieldset>
-        </div>
-        ";
+                include "../vistas/medico/documentacion_medico.php";
             }
-            ?>
+           ?>
 
             <hr>
 
@@ -455,11 +449,11 @@ mysqli_free_result($resultMat_Tipo);
     include "../resources/Includes/DatePicker.php";
     include "../resources/Includes/FormValidation.php";
     include "../resources/Includes/BootstrapSelect.php";
+    include "../resources/Includes/sweetalert2.php";
     ?>
 
     <!-- Custom JS -->
-    <script type="text/javascript" src="../resources/JS/Develop/medico.js"></script>
-    <!--        <script type="text/javascript" src="../resources/JS/medico.min.js"></script>-->
+    <script src="../resources/JS/Develop/medico.js"></script>
 </body>
 
 </html>

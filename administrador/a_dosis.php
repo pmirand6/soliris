@@ -14,7 +14,8 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
 <?php
 if(isset($_GET["id"])){
     $id = $_GET["id"];
-    $SQL = "SELECT * FROM auxiliar WHERE tipo = 'dosis' AND id = '$id'";
+    $SQL = "SELECT * FROM presentacion WHERE id = '$id'";
+    
     $result = mysqli_query($db, $SQL);
 
     while ($can = mysqli_fetch_assoc($result)) {
@@ -68,7 +69,7 @@ if(isset($_GET["id"])){
     <form id="frm-dosis" class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form">
         <fieldset class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10">
             <!-- Form Name -->
-            <legend>Datos de la Dosis</legend>
+            <legend>Datos de la Presentación</legend>
             <?php
             if (isset($id) AND $id != "") {
                 ?>
@@ -93,8 +94,7 @@ if(isset($_GET["id"])){
                 <div class="col-sm-4 col-xs-4">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-medkit"></span></div>
-                        <input id="nombre" name="nombre" type="text" placeholder="Concentración" class="form-control input-md" maxlength="10" required="" value="<?php $nombre = explode(' ',trim($nombre)); echo $nombre[0];?>">
-                        <div class="input-group-addon"><span>Mg</span></div>
+                        <input id="nombre" name="nombre" type="text" placeholder="Concentración" class="form-control input-md" maxlength="10" required="" value="<?php if($nombre == '') {echo $nombre;} else {$nombre = explode(' ',trim($nombre)); echo $nombre[1];}?>">
                     </div>
 
                 </div>

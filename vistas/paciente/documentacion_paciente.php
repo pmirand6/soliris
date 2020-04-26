@@ -53,7 +53,7 @@
                     </td>
                     <td>
                         <div class=\"col-sm-6 col-xs-6\" 
-                        onclick=\"openFileInModal('{$documento}')\" style=\"cursor:pointer;\">
+                        onclick=\"openFile('{$documento}')\" style=\"cursor:pointer;\">
                         <span class=\"file_extension _{$extension}\"></span>
                     </td>
                 </tr>
@@ -114,7 +114,7 @@
                         </td>
                         <td>
                             <div class=\"col-sm-6 col-xs-6\" 
-                            onclick=\"openFileInModal('{$documento}')\" style=\"cursor:pointer;\">
+                            onclick=\"openFile('{$documento}')\" style=\"cursor:pointer;\">
                             <span class=\"file_extension _{$extension}\"></span>
                         </td>
                     </tr>

@@ -6,8 +6,8 @@ var idPac;
 
 var fv;
 
-$.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
-  $(document).ready(function() {
+$.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
+  $(document).ready(function () {
     $("#nv").window({
       modal: true,
       closed: true,
@@ -20,13 +20,19 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
       inline: true,
       collapsible: false,
       constrain: true,
-      onBeforeClose: function() {
+      onBeforeClose: function () {
         window.location.href = window.location.href;
-      }
+      },
     });
-    $(".panel-tool-close").click(function() {
+    $(".panel-tool-close").click(function () {
       window.location.href = window.location.href;
     });
+
+    //Contadores de llamados a funciones de seteo
+    // Se establecen para no llamar a la funcion de seteo mas de una vez
+    var countCallFMed = 0;
+    var countCallFCan = 0;
+    var countCallFInt = 0;
 
     l_validate_form();
     l_set_select_medico();
@@ -35,8 +41,40 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
     l_set_producto();
     l_set_paciente();
 
-    $("#canVenta").click(function(e) {
+    $("#canModificacion").click(function (e) {
       parent.location.reload();
+    });
+    $("#canVenta").click(function (e) {
+      e.preventDefault();
+      Swal.fire({
+        title: "¿Esta seguro/a de cancelar la venta?",
+        text: "Este estado no se puede revertir!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, cancelar!",
+      }).then((result) => {
+        if (result.value) {
+          $.post(
+            aplicacion + "/ajax/ajx.modificar_venta.php",
+            {
+              idVenta: getQuerystring("idVenta"),
+              oper: "cancelar_venta",
+            },
+            function (data, textStatus, jqXHR) {
+              Swal.fire({
+                title: data.title,
+                text: data.text,
+                icon: data.icon,
+              }).then((result) => {
+                parent.location.reload();
+              });
+            },
+            "json"
+          );
+        }
+      });
     });
   });
 });
@@ -45,8 +83,9 @@ function l_modificar_venta() {
   let myForm = document.getElementById("frmModVenta");
   var form = new FormData(myForm);
   form.append("oper", "modificar_venta");
+  form.append("idPac", $("#idPac").val());
   form.append("idProducto", $("#producto").val());
-  form.append("idPac", getQuerystring("idPac"));
+  form.append("idVenta", getQuerystring("idVenta"));
   form.append("idMedico", $("#medico").data("id"));
   form.append("cantUnidades", $("#cantDosis").val());
   form.append("idInstitucion", $("#institucion").data("id"));
@@ -59,18 +98,18 @@ function l_modificar_venta() {
     processData: false,
     mimeType: "multipart/form-data",
     contentType: false,
-    data: form
+    data: form,
   };
 
-  $.ajax(settings).done(function(response) {
+  $.ajax(settings).done(function (response) {
     let data = JSON.parse(response);
     console.log(data);
     Swal.fire({
       title: data.title,
       icon: data.icon,
       text: data.text,
-      timer: 5000
-    }).then(function() {
+      timer: 5000,
+    }).then(function () {
       //parent.location.reload();
     });
   });
@@ -80,8 +119,8 @@ function l_set_paciente() {
   $.post(
     aplicacion + "/ajax/ajx.paciente.php",
     { oper: "showPaciente", id: getQuerystring("idPac") },
-    function(data) {
-      $.map(data, function(e) {
+    function (data) {
+      $.map(data, function (e) {
         $("#nombrePaciente").html(e.nombre_completo);
       });
     },
@@ -93,8 +132,8 @@ function l_set_producto() {
   $.getJSON(
     aplicacion + "/ajax/ajx.producto.php",
     { oper: "getproducto" },
-    function(data, textStatus, jqXHR) {
-      $.each(data, function(i, v) {
+    function (data, textStatus, jqXHR) {
+      $.each(data, function (i, v) {
         $("#producto").val(v.id);
         $("#productoTitle").html(v.valor);
         l_set_select_presentacion(v.id);
@@ -104,14 +143,14 @@ function l_set_producto() {
 }
 
 function l_validate_form() {
-  const noExiste = function() {
+  const noExiste = function () {
     return {
-      validate: function(input) {
+      validate: function (input) {
         return {
           valid: false,
-          message: "* No se encontraron coincidencias"
+          message: "* No se encontraron coincidencias",
         };
-      }
+      },
     };
   };
 
@@ -119,27 +158,27 @@ function l_validate_form() {
     validators: {
       date: {
         format: "DD-MM-YYYY",
-        message: "El formato es invalido"
+        message: "El formato es invalido",
       },
       notEmpty: {
-        message: "Debe indicar una fecha para este Documento"
-      }
-    }
+        message: "Debe indicar una fecha para este Documento",
+      },
+    },
   };
 
   const fileValidators = {
     validators: {
       notEmpty: {
-        message: "Debe Seleccionar un Archivo"
+        message: "Debe Seleccionar un Archivo",
       },
       file: {
         extension: "jpg,png,gif,doc,pdf,zip,bmp,tif",
         type:
           "image/jpeg,image/png,image/gif,application/msword,application/pdf,application/zip,image/x-ms-bmp,image/tiff",
         maxSize: 2097152, // 2048 * 1024
-        message: "El archivo seleccionado no es válido"
-      }
-    }
+        message: "El archivo seleccionado no es válido",
+      },
+    },
   };
 
   // Registrando custom validator
@@ -151,101 +190,104 @@ function l_validate_form() {
       medico: {
         validators: {
           noExiste: {
-              enable: false
+            enable: false,
           },
           stringLength: {
             min: 3,
-            message: "Ingrese más de 3 letras"
+            message: "Ingrese más de 3 letras",
           },
           notEmpty: {
-            message: 'Este campo no puede quedar vacío'
+            message: "Este campo no puede quedar vacío",
           },
           checkMedico: {
             message: "Seleccione un médico del Listado",
-            callback: function(input) {
+            callback: function (input) {
               const medicoSelected = document
-                .getElementById("frmVenta")
+                .getElementById("frmModVenta")
                 .querySelector('[name="medicoSelected"]').value;
               if (input == "" && medicoSelected == "") {
                 return true;
               } else {
                 return input.value == medicoSelected;
               }
-            }
-          }
-        }
+            },
+          },
+        },
       },
       presentacion: {
         validators: {
-          notEmpty: {   
-            message: "Debe seleccionar una dosís"
-          }
-        }
+          notEmpty: {
+            message: "Debe seleccionar una dosís",
+          },
+        },
       },
       cantDosis: {
         message: "El nombre de la ciudad no es válida",
         validators: {
           regexp: {
             regexp: /^[0-9]*$/,
-            message: "Este campo debe contener solo números."
+            message: "Este campo debe contener solo números.",
           },
           greaterThan: {
             min: 1,
-            message: "El valor indicado debe ser mayor a 0"
+            message: "El valor indicado debe ser mayor a 0",
           },
           notEmpty: {
-            message: "Debe indicar la cantidad de Dosis"
-          }
-        }
+            message: "Debe indicar la cantidad de Dosis",
+          },
+        },
       },
       canal: {
         validators: {
           noExiste: {
-            enable: false
+            enable: false,
           },
           stringLength: {
             min: 3,
-            message: "Ingrese más de 3 letras"
+            message: "Ingrese más de 3 letras",
+          },
+          notEmpty: {
+            message: "Debe Seleccionar un Canal",
           },
           checkCanal: {
             message: "Seleccione un canal del Listado",
-            callback: function(input) {
+            callback: function (input) {
               const canalSelected = document
-                .getElementById("frmVenta")
+                .getElementById("frmModVenta")
                 .querySelector('[name="canalSelected"]').value;
               if (input == "" && canalSelected == "") {
                 return true;
               } else {
                 return input.value == canalSelected;
               }
-            }
-          }
-        }
+            },
+          },
+        },
       },
       institucion: {
         validators: {
           noExiste: {
-            enable: false
+            enable: false,
           },
           stringLength: {
             min: 3,
-            message: "Ingrese más de 3 letras"
+            message: "Ingrese más de 3 letras",
           },
           checkInstitucion: {
             message: "Seleccione una Institución del Listado",
-            callback: function(input) {
+            callback: function (input) {
               const institucionSelected = document
-                .getElementById("frmVenta")
+                .getElementById("frmModVenta")
                 .querySelector('[name="institucionSelected"]').value;
               if (input == "" && institucionSelected == "") {
                 return true;
               } else {
                 return input.value == institucionSelected;
               }
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
       /*f_receta: dateValidators,
       file_receta: fileValidators*/
     },
@@ -254,7 +296,7 @@ function l_validate_form() {
         // These checkers are treated as callback validator
         checkMedico: "callback",
         checkInstitucion: "callback",
-        checkCanal: "callback"
+        checkCanal: "callback",
       }),
       trigger: new FormValidation.plugins.Trigger(),
       bulma: new FormValidation.plugins.Bulma(),
@@ -262,70 +304,43 @@ function l_validate_form() {
       icon: new FormValidation.plugins.Icon({
         valid: "fa fa-check",
         invalid: "invalid-fv fa fa-times",
-        validating: "fa fa-refresh"
-      })
-    }
+        validating: "fa fa-refresh",
+      }),
+    },
   })
-    .on("core.field.invalid", function(e) {
+    .on("core.field.invalid", function (e) {
       if (e == "file_receta") {
         $('i[data-field="file_receta"').removeClass("fa-times");
-        $("#divFileReceta")
-          .removeClass("is-info")
-          .addClass("is-danger");
+        $("#divFileReceta").removeClass("is-info").addClass("is-danger");
       }
       if (e == "file_otro") {
         $('i[data-field="file_otro"').removeClass("fa-times");
-        $("#divFileOtro")
-          .removeClass("is-info")
-          .addClass("is-danger");
+        $("#divFileOtro").removeClass("is-info").addClass("is-danger");
       }
     })
-    .on("core.field.valid", function(e) {
+    .on("core.field.valid", function (e) {
       if (e == "file_receta") {
         $('i[data-field="file_receta"').removeClass("fa-check");
-        $("#iconReceta")
-          .removeClass("fa-upload")
-          .addClass("fa-check");
-        $("#divFileReceta")
-          .removeClass("is-danger")
-          .addClass("is-success");
+        $("#iconReceta").removeClass("fa-upload").addClass("fa-check");
+        $("#divFileReceta").removeClass("is-danger").addClass("is-success");
       }
       if (e == "file_otro") {
         $('i[data-field="file_otro"').removeClass("fa-check");
-        $("#iconFileOtro")
-          .removeClass("fa-upload")
-          .addClass("fa-check");
-        $("#divFileOtro")
-          .removeClass("is-danger")
-          .addClass("is-success");
+        $("#iconFileOtro").removeClass("fa-upload").addClass("fa-check");
+        $("#divFileOtro").removeClass("is-danger").addClass("is-success");
       }
     })
-    .on("core.form.valid", function() {
-      $("#divFileReceta")
-        .removeClass("is-danger")
-        .addClass("is-succes");
+    .on("core.form.valid", function () {
+      /*$("#divFileReceta").removeClass("is-danger").addClass("is-succes");
       if ($("file_otro" !== "")) {
-        $("#divFileReceta")
-          .removeClass("is-danger")
-          .addClass("is-succes");
-      }
-      //l_generar_venta();
+        $("#divFileReceta").removeClass("is-danger").addClass("is-succes");
+      }*/
+      fv.destroy();
+      l_modificar_venta();
     })
-    .on("core.field.added", function(e) {})
-    ;
+    .on("core.field.added", function (e) {});
 
-    const loginButton = document.getElementById('btn-modificar');
-    loginButton.addEventListener('click', function() {
-        fv.validate().then(function(status) {
-            // status can be one of the following value
-            // 'NotValidated': The form is not yet validated
-            // 'Valid': The form is valid
-            // 'Invalid': The form is invalid
-            console.log(status)
-        });
-    });
-
-  $("#btnAddDoc").click(function(e) {
+  $("#btnAddDoc").click(function (e) {
     const fieldsOtro = `<div class="field-label"><label class="label is-normal">Otro</label></div>
     <div class="field-body">
         <div class="field">
@@ -367,23 +382,21 @@ function l_validate_form() {
         </div>
     </div>`;
 
-    $("#divOtroDocumento")
-      .html(fieldsOtro)
-      .show();
+    $("#divOtroDocumento").html(fieldsOtro).show();
     $("#divAddDoc").hide();
     l_set_datepicker();
     fv.addField("f_otro", dateValidators).addField("file_otro", fileValidators);
   });
-  $("#f_otro").change(function() {
+  $("#f_otro").change(function () {
     fv.revalidateField("f_otro");
   });
-  $("#file_otro").change(function() {
+  $("#file_otro").change(function () {
     fv.revalidateField("file_otro");
   });
 
   // Cuando se selecciona el cambio de la Documentación de Receta
   // se setea nuevamente el campo de fecha y la selección del documento
-  $("#btnRemDocReceta").click(function(e) {
+  $("#btnRemDocReceta").click(function (e) {
     const fieldsReceta = `
         <div class="field-label"><label class="label is-normal">Receta</label></div>
             <div class="field-body">
@@ -424,14 +437,14 @@ function l_validate_form() {
       fileValidators
     );
   });
-  $("#f_receta").change(function() {
+  $("#f_receta").change(function () {
     fv.revalidateField("f_otro");
   });
-  $("#file_receta").change(function() {
+  $("#file_receta").change(function () {
     fv.revalidateField("file_otro");
   });
 
-  $("#btnRemDocOtro").click(function(e) {
+  $("#btnRemDocOtro").click(function (e) {
     $("#divOtroDocumento").hide();
     $("#divAddDoc").show();
     if ($("f_otro").is(":disabled")) {
@@ -442,7 +455,7 @@ function l_validate_form() {
     }
   });
 
-  $("body").on("click", "#btnRemDocOtro", function() {
+  $("body").on("click", "#btnRemDocOtro", function () {
     $("#divOtroDocumento").hide();
     $("#divAddDoc").show();
     if ($("f_otro").is(":disabled")) {
@@ -462,14 +475,15 @@ function l_set_datepicker() {
     calendarWeeks: true,
     autoclose: true,
     clearBtn: true,
-    todayHighlight: true
+    todayHighlight: true,
   });
 }
 
 function l_set_select_medico() {
   $("#helpMedico").addClass("is-success");
   $("#helpMedico").html("* Comience a escribir para seleccionar un médico");
-  $("#medico").keyup(function() {
+  fv.disableValidator("medico", "noExiste").revalidateField("medico");
+  $("#medico").keyup(function () {
     var minlength = 3;
     var searchField = $("#medico").val();
     var regex = new RegExp(searchField, "i");
@@ -477,10 +491,10 @@ function l_set_select_medico() {
     var count = 1;
     var url_json = aplicacion + "/ajax/ajx.medicos.php?q=" + searchField;
     if (searchField != null && searchField.length >= minlength) {
-      $.getJSON(url_json, function(data) {
+      $.getJSON(url_json, function (data) {
         if (data.length != 0) {
           fv.disableValidator("medico", "noExiste").revalidateField("medico");
-          $.each(data, function(key, val) {
+          $.each(data, function (key, val) {
             if (val.text.search(regex) != -1) {
               output += `<a class="list-item" id="span_medico" name="span_medico" data-id="${val.id}">${val.text}`;
               if (count % 2 == 0) {
@@ -506,10 +520,8 @@ function l_set_select_medico() {
     }
   });
 
-  $(document).on("click", "#span_medico", function() {
-    var idMedico = $(this)
-      .attr("data-id")
-      .toLowerCase();
+  $(document).on("click", "#span_medico", function () {
+    var idMedico = $(this).attr("data-id").toLowerCase();
     var n_medico = $(this).text();
     $("#medico").data("id", idMedico);
     $("#medico").val(n_medico);
@@ -528,7 +540,7 @@ function l_set_select_canal() {
   $("#helpCanal").addClass("is-success");
   $("#helpCanal").html("* Comience a escribir para seleccionar un Canal");
   fv.disableValidator("canal", "noExiste").revalidateField("canal");
-  $("#canal").keyup(function() {
+  $("#canal").keyup(function () {
     var minlength = 3;
     var searchField = $("#canal").val();
     var regex = new RegExp(searchField, "i");
@@ -536,10 +548,10 @@ function l_set_select_canal() {
     var count = 1;
     var url_json = aplicacion + "/ajax/ajx.canales.php?q=" + searchField;
     if (searchField != null && searchField.length >= minlength) {
-      $.getJSON(url_json, function(data) {
+      $.getJSON(url_json, function (data) {
         if (data.length != 0) {
           fv.disableValidator("canal", "noExiste").revalidateField("canal");
-          $.each(data, function(key, val) {
+          $.each(data, function (key, val) {
             if (val.text.search(regex) != -1) {
               output += `<a class="list-item" id="span_canal" data-id="${val.id}">${val.text}`;
               if (count % 2 == 0) {
@@ -566,10 +578,8 @@ function l_set_select_canal() {
     }
   });
 
-  $(document).on("click", "#span_canal", function() {
-    var idCanal = $(this)
-      .attr("data-id")
-      .toLowerCase();
+  $(document).on("click", "#span_canal", function () {
+    var idCanal = $(this).attr("data-id").toLowerCase();
     var n_canal = $(this).text();
     $("#canal").data("id", idCanal);
     $("#canal").val(n_canal);
@@ -590,7 +600,7 @@ function l_set_select_institucion() {
     "* Comience a escribir para seleccionar una Institución"
   );
   fv.disableValidator("institucion", "noExiste").revalidateField("institucion");
-  $("#institucion").keyup(function() {
+  $("#institucion").keyup(function () {
     var minlength = 3;
     var searchField = $("#institucion").val();
     var regex = new RegExp(searchField, "i");
@@ -598,12 +608,12 @@ function l_set_select_institucion() {
     var count = 1;
     var url_json = aplicacion + "/ajax/ajx.instituciones.php?q=" + searchField;
     if (searchField != null && searchField.length >= minlength) {
-      $.getJSON(url_json, function(data) {
+      $.getJSON(url_json, function (data) {
         if (data.length != 0) {
           fv.disableValidator("institucion", "noExiste").revalidateField(
             "institucion"
           );
-          $.each(data, function(key, val) {
+          $.each(data, function (key, val) {
             if (val.text.search(regex) != -1) {
               output += `<a class="list-item" id="span_institucion" data-id="${val.id}">${val.text}`;
               if (count % 2 == 0) {
@@ -631,10 +641,8 @@ function l_set_select_institucion() {
     }
   });
 
-  $(document).on("click", "#span_institucion", function() {
-    var idInstitucion = $(this)
-      .attr("data-id")
-      .toLowerCase();
+  $(document).on("click", "#span_institucion", function () {
+    var idInstitucion = $(this).attr("data-id").toLowerCase();
     var n_institucion = $(this).text();
     $("#institucion").data("id", idInstitucion);
     $("#institucion").val(n_institucion);
@@ -657,9 +665,9 @@ function l_set_select_presentacion($producto) {
   $.getJSON(
     aplicacion + "/ajax/ajx.presentacion.php",
     { oper: "getPresentacion", producto: $producto },
-    function(data) {
+    function (data) {
       var items = [];
-      $.each(data, function(key, val) {
+      $.each(data, function (key, val) {
         items.push("<option value='" + val.id + "'>" + val.valor + "</option>");
       });
       $("#presentacion").append(items);

@@ -33,7 +33,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . _SG;
             <!-- Form Name -->
             <div class="col-sm-12 col-xs-12 text-center">
                 <?php
-                $query = "SELECT year(fecha_venta) as anios FROM soliris_maestro GROUP BY year(fecha_venta);";
+                $query = "SELECT year(fecha_venta) as anios FROM maestro_ventas GROUP BY year(fecha_venta);";
+                free_all_results($db);
                 $result = mysqli_query($db, $query);
 
                 $string = "";

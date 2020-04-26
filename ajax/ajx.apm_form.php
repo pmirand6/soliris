@@ -15,7 +15,9 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
         $id = $_POST["id"];
     };
 
-    $nombre = mysqli_real_escape_string($db, $_POST["nombre"]);
+    $username = mysqli_real_escape_string($db, $_POST["username"]);
+    $email = $_POST["email"];
+    $nombreCompleto = $_POST["nombreCompleto"];
     $estado = mysqli_real_escape_string($db, $_POST["estado"]);
     $usuario = $_SESSION["soliris_usuario"];
 
@@ -25,14 +27,14 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "Guardar"){
     /* -------------- */
 
     if (isset($id) AND $id != ""){
-        $SQL = "SELECT FU_UP_APM('$nombre', '$estado', '$usuario', '$id') as response";
+        $SQL = "SELECT FU_UP_APM('$id', '$estado', '$usuario') as response";
     } else {
         /* Verifico que no exista el APM en la base */
-        $arr_exists = mysqli_query($db, "SELECT id FROM apm WHERE nombre = '$nombre';");
+        $arr_exists = mysqli_query($db, "SELECT id FROM apm WHERE email = '$email';");
         /* Determinar el número de filas del resultado */
         $row_cnt = mysqli_num_rows($arr_exists);
         if ($row_cnt == 0){
-            $SQL = "SELECT FU_NEW_APM('$nombre', '$usuario') as response";
+            $SQL = "CALL ST_NEW_APM('$estado', '$usuario', '$username', '$email', '$nombreCompleto')";
         }else{
             echo "ERROR: Ya existe un APM con ese nombre";
         }

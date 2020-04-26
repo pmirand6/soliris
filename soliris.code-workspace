@@ -4,5 +4,15 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "soliris",
+		"liveServer.settings.CustomBrowser": "chrome",
+		"liveServer.settings.port": 81,
+	},
+	"liveServer.settings.AdvanceCustomBrowserCmdLine": "",
+	"liveServer.settings.proxy": {
+		"enable": true,                             //   i. enabled
+        "baseUri": "/",                             //  ii. workspace
+        "proxyUri": "http://localhost/soliris" // iii. actual address
+	}
 }

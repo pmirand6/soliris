@@ -40,6 +40,7 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
     $cantUnidades = $_POST["cantUnidades"];
     $idCanal = $_POST["idCanal"];
     $usuario = $_SESSION["soliris_usuario"];
+    if(isset($_POST["oc"])){ $oc = $_POST["oc"];} else {$oc = '';}
 
 
 
@@ -50,7 +51,8 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
      '$cantUnidades', 
      '$idInstitucion', 
      '$idCanal', 
-     '$usuario')";
+     '$usuario',
+     '$oc')";
 
 
 
@@ -100,6 +102,7 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
             $f_otro = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["f_otro"]))), 'Y-m-d');
             //Salvo el archivo
             $fileNameOtro = f_saveDocVentas($_FILES["file_otro"], $idVenta, $f_otro, $idPac, $tipoArchivo);
+            
             
             if ($fileNameOtro) {
                 $fileName = str_replace(' ', '-', $_FILES["file_otro"]["name"]);

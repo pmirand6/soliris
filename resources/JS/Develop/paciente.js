@@ -172,25 +172,10 @@ function l_get_estado($estado_id) {
   });
 }
 
-function openFileInModal(e) {
+function openFile(e) {
   urlImagen = aplicacion + "/documentacion/" + e;
 
-  $("#imgModalDocumentacionPaciente").attr("src", urlImagen);
-  if (usuario.grupo === "fv" || usuario.grupo === "admin") {
-    var modal = document.querySelector(".modal"); // assuming you have only 1
-    var html = document.querySelector("html");
-    modal.classList.add("is-active");
-    html.classList.add("is-clipped");
-    modal
-      .querySelector(".modal-background")
-      .addEventListener("click", function(e) {
-        e.preventDefault();
-        modal.classList.remove("is-active");
-        html.classList.remove("is-clipped");
-      });
-  } else {
-    $("#modalDocumentacionPaciente").modal("toggle");
-  }
+  window.open(urlImagen);
 }
 
 function l_set_hero_style($estado_id) {
@@ -315,13 +300,18 @@ function l_sub_estado($sub_estado_id) {
 }
 
 function l_calcular_edad(fecha) {
+  /**The magic number: 31557600000 is 24 * 3600 * 365.25 * 1000 
+   * Which is the length of a year, the length of a year is 365 days and 6 hours which is 0.25 day. 
+   * In the end i floor the result which gives us the final age.
+  https://stackoverflow.com/questions/4060004/calculate-age-given-the-birth-date-in-the-format-yyyymmdd
+ */
+
   var array_fecha = fecha.split("-");
-  todayDate = new Date();
-  todayYear = todayDate.getFullYear();
-  todayMonth = todayDate.getMonth();
-  todayDay = todayDate.getDate();
-  age = todayYear - array_fecha[2];
-  return age;
+  let dateFormat = array_fecha[2]  + "-" + array_fecha[1] + "-" + array_fecha[0];
+  var birthday = +new Date(dateFormat);
+  return ~~((Date.now() - birthday) / (31557600000));
+
+
 }
 
 function l_list_patologias($patologia_id = null) {
@@ -521,10 +511,10 @@ function l_validate_form() {
               message: "Este campo debe contener solo letras."
             },
             stringLength: {
-              min: 2,
+              min: 1,
               max: 100,
               message:
-                "El nombre del paciente debe contener como mínimo 4 y como máximo 100 letras"
+                "El nombre del paciente debe contener como mínimo 1 y como máximo 100 letras"
             }
           }
         },
@@ -539,10 +529,10 @@ function l_validate_form() {
               message: "Este campo debe contener solo letras."
             },
             stringLength: {
-              min: 2,
+              min: 1,
               max: 100,
               message:
-                "El apellido del paciente debe contener como mínimo 4 y como máximo 100 letras"
+                "El apellido del paciente debe contener como mínimo 1 y como máximo 100 letras"
             }
           }
         },

@@ -1,0 +1,15 @@
+{
+    "name": "raffo/soliris",
+    "description": "Aprobacion de venta de soliris",
+    "authors": [
+        {
+            "name": "Pablo Miranda",
+            "email": "pmiranda@raffo.com.ar"
+        }
+    ],
+    "require": {
+        "swiftmailer/swiftmailer": "^5.4.12",
+        "fzaninotto/faker": "^1.9",
+        "adldap2/adldap2": "8.0.*"
+    }
+}

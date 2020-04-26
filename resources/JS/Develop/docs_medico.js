@@ -49,7 +49,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
         } else {
           Capacitacion.startUpload();
           alert("Se cargo correctamente la documentación");
-          window.location.href = aplicacion + "/administrador/medicos.php";
+          parent.location.reload();
         }
       })
       .submit(function (e) {

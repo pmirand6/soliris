@@ -42,7 +42,7 @@ $(document).ready(function() {
     sDom: '<"top"B>frt<"bottom"ip><"clear">',
     deferRender: true,
     aoColumns: [
-      { mData: "id", bSearchable: true, bVisible: false, sClass: "center" },
+      { mData: "id", bSearchable: true, bVisible: true, sClass: "center" },
       { mData: "paciente", bSearchable: true, sWidth: "20%", sClass: "center" },
       { mData: "sexo", bSearchable: true, sWidth: "2%", sClass: "center" },
       { mData: "edad", bSearchable: true, sWidth: "3%", sClass: "center" },

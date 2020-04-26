@@ -13,12 +13,12 @@ if($_POST["oper"] == "DataDVP") {
     //QUERY A LA VISTA "v_DataGDP"
     $var = array();
 
-    $query = "SELECT * FROM v_DataGDP;";
+    $query = "CALL ST_LIST_VENTAS_NO_NP";
+
     $result = mysqli_query($db, $query);
 
-    
     while($row = mysqli_fetch_assoc($result)) {
-      //SE CREA EL ARRAY QUE VA A CONTENER LOS DATOS PARA EL JSON
+        //SE CREA EL ARRAY QUE VA A CONTENER LOS DATOS PARA EL JSON
         $var[] = $row;
     }
     
@@ -28,7 +28,7 @@ if($_POST["oper"] == "DataDVP") {
     } else {
         echo "{\"data\": []}";
     }
-
+    
   mysqli_free_result($result);
   mysqli_close($db);
 

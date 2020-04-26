@@ -32,7 +32,6 @@ $arr_tbody = '
                     "aoColumns": [
                                { "bSearchable": true, "bVisible": false, "sClass": "center"},
                                { "bSearchable": true, "sWidth": "20%", "sClass": "center"},
-                               { "bSearchable": true, "sWidth": "5%", "sClass": "center"},
                                { "bSearchable": true, "sWidth": "10%", "sClass": "center"},
                                { "bSearchable": true, "sWidth": "10%", "sClass": "center"},
                                { "bSearchable": true, "sWidth": "10%", "sClass": "center"},
@@ -40,7 +39,6 @@ $arr_tbody = '
                                { "bSearchable": true, "sWidth": "10%", "sClass": "center"},
                                { "bSearchable": true, "sWidth": "10%", "sClass": "center"},
                                { "bSearchable": true, "sWidth": "7%", "sClass": "center"},
-                               { "bSearchable": true, "sWidth": "30%", "sClass": "center"},
                                { "bSearchable": true, "sWidth": "3%", "sClass": "center" }
                     ],
                     "buttons": [
@@ -95,10 +93,8 @@ $arr_tbody = '
                     <th> Dir Téc </th>
                     <th> Contacto Venta </th>
                     <th> Contacto </th>
-                    <th> Punto de Entrega </th>
                     <th> Estado </th>
                     <th> Familia </th>
-                    <th> Documentación </th>
                     <th> Acciones </th>
                 </tr>
             </thead>
@@ -112,10 +108,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     $arr_tbody .= '<td>' . $row["dir_tec"] . '</td>';
     $arr_tbody .= '<td>' . $row["cont_venta"] . '</td>';
     $arr_tbody .= '<td>' . $row["cont_otro"] . '</td>';
-    $arr_tbody .= '<td>' . $row["puntos_entrega"] . '</td>';
     $arr_tbody .= "<td><div class=\"TBL TBL-" . str_replace(" ", "_", $row["estado"]) . "\" title=\"" . $row["estado"] . "\"><p class=\"hidden\">" . $row["estado"] . "</p></div></td>";
     $arr_tbody .= '<td>' . $row["familia"] . '</td>';
-    $arr_tbody .= '<td>' . str_docus($row["documentos"]) . '</td>';
     if ($row["estado"] == 'Activo') {
         $arr_tbody .= '<td><button type=\'button\' class=\'del_can btn btn-danger\' title=\'Desactivar\' style=\'margin-left: 13px;\' onclick="delCanal(\'' . $row["id"] . '\')"><i class=\'fa fa-ban\'></i></button></td>';
     } else {

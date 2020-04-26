@@ -1,13 +1,19 @@
+/**
+ * 
+ * JS que maneja la pagina de reportes panel
+ * El graphTiposReporte es un Pie Chart que contiene los tipos de reporte en el mes (RI - FU)
+ * 
+ * 
+ */
+
+
 var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
 $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
     // script is now loaded and executed.
     // put your dependent JS here.
 
     var flag = false;
-
-    
     $('#loading').hide();
-    //  $('#graphs').hide();
 
 
     $(document).ready(function() {
@@ -38,8 +44,8 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
             
             get_month_name(fecha);
 
-            //$('#graphs').show(300);
-            $('#graph1').load(aplicacion + '/ajax/ajx.reporte_panel_pieChart.php?fecha=' + fecha);
+            
+            $('#graphTiposReporte').load(aplicacion + '/ajax/ajx.reporte_panel_pieChart.php?fecha=' + fecha);
             $('#graph2').load(aplicacion + '/ajax/ajx.reporte_panel_barChart.php?fecha=' + fecha);
             $('#graph3').load(aplicacion + '/ajax/ajx.reporte_panel_yearStackedChart.php?fecha=' + fecha);
             $('#graph4').load(aplicacion + '/ajax/ajx.reporte_panel_areaChart.php?fecha=' + fecha);
@@ -135,7 +141,8 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
                 //reloadTBLinitial(fecha);
 
                 $('#graphs').show(300);
-                $('#graph1').load(aplicacion + '/ajax/ajx.reporte_panel_pieChart.php?fecha=' + fecha);
+                
+                $('#graphTiposReporte').load(aplicacion + '/ajax/ajx.reporte_panel_pieChart.php?fecha=' + fecha);
                 $('#graph2').load(aplicacion + '/ajax/ajx.reporte_panel_barChart.php?fecha=' + fecha);
                 $('#graph3').load(aplicacion + '/ajax/ajx.reporte_panel_yearStackedChart.php?fecha=' + fecha);
                 $('#graph4').load(aplicacion + '/ajax/ajx.reporte_panel_areaChart.php?fecha=' + fecha);

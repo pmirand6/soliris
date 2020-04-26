@@ -70,6 +70,8 @@ function fl_tipo_rep($valor)
         $fl_tipo = "<span class='tipo_ri'>RI</span>";
     } elseif (strcasecmp($valor, 'FU') == 0) {
         $fl_tipo = "<span class='tipo_fu'>FU</span>";
+    } else {
+        $fl_tipo = "<span class='tipo_ca'>CA</span>";
     }
 
     return $fl_tipo;
@@ -179,10 +181,9 @@ function MySQL_sendFunctionAudit($query, $accion, $typeResponse)
 
         SQL_auditoria($query, $accion);
 
+        free_all_results($db);
+
         $result = mysqli_query($db, $query);
-
-
-
 
         if (mysqli_error($db)) {
             $response[0]["mensaje"] = "ERROR: " . mysqli_error($db) . '(ERROR MYSQL: ' . mysqli_errno($db) . ')';
@@ -191,9 +192,7 @@ function MySQL_sendFunctionAudit($query, $accion, $typeResponse)
         } else {
 
             if ($typeResponse == "1") {
-                //$response = "";
                 $response = array();
-
                 while ($row = mysqli_fetch_array($result)) {
                     $response[] = $row;
                 };
@@ -207,6 +206,8 @@ function MySQL_sendFunctionAudit($query, $accion, $typeResponse)
     } else {
         return "ERROR: NO_Query";
     }
+
+    free_all_results($db);
 }
 
 function UserAccess($usr)
@@ -528,11 +529,15 @@ function f_saveDocVentas(&$files, $idVenta, $fecha_documento, $idPac, $tipoDocum
 
         if (isset($_FILES["file_receta"]) && !empty($_FILES["file_receta"])) {
 
+
+
             $fileNameReceta = str_replace(' ', '-', $_FILES["file_receta"]["name"]);
             $tmpNameReceta = $_FILES["file_receta"]["tmp_name"];
             $finalNameReceta = 'receta' . "_" . $idPac . "_" . $fecha_documento . "_" . $fileNameReceta;
             $fulldestReceta = $output_dir . $finalNameReceta;
+
             if (move_uploaded_file($tmpNameReceta, $fulldestReceta)) {
+
                 return true;
             } else {
                 return f_l_errorDocumentacion('Error al mover el archivo a la carpeta: ' . $fulldestReceta, $fulldestReceta);

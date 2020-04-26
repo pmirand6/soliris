@@ -52,7 +52,13 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 
     free_all_results($db);
 
+    // Se llama al store de modificacion de venta
+    // Prueba nuevamente
+    
+
     $SQL = "CALL `ST_SHOW_VENTA`('$idVenta')";
+
+    
 
     $result = mysqli_query($db, $SQL);
 
@@ -83,8 +89,9 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         $nbr = $row["nbr"];
     }
 
+    
 
-    if (isset($_GET["read"]) || $_SESSION["grupo"] !== 'ventas') {
+    if (isset($_GET["read"]) && $_SESSION["grupo"] != 'ventas') {
         include "../vistas/venta/form_vista_venta.php";
     } else {
         include "../vistas/venta/form_modificar_venta.php";
@@ -94,7 +101,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 
     ?>
 
-    <script src="<?php echo HTTP?>/resources/JS/funciones.min.js"></script>
+    <!--<script src="<?php echo HTTP?>/resources/JS/funciones.min.js"></script>-->
     <!--<script type="text/javascript" language="javascript" src="../resources/JS/Develop/generar_venta.js"></script>-->
 
 </body>

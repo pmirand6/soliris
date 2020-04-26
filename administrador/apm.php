@@ -17,7 +17,7 @@ if(isset($_GET["id"])){
     $result = mysqli_query($db, $SQL);
 
     while ($apm = mysqli_fetch_assoc($result)) {
-        echo $apm['id'];
+        
         $id = $apm["id"];
         $vw_id = $apm["id"];
         $nombre = $apm["nombre_completo"];
@@ -56,6 +56,10 @@ if(isset($_GET["id"])){
         @import "../resources/Bootstrap-Validator/CSS/formValidation.min.css";
         /* Custom CSS */
         @import "../resources/Sprites/file_extension.css";
+        /*Select2 */
+        @import "../resources/select2/dist/css/select2.css";
+        @import "../resources/select2/dist/css/select2-bootstrap.css";
+
         /* Iconos de Estados */
         @import "../resources/Sprites/TBL-icons.css";
 
@@ -89,14 +93,28 @@ if(isset($_GET["id"])){
                 <?php 
             }
             ?>
+            
 
             <!-- Nombre -->
-            <div class="form-group">
+            <div class="form-group" <?php if($id != '') {?> style="display: none" <?php } ?>>
                 <label class="col-sm-4 col-xs-4 control-label" for="nombre">Apellido, Nombre</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-user-secret"></span></div>
-                        <input id="nombre" name="nombre" type="text" placeholder="Nombre..." class="form-control input-md" maxlength="100" required="" value="<?php echo $nombre?>">
+                        <select id="nombreSelect" name="nombreSelect" type="text" placeholder="Nombre..." class="form-control" ></select>
+                    </div>
+                    <div id="result_usuarios"></div>
+                </div>
+            </div>
+
+
+            <!-- Nombre -->
+            <div class="form-group" <?php if($id == '') {?> style="display: none" <?php } ?>>
+                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Apellido, Nombre</label>
+                <div class="col-sm-6 col-xs-8">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="fa fa-user-secret"></span></div>
+                        <input id="nombre" name="nombre" type="text" placeholder="Nombre..." class="form-control input-md" maxlength="100" required="" value="<?php echo $nombre?>" disabled>
                     </div>
                     <div id="result_usuarios"></div>
                 </div>
@@ -137,6 +155,7 @@ if(isset($_GET["id"])){
     <?php 
     include "../resources/Includes/BootstrapHTML5.php";
     include "../resources/Includes/FormValidation.php";
+    include "../resources/Includes/select2.php";
     ?>
     <!-- Custom JS -->
     <script type="text/javascript" src="../resources/JS/Develop/apm.js"></script>

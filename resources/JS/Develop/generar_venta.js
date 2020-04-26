@@ -6,8 +6,32 @@ var idPac;
 
 var fv;
 
-$.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
-  $(document).ready(function() {
+$.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
+  $(document).ready(function () {
+    const fileReceta = document.querySelector(
+      "#divFileReceta input[type=file]"
+    );
+    fileReceta.onchange = () => {
+      if (fileReceta.files.length > 0) {
+        const fileName = document.querySelector("#divFileReceta .file-name");
+        fileName.textContent = fileReceta.files[0].name;
+        $("#fileRecetaPreviewShow").on("click", function () {
+          window.open(window.URL.createObjectURL(fileReceta.files[0]));
+        });
+      }
+    };
+
+    const fileOtro = document.querySelector("#divFileOtro input[type=file]");
+    fileOtro.onchange = () => {
+      if (fileOtro.files.length > 0) {
+        const fileNameOtro = document.querySelector("#divFileOtro .file-name");
+        fileNameOtro.textContent = fileOtro.files[0].name;
+        $("#fileOtroPreviewShow").on("click", function () {
+          window.open(window.URL.createObjectURL(fileOtro.files[0]));
+        });
+      }
+    };
+
     $("#nv").window({
       modal: true,
       closed: true,
@@ -20,11 +44,11 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
       inline: true,
       collapsible: false,
       constrain: true,
-      onBeforeClose: function() {
+      onBeforeClose: function () {
         window.location.href = window.location.href;
-      }
+      },
     });
-    $(".panel-tool-close").click(function() {
+    $(".panel-tool-close").click(function () {
       window.location.href = window.location.href;
     });
     l_set_select_medico();
@@ -35,12 +59,42 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
     l_set_producto();
     l_set_paciente();
 
-    $("#canVenta").click(function(e) {
+    $("#f_receta").blur(function (e) {
+      //e.preventDefault();
+
+      if (this.value != "") {
+        $.ajax({
+          type: "POST",
+          url: aplicacion + "/ajax/ajx.docs_venta.php",
+          data: {
+            oper: "checkDocFechaVenta",
+            f_receta: this.value,
+            idPac: getQuerystring("idPac"),
+          },
+          dataType: "json",
+          success: function (response) {
+            Swal.fire({
+              title: response.title,
+              icon: response.icon,
+              html: response.html,
+            });
+          },
+        });
+      }
+    });
+
+    $("#canVenta").click(function (e) {
       parent.location.reload();
     });
   });
 });
 
+function previewReceta() {}
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+  }
+}
 function l_generar_venta() {
   let myForm = document.getElementById("frmVenta");
   var form = new FormData(myForm);
@@ -52,6 +106,7 @@ function l_generar_venta() {
   form.append("idInstitucion", $("#institucion").data("id"));
   form.append("idCanal", $("#canal").data("id"));
   form.append("idPresentacion", $("#presentacion").val());
+  form.append("oc", $("#oc").val());
 
   var settings = {
     url: aplicacion + "/ajax/ajx.generar_venta.php",
@@ -59,30 +114,57 @@ function l_generar_venta() {
     processData: false,
     mimeType: "multipart/form-data",
     contentType: false,
-    data: form
+    data: form,
   };
 
-  $.ajax(settings).done(function(response) {
-  
-  let data = JSON.parse(response)
-  console.log(data)
+  if ($("#oc").val() == "") {
     Swal.fire({
-      title: data.title,
-      icon: data.icon,
-      text: data.text,
-      timer: 5000
-    }).then(function() {
-      //parent.location.reload();
+      title: "Orden de Compra",
+      text: "No se especificó una orden de compra, desea continuar",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Cargar Venta",
+      cancelButtonText: "No",
+    }).then((result) => {
+      if (result.value) {
+        $.ajax(settings).done(function (response) {
+          let data = JSON.parse(response);
+          console.log(data);
+          Swal.fire({
+            title: data.title,
+            icon: data.icon,
+            text: data.text,
+            timer: 5000,
+          }).then(function () {
+            parent.location.reload();
+          });
+        });
+      } 
     });
-  });
+  } else {
+    $.ajax(settings).done(function (response) {
+      let data = JSON.parse(response);
+      console.log(data);
+      Swal.fire({
+        title: data.title,
+        icon: data.icon,
+        text: data.text,
+        timer: 5000,
+      }).then(function () {
+        parent.location.reload();
+      });
+    });
+  }
 }
 
 function l_set_paciente() {
   $.post(
     aplicacion + "/ajax/ajx.paciente.php",
     { oper: "showPaciente", id: getQuerystring("idPac") },
-    function(data) {
-      $.map(data, function(e) {
+    function (data) {
+      $.map(data, function (e) {
         $("#nombrePaciente").html(e.nombre_completo);
       });
     },
@@ -94,8 +176,8 @@ function l_set_producto() {
   $.getJSON(
     aplicacion + "/ajax/ajx.producto.php",
     { oper: "getproducto" },
-    function(data, textStatus, jqXHR) {
-      $.each(data, function(i, v) {
+    function (data, textStatus, jqXHR) {
+      $.each(data, function (i, v) {
         $("#producto").val(v.id);
         $("#productoTitle").html(v.valor);
         l_set_select_presentacion(v.id);
@@ -105,14 +187,14 @@ function l_set_producto() {
 }
 
 function l_validate_form() {
-  const noExiste = function() {
+  const noExiste = function () {
     return {
-      validate: function(input) {
+      validate: function (input) {
         return {
           valid: false,
-          message: "* No se encontraron coincidencias"
+          message: "* No se encontraron coincidencias",
         };
-      }
+      },
     };
   };
 
@@ -120,27 +202,27 @@ function l_validate_form() {
     validators: {
       date: {
         format: "DD-MM-YYYY",
-        message: "El formato es invalido"
+        message: "El formato es invalido",
       },
       notEmpty: {
-        message: "Debe indicar una fecha para este Documento"
-      }
-    }
+        message: "Debe indicar una fecha para este Documento",
+      },
+    },
   };
 
   const fileValidators = {
     validators: {
       notEmpty: {
-        message: "Debe Seleccionar un Archivo"
+        message: "Debe Seleccionar un Archivo",
       },
       file: {
         extension: "jpg,png,gif,doc,pdf,zip,bmp,tif",
         type:
           "image/jpeg,image/png,image/gif,application/msword,application/pdf,application/zip,image/x-ms-bmp,image/tiff",
-        maxSize: 2097152, // 2048 * 1024
-        message: "El archivo seleccionado no es válido"
-      }
-    }
+        maxSize: 12097152, // 2048 * 1024
+        message: "El archivo seleccionado no es válido",
+      },
+    },
   };
 
   // Registrando custom validator
@@ -152,15 +234,15 @@ function l_validate_form() {
       medico: {
         validators: {
           noExiste: {
-            enable: false
+            enable: false,
           },
           stringLength: {
             min: 3,
-            message: "Ingrese más de 3 letras"
+            message: "Ingrese más de 3 letras",
           },
           checkMedico: {
             message: "Seleccione un médico del Listado",
-            callback: function(input) {
+            callback: function (input) {
               const medicoSelected = document
                 .getElementById("frmVenta")
                 .querySelector('[name="medicoSelected"]').value;
@@ -169,45 +251,45 @@ function l_validate_form() {
               } else {
                 return input.value == medicoSelected;
               }
-            }
-          }
-        }
+            },
+          },
+        },
       },
       presentacion: {
         validators: {
           notEmpty: {
-            message: "Debe seleccionar una dosís"
-          }
-        }
+            message: "Debe seleccionar una dosís",
+          },
+        },
       },
       cantDosis: {
         message: "El nombre de la ciudad no es válida",
         validators: {
           regexp: {
             regexp: /^[0-9]*$/,
-            message: "Este campo debe contener solo números."
+            message: "Este campo debe contener solo números.",
           },
           greaterThan: {
             min: 1,
-            message: "El valor indicado debe ser mayor a 0"
+            message: "El valor indicado debe ser mayor a 0",
           },
           notEmpty: {
-            message: "Debe indicar la cantidad de Dosis"
-          }
-        }
+            message: "Debe indicar la cantidad de Dosis",
+          },
+        },
       },
       canal: {
         validators: {
           noExiste: {
-            enable: false
+            enable: false,
           },
           stringLength: {
             min: 3,
-            message: "Ingrese más de 3 letras"
+            message: "Ingrese más de 3 letras",
           },
           checkCanal: {
             message: "Seleccione un canal del Listado",
-            callback: function(input) {
+            callback: function (input) {
               const canalSelected = document
                 .getElementById("frmVenta")
                 .querySelector('[name="canalSelected"]').value;
@@ -216,22 +298,22 @@ function l_validate_form() {
               } else {
                 return input.value == canalSelected;
               }
-            }
-          }
-        }
+            },
+          },
+        },
       },
       institucion: {
         validators: {
           noExiste: {
-            enable: false
+            enable: false,
           },
           stringLength: {
             min: 3,
-            message: "Ingrese más de 3 letras"
+            message: "Ingrese más de 3 letras",
           },
           checkInstitucion: {
             message: "Seleccione una Institución del Listado",
-            callback: function(input) {
+            callback: function (input) {
               const institucionSelected = document
                 .getElementById("frmVenta")
                 .querySelector('[name="institucionSelected"]').value;
@@ -240,19 +322,19 @@ function l_validate_form() {
               } else {
                 return input.value == institucionSelected;
               }
-            }
-          }
-        }
+            },
+          },
+        },
       },
       f_receta: dateValidators,
-      file_receta: fileValidators
+      file_receta: fileValidators,
     },
     plugins: {
       alias: new FormValidation.plugins.Alias({
         // These checkers are treated as callback validator
         checkMedico: "callback",
         checkInstitucion: "callback",
-        checkCanal: "callback"
+        checkCanal: "callback",
       }),
       trigger: new FormValidation.plugins.Trigger(),
       bulma: new FormValidation.plugins.Bulma(),
@@ -260,70 +342,48 @@ function l_validate_form() {
       icon: new FormValidation.plugins.Icon({
         valid: "fa fa-check",
         invalid: "invalid-fv fa fa-times",
-        validating: "fa fa-refresh"
-      })
-    }
+        validating: "fa fa-refresh",
+      }),
+    },
   })
-    .on("core.field.invalid", function(e) {
+    .on("core.field.invalid", function (e) {
       if (e == "file_receta") {
-        $('i[data-field="file_receta"').removeClass("fa-times");
-        $("#divFileReceta")
-          .removeClass("is-info")
-          .addClass("is-danger");
+        l_ResetFileReceta();
       }
       if (e == "file_otro") {
-        $('i[data-field="file_otro"').removeClass("fa-times");
-        $("#divFileOtro")
-          .removeClass("is-info")
-          .addClass("is-danger");
+        l_ResetFileOtro();
       }
     })
-    .on("core.field.valid", function(e) {
+    .on("core.field.valid", function (e) {
       if (e == "file_receta") {
-        $('i[data-field="file_receta"').removeClass("fa-check");
-        $("#iconReceta")
-          .removeClass("fa-upload")
-          .addClass("fa-check");
-        $("#divFileReceta")
-          .removeClass("is-danger")
-          .addClass("is-success");
+        l_setValidatedReceta();
       }
       if (e == "file_otro") {
-        $('i[data-field="file_otro"').removeClass("fa-check");
-        $("#iconFileOtro")
-          .removeClass("fa-upload")
-          .addClass("fa-check");
-        $("#divFileOtro")
-          .removeClass("is-danger")
-          .addClass("is-success");
+        l_setValidatedOtro();
       }
     })
-    .on("core.form.valid", function() {
-      $("#divFileReceta")
-        .removeClass("is-danger")
-        .addClass("is-succes");
+    .on("core.form.valid", function () {
+      $("#divFileReceta").removeClass("is-danger").addClass("is-succes");
       if ($("file_otro" !== "")) {
-        $("#divFileReceta")
-          .removeClass("is-danger")
-          .addClass("is-succes");
+        $("#divFileReceta").removeClass("is-danger").addClass("is-succes");
       }
       l_generar_venta();
     })
-    .on("core.field.added", function(e) {});
+    .on("core.field.added", function (e) {});
 
-  $("#btnAddDoc").click(function(e) {
+  $("#btnAddDoc").click(function (e) {
     $("#divOtroDocumento").show();
     $("#divAddDoc").hide();
     fv.addField("f_otro", dateValidators).addField("file_otro", fileValidators);
   });
-  $("#f_otro").change(function() {
+  $("#f_otro").change(function () {
     fv.revalidateField("f_otro");
   });
-  $("#file_otro").change(function() {
+  $("#file_otro").change(function () {
     fv.revalidateField("file_otro");
   });
 
-  $("#btnRemDoc").click(function(e) {
+  $("#btnRemDoc").click(function (e) {
     $("#divOtroDocumento").hide();
     $("#divAddDoc").show();
     fv.removeField("f_otro", dateValidators).removeField(
@@ -331,6 +391,56 @@ function l_validate_form() {
       fileValidators
     );
   });
+
+  $("#fileRecetaPreviewDelete").click(function (e) {
+    e.preventDefault();
+
+    $("#file_receta").val("");
+    l_ResetFileReceta();
+  });
+
+  $("#fileOtroDelete").click(function (e) {
+    e.preventDefault();
+    $("#file_otro").val("");
+    l_ResetFileOtro();
+  });
+}
+
+function l_setValidatedOtro() {
+  $("#btnOtroActions").show();
+  $("#iconFileOtro").addClass("fa-check");
+  $("#iconFileOtro").removeClass("fa-exclamation-circle");
+  $('i[data-field="file_otro"').removeClass("fa-check");
+  $("#iconFileOtro").removeClass("fa-upload").addClass("fa-check");
+  $("#divFileOtro").removeClass("is-danger").addClass("is-success");
+}
+
+function l_setValidatedReceta() {
+  $("#btnRecetaActions").show();
+  $("#iconReceta").addClass("fa-check");
+  $("#iconReceta").removeClass("fa-exclamation-circle");
+  $('i[data-field="file_receta"').removeClass("fa-check");
+  $("#iconReceta").removeClass("fa-upload").addClass("fa-check");
+  $("#divFileReceta").removeClass("is-danger").addClass("is-success");
+}
+
+function l_ResetFileOtro() {
+  $("#btnOtroActions").hide();
+  $("#iconFileOtro").removeClass("fa-check");
+  $("#iconFileOtro").addClass("fa-exclamation-circle");
+  $("#divFileOtro .file-name").html("Seleccione Documento");
+  $('i[data-field="file_otro"').removeClass("fa-times");
+  $('i[data-field="file_otro"').addClass("fa-error");
+  $("#divFileOtro").removeClass("is-info").addClass("is-danger");
+}
+
+function l_ResetFileReceta() {
+  $("#btnRecetaActions").hide();
+  $("#iconReceta").removeClass("fa-check");
+  $("#iconReceta").addClass("fa-exclamation-circle");
+  $("#divFileReceta .file-name").html("Seleccione Documento");
+  $('i[data-field="file_receta"').removeClass("fa-times");
+  $("#divFileReceta").removeClass("is-info").addClass("is-danger");
 }
 
 function l_set_datepicker() {
@@ -341,14 +451,14 @@ function l_set_datepicker() {
     calendarWeeks: true,
     autoclose: true,
     clearBtn: true,
-    todayHighlight: true
+    todayHighlight: true,
   });
 }
 
 function l_set_select_medico() {
   $("#helpMedico").addClass("is-success");
   $("#helpMedico").html("* Comience a escribir para seleccionar un médico");
-  $("#medico").keyup(function() {
+  $("#medico").keyup(function () {
     var minlength = 3;
     var searchField = $("#medico").val();
     var regex = new RegExp(searchField, "i");
@@ -356,10 +466,10 @@ function l_set_select_medico() {
     var count = 1;
     var url_json = aplicacion + "/ajax/ajx.medicos.php?q=" + searchField;
     if (searchField != null && searchField.length >= minlength) {
-      $.getJSON(url_json, function(data) {
+      $.getJSON(url_json, function (data) {
         if (data.length != 0) {
           fv.disableValidator("medico", "noExiste").revalidateField("medico");
-          $.each(data, function(key, val) {
+          $.each(data, function (key, val) {
             if (val.text.search(regex) != -1) {
               output += `<a class="list-item" id="span_medico" name="span_medico" data-id="${val.id}">${val.text}`;
               if (count % 2 == 0) {
@@ -385,10 +495,8 @@ function l_set_select_medico() {
     }
   });
 
-  $(document).on("click", "#span_medico", function() {
-    var idMedico = $(this)
-      .attr("data-id")
-      .toLowerCase();
+  $(document).on("click", "#span_medico", function () {
+    var idMedico = $(this).attr("data-id").toLowerCase();
     var n_medico = $(this).text();
     $("#medico").data("id", idMedico);
     $("#medico").val(n_medico);
@@ -406,7 +514,7 @@ function l_set_select_medico() {
 function l_set_select_canal() {
   $("#helpCanal").addClass("is-success");
   $("#helpCanal").html("* Comience a escribir para seleccionar un Canal");
-  $("#canal").keyup(function() {
+  $("#canal").keyup(function () {
     var minlength = 3;
     var searchField = $("#canal").val();
     var regex = new RegExp(searchField, "i");
@@ -414,10 +522,10 @@ function l_set_select_canal() {
     var count = 1;
     var url_json = aplicacion + "/ajax/ajx.canales.php?q=" + searchField;
     if (searchField != null && searchField.length >= minlength) {
-      $.getJSON(url_json, function(data) {
+      $.getJSON(url_json, function (data) {
         if (data.length != 0) {
           fv.disableValidator("canal", "noExiste").revalidateField("canal");
-          $.each(data, function(key, val) {
+          $.each(data, function (key, val) {
             if (val.text.search(regex) != -1) {
               output += `<a class="list-item" id="span_canal" data-id="${val.id}">${val.text}`;
               if (count % 2 == 0) {
@@ -444,10 +552,8 @@ function l_set_select_canal() {
     }
   });
 
-  $(document).on("click", "#span_canal", function() {
-    var idCanal = $(this)
-      .attr("data-id")
-      .toLowerCase();
+  $(document).on("click", "#span_canal", function () {
+    var idCanal = $(this).attr("data-id").toLowerCase();
     var n_canal = $(this).text();
     $("#canal").data("id", idCanal);
     $("#canal").val(n_canal);
@@ -467,7 +573,7 @@ function l_set_select_institucion() {
   $("#helpInstitucion").html(
     "* Comience a escribir para seleccionar una Institución"
   );
-  $("#institucion").keyup(function() {
+  $("#institucion").keyup(function () {
     var minlength = 3;
     var searchField = $("#institucion").val();
     var regex = new RegExp(searchField, "i");
@@ -475,12 +581,12 @@ function l_set_select_institucion() {
     var count = 1;
     var url_json = aplicacion + "/ajax/ajx.instituciones.php?q=" + searchField;
     if (searchField != null && searchField.length >= minlength) {
-      $.getJSON(url_json, function(data) {
+      $.getJSON(url_json, function (data) {
         if (data.length != 0) {
           fv.disableValidator("institucion", "noExiste").revalidateField(
             "institucion"
           );
-          $.each(data, function(key, val) {
+          $.each(data, function (key, val) {
             if (val.text.search(regex) != -1) {
               output += `<a class="list-item" id="span_institucion" data-id="${val.id}">${val.text}`;
               if (count % 2 == 0) {
@@ -508,10 +614,8 @@ function l_set_select_institucion() {
     }
   });
 
-  $(document).on("click", "#span_institucion", function() {
-    var idInstitucion = $(this)
-      .attr("data-id")
-      .toLowerCase();
+  $(document).on("click", "#span_institucion", function () {
+    var idInstitucion = $(this).attr("data-id").toLowerCase();
     var n_institucion = $(this).text();
     $("#institucion").data("id", idInstitucion);
     $("#institucion").val(n_institucion);
@@ -534,9 +638,9 @@ function l_set_select_presentacion($producto) {
   $.getJSON(
     aplicacion + "/ajax/ajx.presentacion.php",
     { oper: "getPresentacion", producto: $producto },
-    function(data) {
+    function (data) {
       var items = [];
-      $.each(data, function(key, val) {
+      $.each(data, function (key, val) {
         items.push("<option value='" + val.id + "'>" + val.valor + "</option>");
       });
       $("#presentacion").append(items);
