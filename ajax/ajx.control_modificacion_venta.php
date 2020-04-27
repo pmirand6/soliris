@@ -14,7 +14,6 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'controlModicacionVenta' && isset
     $idVenta = $_POST["idVenta"];
     $userName = $_SESSION["soliris_usuario"];
     $SQL = "CALL ST_CONTROL_MODIFICAR_VENTA('$idVenta', '$userName');";
-
     $result = mysqli_query($db, $SQL);
 
     $data = array();

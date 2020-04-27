@@ -39,26 +39,27 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 
 
     <?php
-     
-     // include plugins
-     include "../resources/Includes/BootstrapHTML5.php";
-     include "../resources/Includes/DatePicker.php";
-     include "../resources/Includes/EasyUI.php";
-     include "../resources/Includes/formvalidation-bulma.php";
-     include "../resources/Includes/sweetalert2.php";
+
+    // include plugins
+    include "../resources/Includes/BootstrapHTML5.php";
+    include "../resources/Includes/DatePicker.php";
+    include "../resources/Includes/EasyUI.php";
+    include "../resources/Includes/formvalidation-bulma.php";
+    include "../resources/Includes/sweetalert2.php";
 
     // include vistas
     $idVenta = $_GET["idVenta"];
 
+    if (isset($_GET["read"])) {
+        $read = true;
+    } else {
+        $read = false;
+    }
+
     free_all_results($db);
 
-    // Se llama al store de modificacion de venta
-    // Prueba nuevamente
-    
 
     $SQL = "CALL `ST_SHOW_VENTA`('$idVenta')";
-
-    
 
     $result = mysqli_query($db, $SQL);
 
@@ -89,19 +90,33 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         $nbr = $row["nbr"];
     }
 
-    
 
-    if (isset($_GET["read"]) && $_SESSION["grupo"] != 'ventas') {
+    if ($read) {
         include "../vistas/venta/form_vista_venta.php";
     } else {
-        include "../vistas/venta/form_modificar_venta.php";
+
+        $grupo = $_SESSION["grupo"];
+
+        free_all_results($db);
+
+        $ab = "CALL `ST_GET_ACCESS`('form_modificar_venta.php', '$grupo')";
+        $result = mysqli_query($db, $ab);
+        $row = mysqli_fetch_array($result);
+        $res = $row[0];
+
+        if ($res == 1) { 
+            include "../vistas/venta/form_modificar_venta.php";
+        } else {
+            include "../vistas/venta/form_vista_venta.php";
+        }
+
+        
     }
 
-   
 
     ?>
 
-    <!--<script src="<?php echo HTTP?>/resources/JS/funciones.min.js"></script>-->
+    <!--<script src="<?php echo HTTP ?>/resources/JS/funciones.min.js"></script>-->
     <!--<script type="text/javascript" language="javascript" src="../resources/JS/Develop/generar_venta.js"></script>-->
 
 </body>

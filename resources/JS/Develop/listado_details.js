@@ -3,10 +3,10 @@
  */
 
 var aplicacion = getCurrentHostname() + "/" + getUrlHTTP();
-$.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
+$.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
   // script is now loaded and executed.
   // put your dependent JS here.
-  $(document).ready(function() {
+  $(document).ready(function () {
     const idPac = getQuerystring("id");
     var tableHVentas = $("#DataDetailsHVentas").DataTable({
       bPaginate: true,
@@ -25,60 +25,69 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
           mData: "medico_nombre",
           bSearchable: true,
           sWidth: "10%",
-          sClass: "center"
+          sClass: "center",
         }, //1
         { mData: "edad", bSearchable: true, sWidth: "5%", sClass: "center" }, // 2
         {
           mData: "presentacion",
           bSearchable: true,
           sWidth: "5%",
-          sClass: "center"
+          sClass: "center",
         }, // 3
         {
           mData: "unidades",
           bSearchable: true,
           sWidth: "5%",
-          sClass: "center"
+          sClass: "center",
         }, // 4
         {
           mData: "fecha_venta",
           bSearchable: true,
           sWidth: "7%",
-          sClass: "center"
+          sClass: "center",
         }, // 5
         {
           mData: "fecha_receta",
           bSearchable: true,
           sWidth: "7%",
-          sClass: "center"
+          sClass: "center",
         }, // 6
         { mData: "canal", bSearchable: true, sWidth: "7%", sClass: "center" }, // 7
         {
           mData: "institucion",
           bSearchable: true,
           sWidth: "7%",
-          sClass: "center"
+          sClass: "center",
         }, // 8
         { mData: "apm", bSearchable: true, sWidth: "10%", sClass: "center" }, // 9
-        { mData: "tipo_venta", bSearchable: true, sWidth: "10%", sClass: "center" }, // 9
+        {
+          mData: "tipo_venta",
+          bSearchable: true,
+          sWidth: "10%",
+          sClass: "center",
+        }, // 9
         { mData: "nbr", bSearchable: true, sWidth: "10%", sClass: "center" }, // 9
         { mData: "estado", bSearchable: true, sWidth: "5%", sClass: "center" }, // 10
-        { mData: "usuario_creador", bSearchable: true, sWidth: "5%", sClass: "center" }, // 10
-        
+        {
+          mData: "usuario_creador",
+          bSearchable: true,
+          sWidth: "5%",
+          sClass: "center",
+        }, // 10
       ],
       buttons: [
         {
           extend: "copyHtml5",
-          text: '<i class="fa fa-files-o" aria-hidden="true"></i> Copiar'
+          text: '<i class="fa fa-files-o" aria-hidden="true"></i> Copiar',
         },
         {
           extend: "print",
-          text: '<i class="fa fa-print" aria-hidden="true"></i> Imprimir'
+          text: '<i class="fa fa-print" aria-hidden="true"></i> Imprimir',
         },
         {
           extend: "excel",
-          text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel'
-        }
+          text: '<i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel',
+        },
       ],
       oLanguage: {
         sProcessing: "Procesando...",
@@ -98,17 +107,17 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
           sFirst: "Primero",
           sLast: "Último",
           sNext: "Siguiente",
-          sPrevious: "Anterior"
+          sPrevious: "Anterior",
         },
         oAria: {
           sSortAscending:
             ": Activar para ordenar la columna de manera ascendente",
           sSortDescending:
-            ": Activar para ordenar la columna de manera descendente"
-        }
-      }
+            ": Activar para ordenar la columna de manera descendente",
+        },
+      },
     });
-    $("#DataDetailsHVentas").on("click", "tr", function() {
+    $("#DataDetailsHVentas").on("click", "tr", function () {
       let idVenta = tableHVentas.row(this).data().id;
       l_showVenta(idVenta);
     });
@@ -116,17 +125,26 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
 });
 
 // funcion que redirecciona a la modificacion de venta
+/**
+ * NOTE
+ * Esta función establece y controla 
+ * la modificación de una venta.
+ * La respuesta puede ser 1 (true del lado del store)
+ * o un json con los seteos del popup (SWAL)
+ * 
+ * 
+ */
 function l_showVenta(idVenta) {
   $.post(aplicacion + "/ajax/ajx.control_modificacion_venta.php", {
     idVenta: idVenta,
-    oper: "controlModicacionVenta"
-  }).done(function(data) {
-    
-    if (data.length != 0 ) {
-      $.map(JSON.parse(data), function(e, i) {
+    oper: "controlModicacionVenta",
+  }).done(function (data) {
+    if (data.length != 0) {
+      $.map(JSON.parse(data), function (e) {
         console.log(e)
-        if (e.mensaje == '1') {
-          window.location.href = aplicacion + '/main/modificar_venta.php/?idVenta=' + idVenta;
+        if (e.mensaje == "1") {
+          window.location.href =
+            aplicacion + "/main/modificar_venta.php/?idVenta=" + idVenta;
         } else {
           Swal.fire({
             title: e.title,
@@ -135,14 +153,15 @@ function l_showVenta(idVenta) {
             showCloseButton: true,
             showCancelButton: true,
             confirmButtonText: "Mostrar Venta",
-            cancelButtonText: "Cerrar"
-          }).then(result => {
-            if(result.value){
-              window.location.href = aplicacion + '/main/modificar_venta.php/?idVenta=' + idVenta + '&read=true';
-            } 
-          });  
+            cancelButtonText: "Cerrar",
+          }).then((result) => {
+            if (result.value) {
+              window.location.href =
+                aplicacion +
+                "/main/modificar_venta.php/?idVenta=" + idVenta + "&read=true";
+            }
+          });
         }
-        
       });
     }
   });
