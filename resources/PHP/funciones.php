@@ -181,8 +181,6 @@ function MySQL_sendFunctionAudit($query, $accion, $typeResponse)
 
         SQL_auditoria($query, $accion);
 
-        free_all_results($db);
-
         $result = mysqli_query($db, $query);
 
         if (mysqli_error($db)) {
@@ -207,7 +205,6 @@ function MySQL_sendFunctionAudit($query, $accion, $typeResponse)
         return "ERROR: NO_Query";
     }
 
-    free_all_results($db);
 }
 
 function UserAccess($usr)

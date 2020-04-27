@@ -49,23 +49,13 @@ if(isset($_POST["oper"]) AND $_POST["oper"] == "SetPermisos"){
 
 
     /* Seteo de variables */
-    $id = $_POST["id"];
+    $idPagina = $_POST["idPagina"];
     $grupo = mysqli_real_escape_string($db, $_POST["grupo"]);
+    $estado = $_POST["estado"];
     $usuario = $_SESSION["soliris_usuario"];
 
-    /* -------------- */
 
-    /* Verifico que no exista el Paciente en la base */
-    $arr_exists = mysqli_query($db, "select id from soliris_seguridad where $grupo='1' AND id = '$id';");
-
-    /* determinar el número de filas del resultado */
-    $row_cnt = mysqli_num_rows($arr_exists);
-    if ($row_cnt == 0){
-        $SQL = "UPDATE soliris_seguridad SET $grupo = '1' WHERE id = '$id'";
-    }else{
-        $SQL = "UPDATE soliris_seguridad SET $grupo = '0' WHERE id = '$id'";
-    }
-    mysqli_free_result($arr_exists);
+   $SQL = "CALL ST_SET_SEGURIDAD($idPagina, '$grupo', $estado, '$usuario')";
 
     /* Realizo la consulta */
     if (isset($SQL) AND $SQL != ""){

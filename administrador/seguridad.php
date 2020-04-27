@@ -47,6 +47,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
                         <th> Descripción </th>
                         <th> ADMIN </th>
                         <th> FV </th>
+                        <th> Atencion Paciente </th>
                         <th> Marketing </th>
                         <th> Ventas </th>
                         <th> Auditor </th>

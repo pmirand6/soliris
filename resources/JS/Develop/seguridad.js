@@ -27,6 +27,7 @@ $(document).ready(function() {
                 { "mData": "descripcion", "bSearchable": true, "sWidth": "20%", "sClass": "center"},
                 { "mData": "admin", "bSearchable": true, "sWidth": "10%", "sClass": "center"},
                 { "mData": "fv", "bSearchable": true, "sWidth": "10%", "sClass": "center"},
+                { "mData": "atencion_paciente", "bSearchable": true, "sWidth": "10%", "sClass": "center"},
                 { "mData": "marketing", "bSearchable": true, "sWidth": "10%", "sClass": "center"},
                 { "mData": "ventas", "bSearchable": true, "sWidth": "10%", "sClass": "center"},
                 { "mData": "auditor", "bSearchable": true, "sWidth": "10%", "sClass": "center" },
@@ -198,11 +199,12 @@ function delSeg(id) {
         });
     }
 }
-function setPermisos(obj, id, valor){
+function setPermisos(idPagina, grupo, estado){
     var parametros = {
         "oper": "SetPermisos",
-        "id": id,
-        "grupo": valor
+        "idPagina": idPagina,
+        "grupo": grupo,
+        "estado": estado
     };
     $.ajax({
         url: aplicacion + '/ajax/ajx.seguridad_form.php',
