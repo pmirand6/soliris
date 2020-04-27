@@ -105,7 +105,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
     } else {
 
         /**
-         * 
+         * FIXME 
          * Se evaluan los permisos de acceso
          * para la modificacion de la venta, 
          * en caso de no tenerlo, se incluye la 
