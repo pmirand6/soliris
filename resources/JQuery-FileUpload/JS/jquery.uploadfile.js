@@ -32,7 +32,7 @@ var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
             dynamicFormData: function () {
                 return {};
             },
-            maxFileSize: 2,
+            maxFileSize: 4,
             multiple: true,
             dragDrop: true,
             autoSubmit: true,
