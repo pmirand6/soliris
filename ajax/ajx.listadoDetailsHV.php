@@ -15,10 +15,6 @@ if(!empty($_GET["ini"])) {
 
     while($obj = mysqli_fetch_assoc($result)) {
         
-        /*if (strcasecmp($obj["estado"], "NP") !== 0) {
-            $obj["id"] = "-";
-        }*/
-
         $var[] = $obj;
     }
 

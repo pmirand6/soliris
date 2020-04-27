@@ -61,37 +61,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
         }, // 8
         { mData: "apm", bSearchable: true, sWidth: "10%", sClass: "center" }, // 9
         { mData: "estado", bSearchable: true, sWidth: "5%", sClass: "center" }, // 10
-        {
-          mData: "documentos",
-          bSearchable: true,
-          sWidth: "20%",
-          sClass: "center"
-        } // 11
-      ],
-      columnDefs: [
-        {
-          //funcion para obtener los iconos de estado en la columna 9
-          render: function(dataRow, type, row) {
-            let idVenta = row.id;
-            let campo = '<ul class="docs">';
-            if (dataRow == null) {
-              dataRow = "Sin Documentación";
-            }
-            if (dataRow.indexOf(",") > -1) {
-              var string = dataRow.split(",");
-              campo = "";
-              for (pos = 0; pos < string.length; pos++) {
-                campo += l_docs_icon(string[pos], idVenta, idPac);
-              }
-            } else {
-              campo += l_docs_icon(dataRow, idVenta);
-            }
-            return campo + "</ul>";
-          },
-          targets: [11],
-          visible: true,
-          searchable: false
-        }
+        
       ],
       buttons: [
         {

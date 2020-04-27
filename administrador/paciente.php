@@ -25,7 +25,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . _SG;
     @import "../resources/Bootstrap-3.3.1/css/bootstrap.min.css";
     /* Bulma CSS */
     <?php
-    if($_SESSION["grupo"] !== 'ventas'){?>
+    // FIXME verificar harcode de estilo
+    if($_SESSION["grupo"] !== 'atencion_paciente'){?>
         @import "../resources/CSS/bulma/css/bulma.css";
     <?php } ?>
     /* Font-Awesome */

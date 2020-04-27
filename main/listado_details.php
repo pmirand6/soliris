@@ -77,7 +77,6 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                         <th> Institución </th>
                         <th> APM </th>
                         <th> Estado </th>
-                        <th> Documentación </th>
                     </tr>
                 </thead>
                 <tbody>

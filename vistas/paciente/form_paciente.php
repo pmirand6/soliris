@@ -8,7 +8,7 @@
 
 //select quien tiene permisos a form_paciente_fv.php == true -> false redirecto "no tenes permisos"
 
-if($_SESSION["grupo"] == 'ventas'){
+if($_SESSION["grupo"] == 'atencion_paciente'){
     // include de la vista del formulario de alta/modificacion del paciente
     include __DIR__.'/form_paciente_ventas.php';    
 
