@@ -100,9 +100,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
      * 
      */
 
-    if ($read) {
-        include "../vistas/venta/form_vista_venta.php";
-    } else {
+   
 
         /**
          * FIXME 
@@ -129,7 +127,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         }
 
         
-    }
+   
 
 
     ?>
