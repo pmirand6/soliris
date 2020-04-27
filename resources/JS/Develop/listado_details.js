@@ -60,7 +60,10 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
           sClass: "center"
         }, // 8
         { mData: "apm", bSearchable: true, sWidth: "10%", sClass: "center" }, // 9
+        { mData: "tipo_venta", bSearchable: true, sWidth: "10%", sClass: "center" }, // 9
+        { mData: "nbr", bSearchable: true, sWidth: "10%", sClass: "center" }, // 9
         { mData: "estado", bSearchable: true, sWidth: "5%", sClass: "center" }, // 10
+        { mData: "usuario_creador", bSearchable: true, sWidth: "5%", sClass: "center" }, // 10
         
       ],
       buttons: [
