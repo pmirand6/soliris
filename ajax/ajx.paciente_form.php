@@ -29,8 +29,13 @@ if (isset($_POST["oper"]) and (strcasecmp($_POST["oper"], "savePac") == 0)) {
     // Varaibles que pueden ser NULL o Vacías
     // Se chequea con la funcion parametroEmptyChceck que devuelve un string vacío
     // o el parametro sanitizado
-
-    $sub_patologia = (isset($_POST["sub_patologia"]) ? mysqli_real_escape_string($db, $_POST["sub_patologia"]) : 4);
+    if (!empty($_POST["sub_patologia"]) && isset($_POST["sub_patologia"])){
+        $sub_patologia =mysqli_real_escape_string($db, $_POST["sub_patologia"]);
+    }else{
+        $sub_patologia =4;
+    }
+    
+    //$sub_patologia = (isset($_POST["sub_patologia"]) ? mysqli_real_escape_string($db, $_POST["sub_patologia"]) : 4);
     $os = (!empty($_POST["os"])) ? $_POST["os"] : 4;
     $telefono = (isset($_POST["telefono"]) ? mysqli_real_escape_string($db, $_POST["telefono"]) : NULL);
     $ciudad = (isset($_POST["ciudad"]) ? mysqli_real_escape_string($db, $_POST["ciudad"]) : NULL);
