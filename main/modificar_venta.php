@@ -88,12 +88,30 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         $institucion = $row["institucion"];
         $estado = $row["estado"];
         $nbr = $row["nbr"];
+        $oc = $row["orden_compra"];
     }
 
+
+    /**
+     * 
+     * Se verifica que la venta no haya pasado
+     * con el parametro read (indica que la venta esta siendo modificada o asociada a una np o cancelada)
+     * 
+     * 
+     */
 
     if ($read) {
         include "../vistas/venta/form_vista_venta.php";
     } else {
+
+        /**
+         * 
+         * Se evaluan los permisos de acceso
+         * para la modificacion de la venta, 
+         * en caso de no tenerlo, se incluye la 
+         * vista de solo lectura
+         * 
+         */
 
         $grupo = $_SESSION["grupo"];
 

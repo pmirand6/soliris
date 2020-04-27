@@ -43,6 +43,13 @@
                                 <h1 class="heading"><strong><?= $fecha_venta; ?></strong></h1>
                             </div>
                         </div>
+                        <div class="field">
+                            <label class="heading">Orden de Compra</label>
+                            <div class="control">
+                                <!--FIXME revisar harcode en orden de compra -->
+                                <h1 class="heading"><strong><?=($oc == '')? 'Sin Orden de Compra' : $oc; ?></strong></h1>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="column">

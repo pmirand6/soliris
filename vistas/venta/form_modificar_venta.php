@@ -108,6 +108,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="field is-horizontal">
+                            <div class="field-label"><label class="label is-normal">Orden Compra</label></div>
+                            <div class="field-body">
+                                <div class="field">
+                                    <p class="control has-icons-right form-group">
+                                        <input id="oc" name="oc" type="text" placeholder="Orden de Compra" class="form-control input" required value="<?=$oc?>">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="column">
                         <div class="notification is-success">
