@@ -4,8 +4,9 @@
             free_all_results($db);
 
             if(isset($id) AND $id != "") {
-
-                if ($_SESSION["grupo"] == 'ventas') {
+                //FIXME revisar harcode
+                
+                if ($_SESSION["grupo"] == 'atencion_paciente') {
                     l_docs($id, $db);
                 } else {
                     l_docs_fv($id, $db);
