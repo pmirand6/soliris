@@ -27,6 +27,7 @@
 require_once("../config/config.php");
 include $_SERVER['DOCUMENT_ROOT'] . _BD;
 include $_SERVER['DOCUMENT_ROOT'] . _FN;
+include $_SERVER['DOCUMENT_ROOT'] . _MAIL;
 
 if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
 
@@ -40,7 +41,11 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
     $cantUnidades = $_POST["cantUnidades"];
     $idCanal = $_POST["idCanal"];
     $usuario = $_SESSION["soliris_usuario"];
-    if(isset($_POST["oc"])){ $oc = $_POST["oc"];} else {$oc = '';}
+    if (isset($_POST["oc"])) {
+        $oc = $_POST["oc"];
+    } else {
+        $oc = '';
+    }
 
 
 
@@ -58,7 +63,9 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
 
     if (isset($SQL) and $SQL != "") {
         $response = MySQL_sendFunctionAudit("$SQL", "ajx.guarda_venta.php", "1");
+        //FIXME VERIFICAR DE RESPONDER TAMBIEN EL ID COMPUESTO DE LA VENTA
         $idVenta = $response[0]["mensaje"];
+        $codigoVenta = $response[0]["codigo_venta"];
         // TODO VER ENVIO DE MAIL EN EL ALTA DEL PACIENTE
         //  sendMailPM('Paciente Pendiente', $nombre, '', '');
     }
@@ -78,7 +85,7 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
 
 
         if (isset($_FILES["file_receta"]) && !empty($_FILES["file_receta"]) && !empty($_POST["f_receta"])) {
-            
+
             $f_receta = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["f_receta"]))), 'Y-m-d');
             // Salvo el archivo
             $tipoArchivo = 'receta';
@@ -89,7 +96,7 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
                 $fileName = str_replace(' ', '-', $_FILES["file_receta"]["name"]);
                 $finalName = 'receta' . "_" . $idPac . "_" . $f_receta . "_" . $fileName;
 
-                
+
                 $sqlDocsReceta = "CALL `ST_GUARDAR_VENTA_DOCUMENTACION`('$idVenta', '3', '$finalName', '$usuario', '$f_receta')";
                 $response = MySQL_sendFunctionAudit("$sqlDocsReceta", "save_doc_receta", "1");
             } else {
@@ -102,13 +109,13 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
             $f_otro = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["f_otro"]))), 'Y-m-d');
             //Salvo el archivo
             $fileNameOtro = f_saveDocVentas($_FILES["file_otro"], $idVenta, $f_otro, $idPac, $tipoArchivo);
-            
-            
+
+
             if ($fileNameOtro) {
                 $fileName = str_replace(' ', '-', $_FILES["file_otro"]["name"]);
                 $tmpName = $_FILES["file_otro"]["tmp_name"];
                 $finalName = 'otro' . "_" . $idPac . "_" . $f_otro . "_" . $fileName;
-        
+
                 $sqlDocsOtro = "CALL `ST_GUARDAR_VENTA_DOCUMENTACION`('$idVenta', '4', '$finalName', '$usuario', '$f_otro')";
                 $response = MySQL_sendFunctionAudit("$sqlDocsOtro", "save_doc_otro", "1");
             } else {
@@ -120,10 +127,12 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
 
         if ($flagUpDoc) {
 
+            //sendMail_ErrorDocVenta($idVenta);
+
             $resp = array(
                 'title' => 'Error al Guardar la documentación!',
                 'icon' => 'warning',
-                'text' => 'Se ha generado el registro de venta ' . $idVenta . ' pero no se pudo guardar la documentación',
+                'text' => 'Se ha generado el registro de venta con el ID: <b>' . $idVenta . '</b>  y con el código de venta: <b>' . $codigoVenta . '</b>pero no se pudo guardar la documentación',
             );
 
             echo json_encode($resp, JSON_PRETTY_PRINT);
@@ -132,7 +141,7 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'guardar_venta') {
             $resp = array(
                 'title' => 'Venta Generada!',
                 'icon' => 'success',
-                'text' => 'Se generó el registro de venta: ' . $idVenta,
+                'text' => 'Se generó el registro de venta: <b>' . $idVenta . '</b>. <br/> El código interno de esta venta es: <b>' . $codigoVenta. '</b>',
             );
 
             echo json_encode($resp, JSON_PRETTY_PRINT);
