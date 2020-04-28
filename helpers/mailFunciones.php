@@ -18,6 +18,10 @@ function sendMail_CancelacionVenta()
     MailNotificaciones::sendMessage('mail prueba', 'este es el body', ['pmiranda@raffo.com.ar' => 'Pablo Miranda']);
 }
 
+function sendMail_ErrorDocVenta($idVenta)
+{
+    MailNotificaciones::sendMessage('mail prueba', 'este es el body', ['pmiranda@raffo.com.ar' => 'Pablo Miranda']);
+}
 // Notificaciones Medico
 
 function sendMail_AltaMedico($idMedico, $usuarioCreador)

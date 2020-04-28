@@ -89,6 +89,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         $estado = $row["estado"];
         $nbr = $row["nbr"];
         $oc = $row["orden_compra"];
+        $codigo_venta = $row["codigo_venta"];
     }
 
 

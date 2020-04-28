@@ -6,7 +6,7 @@
             <h1 class="title">
                 Modificación de Venta
             </h1>
-            <h2 class="subtitle" id="idVenta"></h2>
+            <h2 class="subtitle" id="idVenta"><?= $codigo_venta ?></h2>
         </div>
     </div>
 </section>
@@ -18,6 +18,14 @@
                 <input id="producto" name="producto" value="<?= $producto; ?>" type="text" class="input" style="display: none">
                 <input id="idPac" name="idPac" value="<?= $paciente_id; ?>" type="text" class="input" style="display: none">
                 <div class="columns">
+                    <div class="column">
+                        <p class="heading">ID de Venta</p>
+                        <p class="subtitle"><?= $idVenta; ?></p>
+                    </div>
+                    <div class="column">
+                        <p class="heading">Codigo de Venta</p>
+                        <p class="subtitle"><?= $codigo_venta; ?></p>
+                    </div>
                     <div class="column">
                         <p class="heading">Producto</p>
                         <p class="subtitle" id="productoTitle"><?= $producto; ?></p>
@@ -31,9 +39,7 @@
                         <p class="subtitle" id="productoTitle"><?= $fecha_venta; ?></p>
                     </div>
                     <?php
-                    $date1 = new DateTime($f_venta);
-                    $date2 = new DateTime($f_mod);
-                    if ($date1 <> $date2) {
+                    if (!empty($fecha_mod)) {
                         echo
                             '<div class="column">
                                 <p class="heading">Usuario Modificación</p>
@@ -113,7 +119,7 @@
                             <div class="field-body">
                                 <div class="field">
                                     <p class="control has-icons-right form-group">
-                                        <input id="oc" name="oc" type="text" placeholder="Orden de Compra" class="form-control input" required value="<?=$oc?>">
+                                        <input id="oc" name="oc" type="text" placeholder="Orden de Compra" class="form-control input" required value="<?= $oc ?>">
                                     </p>
                                 </div>
                             </div>

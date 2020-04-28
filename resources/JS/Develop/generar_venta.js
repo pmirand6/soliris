@@ -133,27 +133,35 @@ function l_generar_venta() {
           let data = JSON.parse(response);
           console.log(data);
           Swal.fire({
+            showCancelButton: false,
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "OK",
             title: data.title,
             icon: data.icon,
-            text: data.text,
-            timer: 5000,
-          }).then(function () {
-            parent.location.reload();
+            html: data.text,
+          }).then((result) => {
+            if (result.value) {
+              parent.location.reload();
+            }
           });
         });
-      } 
+      }
     });
   } else {
     $.ajax(settings).done(function (response) {
       let data = JSON.parse(response);
       console.log(data);
       Swal.fire({
+        showCancelButton: false,
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK",
         title: data.title,
         icon: data.icon,
-        text: data.text,
-        timer: 5000,
-      }).then(function () {
-        parent.location.reload();
+        html: data.text,
+      }).then((result) => {
+        if (result.value) {
+          parent.location.reload();
+        }
       });
     });
   }
