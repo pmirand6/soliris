@@ -5,22 +5,25 @@ require_once("../config/config.php");
 
     if (isset($_GET["id"]) AND !empty($_GET["id"])){
         $id = $_GET["id"];
-        $where_filter = "soliris_log AS L WHERE L.accion LIKE '%$id%' order by L.fecha DESC";
+        $where_filter = "soliris_log AS L WHERE L.id_registro='$id' and L.tabla='". $_GET["tbl"] ."' order by L.fecha desc";
     }else{
         $id = "1";
-        $where_filter = "soliris_log AS L order by L.fecha DESC";
+        $where_filter = "soliris_log AS L where date(fecha)=date(now()) order by L.fecha DESC";
     }
 
     $query = "
     SELECT 
         L.id, 
+        L.registro,
+        L.fecha, 
+        L.valor_anterior,
+        L.valor_nuevo,
         L.usuario, 
-        L.fecha,
-        L.accion, 
-        L.registro, 
-        L.notas
+        L.accion
     FROM
         $where_filter";
+
+   
 
     $result = mysqli_query($db, $query);
 
@@ -28,11 +31,12 @@ require_once("../config/config.php");
     while ($row = mysqli_fetch_assoc($result)) {
         $arr_row = array(
             "id" => $row["id"],
-            "registro" => $row["registro"],
-            "accion" => $row["accion"],
+            "campo" => $row["registro"],
             "fecha" => $row["fecha"],
+            "vAnt" => $row["valor_anterior"],
+            "vNuev" => $row["valor_nuevo"],
             "usuario" => $row["usuario"],
-            "notas" => $row["notas"]
+            "accion" => $row["accion"]
         );
         array_push($arr_tbody, $arr_row);
     };
@@ -41,4 +45,5 @@ require_once("../config/config.php");
     mysqli_close($db);
 
     echo "{\"aaData\": " . json_encode($arr_tbody) . "}";
+
 ?>

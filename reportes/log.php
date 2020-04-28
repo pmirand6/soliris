@@ -2,6 +2,7 @@
 
         require_once('../config/config.php');
 include $_SERVER['DOCUMENT_ROOT'] . _SG;
+include $_SERVER['DOCUMENT_ROOT'] . _BD;
 
 ?>
 <!DOCTYPE html>
@@ -38,8 +39,17 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         }
     </style>
 
+<?php
 
+$arr_select_tbls='<option value=>Seleccione objeto</option>';
 
+$SQLtbls = "select tbl, descripcion from audit_tablas order by descripcion asc";
+$result = mysqli_query($db, $SQLtbls);
+    while ($row = mysqli_fetch_assoc($result)) {
+        
+        $arr_select_tbls .= '<option value="' . $row["tbl"] . '">' . $row["descripcion"] . '</option>;';
+    }
+?>
 </head>
 <body>
     <fieldset class="form-horizontal col-sm-11 col-xs-11">
@@ -48,19 +58,23 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         <form class="col-sm-12 col-xs-12 form">
             <!-- ID -->
             <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="id">ID del Registro o del Paciente</label>
-                <div class="col-sm-4 col-xs-4">
+                <div class="col-sm-2 col-xs-2">
+                    <label class=" control-label" for="id">ID del registro y Tabla</label>
+                </div>
+                <div class="col-sm-2 col-xs-2">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-hashtag"></span></div>
-                        <input id="id" name="id" type="text" placeholder="ID del Registro/Paciente..." class="form-control input-md" maxlength="20">
+                        <input id="id" name="id" type="text" placeholder="ID del Registro" class="form-control input-md" maxlength="20">
                     </div>
                 </div>
-            </div>
-
-            <hr>
-            <!-- Button (Double) -->
-            <div class="form-group text-center">
-                <div class="col-sm-12 col-xs-12">
+                <div class="col-sm-4 col-xs-4">
+                    <div class="input-group">
+                        <select  id="tbl" name="tbl" placeholder="Componente" class="form-control select-md">
+                        <?= $arr_select_tbls; ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-2">
                     <button type="submit" id="buscar" name="guardar" class="btn btn-info disabled">
                         <span class="fa fa-search"></span>
                         Buscar
@@ -74,19 +88,21 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                 <table id="TBLLog" class="table table-responsive table-bordered">
                     <thead class="bg-info">
                         <th>id</th>
-                        <th>Página</th>
-                        <th>Acción</th>
                         <th>Fecha</th>
+                        <th>Campo</th>
+                        <th>Val. Anterior</th>
+                        <th>Val. Nuevo</th>
                         <th>Usuario</th>
-                        <th>Notas</th>
+                        <th>Acción</th>
                     </thead>
                     <tfoot class="bg-info">
-                        <th>id</th>
-                        <th>Página</th>
-                        <th>Acción</th>
+                    <th>id</th>
                         <th>Fecha</th>
+                        <th>Campo</th>
+                        <th>Val. Anterior</th>
+                        <th>Val. Nuevo</th>
                         <th>Usuario</th>
-                        <th>Notas</th>
+                        <th>Acción</th>
                     </tfoot>
                     <tbody>
                     </tbody>

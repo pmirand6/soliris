@@ -1,0 +1,81 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versión del servidor:         5.6.11-log - MySQL Community Server (GPL)
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             11.0.0.5919
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Volcando estructura para procedimiento soliris.ST_CONTROL_RECETA_VENTA
+DELIMITER //
+CREATE PROCEDURE `ST_CONTROL_RECETA_VENTA`(
+	IN `v_fecha_receta` DATE,
+	IN `v_idPaciente` INT
+
+)
+    COMMENT 'Controla que la fecha de la receta no exista'
+BEGIN
+
+
+SET @cuenta_fecha = (SELECT 
+	COUNT(mv.id)
+FROM documentos d 
+LEFT JOIN rel_venta_documentos rvd ON rvd.documento_id = d.id
+LEFT JOIN maestro_ventas mv ON mv.id = rvd.venta_id
+WHERE 
+d.documentos_tipo_id = 3
+AND 
+d.estado_id = 15
+AND
+mv.paciente_id = v_idPaciente
+and
+d.fecha_documento = v_fecha_receta
+AND 
+mv.estado_id = 23
+);
+
+IF (@cuenta_fecha <> 0) THEN
+
+	SELECT mv.id, d.fecha_documento, d.valor INTO @id_venta, @fecha_doc_venta, @nombre_doc FROM documentos d 
+	LEFT JOIN rel_venta_documentos rvd ON rvd.documento_id = d.id
+	LEFT JOIN maestro_ventas mv ON mv.id = rvd.venta_id
+	WHERE 
+	d.documentos_tipo_id = 3
+	AND 
+	d.estado_id = 15
+	AND
+	mv.paciente_id = v_idPaciente
+	and
+	d.fecha_documento = v_fecha_receta
+	AND 
+	mv.estado_id = 23;
+
+	
+	SELECT 
+		@fecha_doc_venta as fecha_doc, 
+		@nombre_doc as nombre_doc, 
+		CONCAT('/documentacion/venta/', v_idPaciente, '/', @id_venta, '/', @nombre_doc) AS url_doc,
+		true as mensaje;
+ELSE 
+	select false as mensaje;
+END IF;
+
+
+
+
+
+
+
+
+
+END//
+DELIMITER ;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

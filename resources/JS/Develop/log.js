@@ -2,7 +2,9 @@
  * Created by jgallina on 30/04/2015.
  */
 var aplicacion = getCurrentHostname() + '/' + getUrlHTTP();
+
 $(document).ready(function() {
+    
     $('.form')
         .formValidation({
             framework: 'bootstrap',
@@ -29,7 +31,7 @@ $(document).ready(function() {
         .on('success.form.fv', function(e) {
             // Prevent form submission
             e.preventDefault();
-            reloadTBLinitial($('#id').val());
+            reloadTBLinitial($('#id').val(), $('#tbl').val());
         })
 		.submit(function(e){
 			e.preventDefault();
@@ -49,14 +51,16 @@ $(document).ready(function() {
         "processing": true,
         "sAjaxSource": aplicacion + '/ajax/ajx.log.php',
         "sDom": '<"top"B>rt<"bottom"ip><"clear">',
-        "order": [[ 3, "desc" ]],
+        "order": [[ 1, "desc" ]],
         "aoColumns": [
             { "mData": "id", "bSearchable": true, "bVisible": false, "sClass": "center"},
-            { "mData": "registro", "bSearchable": true, "sWidth": "20%", "sClass": "center"},
-            { "mData": "accion", "bSearchable": true, "sWidth": "40%", "sClass": "center"},
-            { "mData": "fecha", "bSearchable": true, "sWidth": "10%", "sClass": "center"},
-            { "mData": "usuario", "bSearchable": true, "sWidth": "10%", "sClass": "center"},
-            { "mData": "notas", "bSearchable": true, "sWidth": "20%", "sClass": "center"}
+            { "mData": "fecha", "bSearchable": true, "sWidth": "20%", "sClass": "center"},
+            { "mData": "campo", "bSearchable": true, "sWidth": "40%", "sClass": "center"},
+            { "mData": "vAnt", "bSearchable": true, "sWidth": "10%", "sClass": "center"},
+            { "mData": "vNuev", "bSearchable": true, "sWidth": "10%", "sClass": "center"},
+            { "mData": "usuario", "bSearchable": true, "sWidth": "20%", "sClass": "center"},
+            { "mData": "accion", "bSearchable": true, "sWidth": "20%", "sClass": "center"}
+
         ],
         "buttons": [
             { extend: 'copyHtml5', text: '<i class="fa fa-files-o" aria-hidden="true"></i> Copiar'},
@@ -104,9 +108,9 @@ $(document).ready(function() {
 
 });
 
-function reloadTBLinitial(init) {
+function reloadTBLinitial(init,tabla) {
     if (init != ''){
-        $.get(aplicacion + '/ajax/ajx.log.php?id=' + init, function (data) { doRefresh(data, "#TBLLog") });
+        $.get(aplicacion + '/ajax/ajx.log.php?id=' + init + '&tbl=' + tabla, function (data) { doRefresh(data, "#TBLLog") });
     }
 }
 function doRefresh(data, id) {
