@@ -77,6 +77,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                         <th> Institución </th>
                         <th> APM </th>
                         <th>Tipo de Venta</th>
+                        <th>Código de Venta</th>
                         <th>Nota de Pedido</th>
                         <th> Estado </th>
                         <th>Usuario</th>

@@ -7,7 +7,6 @@
                 Modificación de Venta
             </h1>
             <h2 class="subtitle" id="nomPaciente"><?= $paciente_nombre ?></h2>
-            <h2 class="subtitle" id="idVenta"><?= $codigo_venta ?></h2>
         </div>
     </div>
 </section>
