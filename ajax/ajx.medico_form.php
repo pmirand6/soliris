@@ -26,7 +26,7 @@ if (isset($_POST["oper"]) and $_POST["oper"] == "Guardar") {
     $email = mysqli_real_escape_string($db, $_POST["email"]);
     $domicilio = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["domicilio"])));
     $localidad = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["localidad"])));
-
+    $provincia = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["provincia"])));
     $especialidades = $_POST["especialidad"];
     $apm = mysqli_real_escape_string($db, $_POST["apm"]);
     $usuario = $_SESSION["soliris_usuario"];
@@ -42,6 +42,7 @@ if (isset($_POST["oper"]) and $_POST["oper"] == "Guardar") {
     '$fax', 
     '$domicilio', 
     '$localidad', 
+    '$provincia', 
     '$apm', 
     '$email',
     '$usuario')";
@@ -90,6 +91,7 @@ if (isset($_POST["oper"]) and $_POST["oper"] == "Actualizar") {
     $email = mysqli_real_escape_string($db, $_POST["email"]);
     $domicilio = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["domicilio"])));
     $localidad = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["localidad"])));
+    $provincia = mysqli_real_escape_string($db, ucfirst(strtolower($_POST["provincia"])));
     $notas = mysqli_real_escape_string($db, $_POST["notas"]);
 
     $especialidades = $_POST["especialidad"];
@@ -99,7 +101,7 @@ if (isset($_POST["oper"]) and $_POST["oper"] == "Actualizar") {
     
 
     $SQLMed = "CALL ST_UP_MEDICO($id, $estado_id, '$nombre', '$apellido',
-     $matricula_tipo, '$matricula_numero', '$lugar', '$c_atencion', '$telefono', '$fax', '$domicilio', '$localidad', $apm, '$email', '$usuario', '$notas')";
+     $matricula_tipo, '$matricula_numero', '$lugar', '$c_atencion', '$telefono', '$fax', '$domicilio', '$localidad','$provincia', $apm, '$email', '$usuario', '$notas')";
 
     
     foreach ($especialidades as $esp) {
