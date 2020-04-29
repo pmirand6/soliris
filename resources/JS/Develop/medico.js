@@ -158,6 +158,13 @@ $.getScript(
                 },
               },
             },
+            provincia: {
+              validators: {
+                notEmpty: {
+                  message: "Debe Seleccionar una provincia",
+                },
+              },
+            },
             fecha_cap: {
               validators: {
                 notEmpty: {
@@ -209,6 +216,7 @@ $.getScript(
             email: $("#email").val(),
             domicilio: $("#domicilio").val(),
             localidad: $("#localidad").val(),
+            provincia: $("#provincia").val(),
             especialidad: $("#especialidad").val(),
             apm: $("#apm").val(),
             u_venta: $("#u_venta").val(),

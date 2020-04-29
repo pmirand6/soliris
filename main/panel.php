@@ -92,6 +92,7 @@ $session_grupo = $_SESSION["grupo"];
 					<th>Patología</th>
                     <th>Fecha Venta</th>
                     <th>Tipo de Venta</th>
+                    <th>Código de Venta</th>
                     <th>Estado</th>
                 </tr>
             </thead>

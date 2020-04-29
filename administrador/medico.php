@@ -34,14 +34,16 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
         $email = $med["mail"];
         $domicilio = $med["domicilio"];
         $localidad = $med["localidad"];
+        $provincia = $med["provincia_id"];
         $notas_mod = $med["notas_mod"];
         $fecha_cap = $med["fecha_cap"];
+        
         if (!empty($med["especialidad_nombre"])) {
             $especialidad = $med["especialidad_nombre"];
         } else {
             $especialidad = "";
         }
-
+        
         if (!empty($med["apm_id"])) {
             $apm = $med["apm_id"];
         } else {
@@ -73,6 +75,7 @@ if (isset($_GET["id"]) and $_GET["id"] != 0 and !empty($_GET["id"])) {
     $nacimiento = "";
     $domicilio = "";
     $localidad = "";
+    $provincia = "";
     $fecha_cap = "";
     $especialidad = "";
     $apm = "";
@@ -93,7 +96,7 @@ while ($rowEsp = mysqli_fetch_assoc($resultEsp)) {
     }
 };
 
-/* Combo de Especialidad */
+/* Combo de Estados */
 $sqlEstados = "SELECT id, valor FROM maestro_estado m WHERE m.referencia = 'medico'";
 free_all_results($db);
 $resultEst = mysqli_query($db, $sqlEstados);
@@ -124,6 +127,19 @@ while ($rowAPM = mysqli_fetch_assoc($resultAPM)) {
 };
 
 mysqli_free_result($resultAPM);
+/* ------------------ */
+
+/* Combo de provincia */
+$SQLPROV = "CALL `ST_LIST_PROVINCIAS`()";
+free_all_results($db);
+$resultProv = mysqli_query($db, $SQLPROV);
+$arr_select_prov = "";
+
+while ($rowPROV = mysqli_fetch_assoc($resultProv)) {
+    $arr_select_prov .= '<option value="' . $rowPROV["id"] . '" ' . f_p_selected($provincia, $rowPROV["id"]) . '>' . $rowPROV["provincia"] . '</option>;';
+};
+
+mysqli_free_result($resultProv);
 /* ------------------ */
 
 /** Combo Tipo Matriculas */
@@ -349,6 +365,19 @@ mysqli_free_result($resultMat_Tipo);
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-building"></span></div>
                         <input id="localidad" name="localidad" type="text" placeholder="Localidad..." class="form-control input-md" maxlength="255" value="<?php echo $localidad ?>">
+                    </div>
+                </div>
+            </div>
+
+             <!-- Provincia -->
+             <div class="form-group">
+                <label class="col-sm-4 col-xs-4 control-label" for="provincia">Provincia</label>
+                <div class="col-sm-6 col-xs-8">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="fa fa-building"></span></div>
+                        <select class="selectpicker form-control" id="provincia" name="provincia" data-live-search="true" title="Seleccione una provincia.">
+                        <?=$arr_select_prov?>
+                        </select>
                     </div>
                 </div>
             </div>
