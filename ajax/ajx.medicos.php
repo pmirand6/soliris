@@ -2,15 +2,19 @@
 //require_once($_SERVER['DOCUMENT_ROOT'] . '/soliris_pq/config/config.php');   
 require_once("../config/config.php");
 include $_SERVER['DOCUMENT_ROOT'] . _BD;
-if (isset($_POST["oper"]) == 'getMedicos') {
 
-    if (isset($_POST["ini"]) and $_POST["ini"] != "TODOS") {
-        $ini = $_POST["ini"];
+
+
+/*if (isset($_POST["oper"]) == 'getMedicos') {*/
+
+    if (isset($_GET["ini"]) and $_GET["ini"] != "TODOS") {
+        $ini = $_GET["ini"];
         $query = "CALL ST_LIST_MEDICOS('$ini')";
     } else {
         $query = "CALL ST_LIST_MEDICOS('')";
     }
-
+    
+    
 
     $result = mysqli_query($db, $query);
 
@@ -37,13 +41,14 @@ if (isset($_POST["oper"]) == 'getMedicos') {
         );
         array_push($arr_tbody, $arr_row);
     };
+    
 
 
     mysqli_free_result($result);
     mysqli_close($db);
 
     echo "{\"aaData\": " . json_encode($arr_tbody) . "}";
-}
+/*}*/
 
 // Busqueda de médicos desde la venta
 if (isset($_GET['q'])) {
