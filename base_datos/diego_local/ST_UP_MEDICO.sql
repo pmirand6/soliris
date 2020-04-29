@@ -13,23 +13,25 @@
 
 -- Volcando estructura para procedimiento soliris.ST_UP_MEDICO
 DELIMITER //
-CREATE PROCEDURE `ST_UP_MEDICO`(IN `v_idMedico` int,
-IN `v_estado_id` int,
-IN `v_nombre` varchar(200),
-IN `v_apellido` varchar(50),
-IN `v_matricula_tipo_id` int,
-IN `v_matricula_numero` varchar(45),
-IN `v_lugar` varchar(45),
-IN `v_c_atencion` varchar(255),
-IN `v_telefono` varchar(45),
-IN `v_fax` varchar(45),
-IN `v_domicilio` varchar(255),
-IN `v_localidad` varchar(255),
-IN `v_apm_id` int,
-IN `v_email` varchar(255)
-
-,
-IN `v_usuario` varchar(50))
+CREATE PROCEDURE `ST_UP_MEDICO`(
+	IN `v_idMedico` int,
+	IN `v_estado_id` int,
+	IN `v_nombre` varchar(200),
+	IN `v_apellido` varchar(50),
+	IN `v_matricula_tipo_id` int,
+	IN `v_matricula_numero` varchar(45),
+	IN `v_lugar` varchar(45),
+	IN `v_c_atencion` varchar(255),
+	IN `v_telefono` varchar(45),
+	IN `v_fax` varchar(45),
+	IN `v_domicilio` varchar(255),
+	IN `v_localidad` varchar(255),
+	IN `v_provincia` INT,
+	IN `v_apm_id` int,
+	IN `v_email` varchar(255),
+	IN `v_usuario` varchar(50),
+	IN `v_notas` varchar(255)
+)
     MODIFIES SQL DATA
     DETERMINISTIC
     COMMENT 'Creacion de un nuevo medico'
@@ -47,9 +49,9 @@ BEGIN
 
   IF (@count_med <> 0) THEN
     UPDATE medico
-    SET apellido = v_nombre -- apellido - VARCHAR(50)
+    SET nombre = v_nombre -- apellido - VARCHAR(50)
         ,
-        nombre = v_apellido -- nombre - VARCHAR(200)
+        apellido = v_apellido -- nombre - VARCHAR(200)
         ,
         matricula_tipo_id = v_matricula_tipo_id -- matricula_tipo_id - INT(11) NOT NULL
         ,
@@ -71,10 +73,13 @@ BEGIN
         ,
         localidad = v_localidad -- localidad - VARCHAR(255)
         ,
+        provincia_id= v_provincia
+		  ,
         estado_id = v_estado_id -- estado_id - INT(11) NOT NULL
         ,
         fecha_modificacion = NOW() -- fecha_modificacion - DATETIME
         ,
+        notas_mod = v_notas,
         usuario_mod = @usuario_mod_id -- usuario_mod - INT(11) NOT NULL
     WHERE id = v_idMedico -- id - INT(10) NOT NULL
     ;

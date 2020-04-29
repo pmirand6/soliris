@@ -11,35 +11,36 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Volcando estructura de base de datos para soliris
-CREATE DATABASE IF NOT EXISTS `soliris` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `soliris`;
-
 -- Volcando estructura para procedimiento soliris.ST_LIST_VENTAS_NO_NP
 DELIMITER //
 CREATE PROCEDURE `ST_LIST_VENTAS_NO_NP`()
 BEGIN
-SELECT
-		m.id AS id_venta,
+  SELECT
+    m.id AS id_venta,
     P.nombre_completo AS name,
     P.sexo AS sexo,
-    if(P.c_gestar,P.c_gestar,'NO') AS cgestar,
+    IF(P.c_gestar, P.c_gestar, 'NO') AS cgestar,
     m.edad AS edad,
-   
+
     (SELECT
         pat.patologia_nombre
       FROM patologia pat
       WHERE pat.id = P.patologia_id) AS patologia,
-      
-    
-		m.fecha_venta AS uventa,
-		(SELECT
+
+
+    m.fecha_venta AS venta,
+    (SELECT
+        valor
+      FROM maestro_ventas_tipo
+      WHERE id = m.venta_tipo_id) AS tventa,
+    (SELECT
         me.valor
       FROM maestro_estado me
-      WHERE m.estado_id = me.id) AS estado
+      WHERE m.estado_id = me.id) AS estado,
+      
+      m.codigo_venta AS cod_venta
 
-    
+
   FROM paciente AS P
     INNER JOIN maestro_ventas m
       ON m.paciente_id = P.id
