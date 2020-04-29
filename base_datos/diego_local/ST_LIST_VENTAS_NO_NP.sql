@@ -11,6 +11,11 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+
+-- Volcando estructura de base de datos para soliris
+CREATE DATABASE IF NOT EXISTS `soliris` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `soliris`;
+
 -- Volcando estructura para procedimiento soliris.ST_LIST_VENTAS_NO_NP
 DELIMITER //
 CREATE PROCEDURE `ST_LIST_VENTAS_NO_NP`()
@@ -38,8 +43,9 @@ SELECT
   FROM paciente AS P
     INNER JOIN maestro_ventas m
       ON m.paciente_id = P.id
-   WHERE m.estado_id=22
-  GROUP BY P.id, m.id
+  WHERE (m.estado_id = 22 OR DATE(m.fecha_venta) = DATE(NOW()))
+  GROUP BY P.id,
+           m.id
   HAVING COUNT(*) > 0;
 
 END//
