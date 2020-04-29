@@ -2,6 +2,14 @@
 
 require '../clases/MailNotificaciones.php';
 
+// Notificacion de prueba
+
+function sendMail_Test()
+{
+    MailNotificaciones::sendMessagePrueba('mail prueba', 'este es el body', ['pmiranda@raffo.com.ar' => 'Pablo Miranda']);
+}
+
+
 // Notificaciones Venta
 function sendMail_AltaVenta()
 {
