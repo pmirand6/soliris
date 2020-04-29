@@ -13,7 +13,9 @@
 
 -- Volcando estructura para procedimiento soliris.ST_SHOW_MEDICO
 DELIMITER //
-CREATE PROCEDURE `ST_SHOW_MEDICO`(IN `v_idMedico` int)
+CREATE PROCEDURE `ST_SHOW_MEDICO`(
+	IN `v_idMedico` int
+)
     COMMENT 'Muestra los datos de un medico'
 BEGIN
 
@@ -28,7 +30,9 @@ BEGIN
     m.mail,
     m.domicilio,
     m.localidad,
+    m.provincia_id,
     m.fecha_cap,
+    m.notas_mod,
     me.valor AS estado,
     m.matricula_numero,
     (SELECT

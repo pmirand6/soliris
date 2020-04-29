@@ -13,7 +13,9 @@
 
 -- Volcando estructura para procedimiento soliris.ST_SHOW_VENTAS_PACIENTE
 DELIMITER //
-CREATE PROCEDURE `ST_SHOW_VENTAS_PACIENTE`(IN `v_idPac` int)
+CREATE PROCEDURE `ST_SHOW_VENTAS_PACIENTE`(
+	IN `v_idPac` int
+)
     COMMENT 'Devuelve las ventas relacionadas con el paciente'
 BEGIN
 
@@ -30,27 +32,33 @@ BEGIN
     c.canal AS canal,
     i.nombre AS institucion,
     apm.nombre_completo AS apm,
-    me.valor AS estado,
+    mvt.valor AS tipo_venta,
+	 mv.codigo_venta AS cod_venta,
+    mv.nbr AS nbr,
     (SELECT
-        `FU_GET_DOCUMENTS_VENTA`(mv.id)) AS documentos
+        FU_GET_USERNAME_USUARIO(mv.usuario_id)) AS usuario_creador,
+    me.valor AS estado
+
   FROM maestro_ventas mv
-    INNER JOIN paciente p
+    LEFT JOIN paciente p
       ON p.id = mv.paciente_id
-    INNER JOIN rel_venta_documentos rvd
+    INNER JOIN maestro_ventas_tipo mvt
+      ON mvt.id = mv.venta_tipo_id
+    LEFT JOIN rel_venta_documentos rvd
       ON rvd.venta_id = mv.id
-    INNER JOIN documentos doc
+    LEFT JOIN documentos doc
       ON doc.id = rvd.documento_id
-    INNER JOIN medico med
+    LEFT JOIN medico med
       ON med.id = mv.medico_id
     LEFT JOIN apm
       ON apm.id = med.apm_id
-    INNER JOIN presentacion d
+    LEFT JOIN presentacion d
       ON d.id = mv.presentacion_id
-    INNER JOIN canales c
+    LEFT JOIN canales c
       ON c.id = mv.canal_id
-    INNER JOIN institucion i
+    LEFT JOIN institucion i
       ON i.id = mv.institucion_id
-    INNER JOIN maestro_estado me
+    LEFT JOIN maestro_estado me
       ON me.id = mv.estado_id
   WHERE p.id = v_idPac
   GROUP BY mv.id

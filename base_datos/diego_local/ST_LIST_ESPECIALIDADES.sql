@@ -25,7 +25,8 @@ BEGIN
     e.familia
   FROM especialidad e
     INNER JOIN maestro_estado m
-      ON m.id = e.estado_id;
+      ON m.id = e.estado_id
+      WHERE m.valor='Activo';
 
 
 
