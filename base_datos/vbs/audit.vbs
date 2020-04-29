@@ -85,7 +85,7 @@ sub inicio(tabla)
 				cab=cab &"CREATE TRIGGER log_"&tabla&"_upd BEFORE "&ucase(accion)&"  ON "&tabla&" "&chr(13)&" FOR EACH ROW  BEGIN"&chr(13)
 				Set objTextFile = objFSO.OpenTextFile(ruta&"trigger_"&tabla&"_upd.sql", ForAppending, true)
 			case "insert"
-				cab=cab &"CREATE TRIGGER log_"&tabla&"_inst BEFORE "&ucase(accion)&" ON "&tabla&" "&chr(13)&" FOR EACH ROW  BEGIN"&chr(13)
+				cab=cab &"CREATE TRIGGER log_"&tabla&"_inst AFTER "&ucase(accion)&" ON "&tabla&" "&chr(13)&" FOR EACH ROW  BEGIN"&chr(13)
 				Set objTextFile = objFSO.OpenTextFile(ruta&"trigger_"&tabla&"_inst.sql", ForAppending, true)
 			case "delete"
 				cab=cab &"CREATE TRIGGER log_"&tabla&"_del AFTER "&ucase(accion)&"  ON "&tabla&" "&chr(13)&" FOR EACH ROW  BEGIN"&chr(13)
