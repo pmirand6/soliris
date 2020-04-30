@@ -103,7 +103,7 @@
 								<table border="0" cellpadding="0" cellspacing="0" width="100%" class="emailHeader" style=""><tbody><tr>
                         <td align="center" valign="middle" style="padding-top:40px;padding-bottom:40px;padding-left:20px;padding-right:20px;" class="emailLogo">
                             <a href="#" target="_blank" style="text-decoration:none;">
-                                <img src="http://emails.grapestheme.com/miley/img/logo.png" alt="" width="80" border="0" style="height:auto; display:block;">
+                                <img src="images/soliris.png" alt="" width="80" border="0" style="height:auto; display:block;">
                             </a>
                         </td>
                     </tr>
