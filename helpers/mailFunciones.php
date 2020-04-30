@@ -19,8 +19,9 @@ function sendMail_Test($idMedico, $accion)
     $chunks = array_chunk(preg_split('/(-|,)/', $emailsArray), 2);
     $emails = array_combine(array_column($chunks, 1), array_column($chunks, 0));
     
-    $body = file_get_contents('../mails/medico/emailMedico.php');
-    $variables = array(
+    //$body = file_get_contents('../mails/medico/emailMedico.php');
+    $body = file_get_contents('../mails/medico/demo.php');
+    /*$variables = array(
         "{{accion}}" => $accion,
         "{{nom_medico}}" => $response[0]["nom_medico"],
         "{{accion2}}" => 'Se ha creado con exito',
@@ -32,9 +33,9 @@ function sendMail_Test($idMedico, $accion)
 
     foreach ($variables as $key => $value) {
         $body = str_replace($key, $value, $body);
-    }
+    }*/
     
-    MailNotificaciones::sendMessagePrueba('Alta de Medico', $body, $emails);
+    MailNotificaciones::sendMessage('Alta de Medico', $body, ['pmiranda@raffo.com.ar' => 'Pablo Miranda']);
 }
 
 
