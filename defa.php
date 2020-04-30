@@ -85,7 +85,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 
                                 <div class="form-check">
                                     <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" value="<?=$row["nombre"]?>" onclick="change_location(this.value);" <?= selected($row["nombre"]); ?>>
+                                        <input class="form-check-input" type="radio" value="<?= $row["nombre"] ?>" onclick="change_location(this.value);" <?= selected($row["nombre"]); ?>>
                                         <?= $row["nombre"]; ?>
                                     </label>
                                 </div>
@@ -158,6 +158,8 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 
     echo $_SESSION["grupo"];
     ?>
+
+    
 
 
 </body>
