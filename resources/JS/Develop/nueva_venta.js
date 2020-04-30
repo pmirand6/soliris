@@ -184,7 +184,7 @@ function l_set_table_pac() {
         if (result.value) {
           window.location.href =
             aplicacion +
-            "/main/modificar_venta.php/?idVenta=" +
+            "/main/modificar_venta.php?idVenta=" +
             u_idVenta +
             "&read=true";
         }

@@ -10,6 +10,9 @@ $flagUpDoc = false;
 $fecha_capacitacion = date_format(date_create_from_format('d/m/Y', mysqli_real_escape_string($db, strtoupper($_POST["fecha_capacitacion"]))), 'Y-m-d');
 $idMedico = $_POST["idMedico"];
 $usuario = $_SESSION["soliris_usuario"];
+$mod = $_POST["mod"]; // variable seteada para indicar que el registro es o no una modificación
+
+
 
 $upDocMed = f_saveDocCapMedico($idMedico, $fecha_capacitacion);
 
@@ -22,15 +25,21 @@ if ($upDocMed) {
     
 } else {
     $flagUpDoc = true;
+
 }
 
+
 if ($flagUpDoc) {
-    // FIXME ENVIAR MAIL DE ALTA DE MEDICO
+    // FIXME ENVIAR ERROR DE SUBIDA DE DOCUMENTACION
     $ret[] = "Hubo un error al subir el archivo";
     echo json_encode($ret);
 } else {
-    //FIXME VERIFICAR DE ENVIAR EL MAIL 
-    sendMail_AltaMedico($idMedico, $usuario);
+    //NOTE SI ESTA SETEADO EL OPER NO ENVIO MAIL YA QUE ES UNA MODIFICACION DEL MEDICO
+    //FIXME VERIFICAR SI ES NECESARIO ENVIAR UN MAIL INDICANDO QUE TAMBIEN SE MODIFICA LA DOCUMENTACION 
+    if($mod != 'true'){
+        sendMail_AltaMedico($idMedico);
+    } 
+       
     $ret[] = " El archivo: '$fileNameCap'. \n Se subió correctamente";
     echo json_encode($ret);
 }

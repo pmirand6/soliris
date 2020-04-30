@@ -6,7 +6,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
 include $_SERVER['DOCUMENT_ROOT'] . _MAIL;
 
 
-sendMail_Test();
+sendMail_Test(334, 'Alta de Medico');
 
 
 

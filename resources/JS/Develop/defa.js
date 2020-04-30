@@ -31,15 +31,17 @@ $(document).ready(function () {
    */
   if (getQuerystring("url")) {
     var urlParams = new URLSearchParams(location.search);
+    
     let page = urlParams.get('url');
     let args = urlParams.get('args');
+    
     /**
      * Verifico que la pagina no tenga un querystring
      */
     if(args == null){
         pop(aplicacion + page);
     } else {
-        pop(aplicacion + page + '/' + args);
+        pop(aplicacion + page + args);
     }
     //Limpio la url para que visualmente no queden los argumentos pasados por el mail
     window.history.pushState({}, document.title, aplicacion + "/" + "defa.php");

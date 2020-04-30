@@ -19,19 +19,17 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
 
     <style type="text/css">
         /* Bulma CSS */
-        @import "../../resources/CSS/bulma/css/bulma.css";
+        @import "../resources/CSS/bulma/css/bulma.css";
         /* Font-Awesome */
-        @import "../../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
+        @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
         /* Iconos de Estados */
-        @import "../../resources/Sprites/TBL-icons.css";
-        /* Custom CSS */
-        /*@import "../../resources/CSS/Develop/generar_venta.css";*/
+        @import "../resources/Sprites/TBL-icons.css";
         /* Include Bootstrap Datepicker */
-        @import "../../resources/Bootstrap-DatePicker/min/datepicker.min.css";
+        @import "../resources/Bootstrap-DatePicker/min/datepicker.min.css";
         /* Bootstrap Validator */
-        @import "../../resources/formvalidation/dist/css/formValidation.css";
+        @import "../resources/formvalidation/dist/css/formValidation.css";
         /**Sweetalert2 */
-        @import "../../resources/sweetalert2/dist/sweetalert2.min.css";
+        @import "../resources/sweetalert2/dist/sweetalert2.min.css";
     </style>
 </head>
 

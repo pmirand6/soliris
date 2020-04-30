@@ -268,4 +268,4 @@
 </section>
 
 
-<script type="text/javascript" language="javascript" src="../../resources/JS/Develop/modificar_venta.js"></script>
+<script type="text/javascript" language="javascript" src="../resources/JS/Develop/modificar_venta.js"></script>

@@ -60,6 +60,14 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
       $(".form").formValidation("revalidateField", "fecha");
     });
 
+    // Verifico si es o no una modificacion del registro del medico
+    // para controlar el envio del email
+    if(getQuerystring('oper')){
+      var mod = true;
+    } else {
+      var mod = false;
+    }
+
     var Capacitacion = $("#Capacitacion").uploadFile({
       url: aplicacion + "/ajax/ajx.docs_medico.php",
       dragDrop: false,
@@ -71,6 +79,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
       maxFileCount: 1,
       formData: {
         idMedico: $("#id").val(),
+        mod: mod
       },
       onSelect: function (files) {
         files[0].name;
@@ -96,14 +105,6 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
         $btn.button("reset");
       }
     });
-    /*$("#save").click(function () {
-      var $btn = $(this).button("loading");
-      Capacitacion.startUpload();
-      $btn.button("reset");
-      wait(3000);
-      alert("Se registró correctamente, ya puede cerrar esta ventana");
-      //window.location.href = aplicacion + '/administrador/medicos.php';
-    });*/
     $("#Docs").click(function () {
       if (getQuerystring("id") !== "") {
         var $btn = $(this).button("loading");

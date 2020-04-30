@@ -72,6 +72,7 @@ if (isset($_POST["oper"]) and $_POST["oper"] == "Actualizar") {
     require($_SERVER['DOCUMENT_ROOT'] . '/soliris/config/config.php');
     include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
     include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
+    include_once $_SERVER['DOCUMENT_ROOT'] . _MAIL;
 
 
 
@@ -98,17 +99,18 @@ if (isset($_POST["oper"]) and $_POST["oper"] == "Actualizar") {
     $apm = mysqli_real_escape_string($db, $_POST["apm"]);
     $usuario = $_SESSION["soliris_usuario"];
     $estado_id = mysqli_real_escape_string($db, $_POST["estado"]);
-    
+
 
     $SQLMed = "CALL ST_UP_MEDICO($id, $estado_id, '$nombre', '$apellido',
      $matricula_tipo, '$matricula_numero', '$lugar', '$c_atencion', '$telefono', '$fax', '$domicilio', '$localidad','$provincia', $apm, '$email', '$usuario', '$notas')";
 
-    
+
     foreach ($especialidades as $esp) {
         $SQL = "CALL ST_REL_ESP_MED($id, '$esp')";
         mysqli_query($db, $SQL);
         free_all_results($db);
     }
+
 
 
     // Realizo la consulta
@@ -118,5 +120,16 @@ if (isset($_POST["oper"]) and $_POST["oper"] == "Actualizar") {
 
         echo $response[0]['mensaje'];
     }
+
+    //NOTE Switcheo entreo los estados del medico para el envio del mail
+    switch ($estado_id) {
+        case 19:
+            sendMail_ModificacionMedico($id);
+            break;
+        case 20:
+            sendMail_BajaMedico($id);
+            break;
+    }
+
     mysqli_close($db);
 }

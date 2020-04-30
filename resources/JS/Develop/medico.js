@@ -309,9 +309,7 @@ function saveMed(parametros) {
     data: parametros,
     success: function (opciones) {
       if (opciones.indexOf("ERROR") != 0) {
-        /*alert(
-          "Se registró correctamente.\t Continue con la carga de la documentacion."
-        );*/
+       
         if (getQuerystring("id")) {
           if (parametros.estado == "19") {
             Swal.fire({
@@ -327,7 +325,7 @@ function saveMed(parametros) {
                 window.location.href =
                   getCurrentHostname() +
                   "/soliris/administrador/docs_medico.php?id=" +
-                  getQuerystring("id");
+                  getQuerystring("id") + '&oper=mod';
               } else {
                 parent.location.reload();
               }
