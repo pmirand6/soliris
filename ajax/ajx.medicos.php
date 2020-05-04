@@ -5,7 +5,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _BD;
 
 
 
-/*if (isset($_POST["oper"]) == 'getMedicos') {*/
+if (isset($_POST["oper"]) == 'getMedicos') {
 
     if (isset($_GET["ini"]) and $_GET["ini"] != "TODOS") {
         $ini = $_GET["ini"];
@@ -48,7 +48,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _BD;
     mysqli_close($db);
 
     echo "{\"aaData\": " . json_encode($arr_tbody) . "}";
-/*}*/
+}
 
 // Busqueda de médicos desde la venta
 if (isset($_GET['q'])) {
@@ -59,8 +59,6 @@ if (isset($_GET['q'])) {
 
     $SQL = "CALL `ST_LIST_MEDICOS_ACTIVOS`('$filtro');";
     $result = mysqli_query($db, $SQL);
-
-
 
     $json = [];
     while ($row = mysqli_fetch_assoc($result)) {
