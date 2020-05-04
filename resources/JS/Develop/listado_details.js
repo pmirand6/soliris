@@ -145,7 +145,7 @@ function l_showVenta(idVenta) {
         console.log(e)
         if (e.mensaje == "1") {
           window.location.href =
-            aplicacion + "/main/modificar_venta.php/?idVenta=" + idVenta;
+            aplicacion + "/main/modificar_venta.php?idVenta=" + idVenta;
         } else {
           Swal.fire({
             title: e.title,
@@ -159,7 +159,7 @@ function l_showVenta(idVenta) {
             if (result.value) {
               window.location.href =
                 aplicacion +
-                "/main/modificar_venta.php/?idVenta=" + idVenta + "&read=true";
+                "/main/modificar_venta.php?idVenta=" + idVenta + "&read=true";
             }
           });
         }
