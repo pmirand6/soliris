@@ -71,6 +71,8 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         <!--  Nuevo Paciente  -->
         <div class="col-sm-11 col-xs-11 text-left" style="margin-left: 10px">
 
+
+            
             <button type="button" title="Nuevo Paciente" id="nwPac" class="btn btn-warning fa fa-user-plus"> Nuevo Paciente</button>
             <br>
             <!-- Text Input para reconstruir las Tablas -->

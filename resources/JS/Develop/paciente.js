@@ -749,7 +749,7 @@ function save_admin() {
 function l_mail_dictamenPaciente(idPac) {
   $.post(aplicacion + "/ajax/ajx.paciente.php", {
     oper: "sendEmailPaciente",
-    idPac: paramPaciente.idPac,
+    idPac: idPac,
     accion: "Dictamen Paciente",
   }, function (data, textStatus, jqXHR) { }, "dataType");
 }
