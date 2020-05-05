@@ -192,8 +192,38 @@ function sendMail_AltaPaciente($idPaciente)
     MailNotificaciones::sendMessage('Alta de Paciente', $body, $emails);
 }
 
-function sendMail_ModificacionPaciente()
-{
+function sendMail_ModificacionPaciente($idPaciente)
+{ 
+    //FIXME Verificar Hardcode de la accion
+    $SQL = "CALL ST_MAIL_PACIENTE($idPaciente, 'Modificacion Paciente')";
+    /* Realizo la consulta */
+    if (isset($SQL) AND $SQL != ""){
+        // echo $SQL;
+        $response = MySQL_sendFunctionAudit("$SQL", "mailMedico", "1");
+    }
+
+    $emailsArray = $response[0]["emails"];
+    $chunks = array_chunk(preg_split('/(-|,)/', $emailsArray), 2);
+    $emails = array_combine(array_column($chunks, 1), array_column($chunks, 0));
+    
+    $body = file_get_contents('../mails/paciente/emailPaciente.php');
+    $variables = array(
+        "{{accion}}" => 'Modificación de Paciente',
+        "{{nom_pac}}" => $response[0]["nom_pac"],
+        "{{accion2}}" => 'Se ha modificado',
+        "{{especificacion_cambio}}" => 'El paciente ha sido modificado por',
+        "{{user_accion}}" => $response[0]['usuario'],
+        "{{notas}}" => $response[0]['notas'],
+        "{{url}}" => HTTP
+         ."/defa.php?url=/administrador/paciente.php&args=?id=" . $idPaciente
+    );
+
+    foreach ($variables as $key => $value) {
+        $body = str_replace($key, $value, $body);
+    }
+    
+    MailNotificaciones::sendMessage('Modificación de Paciente', $body, $emails);
+
 }
 
 function sendMail_BajaPaciente()
