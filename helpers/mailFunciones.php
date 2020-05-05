@@ -190,7 +190,7 @@ function sendMail_AltaPaciente($idPaciente)
         $body = str_replace($key, $value, $body);
     }
     
-    MailNotificaciones::sendMessage('Alta de Medico', $body, $emails);
+    MailNotificaciones::sendMessage('Alta de Paciente', $body, $emails);
 }
 
 function sendMail_ModificacionPaciente()
