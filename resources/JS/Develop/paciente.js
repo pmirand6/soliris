@@ -83,7 +83,7 @@ function l_dictamen_paciente() {
   data.push({ name: "idPac", value: document.getElementById('idPac').innerHTML });
 
   $.post("../ajax/ajx.paciente_form.php", data, function(data) {
-    dictamenPaciente();
+    dictamenPaciente(document.getElementById('idPac').innerHTML);
     window.location.href = aplicacion + "/main/panel.php";
   });
 }
@@ -746,7 +746,7 @@ function save_admin() {
   }
 }
 
-function dictamenPaciente() {
+function dictamenPaciente(idPac) {
   $.post(aplicacion + "/ajax/ajx.paciente.php", {
     oper: "sendEmailPaciente",
     idPac: paramPaciente.idPac,
