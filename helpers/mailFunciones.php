@@ -189,7 +189,7 @@ function sendMail_AltaPaciente($idPaciente)
         $body = str_replace($key, $value, $body);
     }
     
-    MailNotificaciones::sendMessage( _NAME . ' - Alta de Paciente', $body, $emails);
+    MailNotificaciones::sendMessage( strtoupper(_NAME) . ' - Alta de Paciente', $body, $emails);
 }
 
 function sendMail_ModificacionPaciente($idPaciente)
@@ -222,7 +222,7 @@ function sendMail_ModificacionPaciente($idPaciente)
         $body = str_replace($key, $value, $body);
     }
     
-    MailNotificaciones::sendMessage(_NAME . ' - Modificación de Paciente', $body, $emails);
+    MailNotificaciones::sendMessage(strtoupper(_NAME) . ' - Modificación de Paciente', $body, $emails);
 
 }
 
@@ -260,5 +260,5 @@ function sendMail_DictamenPaciente($idPaciente)
          $body = str_replace($key, $value, $body);
      }
      
-     MailNotificaciones::sendMessage(_NAME . 'Dictamen Paciente', $body, $emails);
+     MailNotificaciones::sendMessage(strtoupper(_NAME) . ' - Dictamen Paciente', $body, $emails);
 }
