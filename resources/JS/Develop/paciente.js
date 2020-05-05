@@ -670,7 +670,7 @@ function l_savePac() {
           JSON.stringify(paramPaciente)
         );
         window.location.href =
-          aplicacion + "/administrador/docs_paciente.php?id=" + opciones + "accion=alta";
+          aplicacion + "/administrador/docs_paciente.php?id=" + opciones + "&accion=alta";
       } else {
         alert(opciones);
       }
@@ -706,7 +706,7 @@ function l_actualizaPac() {
         window.location.href =
           aplicacion +
           "/administrador/docs_paciente.php?id=" +
-          paramPaciente.idPac + "accion=mod";
+          paramPaciente.idPac + "&accion=mod";
       } else {
         alert(opciones);
       }

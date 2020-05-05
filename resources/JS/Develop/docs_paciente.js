@@ -10,6 +10,8 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
   // script is now loaded and executed.
   // put your dependent JS here.
 
+  alert(getQuerystring("accion"));
+
   $(document).ready(function () {
     $(".date").datepicker({
       format: "dd-mm-yyyy",
@@ -148,6 +150,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
       Consentimiento.startUpload();
       Otro.startUpload();
       alert("Se cargo correctamente la documentación");
+      
       if (getQuerystring("accion") == "alta") {
         $.post(
           aplicacion + "/ajax/ajx.paciente.php",
