@@ -680,7 +680,7 @@ function l_savePac() {
 
 function l_actualizaPac() {
   var parametros = $("#frm-paciente").serializeArray();
-  parametros.push({ name: "idPac", value: paramPaciente.idPac });
+  parametros.push({ name: "idPac", value: getQuerystring("id") });
   parametros.push({ name: "oper", value: "actualizaPac" });
 
   $.ajax({
@@ -697,7 +697,7 @@ function l_actualizaPac() {
           aplicacion + "/ajax/ajx.paciente.php",
           {
             oper: "sendEmailPaciente",
-            idPac: paramPaciente.idPac,
+            idPac: getQuerystring("id"),
             accion: "Modificacion Paciente",
           },
           function (data, textStatus, jqXHR) {},
@@ -706,7 +706,7 @@ function l_actualizaPac() {
         window.location.href =
           aplicacion +
           "/administrador/docs_paciente.php?id=" +
-          paramPaciente.idPac + "&accion=mod";
+          getQuerystring("id") + "&accion=mod";
       } else {
         alert(opciones);
       }
