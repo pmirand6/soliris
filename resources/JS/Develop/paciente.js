@@ -80,7 +80,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
 function l_dictamen_paciente() {
   var data = $("#frmDictamenPac").serializeArray();
   data.push({ name: "oper", value: "ValidaPac" });
-  data.push({ name: "idPac", value: paramPaciente.idPac });
+  data.push({ name: "idPac", value: document.getElementById('idPac').innerHTML });
 
   $.post("../ajax/ajx.paciente_form.php", data, function(data) {
     alert(data);
