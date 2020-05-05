@@ -162,7 +162,7 @@ function sendMail_BajaMedico($idMedico)
 function sendMail_AltaPaciente($idPaciente)
 {
     //FIXME Verificar Hardcode de la accion
-    $SQL = "CALL ST_MAIL_MEDICO('$idPaciente', 'Alta de Paciente')";
+    $SQL = "CALL ST_MAIL_PACIENTE($idPaciente, 'Alta de Paciente')";
     /* Realizo la consulta */
     if (isset($SQL) AND $SQL != ""){
         // echo $SQL;
@@ -173,15 +173,17 @@ function sendMail_AltaPaciente($idPaciente)
     $chunks = array_chunk(preg_split('/(-|,)/', $emailsArray), 2);
     $emails = array_combine(array_column($chunks, 1), array_column($chunks, 0));
     
-    $body = file_get_contents('../mails/medico/emailMedico.php');
+    $body = file_get_contents('../mails/paciente/emailPaciente.php');
     $variables = array(
-        "{{accion}}" => 'Alta de Medico',
-        "{{nom_medico}}" => $response[0]["nom_medico"],
+        "{{accion}}" => 'Alta de Paciente',
+        "{{nom_pac}}" => $response[0]["nom_pac"],
         "{{accion2}}" => 'Se ha creado con exito',
-        "{{especificacion_cambio}}" => 'El registro ha sido creado por',
+        "{{especificacion_cambio}}" => 'El paciente ha sido creado por',
         "{{user_accion}}" => $response[0]['usuario'],
         "{{notas}}" => $response[0]['notas'],
-        "{{url}}" => "http://" . _URL_SERVIDOR ."/". _NAME ."/defa.php?url=/administrador/medico.php&args=?id=" . $idPaciente
+        //"{{url}}" => "http://" . _URL_SERVIDOR ."/". _NAME ."/defa.php?url=/administrador/paciente.php&args=?id=" . $idPaciente
+        "{{url}}" => HTTP
+         ."/defa.php?url=/administrador/paciente.php&args=?id=" . $idPaciente
     );
 
     foreach ($variables as $key => $value) {
