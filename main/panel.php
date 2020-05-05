@@ -87,7 +87,7 @@ $session_grupo = $_SESSION["grupo"];
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Sexo</th>
-					<th>C. Gestar</th>
+					<!--<th>C. Gestar</th>-->
 					<th>Edad</th>
 					<th>Patología</th>
                     <th>Fecha Venta</th>
