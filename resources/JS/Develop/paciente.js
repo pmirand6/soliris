@@ -670,7 +670,7 @@ function l_savePac() {
           JSON.stringify(paramPaciente)
         );
         window.location.href =
-          aplicacion + "/administrador/docs_paciente.php?id=" + opciones;
+          aplicacion + "/administrador/docs_paciente.php?id=" + opciones + "accion=alta";
       } else {
         alert(opciones);
       }
@@ -693,10 +693,20 @@ function l_actualizaPac() {
         alert(
           "Se registró correctamente. Continue con la carga de la documentación."
         );
+        $.post(
+          aplicacion + "/ajax/ajx.paciente.php",
+          {
+            oper: "sendEmailPaciente",
+            idPac: paramPaciente.idPac,
+            accion: "Modificacion Paciente",
+          },
+          function (data, textStatus, jqXHR) {},
+          "dataType"
+        );
         window.location.href =
           aplicacion +
           "/administrador/docs_paciente.php?id=" +
-          paramPaciente.idPac;
+          paramPaciente.idPac + "accion=mod";
       } else {
         alert(opciones);
       }

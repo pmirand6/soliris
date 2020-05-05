@@ -156,6 +156,15 @@
 												</tr>
 
 												<tr>
+													<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="postDesc">
+														<!-- Post Description // -->
+														<p class="midText" style="color:#777777; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:20px; text-transform:none; text-align:center; padding:0; margin:0;">
+															{{notas}}
+														</p>
+													</td>
+												</tr>
+
+												<tr>
 													<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="btnTable">
 														<!-- Button Table // -->
 														<table align="center" border="0" cellpadding="0" cellspacing="0">

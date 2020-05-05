@@ -2,6 +2,8 @@
 
 require_once("../config/config.php");
 include $_SERVER['DOCUMENT_ROOT'] . _BD;
+include $_SERVER['DOCUMENT_ROOT'] . _FN;
+include $_SERVER['DOCUMENT_ROOT'] . _MAIL;
 
 if (isset($_POST["id"]) and $_POST["id"] != 0 and !empty($_POST["id"] and $_POST["oper"] == 'showPaciente')) {
     $id = $_POST["id"];
@@ -35,5 +37,24 @@ if (isset($_GET['q'])) {
     echo json_encode($json);
 
     mysqli_free_result($result);
+}
 
+if ($_POST["oper"] == 'sendEmailPaciente') {
+    $idPac = $_POST["idPac"];
+
+
+    switch ($accion) {
+        case 'Modificacion Paciente':
+            sendMail_ModificacionPaciente($idPac);
+            break;
+        case 'Alta de Paciente':
+            sendMail_AltaPaciente($idPac);
+            break;
+        case 'Cancelacion Paciente':
+
+            break;
+        case 'Dictamen Paciente':
+
+            break;
+    }
 }
