@@ -131,6 +131,7 @@ function l_set_paciente() {
           l_list_estado(e.estado_id);
         } else {
           l_show_id(e.id);
+          $("#idPac").html(e.id);
           $("#apellido").val(e.apellido);
           $("#nombre").val(e.nombre);
           $("#f_nac").val(e.fecha_nac_formateada);
@@ -678,9 +679,11 @@ function l_savePac() {
   });
 }
 
+
+
 function l_actualizaPac() {
   var parametros = $("#frm-paciente").serializeArray();
-  parametros.push({ name: "idPac", value: getQuerystring("id") });
+  parametros.push({ name: "idPac", value: document.getElementById('idPac').innerHTML });
   parametros.push({ name: "oper", value: "actualizaPac" });
 
   $.ajax({
@@ -697,7 +700,7 @@ function l_actualizaPac() {
           aplicacion + "/ajax/ajx.paciente.php",
           {
             oper: "sendEmailPaciente",
-            idPac: getQuerystring("id"),
+            idPac: document.getElementById('idPac').innerHTML,
             accion: "Modificacion Paciente",
           },
           function (data, textStatus, jqXHR) {},
