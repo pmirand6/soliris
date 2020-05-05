@@ -731,16 +731,7 @@ function save_admin() {
       success: function(opciones) {
         if (opciones.indexOf("ERROR") != 0) {
           alert("Se registró correctamente.");
-          $.post(
-            aplicacion + "/ajax/ajx.paciente.php",
-            {
-              oper: "sendEmailPaciente",
-              idPac: paramPaciente.idPac,
-              accion: "Dictamen Paciente",
-            },
-            function (data, textStatus, jqXHR) {},
-            "dataType"
-          );
+          dictamenPaciente();
           window.location.href = aplicacion + "/main/panel.php";
         } else {
           alert(opciones);
@@ -750,6 +741,14 @@ function save_admin() {
   } else {
     save_ventas();
   }
+}
+
+function dictamenPaciente() {
+  $.post(aplicacion + "/ajax/ajx.paciente.php", {
+    oper: "sendEmailPaciente",
+    idPac: paramPaciente.idPac,
+    accion: "Dictamen Paciente",
+  }, function (data, textStatus, jqXHR) { }, "dataType");
 }
 
 function getCurrentHostname() {
