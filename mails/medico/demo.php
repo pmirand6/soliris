@@ -13,7 +13,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>miley Layout - Email Newsletter</title>
+	<title>Miley Layout Account - Email Newsletter</title>
 
 	<!-- GOOGLE FONTS LINK -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -62,24 +62,25 @@
 
 <body style="background-color:#F5F5F5;">
 <center>
-		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed; background-color: rgb(255, 255, 255);" id="bodyTable">
-	<tbody><tr>
+
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout:fixed; background-color:#F5F5F5;" id="bodyTable">
+	<tr>
 		<td align="center" valign="top" id="bodyCell">
 		<!--[if (gte mso 9)|(IE)]><table align="center" border="0" cellspacing="0" cellpadding="0" style="width:620px;" width="620"><tr><td align="center" valign="top"><![endif]-->
 		
 		<!--Wrapper Table Open //-->
-		<table border="0" cellpadding="0" cellspacing="0" style="max-width: 620px;" width="100%" class="wrapperTable">
-			<tbody><tr>
+		<table border="0" cellpadding="0" cellspacing="0" style="max-width:620px;" width="100%" class="wrapperTable">
+			<tr>
 				<td align="center" valign="top" class="wrapperCell">
 
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapperPreHeader">
-						<tbody><tr>
+						<tr>
 							<td align="center" valign="top" style="padding-left:10px;padding-right:10px;">
 								
 								<!-- Email PreHeader Open //-->
 								<table border="0" cellpadding="0" cellspacing="0" width="100%" class="emailPreHeader">
-									<tbody><tr>
-										<td align="right" valign="top" style="padding: 20px;">
+									<tr>
+										<td align="right" valign="top" style="padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px;">
 
 											<!-- Email View in Browser // -->
 											<a class="smlText hide" href="#" target="_blank" style="color:#BBBBBB; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:11px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:20px; text-transform:none; text-align:right; text-decoration:underline; padding:0; margin:0">
@@ -88,53 +89,55 @@
 
 										</td>
 									</tr>
-								</tbody></table>
+								</table>
 								<!-- Email PreHeader Close //-->
 								
 							</td>
 						</tr>
-					</tbody></table>
+					</table>
 
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapperHeader">
-						<tbody><tr>
+						<tr>
 							<td align="center" valign="top" style="padding-left:10px;padding-right:10px;">
 								
 								<!-- Email Header Open //-->
-								<table border="0" cellpadding="0" cellspacing="0" width="100%" class="emailHeader" style=""><tbody><tr>
-                        <td align="center" valign="middle" style="padding-top:40px;padding-bottom:40px;padding-left:20px;padding-right:20px;" class="emailLogo">
-                            <a href="#" target="_blank" style="text-decoration:none;">
-                                <img src="images/soliris.png" alt="" width="80" border="0" style="height:auto; display:block;">
-                            </a>
-                        </td>
-                    </tr>
-</tbody></table>
+								<table border="0" cellpadding="0" cellspacing="0" width="100%" class="emailHeader">
+									<tr>
+										<td align="center" valign="middle" style="padding-top:40px;padding-bottom:40px" class="emailLogo">
+											<!-- Logo and Link  // -->
+											<a href="#" target="_blank" style="text-decoration:none;">
+												<img src="img/logo.png" alt="" width="80" border="0" style="height:auto; display:block;"/>
+											</a>
+										</td>
+									</tr>
+								</table>
 								<!-- Email Header Close //-->
 								
 							</td>
 						</tr>
-					</tbody></table>
+					</table>
 
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapperArticals">
-						<tbody><tr>
+						<tr>
 							<td align="center" valign="top" class="articalCell">
 
 								<!-- One Column Artical Open //-->
-								<table mc:repeatable="oneColumn" border="0" cellpadding="0" cellspacing="0" width="100%" class="oneColumn" style="">
-									<tbody><tr>
+								<table border="0" cellpadding="0" cellspacing="0" width="100%" class="oneColumn">
+									<tr>
 										<td style="padding-left:10px;padding-right:10px;padding-bottom:20px">
 
-											<table border="0" cellpadding="0" cellspacing="0" style="box-shadow: rgb(216, 216, 216) 0px 0px 10px;" width="100%" class="columnFull">
-												<tbody><tr>
-													<td align="center" valign="top" style="padding-bottom: 40px;" class="postImg">
+											<table border="0" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF" width="100%" class="columnFull">
+												<tr>
+													<td align="center" valign="top" style="padding-bottom:40px" class="postImg">
 														<!-- Post Image  // -->
-														<a href="#" target="_blank" style="text-decoration:none;" class="">
-															<img src="http://emails.grapestheme.com/miley/img/hero/account.png" width="600" alt="" border="0" style="width:100%; max-width:600px; height:auto; display:block;" class="">
+														<a href="#" target="_blank" style="text-decoration:none;">
+															<img src="img/account.png" width="600" alt="" border="0" style="width:100%; max-width:600px; height:auto; display:block;" />
 														</a>
 													</td>
 												</tr>
 
 												<tr>
-													<td align="center" valign="top" style="padding-bottom: 20px; padding-left: 20px; padding-right: 20px;" class="postTitle">
+													<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="postTitle">
 														<!-- Title Text // -->
 														<h2 class="bigText" style="color:#191919; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:24px; font-weight:700; font-style:normal; letter-spacing:normal; line-height:32px; text-align:center; text-transform:none; padding:0; margin:0;">
 															Hi "John Doe"
@@ -146,15 +149,15 @@
 													<td align="center" valign="top" style="padding-bottom:20px;">
 														<!-- Divider // -->
 														<table align="center" border="0" width="50" cellpadding="0" cellspacing="0" class="divider">
-															<tbody><tr>
+															<tr>
 																<td align="center" style="border-bottom:2px solid #B196FF;font-size:0;line-height:0;">&nbsp;</td>
 															</tr>
-														</tbody></table>
+														</table>
 													</td>
 												</tr>
 
 												<tr>
-													<td align="center" valign="top" style="padding-bottom: 40px; padding-left: 20px; padding-right: 20px;" class="postDesc">
+													<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="postDesc">
 														<!-- Post Description // -->
 														<p class="midText" style="color:#777777; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:20px; text-transform:none; text-align:center; padding:0; margin:0;">
 															Thanks for signing up for the Miley newsletter. Please click Confirm button for subscription to start receiving our emails.
@@ -163,74 +166,83 @@
 												</tr>
 
 												<tr>
-													<td align="center" valign="top" style="padding-bottom: 40px; padding-left: 20px; padding-right: 20px;" class="btnTable">
+													<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="btnTable">
 														<!-- Button Table // -->
 														<table align="center" border="0" cellpadding="0" cellspacing="0">
-															<tbody><tr>
+															<tr>
 																<td align="center" class="postButton" style="background-color:#191919;padding-top:10px;padding-bottom:10px;padding-left:25px;padding-right:25px;border-radius:2px">
 																	<!-- Post Button Link // -->
-																	<a href="#" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; font-style:normal; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; padding:0; margin:0; display:block;" class="">
+																	<a href="#" target="_blank" style="color:#FFFFFF; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:12px; font-weight:600; font-style:normal; letter-spacing:1px; line-height:20px; text-transform:uppercase; text-decoration:none; padding:0; margin:0; display:block;" >
 																		Verify Email
 																	</a>
 																</td>
 															</tr>
-														</tbody></table>
+														</table>
 													</td>
 												</tr>
-											</tbody></table>
+											</table>
 
 										</td>
 									</tr>
-								</tbody></table>
+								</table>
 								<!-- One Column Artical Close //-->
 
-							
-</td>
+							</td>
 						</tr>
-					</tbody></table>
+					</table>
 
 					<table border="0" cellpadding="0" cellspacing="0" width="100%" class="wrapperFooter">
-						<tbody><tr>
+						<tr>
 							<td align="center" valign="top" style="padding-left:10px;padding-right:10px;">
 								
 								<!-- Email Footer Open //-->
 								<table border="0" cellpadding="0" cellspacing="0" width="100%" class="footer">
-									<tbody><tr>
+									<tr>
 										<td align="center" valign="top" style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;" class="socialLinks">
 											<!-- Social Links (Facebook)// -->
-											
+											<a href="#facebook-link" target="_blank" style="display:inline-block;" class="facebook">
+												<img src="img/facebook.png" alt="" width="40" border="0" style="height:auto;margin:2px" />
+											</a>
 											<!-- Social Links (Twitter)// -->
-											
+											<a href="#twitter-link" target="_blank" style="display:inline-block;" class="twitter">
+												<img src="img/twitter.png" alt="" width="40" border="0" style="height:auto;margin:2px" />
+											</a>
 											<!-- Social Links (Pintrest)// -->
-											
+											<a href="#pintrest-link" target="_blank" style="display:inline-block;" class="pintrest">
+												<img src="img/pintrest.png" alt="" width="40" border="0" style="height:auto;margin:2px" />
+											</a>
 											<!-- Social Links (Instagram)// -->
-											
+											<a href="#instagram-link" target="_blank" style="display:inline-block;" class="instagram">
+												<img src="img/instagram.png" alt="" width="40" border="0" style="height:auto;margin:2px" />
+											</a>
 											<!-- Social Links (Linkdin)// -->
-											
+											<a href="#linkdin-link" target="_blank" style="display:inline-block;" class="linkdin">
+												<img src="img/linkdin.png" alt="" width="40" border="0" style="height:auto;margin:2px" />
+											</a>
 										</td>
 									</tr>
 
 									<tr>
-										<td align="center" valign="top" style="padding: 10px 10px 5px;" class="brandInfo">
+										<td align="center" valign="top" style="padding-top:10px;padding-bottom:5px;padding-left:10px;padding-right:10px;" class="brandInfo">
 											<!-- Brand Information // -->
-											<p class="smlText" style="color:#777777; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:11px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:20px; text-transform:none; text-align:center; padding:0; margin:0;">©&nbsp;Miley Inc. | 800 Broadway, Suite 1500 | New York, NY 000123, USA.
+											<p class="smlText" style="color:#777777; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:11px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:20px; text-transform:none; text-align:center; padding:0; margin:0;">&copy;&nbsp;Miley Inc. | 800 Broadway, Suite 1500 | New York, NY 000123, USA.
 											</p>
 										</td>
 									</tr>
 
 									<tr>
-										<td align="center" valign="top" style="padding: 0px 10px 20px;" class="footerLinks">
+										<td align="center" valign="top" style="padding-top:0px;padding-bottom:20px;padding-left:10px;padding-right:10px;" class="footerLinks">
 											<!-- Use Full Links (Privacy Policy)// -->
-											<p class="smlText" style="color:#777777; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:11px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:20px; text-transform:none; text-align:center; padding:0; margin:0;">
+											<p class="smlText" style="color:#777777; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:11px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:20px; text-transform:none; text-align:center; padding:0; margin:0;" >
 												<a href="#" style="color:#777777;text-decoration:underline;" target="_blank">Privacy Policy</a> | <a href="#" style="color:#777777;text-decoration:underline;" target="_blank">Tearms and Conditions</a>
 											</p>
 										</td>
 									</tr>
 
 									<tr>
-										<td align="center" valign="top" style="padding: 0px 10px 10px;" class="footerEmailInfo">
+										<td align="center" valign="top" style="padding-top:0px;padding-bottom:10px;padding-left:10px;padding-right:10px;" class="footerEmailInfo">
 											<!-- Information of NewsLetter (Subscribe Info)// -->
-											<p class="smlText" style="color:#777777; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:11px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:20px; text-transform:none; text-align:center; padding:0; margin:0;">
+											<p class="smlText" style="color:#777777; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:11px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:20px; text-transform:none; text-align:center; padding:0; margin:0;" >
 												If you have any quetions please contact us <a href="#" style="color:#777777;text-decoration:underline;" target="_blank">support@mail.com.</a><br> <a href="#" style="color:#777777;text-decoration:underline;" target="_blank">Unsubscribe</a> from our mailing lists
 											</p>
 										</td>
@@ -239,9 +251,13 @@
 									<tr>
 										<td align="center" valign="top" style="padding-top:10px;padding-bottom:10px;padding-left:10px;padding-right:10px;" class="appLinks">
 											<!-- App Links (Anroid)// -->
-											
+											<a href="#Play-Store-Link" target="_blank" style="display:inline-block;" class="play-store">
+												<img src="img/play-store.png" alt="" width="120" border="0" style="height:auto;margin:5px" />
+											</a>
 											<!-- App Links (IOs)// -->
-											
+											<a href="#App-Store-Link" target="_blank" style="display:inline-block;" class="app-store">
+												<img src="img/app-store.png" alt="" width="120" border="0" style="height:auto;margin:5px" />
+											</a>
 										</td>
 									</tr>
 
@@ -249,22 +265,23 @@
 									<tr>
 										<td height="30" style="font-size:1px;line-height:1px;">&nbsp;</td>
 									</tr>
-								</tbody></table>
+								</table>
 								<!-- Email Footer Close //-->
 
 							</td>
 						</tr>
-					</tbody></table>
+					</table>
 
 				</td>
 			</tr>
-		</tbody></table>
+		</table>
 		<!-- Wrapper Table Close //-->
 
 		<!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
 		</td>
 	</tr>
-</tbody></table>
-	</center>
+</table>
+
+</center>
 </body>
 </html>

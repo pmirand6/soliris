@@ -19,8 +19,8 @@ function sendMail_Test($idMedico, $accion)
     $chunks = array_chunk(preg_split('/(-|,)/', $emailsArray), 2);
     $emails = array_combine(array_column($chunks, 1), array_column($chunks, 0));
     
-    //$body = file_get_contents('../mails/medico/emailMedico.php');
-    $body = file_get_contents('../mails/medico/demo.php');
+    $body = file_get_contents('../mails/medico/emailMedico.php');
+    //$body = file_get_contents('../mails/medico/demo.php');
     /*$variables = array(
         "{{accion}}" => $accion,
         "{{nom_medico}}" => $response[0]["nom_medico"],
