@@ -20,7 +20,9 @@ switch ($grupo) {
         break;
     case 'fv':
         // vista del dictamen del paciente
-        $id = $_GET["id"];
+        if (isset($_GET["id"]) && ($_GET["id"] !== 0)) {
+            $id = $_GET["id"];
+        }
         include __DIR__ . '/form_paciente_fv.php';
         break;
     default:
