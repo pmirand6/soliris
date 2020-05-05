@@ -130,7 +130,7 @@
 													<td align="center" valign="top" style="padding-bottom:20px;padding-left:20px;padding-right:20px;" class="postTitle">
 														<!-- Title Text // -->
 														<h2 class="bigText" style="color:#191919; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:24px; font-weight:700; font-style:normal; letter-spacing:normal; line-height:32px; text-align:center; text-transform:none; padding:0; margin:0;">
-															{{nom_medico}}
+															{{nom_pac}}
 														</h2>
 													</td>
 												</tr>
