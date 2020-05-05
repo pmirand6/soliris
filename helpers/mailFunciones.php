@@ -19,13 +19,13 @@ function sendMail_Test($idMedico, $accion)
     $chunks = array_chunk(preg_split('/(-|,)/', $emailsArray), 2);
     $emails = array_combine(array_column($chunks, 1), array_column($chunks, 0));
     
-    $body = file_get_contents('../mails/medico/emailMedico.php');
-    //$body = file_get_contents('../mails/medico/demo.php');
-    /*$variables = array(
+    //$body = file_get_contents('../mails/medico/emailMedico.php');
+    $body = file_get_contents('../mails/medico/demo.php');
+    $variables = array(
         "{{accion}}" => $accion,
         "{{nom_medico}}" => $response[0]["nom_medico"],
         "{{accion2}}" => 'Se ha creado con exito',
-        "{{especificacion_cambio}}" => 'El registro ha sido creado por',
+        "{{especificacion_cambio}}" => 'El paciente ha sido creado por',
         "{{user_accion}}" => $response[0]['usuario'],
         "{{notas}}" => $response[0]['notas'],
         "{{url}}" => "http://" . _URL_SERVIDOR ."/". _NAME ."/defa.php?url=/administrador/medico.php&args=?id=" . $idMedico
@@ -33,7 +33,7 @@ function sendMail_Test($idMedico, $accion)
 
     foreach ($variables as $key => $value) {
         $body = str_replace($key, $value, $body);
-    }*/
+    }
     
     MailNotificaciones::sendMessage('Alta de Medico', $body, ['pmiranda@raffo.com.ar' => 'Pablo Miranda']);
 }
@@ -159,8 +159,36 @@ function sendMail_BajaMedico($idMedico)
 
 // Notificaciones Paciente
 
-function sendMail_AltaPaciente()
+function sendMail_AltaPaciente($idPaciente)
 {
+    //FIXME Verificar Hardcode de la accion
+    $SQL = "CALL ST_MAIL_MEDICO('$idPaciente', 'Alta de Paciente')";
+    /* Realizo la consulta */
+    if (isset($SQL) AND $SQL != ""){
+        // echo $SQL;
+        $response = MySQL_sendFunctionAudit("$SQL", "mailMedico", "1");
+    }
+
+    $emailsArray = $response[0]["emails"];
+    $chunks = array_chunk(preg_split('/(-|,)/', $emailsArray), 2);
+    $emails = array_combine(array_column($chunks, 1), array_column($chunks, 0));
+    
+    $body = file_get_contents('../mails/medico/emailMedico.php');
+    $variables = array(
+        "{{accion}}" => 'Alta de Medico',
+        "{{nom_medico}}" => $response[0]["nom_medico"],
+        "{{accion2}}" => 'Se ha creado con exito',
+        "{{especificacion_cambio}}" => 'El registro ha sido creado por',
+        "{{user_accion}}" => $response[0]['usuario'],
+        "{{notas}}" => $response[0]['notas'],
+        "{{url}}" => "http://" . _URL_SERVIDOR ."/". _NAME ."/defa.php?url=/administrador/medico.php&args=?id=" . $idPaciente
+    );
+
+    foreach ($variables as $key => $value) {
+        $body = str_replace($key, $value, $body);
+    }
+    
+    MailNotificaciones::sendMessage('Alta de Medico', $body, $emails);
 }
 
 function sendMail_ModificacionPaciente()
