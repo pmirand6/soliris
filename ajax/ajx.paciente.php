@@ -54,7 +54,7 @@ if ($_POST["oper"] == 'sendEmailPaciente') {
 
             break;
         case 'Dictamen Paciente':
-
+            sendMail_DictamenPaciente($idPac);
             break;
     }
 }
