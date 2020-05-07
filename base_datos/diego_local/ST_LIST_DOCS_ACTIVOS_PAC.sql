@@ -18,15 +18,22 @@ CREATE PROCEDURE `ST_LIST_DOCS_ACTIVOS_PAC`(
 )
 BEGIN
 
-SET lc_time_names ='es_AR';
+  SET lc_time_names ='es_AR';
 /*leo la fecha de vencimiento de los documentos*/
 
   SELECT
     d.valor AS documento,
     dt.tipo,
 
-    DATE_FORMAT(d.fecha_documento, '%d/%M/%Y') AS fecha_documento,
-	concat(DATEDIFF(DATE_ADD(DATE(NOW()), INTERVAL c.valor DAY ),d.fecha_documento),' Dias ->', date_format(DATE_ADD(DATE(NOW()), INTERVAL c.valor DAY ), '%d/%M/%Y')) AS expira
+    DATE_FORMAT(d.fecha_documento, '%d/%b/%Y') AS fecha_documento,
+    /*la expiracion se calcula con  (fecha vacuna + dias de vigencia )- (diferencial en dias entre la fecha vacuna y hoy)*/
+	concat(
+		DATEDIFF(
+			DATE_ADD(
+				DATE(NOW()), 
+				INTERVAL c.valor DAY )
+				,d.fecha_documento) - (DATEDIFF(NOW(),d.fecha_documento)),
+			' Dias') AS expira
   
   FROM documentos AS d
     LEFT OUTER JOIN documentos_tipo AS dt
@@ -38,6 +45,8 @@ SET lc_time_names ='es_AR';
   WHERE rel.paciente_id = v_idPac
   AND d.estado_id = 15;
 -- GROUP BY d.valor, dt.tipo ORDER BY d.id;
+
+
 
 END//
 DELIMITER ;

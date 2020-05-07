@@ -19,7 +19,7 @@ BEGIN
     m.id AS id_venta,
     P.nombre_completo AS name,
     P.sexo AS sexo,
-    IF(P.c_gestar, P.c_gestar, 'NO') AS cgestar,
+  /*  IF(P.c_gestar, P.c_gestar, 'NO') AS cgestar,*/
     m.edad AS edad,
 
     (SELECT
