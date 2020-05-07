@@ -13,19 +13,28 @@
 
 -- Volcando estructura para procedimiento soliris.ST_LIST_DOCS_ACTIVOS_PAC
 DELIMITER //
-CREATE PROCEDURE `ST_LIST_DOCS_ACTIVOS_PAC`(IN `v_idPac` int)
+CREATE PROCEDURE `ST_LIST_DOCS_ACTIVOS_PAC`(
+	IN `v_idPac` int
+)
 BEGIN
+
+SET lc_time_names ='es_AR';
+/*leo la fecha de vencimiento de los documentos*/
 
   SELECT
     d.valor AS documento,
     dt.tipo,
-    DATE_FORMAT(d.fecha_documento, '%d/%m/%Y') AS fecha_documento,
-    DATE_FORMAT(d.fecha_creacion, '%d/%m/%Y %H:%i:%s') AS fecha_creacion
+
+    DATE_FORMAT(d.fecha_documento, '%d/%M/%Y') AS fecha_documento,
+	concat(DATEDIFF(DATE_ADD(DATE(NOW()), INTERVAL c.valor DAY ),d.fecha_documento),' Dias ->', date_format(DATE_ADD(DATE(NOW()), INTERVAL c.valor DAY ), '%d/%M/%Y')) AS expira
+  
   FROM documentos AS d
     LEFT OUTER JOIN documentos_tipo AS dt
       ON d.documentos_tipo_id = dt.id
     INNER JOIN rel_paciente_documentos rel
       ON d.id = rel.documento_id
+   INNER JOIN configuracion c 
+   	ON  d.documentos_tipo_id=c.descripcion
   WHERE rel.paciente_id = v_idPac
   AND d.estado_id = 15;
 -- GROUP BY d.valor, dt.tipo ORDER BY d.id;
