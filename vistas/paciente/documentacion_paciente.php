@@ -24,7 +24,7 @@
               <tr>
                 <th>Tipo</th>
                 <th>Fecha Documento</th>
-                <th>Fecha Creación</th>
+                <th>Expira</th>
                 <th>Documento</th>
               </tr>
             </thead>
@@ -50,7 +50,7 @@
                         {$doc['fecha_documento']}
                     </td>
                     <td>
-                        {$doc['fecha_creacion']}
+                        {$doc['expira']}
                     </td>
                     <td>
                         <div class=\"col-sm-6 col-xs-6\" 
@@ -84,7 +84,7 @@
                         <tr>
                             <th>Tipo</th>
                             <th>Fecha Documento</th>
-                            <th>Fecha Creación</th>
+                            <th>Expira</th>
                             <th>Documento</th>
                         </tr>
                         </thead>
@@ -111,7 +111,7 @@
                             {$doc['fecha_documento']}
                         </td>
                         <td>
-                            {$doc['fecha_creacion']}
+                            {$doc['expira']}
                         </td>
                         <td>
                             <div class=\"col-sm-6 col-xs-6\" 
