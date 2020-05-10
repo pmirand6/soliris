@@ -77,8 +77,8 @@
                               <span class="title is-size-6 has-text-grey-darker" id="subEstadoPac"></span>
                            </p>
                         </div>
-                        <div class="column">
-                           <p>
+                        <div class="column" style="display: none;">
+                           <p style="display: none;">
                               <label class="subtitle is-size-6 has-text-grey">Ciudad: </label>
                               <span class="title is-size-6 has-text-grey-darker" id="ciudadPac"></span>
                            </p>
@@ -86,24 +86,24 @@
                               <label class="subtitle is-size-6 has-text-grey">Pais: </label>
                               <span class="title is-size-6 has-text-grey-darker" id="paisPac"></span>
                            </p>                           
-                           <p>
+                           <p style="display: none;">
                               <label class="subtitle is-size-6 has-text-grey">Mail: </label>
                               <span class="title is-size-7 has-text-grey-darker" id="emailPac"></span>
                            </p>
-                           <p>
+                           <p style="display: none;">
                               <label class="subtitle is-size-6 has-text-grey">Telefono: </label>
                               <span class="title is-size-6 has-text-grey-darker" id="telPac"></span>
                            </p>
                         </div>
-                     </div>
-                     <div class="columns">
                         <div class="column">
-                           <p class="subtitle is-size-6 has-text-grey">Patologia </p>
-                           <p class="title is-size-6 has-text-grey-darker" id="patPac"></p>
-                        </div>
-                        <div class="column">
-                           <p class="subtitle is-size-6 has-text-grey">Sub Patologia </p>
-                           <p class="title is-size-6 has-text-grey-darker" id="subPatPac"></p>
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">Patologia: </label>
+                              <span class="title is-size-6 has-text-grey-darker" id="patPac"></span>
+                           </p>
+                           <p>
+                              <label class="subtitle is-size-6 has-text-grey">Sub Patologia: </label>
+                              <span class="title is-size-6 has-text-grey-darker" id="subPatPac"></span>
+                           </p>                           
                         </div>
                      </div>
                   </div>
