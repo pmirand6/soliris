@@ -5,6 +5,8 @@
             <section class="hero" id="heroHeadPac">
                <div class="hero-body">
                   <div class="container has-text-centered">
+                     <input type="text" disabled style="display: none;" id="apellido">
+                     <input type="text" disabled style="display: none;" id="nombre">
                      <h1 class="title" id="nombrePac">
                         <!-- Nombre del Paciente -->
                      </h1>

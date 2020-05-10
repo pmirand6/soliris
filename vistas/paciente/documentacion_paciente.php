@@ -19,7 +19,8 @@
 
         function l_docs_fv($id, $db)
         {
-            echo '<table class="table">
+            echo '
+            <table class="table">
             <thead>
               <tr>
                 <th>Tipo</th>
@@ -65,6 +66,14 @@
               
             echo '</tbody>
           </table>';
+          echo ' 
+          <div class="buttons has-addons is-centered">
+          <button class="button is-primary is-small" id="histDocs">
+                <span class="icon">
+                <i class="fa fa-history"></i>
+                </span>
+                <span>Historial de Documentación</span>
+            </button></div>';
         }
 
         function l_docs($id, $db)
@@ -131,4 +140,3 @@
             ;
             
         }
-?>

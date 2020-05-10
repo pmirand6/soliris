@@ -97,6 +97,8 @@ function l_set_paciente() {
       $.map($.parseJSON(response), function(e, i) {
         if (usuario.grupo == "fv" || usuario.grupo == "admin") {
           $("#nombrePac").html(e.apellido + " " + e.nombre);
+          $("#apellido").val(e.apellido);
+          $("#nombre").val(e.nombre);
           $("#idPac").html(e.id);
           $("#estadoPac").html(e.estado_valor);
           l_set_hero_style(e.estado_id);
