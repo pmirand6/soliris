@@ -54,10 +54,22 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
       .submit(function (e) {
         Consentimiento.startUpload();
         Otro.startUpload();
-        alert("Se cargo correctamente la documentación");
         sendMailAltaPaciente();
-        window.location.href =
+        Swal.fire({
+          title: 'Registro Correcto',
+          text: "El paciente será dictaminado por el área de FV. Hasta entonces, quedará en estado pendiente",
+          icon: 'success',
+          showCancelButton: false,
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Ok'
+        }).then((result) => {
+          if (result.value) {
+            window.location.href =
           aplicacion + "/administrador/pacientes.php?id=" + paramPaciente.idPac;
+          }
+        })
+        
+        
       });
 
     $("#f_doc_vac").on("change", function () {
@@ -184,6 +196,7 @@ function DocPacModified() {
     success: function (opciones) {
       if (opciones.indexOf("ERROR") != 0) {
         alert("Se registró correctamente, ya puede cerrar esta ventana");
+       
         $.post(
           aplicacion + "/ajax/ajx.paciente.php",
           {

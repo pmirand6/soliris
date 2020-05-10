@@ -24,6 +24,8 @@
         @import "../resources/Bootstrap-DatePicker/min/datepicker.min.css";
         /* File Upload */
         @import "../resources/JQuery-FileUpload/CSS/uploadfile.css";
+        /**SweeteAlert */
+        @import "../resources/sweetalert2/dist/sweetalert2.min.css";
         /* Custom CSS */
        
             #Docs:hover{
@@ -38,6 +40,7 @@
 <?php
     include("../vistas/paciente/form_docs_paciente.php");
     include "../resources/Includes/BootstrapHTML5.php";
+    include "../resources/Includes/sweetalert2.php";
     include "../resources/Includes/FormValidation.php";
     include "../resources/Includes/DatePicker.php";
     
