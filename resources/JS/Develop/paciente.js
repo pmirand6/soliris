@@ -266,7 +266,8 @@ function l_estado_dictamen(
 function l_list_estado($estado_id) {
   $.getJSON("../ajax/ajx.estado.php", { oper: "getEstado" }, function(data) {
     $.map(data, function(e, i) {
-      if (e.id == "7") {
+      // NOTE se verifica que si el estado es sin Documentacion o Pendiente no pueda ser seleccionado
+      if (e.id == "7" || e.id === "31") {
         $("#estadoList").append(
           "<option value=" + e.id + " disabled>" + e.valor + "</option>"
         );
