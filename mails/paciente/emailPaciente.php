@@ -150,7 +150,15 @@
 													<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="postDesc">
 														<!-- Post Description // -->
 														<p class="midText" style="color:#777777; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:20px; text-transform:none; text-align:center; padding:0; margin:0;">
-															{{accion2}}. {{especificacion_cambio}} {{user_accion}}
+															{{accion2}}
+														</p>
+													</td>
+												</tr>
+												<tr>
+													<td align="center" valign="top" style="padding-bottom:40px;padding-left:20px;padding-right:20px;" class="postDesc">
+														<!-- Post Description // -->
+														<p class="midText" style="color:#777777; font-family:'Open Sans', Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; font-style:normal; letter-spacing:normal; line-height:20px; text-transform:none; text-align:center; padding:0; margin:0;">
+															{{especificacion_cambio}} {{user_accion}}
 														</p>
 													</td>
 												</tr>

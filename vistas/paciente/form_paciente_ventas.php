@@ -40,6 +40,7 @@ Full screen Modal
                     <div class="col-sm-3 col-xs-6">
                         <div class="input-group">
                             <div class="input-group-addon"><span class="fa fa-hashtag"></span></div>
+                            <span class="tag" id="idPac" style="display:none;"></span>
                             <input id="vw_id" name="vw_id" type="text" placeholder="ID" class="form-control input-md disabled" disabled>
                             <input id="id" name="id" type="hidden" class="form-control input-md hidden">
                         </div>

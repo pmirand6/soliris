@@ -80,10 +80,10 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
 function l_dictamen_paciente() {
   var data = $("#frmDictamenPac").serializeArray();
   data.push({ name: "oper", value: "ValidaPac" });
-  data.push({ name: "idPac", value: paramPaciente.idPac });
+  data.push({ name: "idPac", value: document.getElementById('idPac').innerHTML });
 
   $.post("../ajax/ajx.paciente_form.php", data, function(data) {
-    alert(data);
+    l_mail_dictamenPaciente(document.getElementById('idPac').innerHTML);
     window.location.href = aplicacion + "/main/panel.php";
   });
 }
@@ -131,6 +131,7 @@ function l_set_paciente() {
           l_list_estado(e.estado_id);
         } else {
           l_show_id(e.id);
+          $("#idPac").html(e.id);
           $("#apellido").val(e.apellido);
           $("#nombre").val(e.nombre);
           $("#f_nac").val(e.fecha_nac_formateada);
@@ -678,9 +679,11 @@ function l_savePac() {
   });
 }
 
+
+
 function l_actualizaPac() {
   var parametros = $("#frm-paciente").serializeArray();
-  parametros.push({ name: "idPac", value: paramPaciente.idPac });
+  parametros.push({ name: "idPac", value: document.getElementById('idPac').innerHTML });
   parametros.push({ name: "oper", value: "actualizaPac" });
 
   $.ajax({
@@ -697,7 +700,7 @@ function l_actualizaPac() {
           aplicacion + "/ajax/ajx.paciente.php",
           {
             oper: "sendEmailPaciente",
-            idPac: paramPaciente.idPac,
+            idPac: document.getElementById('idPac').innerHTML,
             accion: "Modificacion Paciente",
           },
           function (data, textStatus, jqXHR) {},
@@ -706,7 +709,7 @@ function l_actualizaPac() {
         window.location.href =
           aplicacion +
           "/administrador/docs_paciente.php?id=" +
-          paramPaciente.idPac + "&accion=mod";
+          getQuerystring("id") + "&accion=mod";
       } else {
         alert(opciones);
       }
@@ -731,16 +734,7 @@ function save_admin() {
       success: function(opciones) {
         if (opciones.indexOf("ERROR") != 0) {
           alert("Se registró correctamente.");
-          $.post(
-            aplicacion + "/ajax/ajx.paciente.php",
-            {
-              oper: "sendEmailPaciente",
-              idPac: paramPaciente.idPac,
-              accion: "Dictamen Paciente",
-            },
-            function (data, textStatus, jqXHR) {},
-            "dataType"
-          );
+          l_mail_dictamenPaciente($("#id").val());
           window.location.href = aplicacion + "/main/panel.php";
         } else {
           alert(opciones);
@@ -750,6 +744,14 @@ function save_admin() {
   } else {
     save_ventas();
   }
+}
+
+function l_mail_dictamenPaciente(idPac) {
+  $.post(aplicacion + "/ajax/ajx.paciente.php", {
+    oper: "sendEmailPaciente",
+    idPac: idPac,
+    accion: "Dictamen Paciente",
+  }, function (data, textStatus, jqXHR) { }, "dataType");
 }
 
 function getCurrentHostname() {

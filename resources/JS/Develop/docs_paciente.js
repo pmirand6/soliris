@@ -10,7 +10,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
   // script is now loaded and executed.
   // put your dependent JS here.
 
-  alert(getQuerystring("accion"));
+  
 
   $(document).ready(function () {
     $(".date").datepicker({
@@ -55,6 +55,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
         Consentimiento.startUpload();
         Otro.startUpload();
         alert("Se cargo correctamente la documentación");
+        sendMailAltaPaciente();
         window.location.href =
           aplicacion + "/administrador/pacientes.php?id=" + paramPaciente.idPac;
       });
@@ -145,29 +146,6 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
         alert(status + errMsg);
       },
     });
-    $("#save").click(function () {
-      var $btn = $(this).button("loading");
-      Consentimiento.startUpload();
-      Otro.startUpload();
-      alert("Se cargo correctamente la documentación");
-      
-      if (getQuerystring("accion") == "alta") {
-        $.post(
-          aplicacion + "/ajax/ajx.paciente.php",
-          {
-            oper: "sendEmailPaciente",
-            idPac: paramPaciente.idPac,
-            accion: "Alta de Paciente",
-          },
-          function (data, textStatus, jqXHR) {},
-          "dataType"
-        );
-      }
-
-      window.location.href =
-        aplicacion + "/administrador/pacientes.php?id=" + paramPaciente.idPac;
-      $btn.button("reset");
-    });
 
     $("#Docs").click(function () {
       if (getQuerystring("id") != "") {
@@ -179,6 +157,16 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
     });
   });
 });
+
+function sendMailAltaPaciente() {
+  if (getQuerystring("accion") == "alta") {
+    $.post(aplicacion + "/ajax/ajx.paciente.php", {
+      oper: "sendEmailPaciente",
+      idPac: paramPaciente.idPac,
+      accion: "Alta de Paciente",
+    }, function (data, textStatus, jqXHR) { }, "dataType");
+  }
+}
 
 // Documentacion Paciente modificado se debe actualizar el estado a Pendiente
 // para que sea revisada la documentacion por FV

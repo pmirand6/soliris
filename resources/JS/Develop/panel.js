@@ -53,9 +53,9 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function() {
                 {
                     "data": "sexo"
                 }, // 2
-                {
+             /*   {
                     "data": "cgestar"
-                }, // 4
+                }, // 4*/
                 {
                     "data": "edad"
                 },

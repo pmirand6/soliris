@@ -40,7 +40,9 @@ if (isset($_GET['q'])) {
 }
 
 if ($_POST["oper"] == 'sendEmailPaciente') {
+
     $idPac = $_POST["idPac"];
+    $accion = $_POST["accion"];
 
 
     switch ($accion) {
