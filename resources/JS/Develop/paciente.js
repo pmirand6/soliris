@@ -665,22 +665,48 @@ function l_savePac() {
     async: false,
     success: function (opciones) {
       if (opciones.indexOf("ERROR") != 0) {
-        alert(
-          "Se registró correctamente. Continue con la carga de la documentación."
-        );
-        localStorage.removeItem("paramPaciente");
-        const paramPaciente = {
-          idPac: opciones,
-        };
-        window.localStorage.setItem(
-          "paramPaciente",
-          JSON.stringify(paramPaciente)
-        );
-        window.location.href =
-          aplicacion +
-          "/administrador/docs_paciente.php?id=" +
-          opciones +
-          "&accion=alta";
+        Swal.fire({
+          title: "Registro Correcto",
+          text: "Debe realizar la carga de documentación del paciente",
+          icon: "info",
+          showCancelButton: true,
+          allowOutsideClick: false,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si",
+          cancelButtonText: "No",
+        }).then((result) => {
+          if (result.value) {
+            localStorage.removeItem("paramPaciente");
+            const paramPaciente = {
+              idPac: opciones,
+            };
+            window.localStorage.setItem(
+              "paramPaciente",
+              JSON.stringify(paramPaciente)
+            );
+            window.location.href =
+              aplicacion +
+              "/administrador/docs_paciente.php?id=" +
+              opciones +
+              "&accion=alta";
+          } else {
+            Swal.fire({
+              title: "Paciente Creado Sin Documentación",
+              text:
+                "El paciente quedó en estado 'Sin Documentación' y no podrá ser utilizado en el sistema hasta que no se le cargue la documentación correspondiente",
+              icon: "warning",
+              allowOutsideClick: false,
+              showCancelButton: false,
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "Ok",
+            }).then((result) => {
+              if (result.value) {
+                parent.location.reload();
+              }
+            });
+          }
+        });
       } else {
         alert(opciones);
       }
@@ -688,6 +714,13 @@ function l_savePac() {
   });
 }
 
+/** Funcion que actualiza el paciente
+ *
+ * Esta funcion antes de realizar el post al backend
+ * Solicita una nota que indique la modificación.
+ * Esta nota luego será mostrada por el sistema
+ * tanto en la dictaminacion del paciente como en el form de Atencion Paciente
+ */
 function l_actualizaPac() {
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
@@ -702,6 +735,7 @@ function l_actualizaPac() {
       input: "textarea",
       icon: "info",
       text: "Debe indicar un comentario para ejecutar esta acción",
+      allowOutsideClick: false,
       inputPlaceholder: "Ingrese un Comentario",
       inputAttributes: {
         "aria-label": "Ingrese un Comentario",
@@ -738,6 +772,7 @@ function l_actualizaPac() {
                   "Actualización Correcta. Desea actualizar la documentación?",
                 icon: "info",
                 showCancelButton: true,
+                allowOutsideClick: false,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Si",
@@ -750,7 +785,20 @@ function l_actualizaPac() {
                     getQuerystring("id") +
                     "&accion=mod";
                 } else {
-                  parent.location.reload();
+                  Swal.fire({
+                    title: "Registro Correcto",
+                    text:
+                      "El paciente será dictaminado por el área de FV. Hasta entonces, quedará en estado pendiente",
+                    icon: "success",
+                    allowOutsideClick: false,
+                    showCancelButton: false,
+                    confirmButtonColor: "#3085d6",
+                    confirmButtonText: "Ok",
+                  }).then((result) => {
+                    if (result.value) {
+                      parent.location.reload();
+                    }
+                  });
                 }
               });
             } else {
