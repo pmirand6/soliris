@@ -24,7 +24,6 @@ if (isset($_GET["id"])) {
         $estado = $usr["estado"];
     };
     mysqli_free_result($result);
-    mysqli_close($db);
 } else {
     $id = "";
     $vw_id = "";
@@ -33,6 +32,23 @@ if (isset($_GET["id"])) {
     $mail = "";
     $estado = "";
 }
+
+// Query Roles de Usuario
+
+$SQL = "CALL `ST_LIST_ROLES`()";
+free_all_results($db);
+$result = mysqli_query($db, $SQL);
+$arr_select_rol = "";
+
+while ($rowRol = mysqli_fetch_assoc($result)) {
+    $arr_select_rol .= '<option value="' . $rowRol["id"] . '" ' . f_p_selected($rol, $rowRol["nombre"]) . '>' . $rowRol["nombre"] . '</option>;';
+};
+
+mysqli_free_result($result);
+mysqli_close($db);
+
+
+
 ?>
 
 <head>
@@ -53,6 +69,9 @@ if (isset($_GET["id"])) {
         @import "../resources/Bootstrap-Validator/CSS/formValidation.min.css";
         /* Iconos de Estados */
         @import "../resources/Sprites/TBL-icons.css";
+        /*Select2 */
+        @import "../resources/select2/dist/css/select2.css";
+        @import "../resources/select2/dist/css/select2-bootstrap.css";
 
         .form-horizontal .selectContainer .form-control-feedback {
             top: 0;
@@ -87,17 +106,31 @@ if (isset($_GET["id"])) {
             }
             ?>
 
-            <!-- Usuario -->
-            <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="usuario">Usuario</label>
+            <!-- Nombre -->
+            <div class="form-group" <?php if($id != '') {?> style="display: none" <?php } ?>>
+                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Apellido, Nombre</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
-                        <div class="input-group-addon"><span class="fa fa-user"></span></div>
-                        <input id="usuario" name="usuario" type="text" placeholder="Usuario..." class="form-control input-md" maxlength="45" required="" value="<?php echo $usuario ?>">
+                        <div class="input-group-addon"><span class="fa fa-user-secret"></span></div>
+                        <select id="nombreSelect" name="nombreSelect" type="text" placeholder="Nombre..." class="form-control" ></select>
                     </div>
                     <div id="result_usuarios"></div>
                 </div>
             </div>
+
+
+            <!-- Nombre -->
+            <div class="form-group" <?php if($id == '') {?> style="display: none" <?php } ?>>
+                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Apellido, Nombre</label>
+                <div class="col-sm-6 col-xs-8">
+                    <div class="input-group">
+                        <div class="input-group-addon"><span class="fa fa-user-secret"></span></div>
+                        <input id="nombre" name="nombre" type="text" placeholder="Nombre..." class="form-control input-md" maxlength="100" required="" value="<?php echo $usuario?>" disabled>
+                    </div>
+                    <div id="result_usuarios"></div>
+                </div>
+            </div>
+
 
             <!-- rol -->
             <div class="form-group">
@@ -107,12 +140,9 @@ if (isset($_GET["id"])) {
                         <div class="input-group-addon"><span id="icon_lugar" class="fa fa-group"></span></div>
                         <!-- FIXME ver de traer de la base los datos de los roles -->
                         <select id="rol" name="rol" class="form-control selectpicker">
-                            <option value="Admin" <?php echo f_p_selected('Admin', $rol) ?>>Admin</option>
-                            <option value="FV" <?php echo f_p_selected('FV', $rol) ?>>FV</option>
-                            <option value="Marketing" <?php echo f_p_selected('Marketing', $rol) ?>>Marketing</option>
-                            <option value="Ventas" <?php echo f_p_selected('Ventas', $rol) ?>>Ventas</option>
-                            <option value="AUDITOR" <?php echo f_p_selected('AUDITOR', $rol) ?>>Auditor</option>
-                            <option value="APM" <?php echo f_p_selected('APM', $rol) ?>>APM</option>
+                            <?php
+                            echo $arr_select_rol;
+                            ?>
                         </select>
                     </div>
                 </div>
@@ -124,7 +154,7 @@ if (isset($_GET["id"])) {
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-envelope"></span></div>
-                        <input id="mail" name="mail" type="text" placeholder="john.doe@raffo.com.ar..." class="form-control input-md" maxlength="45" required="" value="<?php echo $mail ?>">
+                        <input id="mail" name="mail" type="text" placeholder="john.doe@raffo.com.ar..." class="form-control input-md" maxlength="45" required="" value="<?php echo $mail; ?>" disabled>
                     </div>
                 </div>
             </div>
@@ -134,10 +164,13 @@ if (isset($_GET["id"])) {
                 <div class="col-sm-5 col-xs-8 selectContainer">
                     <div class="input-group">
                         <div class="input-group-addon"><span id="icon_estado" class="fa fa-check-circle-o"></span></div>
-                        <select id="estado" name="estado" class="form-control selectpicker">
-                            <option value="Activo" <?php echo f_p_selected('Activo', $estado) ?>>Activo</option>
-                            <option value="Inactivo" <?php echo f_p_selected('Inactivo', $estado) ?>>Inactivo</option>
-                        </select>
+                        <?php if (isset($id) and $id != "") { ?>
+                            <select id="estado" name="estado" class="form-control selectpicker">
+                                <option value="Activo" <?php echo f_p_selected('Activo', $estado) ?>>Activo</option>
+                                <option value="Inactivo" <?php echo f_p_selected('Inactivo', $estado) ?>>Inactivo</option>
+                            </select><?php } else { ?>
+                            <input id="estado" name="estado" type="text" placeholder="Estado" class="form-control input-md" maxlength="100" value="Activo" disabled="true">
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -160,6 +193,7 @@ if (isset($_GET["id"])) {
     <?php
     include "../resources/Includes/BootstrapHTML5.php";
     include "../resources/Includes/FormValidation.php";
+    include "../resources/Includes/select2.php";
     ?>
 
     <!-- Custom JS -->

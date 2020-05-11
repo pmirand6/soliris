@@ -40,11 +40,11 @@ try {
   $search = $provider->search();
 
   $record = $search
-                ->where('displayName', 'contains', $query)
-                ->whereHas('mail')
-                ->limit(10)->get();
+    ->where('displayName', 'contains', $query)
+    ->whereHas('mail')
+    ->limit(10)->get();
 
-  
+
 
   $json = [];
 
@@ -52,7 +52,6 @@ try {
     foreach ($record as $a) {
       $json[] = ['id' => $a->getAttribute('mail', 0), 'text' => $a->getDisplayName(), 'username' => $a->getAccountName()];
     }
-    
   }
 
   echo json_encode($json);
