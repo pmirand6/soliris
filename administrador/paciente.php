@@ -45,6 +45,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . _SG;
     @import "../resources/Sprites/TBL-icons.css";
     /* Iconos de Estados */
     @import "../resources/CSS/Develop/paciente.css";
+    /**SweetAlert */
+    @import "../resources/sweetalert2/dist/sweetalert2.min.css";
     
     #editDocs:hover{
         color: #e35919;
@@ -76,6 +78,7 @@ include "../resources/Includes/FormValidation.php";
 include "../resources/Includes/DatePicker.php";
 include "../resources/Includes/BootstrapSelect.php";
 include "../resources/Includes/BootstrapSelectAjax.php";
+include "../resources/Includes/sweetalert2.php";
 ?>
 <!-- Custom JS -->
 <script src="../resources/bulmajs/dist/tabs.js"></script>

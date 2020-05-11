@@ -2,11 +2,11 @@ var aplicacion = getCurrentHostname() + "/" + getUrlHTTP();
 var paramPaciente = JSON.parse(window.localStorage.getItem("paramPaciente"));
 var usuario = JSON.parse(window.localStorage.getItem("usuario"));
 
-$.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
+$.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
   // script is now loaded and executed.
   // put your dependent JS here.
 
-  $(document).ready(function() {
+  $(document).ready(function () {
     l_set_dom();
 
     $.fn.ajaxSelectPicker.locale["es-ES"] = {
@@ -17,7 +17,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
       statusInitialized: "Empieza a escribir una consulta de búsqueda",
       statusNoResults: "Sin Resultados",
       statusSearching: "Buscando...",
-      statusTooShort: "Introduzca más caracteres"
+      statusTooShort: "Introduzca más caracteres",
     };
 
     $.fn.ajaxSelectPicker.locale.es = $.fn.ajaxSelectPicker.locale["es-ES"];
@@ -29,10 +29,10 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
       calendarWeeks: true,
       autoclose: true,
       clearBtn: true,
-      todayHighlight: true
+      todayHighlight: true,
     });
 
-    $("#patologia").on("changed.bs.select", function(
+    $("#patologia").on("changed.bs.select", function (
       e,
       clickedIndex,
       isSelected,
@@ -52,25 +52,25 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
       $("#bot_guardar").removeClass("disabled");
     }
 
-    $("#f_nac").on("change", function() {
+    $("#f_nac").on("change", function () {
       $("#f_edad").val(l_calcular_edad(this.value));
       $(".form").formValidation("revalidateField", "f_nac");
     });
 
-    $("#editDocs").click(function() {
+    $("#editDocs").click(function () {
       window.location.href =
         aplicacion +
         "/administrador/docs_paciente.php?id=" +
         getQuerystring("id");
     });
-    $("#histDocs").click(function() {
+    $("#histDocs").click(function () {
       window.location.href =
         "../vistas/paciente/docs_hist_paciente.php?id=" +
         getQuerystring("id") +
         "&nombre=" +
         ($("#apellido").val() + ", " + $("#nombre").val());
     });
-    $("#confirmar_pac").click(function(e) {
+    $("#confirmar_pac").click(function (e) {
       e.preventDefault();
       l_dictamen_paciente();
     });
@@ -80,10 +80,13 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function() {
 function l_dictamen_paciente() {
   var data = $("#frmDictamenPac").serializeArray();
   data.push({ name: "oper", value: "ValidaPac" });
-  data.push({ name: "idPac", value: document.getElementById('idPac').innerHTML });
+  data.push({
+    name: "idPac",
+    value: document.getElementById("idPac").innerHTML,
+  });
 
-  $.post("../ajax/ajx.paciente_form.php", data, function(data) {
-    l_mail_dictamenPaciente(document.getElementById('idPac').innerHTML);
+  $.post("../ajax/ajx.paciente_form.php", data, function (data) {
+    l_mail_dictamenPaciente(document.getElementById("idPac").innerHTML);
     window.location.href = aplicacion + "/main/panel.php";
   });
 }
@@ -93,8 +96,8 @@ function l_set_paciente() {
     type: "POST",
     url: "../ajax/ajx.paciente.php",
     data: { id: getQuerystring("id"), oper: "showPaciente" },
-    success: function(response) {
-      $.map($.parseJSON(response), function(e, i) {
+    success: function (response) {
+      $.map($.parseJSON(response), function (e, i) {
         if (usuario.grupo == "fv" || usuario.grupo == "admin") {
           $("#nombrePac").html(e.apellido + " " + e.nombre);
           $("#apellido").val(e.apellido);
@@ -158,7 +161,7 @@ function l_set_paciente() {
           $("#crm_id").val(e.crm_id);
         }
       });
-    }
+    },
   });
 }
 
@@ -168,8 +171,8 @@ function l_show_id($id) {
 }
 
 function l_get_estado($estado_id) {
-  $.getJSON("../ajax/ajx.estado.php", { oper: "getEstado" }, function(data) {
-    $.map(data, function(e, i) {
+  $.getJSON("../ajax/ajx.estado.php", { oper: "getEstado" }, function (data) {
+    $.map(data, function (e, i) {
       if ($estado_id == e.id) $("#estado").val(e.valor);
     });
   });
@@ -264,8 +267,8 @@ function l_estado_dictamen(
 }
 
 function l_list_estado($estado_id) {
-  $.getJSON("../ajax/ajx.estado.php", { oper: "getEstado" }, function(data) {
-    $.map(data, function(e, i) {
+  $.getJSON("../ajax/ajx.estado.php", { oper: "getEstado" }, function (data) {
+    $.map(data, function (e, i) {
       // NOTE se verifica que si el estado es sin Documentacion o Pendiente no pueda ser seleccionado
       if (e.id == "7" || e.id === "31") {
         $("#estadoList").append(
@@ -286,10 +289,10 @@ function l_list_estado($estado_id) {
 }
 
 function l_sub_estado($sub_estado_id) {
-  $.getJSON("../ajax/ajx.sub_estado.php", { oper: "getSubEstado" }, function(
+  $.getJSON("../ajax/ajx.sub_estado.php", { oper: "getSubEstado" }, function (
     data
   ) {
-    $.map(data, function(e, i) {
+    $.map(data, function (e, i) {
       $("#sub_estado").append(
         "<option value=" + e.id + ">" + e.valor + "</option>"
       );
@@ -311,18 +314,16 @@ function l_calcular_edad(fecha) {
  */
 
   var array_fecha = fecha.split("-");
-  let dateFormat = array_fecha[2]  + "-" + array_fecha[1] + "-" + array_fecha[0];
+  let dateFormat = array_fecha[2] + "-" + array_fecha[1] + "-" + array_fecha[0];
   var birthday = +new Date(dateFormat);
-  return ~~((Date.now() - birthday) / (31557600000));
-
-
+  return ~~((Date.now() - birthday) / 31557600000);
 }
 
 function l_list_patologias($patologia_id = null) {
-  $.getJSON("../ajax/ajx.patologia.php", { oper: "list_patologias" }, function(
+  $.getJSON("../ajax/ajx.patologia.php", { oper: "list_patologias" }, function (
     data
   ) {
-    $.map(data, function(e, i) {
+    $.map(data, function (e, i) {
       $("#patologia").append(
         "<option value=" + e.id + ">" + e.patologia_nombre + "</option>"
       );
@@ -345,13 +346,13 @@ function l_list_sub_patologia(
   $.get(
     "../ajax/ajx.sub_patologia.php",
     { oper: "list_sub_patologia", patologia_id: $patologia_id },
-    function(data) {
+    function (data) {
       if (data !== 0) {
         l_hide_selectpicker_sub_pat(false);
         $("#sub_patologia").append(
           '<option value="" selected >Seleccione una Sub Patología</option>'
         );
-        $.map(data, function(e, i) {
+        $.map(data, function (e, i) {
           $("#sub_patologia").append(
             "<option data-subtext=" +
               $patologia_nombre +
@@ -397,11 +398,11 @@ function l_list_paises($filter = null, $pais_id = null, $pais_nombre = null) {
         // Use "{{{q}}}" as a placeholder and Ajax Bootstrap Select will
         // automatically replace it with the value of the search query.
         data: {
-          q: "{{{q}}}"
-        }
+          q: "{{{q}}}",
+        },
       },
       // function to preprocess JSON data
-      preprocessData: function(data) {
+      preprocessData: function (data) {
         var i,
           l = data.length,
           array = [];
@@ -410,7 +411,7 @@ function l_list_paises($filter = null, $pais_id = null, $pais_nombre = null) {
             array.push(
               $.extend(true, data[i], {
                 text: data[i].nombre,
-                value: data[i].id
+                value: data[i].id,
               })
             );
           }
@@ -418,7 +419,7 @@ function l_list_paises($filter = null, $pais_id = null, $pais_nombre = null) {
         // You must always return a valid array when processing data. The
         // data argument passed is a clone and cannot be modified directly.
         return array;
-      }
+      },
     });
   if ($filter) {
     $("#pais.after-init")
@@ -454,12 +455,12 @@ function l_list_os($filter = null, $os_id = null, $os_nombre) {
         // Use "{{{q}}}" as a placeholder and Ajax Bootstrap Select will
         // automatically replace it with the value of the search query.
         data: {
-          q: "{{{q}}}"
-        }
+          q: "{{{q}}}",
+        },
       },
 
       // function to preprocess JSON data
-      preprocessData: function(data) {
+      preprocessData: function (data) {
         var i,
           l = data.length,
           array = [];
@@ -468,7 +469,7 @@ function l_list_os($filter = null, $os_id = null, $os_nombre) {
             array.push(
               $.extend(true, data[i], {
                 text: data[i].nombre,
-                value: data[i].id
+                value: data[i].id,
               })
             );
           }
@@ -476,7 +477,7 @@ function l_list_os($filter = null, $os_id = null, $os_nombre) {
         // You must always return a valid array when processing data. The
         // data argument passed is a clone and cannot be modified directly.
         return array;
-      }
+      },
     });
   if ($filter) {
     $("#os")
@@ -501,80 +502,80 @@ function l_validate_form() {
         required: "fa fa-asterisk",
         valid: "glyphicon glyphicon-ok",
         invalid: "glyphicon glyphicon-remove",
-        validating: "glyphicon glyphicon-refresh"
+        validating: "glyphicon glyphicon-refresh",
       },
       fields: {
         nombre: {
           message: "El nombre del paciente no es válido",
           validators: {
             notEmpty: {
-              message: "El nombre del paciente no puede quedar vacío"
+              message: "El nombre del paciente no puede quedar vacío",
             },
             regexp: {
               regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/,
-              message: "Este campo debe contener solo letras."
+              message: "Este campo debe contener solo letras.",
             },
             stringLength: {
               min: 1,
               max: 100,
               message:
-                "El nombre del paciente debe contener como mínimo 1 y como máximo 100 letras"
-            }
-          }
+                "El nombre del paciente debe contener como mínimo 1 y como máximo 100 letras",
+            },
+          },
         },
         apellido: {
           message: "El apellido del paciente no es válido",
           validators: {
             notEmpty: {
-              message: "El apellido del paciente no puede quedar vacío"
+              message: "El apellido del paciente no puede quedar vacío",
             },
             regexp: {
               regexp: /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/,
-              message: "Este campo debe contener solo letras."
+              message: "Este campo debe contener solo letras.",
             },
             stringLength: {
               min: 1,
               max: 100,
               message:
-                "El apellido del paciente debe contener como mínimo 1 y como máximo 100 letras"
-            }
-          }
+                "El apellido del paciente debe contener como mínimo 1 y como máximo 100 letras",
+            },
+          },
         },
         ciudad: {
           message: "El nombre de la ciudad no es válida",
           validators: {
             regexp: {
               regexp: /^[0-9a-zA-ZñÑáéíóúÁÉÍÓÚ\s,]*$/,
-              message: "Este campo debe contener solo letras y/o números."
+              message: "Este campo debe contener solo letras y/o números.",
             },
             stringLength: {
               min: 4,
               max: 100,
               message:
-                "Este campo debe contener como mínimo 4 y como máximo 100 letras"
-            }
-          }
+                "Este campo debe contener como mínimo 4 y como máximo 100 letras",
+            },
+          },
         },
         sub_estado: {
           validators: {
             notEmpty: {
-              message: "El Sub Estado del paciente no puede quedar vacío"
-            }
-          }
+              message: "El Sub Estado del paciente no puede quedar vacío",
+            },
+          },
         },
         patologia: {
           validators: {
             notEmpty: {
-              message: "La patologia del paciente no puede quedar vacía"
-            }
-          }
+              message: "La patologia del paciente no puede quedar vacía",
+            },
+          },
         },
         pais: {
           validators: {
             notEmpty: {
-              message: "Debe seleccionar un país"
-            }
-          }
+              message: "Debe seleccionar un país",
+            },
+          },
         },
         /*estadoVal: {
                     validators: {
@@ -586,46 +587,46 @@ function l_validate_form() {
         mail: {
           validators: {
             emailAddress: {
-              message: "Por favor, ingrese una dirección de e-mail"
+              message: "Por favor, ingrese una dirección de e-mail",
             },
             regexp: {
               regexp: /^\S+@\S+\.\S+$/,
-              message: "El formato del e-mail no es válido"
-            }
-          }
+              message: "El formato del e-mail no es válido",
+            },
+          },
         },
         f_nac: {
           validators: {
             date: {
               format: "DD-MM-YYYY",
-              message: "El formato es invalido"
+              message: "El formato es invalido",
             },
             notEmpty: {
               message:
-                "La Fecha de Nacimiento del paciente no puede quedar vacía"
-            }
-          }
+                "La Fecha de Nacimiento del paciente no puede quedar vacía",
+            },
+          },
         },
         telefono: {
           validators: {
             regexp: {
               regexp: /^[0-9 -]+$/,
               message:
-                'Este campo debe contener solo números. Puede utilizar como separador el símbolo "-".'
+                'Este campo debe contener solo números. Puede utilizar como separador el símbolo "-".',
             },
             stringLength: {
               min: 8,
-              message: "El teléfono debe tener como mínimo 8 números"
-            }
-          }
-        }
-      }
+              message: "El teléfono debe tener como mínimo 8 números",
+            },
+          },
+        },
+      },
     })
-    .on("success.form.fv", function(e) {
+    .on("success.form.fv", function (e) {
       e.preventDefault();
       save_ventas();
     })
-    .submit(function(e) {
+    .submit(function (e) {
       e.preventDefault();
     });
 }
@@ -660,64 +661,116 @@ function l_savePac() {
     type: "POST",
     data: parametros,
     async: false,
-    success: function(opciones) {
+    success: function (opciones) {
       if (opciones.indexOf("ERROR") != 0) {
         alert(
           "Se registró correctamente. Continue con la carga de la documentación."
         );
         localStorage.removeItem("paramPaciente");
         const paramPaciente = {
-          idPac: opciones
+          idPac: opciones,
         };
         window.localStorage.setItem(
           "paramPaciente",
           JSON.stringify(paramPaciente)
         );
         window.location.href =
-          aplicacion + "/administrador/docs_paciente.php?id=" + opciones + "&accion=alta";
+          aplicacion +
+          "/administrador/docs_paciente.php?id=" +
+          opciones +
+          "&accion=alta";
       } else {
         alert(opciones);
       }
-    }
+    },
   });
 }
 
-
-
 function l_actualizaPac() {
-  var parametros = $("#frm-paciente").serializeArray();
-  parametros.push({ name: "idPac", value: document.getElementById('idPac').innerHTML });
-  parametros.push({ name: "oper", value: "actualizaPac" });
-
-  $.ajax({
-    url: aplicacion + "/ajax/ajx.paciente_form.php",
-    type: "POST",
-    data: parametros,
-    async: false,
-    success: function(opciones) {
-      if (opciones.indexOf("ERROR") != 0) {
-        alert(
-          "Se registró correctamente. Continue con la carga de la documentación."
-        );
-        $.post(
-          aplicacion + "/ajax/ajx.paciente.php",
-          {
-            oper: "sendEmailPaciente",
-            idPac: document.getElementById('idPac').innerHTML,
-            accion: "Modificacion Paciente",
-          },
-          function (data, textStatus, jqXHR) {},
-          "dataType"
-        );
-        window.location.href =
-          aplicacion +
-          "/administrador/docs_paciente.php?id=" +
-          getQuerystring("id") + "&accion=mod";
-      } else {
-        alert(opciones);
-      }
-    }
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
   });
+  swalWithBootstrapButtons
+    .fire({
+      title: "Comentario de Modificación",
+      input: "textarea",
+      icon: "info",
+      text: "Debe indicar un comentario para ejecutar esta acción",
+      inputPlaceholder: "Ingrese un Comentario",
+      inputAttributes: {
+        "aria-label": "Ingrese un Comentario",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Guardar",
+      cancelButtonText: "Cancelar",
+      inputValidator: (value) => {
+        if (!value) {
+          return "Debe escribir un comentario";
+        }
+      },
+    })
+    .then((result) => {
+      if (result.value) {
+        var parametros = $("#frm-paciente").serializeArray();
+        parametros.push({
+          name: "idPac",
+          value: document.getElementById("idPac").innerHTML,
+        });
+        parametros.push({ name: "oper", value: "actualizaPac" });
+        parametros.push({ name: "notas", value: result.value });
+
+        $.ajax({
+          url: aplicacion + "/ajax/ajx.paciente_form.php",
+          type: "POST",
+          data: parametros,
+          async: false,
+          success: function (opciones) {
+            if (opciones.indexOf("ERROR") != 0) {
+              sendEmailPacienteModificado();
+              Swal.fire({
+                title:
+                  "Actualización Correcta. Desea actualizar la documentación?",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si",
+                cancelButtonText: "No",
+              }).then((result) => {
+                if (result.value) {
+                  window.location.href =
+                    aplicacion +
+                    "/administrador/docs_paciente.php?id=" +
+                    getQuerystring("id") +
+                    "&accion=mod";
+                } else {
+                  parent.location.reload();
+                }
+              });
+            } else {
+              alert(opciones);
+            }
+          },
+        });
+      }
+    });
+}
+
+function sendEmailPacienteModificado() {
+  $.post(
+    aplicacion + "/ajax/ajx.paciente.php",
+    {
+      oper: "sendEmailPaciente",
+      idPac: document.getElementById("idPac").innerHTML,
+      accion: "Modificacion Paciente",
+    },
+    function (data, textStatus, jqXHR) {},
+    "dataType"
+  );
 }
 
 function save_admin() {
@@ -727,14 +780,14 @@ function save_admin() {
       id: $("#id").val(),
       //"nombre": $('#nombre').val(),
       comentario: $("#comentario").val(),
-      estado: $("#estadoVal").val()
+      estado: $("#estadoVal").val(),
     };
     $.ajax({
       url: aplicacion + "/ajax/ajx.paciente_form.php",
       type: "POST",
       data: parametros,
       async: false,
-      success: function(opciones) {
+      success: function (opciones) {
         if (opciones.indexOf("ERROR") != 0) {
           alert("Se registró correctamente.");
           l_mail_dictamenPaciente($("#id").val());
@@ -742,7 +795,7 @@ function save_admin() {
         } else {
           alert(opciones);
         }
-      }
+      },
     });
   } else {
     save_ventas();
@@ -750,11 +803,16 @@ function save_admin() {
 }
 
 function l_mail_dictamenPaciente(idPac) {
-  $.post(aplicacion + "/ajax/ajx.paciente.php", {
-    oper: "sendEmailPaciente",
-    idPac: idPac,
-    accion: "Dictamen Paciente",
-  }, function (data, textStatus, jqXHR) { }, "dataType");
+  $.post(
+    aplicacion + "/ajax/ajx.paciente.php",
+    {
+      oper: "sendEmailPaciente",
+      idPac: idPac,
+      accion: "Dictamen Paciente",
+    },
+    function (data, textStatus, jqXHR) {},
+    "dataType"
+  );
 }
 
 function getCurrentHostname() {

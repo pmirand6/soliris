@@ -43,7 +43,7 @@ if($_POST["oper"] == "DataPPA") {
     $var = array();
     // FIXME Verificar los permisos de grupo para la visualizacion de panel
     // si es que se va a implementar el grupo de atencion al paciente
-    if($_SESSION["grupo"] == 'ventas'){
+    if($_SESSION["grupo"] == 'atencion_paciente'){
         $query = "CALL ST_LIST_PACIENTES_NO_APROBADOS()";
     } else {
         $query = "CALL `ST_LIST_PACIENTES_PENDIENTES`()";

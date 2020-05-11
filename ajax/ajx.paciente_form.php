@@ -101,6 +101,7 @@ if (isset($_POST["oper"]) and (strcasecmp($_POST["oper"], "actualizaPac") == 0))
         $estado = (!isset($_POST["estado"]) || $_POST["estado"] != '' || $_SESSION["grupo"] != 'ventas') ? 7 : $_POST["estado"];
         $sub_estado = mysqli_real_escape_string($db, $_POST["sub_estado"]);
         $patologia = mysqli_real_escape_string($db, $_POST["patologia"]);
+        $notas = mysqli_real_escape_string($db, $_POST["notas"]);
         $usuario = $_SESSION["soliris_usuario"];
 
         // Varaibles que pueden ser NULL o Vacías
@@ -113,6 +114,7 @@ if (isset($_POST["oper"]) and (strcasecmp($_POST["oper"], "actualizaPac") == 0))
         $ciudad = (isset($_POST["ciudad"]) ? parametroEmptyChceck($_POST["ciudad"]) : NULL);
         $mail = (isset($_POST["mail"]) ? parametroEmptyChceck($_POST["mail"]) : NULL);
         $cmrid = (isset($_POST["crm_id"]) ? parametroEmptyChceck($_POST["crm_id"]) : NULL);
+
 
 
         /* -------------- */
@@ -135,7 +137,10 @@ if (isset($_POST["oper"]) and (strcasecmp($_POST["oper"], "actualizaPac") == 0))
             '{$usuario}', 
             '{$sub_estado}',
             '$estado', 
-            {$cmrid})";
+            {$cmrid},
+            '$notas')";
+
+            
 
         /* Realizo la consulta */
         // Verificar el log de auditoria
