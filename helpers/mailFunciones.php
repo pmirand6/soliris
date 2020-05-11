@@ -210,7 +210,7 @@ function sendMail_ModificacionPaciente($idPaciente)
     $variables = array(
         "{{accion}}" => 'Modificación de Paciente',
         "{{nom_pac}}" => $response[0]["nom_pac"],
-        "{{accion2}}" => 'Se ha modificado y quedó en estado Pendiente, el mismo deberá ser evaluador por FV',
+        "{{accion2}}" => 'Se ha modificado y quedó en estado Pendiente, el mismo deberá ser evaluado por FV',
         "{{especificacion_cambio}}" => 'El paciente ha sido modificado por',
         "{{user_accion}}" => $response[0]['usuario'],
         "{{notas}}" => 'Notas de la modificación: ' . $response[0]['notas'],
