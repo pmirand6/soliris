@@ -125,7 +125,9 @@ function l_set_paciente() {
           $("#subPatPac").html(e.subPatologiaNombre);
           $("#usuarioCreador").html(e.usuario_creador);
           $("#fechaCreacion").html(e.fecha_creacion);
-          e.estado_id === "7"
+          // Verifico si el usuario tiene notas creadas y las muestro
+          // Sino no despliego el div de notas
+          e.notas === ""
             ? l_estado_dictamen(e.estado_valor)
             : l_estado_dictamen(
                 e.estado_valor,
