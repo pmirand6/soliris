@@ -120,6 +120,10 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         $res = $row[0];
 
         if ($res == 1) { 
+            if ($read) {
+                include "../vistas/venta/form_vista_venta.php";
+                return;
+            }
             include "../vistas/venta/form_modificar_venta.php";
         } else {
             include "../vistas/venta/form_vista_venta.php";

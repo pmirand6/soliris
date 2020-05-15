@@ -87,4 +87,5 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
     ?>
 
     <script type="text/javascript" language="javascript" src="../resources/JS/Develop/nueva_venta.js"></script>
+    <script type="text/javascript" language="javascript" src="../resources/JS/Develop/control_venta.js"></script>
 </body>
