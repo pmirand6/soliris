@@ -30,7 +30,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         /* Custom CSS */
         @import "../resources/CSS/Develop/nueva_venta.css";
         /** Sweetalert2 */
-        @import "../resources/sweetalert2/dist/sweetalert2.min.css"
+        @import "../resources/sweetalert2/dist/sweetalert2.min.css";
     </style>
 
 </head>
@@ -87,5 +87,4 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
     ?>
 
     <script type="text/javascript" language="javascript" src="../resources/JS/Develop/nueva_venta.js"></script>
-    <script type="text/javascript" language="javascript" src="../resources/JS/Develop/control_venta.js"></script>
 </body>

@@ -31,11 +31,12 @@ if (isset($_POST["oper"]) && $_POST["oper"] == 'controlModicacionVenta' && isset
 if (isset($_POST["oper"]) && $_POST["oper"] == 'deleteControlModicacionVenta' && isset($_POST["idVenta"])) {
 
     $idVenta = $_POST["idVenta"];
-    $idUsuario = $_POST["idUsuario"];
+    $userName = $_SESSION["soliris_usuario"];
     $idEstado = $_POST["idEstado"];
     $SQL = "CALL ST_DELETE_CONTROL_MODIFICAR_VENTA('$idVenta', '$userName');";
 
     mysqli_query($db, $SQL);
     mysqli_close($db);
-
 }
+
+

@@ -174,25 +174,7 @@ function l_set_table_pac() {
       // En el caso de que no sea verdadero deberá devolver el mensaje
       // de la funcion l_showVenta
 
-      if (l_showVenta(u_idVenta, u_venta_estado_id)) {
-        console.log("hola");
-        Swal.fire({
-          title: "Paciente con venta pendiente",
-          text:
-            "El paciente ya tiene una venta generada en estado pendiente de NP",
-          type: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Ver Venta",
-          CancelButtonText: "Cancelar",
-        }).then((result) => {
-          if (result.value) {
-            window.location.href =
-              aplicacion + "/main/modificar_venta.php?idVenta=" + u_idVenta;
-          }
-        });
-      }
+      l_showVenta(u_idVenta, u_venta_estado_id, id);
     } else {
       // redirecciono a la pagina de guardar_venta en el caso de que no tenga ventas
       // En estado NP
@@ -202,57 +184,72 @@ function l_set_table_pac() {
 }
 
 //Evaluacion si la venta esta bloqueada para una modificación
-function l_showVenta(idVenta, estadoVenta) {
+function l_showVenta(idVenta, estadoVenta, idPac) {
   $.post(aplicacion + "/ajax/ajx.control_modificacion_venta.php", {
     idVenta: idVenta,
     oper: "controlModicacionVenta",
   }).done(function (data) {
+    console.log(data);
     if (data.length != 0) {
       $.map(JSON.parse(data), function (e) {
-        if (e.mensaje == "1") {
-          //Si el paciente ya tiene una venta activa
-          // Indico que no se pueden crear nuevas ventas
-          if (estadoVenta == "22") {
+        switch (e.mensaje) {
+          //El paciente no esta bloqueado por otro usuario
+          case "1":
+            //Se verifica el ultimo estado de la ultima venta del paciente
+            // Si el estado es 22 devuelvo el mensaje
+            if (estadoVenta == "22") {
+              Swal.fire({
+                title: "Paciente con venta pendiente",
+                text:
+                  "El paciente ya tiene una venta generada en estado pendiente de NP",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ver Venta",
+                CancelButtonText: "Cancelar",
+              }).then((result) => {
+                if (result.value) {
+                  window.location.href =
+                    aplicacion +
+                    "/main/modificar_venta.php?idVenta=" +
+                    idVenta;
+                }
+              });
+            } else {
+              // redirecciono a la pagina de guardar_venta en el caso de que no tenga ventas
+              // En estado NP
+              window.location.href =
+                aplicacion + "/main/generar_venta.php?idPac=" + idPac;
+            }
+            break;
+          case "22":
+            // El paciente tiene una venta bloqueada de modificacion por un usuario
             Swal.fire({
-              title: "Paciente con venta pendiente",
-              text:
-                "El paciente ya tiene una venta generada en estado pendiente de NP",
-              type: "warning",
+              title: e.title,
+              icon: "warning",
+              html: e.text,
+              showCloseButton: true,
               showCancelButton: true,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-              confirmButtonText: "Ver Venta",
-              CancelButtonText: "Cancelar",
+              confirmButtonText: "Mostrar Venta",
+              cancelButtonText: "Cerrar",
             }).then((result) => {
               if (result.value) {
                 window.location.href =
-                  aplicacion + "/main/modificar_venta.php?idVenta=" + u_idVenta;
+                  aplicacion +
+                  "/main/modificar_venta.php?idVenta=" +
+                  idVenta +
+                  "&read=true";
               }
             });
-          } else {
-            // redirecciono a la pagina de guardar_venta en el caso de que no tenga ventas
-            // En estado NP
+            break;
+          case "23":
+            //La ultima venta del paciente esta en NP entonces se puede crear una nueva venta
             window.location.href =
-              aplicacion + "/main/generar_venta.php?idPac=" + id;
-          }
-        } else {
-          Swal.fire({
-            title: e.title,
-            icon: "warning",
-            html: e.text,
-            showCloseButton: true,
-            showCancelButton: true,
-            confirmButtonText: "Mostrar Venta",
-            cancelButtonText: "Cerrar",
-          }).then((result) => {
-            if (result.value) {
-              window.location.href =
-                aplicacion +
-                "/main/modificar_venta.php?idVenta=" +
-                idVenta +
-                "&read=true";
-            }
-          });
+              aplicacion + "/main/generar_venta.php?idPac=" + idPac;
+            break;
+          default:
+            break;
         }
       });
     }

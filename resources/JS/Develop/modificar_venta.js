@@ -42,7 +42,8 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
     l_set_paciente();
 
     $("#canModificacion").click(function (e) {
-      parent.location.reload();
+      e.preventDefault();
+      canModificacion();
     });
     $("#canVenta").click(function (e) {
       e.preventDefault();
@@ -78,6 +79,16 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
     });
   });
 });
+
+function canModificacion() {
+  $.post(aplicacion + "/ajax/ajx.control_modificacion_venta.php", {
+    idVenta: getQuerystring("idVenta"),
+    oper: "deleteControlModicacionVenta",
+  }, function (data, textStatus, jqXHR) {
+    parent.location.reload();
+    return;
+  });
+}
 
 function l_modificar_venta() {
   let myForm = document.getElementById("frmModVenta");

@@ -84,6 +84,7 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
     });
 
     $("#canVenta").click(function (e) {
+      e.preventDefault();
       parent.location.reload();
     });
   });
