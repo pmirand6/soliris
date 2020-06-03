@@ -10,5 +10,8 @@
     "require": {
         "swiftmailer/swiftmailer": "^5.4.12",
         "adldap2/adldap2": "8.0.*"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.5"
     }
 }

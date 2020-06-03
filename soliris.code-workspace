@@ -8,6 +8,7 @@
 		"liveServer.settings.multiRootWorkspaceName": "soliris",
 		"liveServer.settings.CustomBrowser": "chrome",
 		"liveServer.settings.port": 81,
+		"fileheader.Author": "",
 	},
 	"liveServer.settings.AdvanceCustomBrowserCmdLine": "",
 	"liveServer.settings.proxy": {
