@@ -1,0 +1,150 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Versión del servidor:         5.6.11-log - MySQL Community Server (GPL)
+-- SO del servidor:              Win64
+-- HeidiSQL Versión:             11.0.0.5919
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Volcando estructura de base de datos para soliris
+CREATE DATABASE IF NOT EXISTS `soliris` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `soliris`;
+
+-- Volcando estructura para tabla soliris.paciente
+CREATE TABLE IF NOT EXISTS `paciente` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `apellido` varchar(100) NOT NULL,
+  `nombre` varchar(100) NOT NULL DEFAULT '',
+  `nombre_completo` varchar(200) NOT NULL,
+  `fecha_nac` date NOT NULL,
+  `sexo` varchar(2) NOT NULL DEFAULT '',
+  `telefono` varchar(45) DEFAULT NULL,
+  `ciudad` varchar(100) DEFAULT NULL,
+  `pais_id` int(11) NOT NULL COMMENT 'ID de Pais',
+  `mail` varchar(100) DEFAULT NULL,
+  `patologia_id` int(11) NOT NULL COMMENT 'ID Patologia',
+  `sub_patologia_id` int(11) NOT NULL,
+  `os_id` int(11) unsigned NOT NULL COMMENT 'ID de la Obra Social',
+  `notas` longtext,
+  `usuario_id` int(11) unsigned NOT NULL,
+  `c_gestar` varchar(2) DEFAULT NULL,
+  `estado_id` int(11) NOT NULL DEFAULT '7' COMMENT 'ID de Estado',
+  `sub_estado_id` int(11) NOT NULL DEFAULT '8' COMMENT 'ID de Sub Estado',
+  `fecha_creacion` datetime DEFAULT NULL,
+  `familia` varchar(3) NOT NULL DEFAULT 'SOL' COMMENT 'rvl/tali/---',
+  `fecha_modificacion` datetime NOT NULL,
+  `usuario_mod_id` int(11) unsigned NOT NULL DEFAULT '0',
+  `crm_id` int(11) unsigned DEFAULT NULL COMMENT 'ID del Sisitema Con Vos',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `apellido_nombre_fecha_nac` (`apellido`,`nombre`,`fecha_nac`),
+  KEY `FK_estado_pac` (`estado_id`),
+  KEY `FK_os_pac` (`os_id`),
+  KEY `FK_pais_pac` (`pais_id`),
+  KEY `FK_patologia_pac` (`patologia_id`),
+  KEY `FK_sub_estado_pac` (`sub_patologia_id`),
+  KEY `FK_sub_estado_paciente` (`sub_estado_id`),
+  KEY `FK_usuario_mod_pac` (`usuario_mod_id`),
+  KEY `FK_usuario_pac` (`usuario_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8mb4 AVG_ROW_LENGTH=8192 COMMENT='Tabla de Pacientes';
+
+-- Volcando datos para la tabla soliris.paciente: ~20 rows (aproximadamente)
+/*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
+REPLACE INTO `paciente` (`id`, `apellido`, `nombre`, `nombre_completo`, `fecha_nac`, `sexo`, `telefono`, `ciudad`, `pais_id`, `mail`, `patologia_id`, `sub_patologia_id`, `os_id`, `notas`, `usuario_id`, `c_gestar`, `estado_id`, `sub_estado_id`, `fecha_creacion`, `familia`, `fecha_modificacion`, `usuario_mod_id`, `crm_id`) VALUES
+	(76, 'Silvestri', 'Amanda Lucia', 'Silvestri, Amanda Lucia', '2014-12-10', 'F', '0291 15 4425761 ', '', 13, 'lauramfernandez1@yahoo.com.ar ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:33:56', 'SOL', '2020-05-12 15:33:56', 34, 27725),
+	(77, 'Marrero', 'Ana María', 'Marrero, Ana María', '1958-03-27', 'F', '0291 155059763 ', '', 13, 'juliana261326@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:33:58', 'SOL', '2020-05-12 15:33:58', 34, 27727),
+	(78, 'Roldán', 'Sofía', 'Roldán, Sofía', '1988-09-05', 'F', '5355 5912 ', '', 13, 'sofi.roldan@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:00', 'SOL', '2020-05-12 15:34:00', 34, 27729),
+	(79, 'Macedo', 'Edgardo', 'Macedo, Edgardo', '1946-12-06', 'M', '0336 4421824 ', '', 13, 'e-macedo@intercom.com.ar ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:02', 'SOL', '2020-05-12 15:34:02', 34, 27738),
+	(80, 'Spagnoli', 'Yolen Osvaldo', 'Spagnoli, Yolen Osvaldo', '1938-01-21', 'M', '0362 15 4543676 ', '', 13, 'yolen.osvaldo@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:04', 'SOL', '2020-05-12 15:34:04', 34, 27741),
+	(81, 'Herrera', 'Norma', 'Herrera, Norma', '1948-12-17', 'F', '0297 4463209 ', '', 13, 'norma.hcarano@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:05', 'SOL', '2020-05-12 15:34:05', 34, 27742),
+	(82, 'Garreta', 'Natalia Elizabeth', 'Garreta, Natalia Elizabeth', '1985-03-29', 'F', '15 3143 0321 ', '', 13, 'naty29@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:07', 'SOL', '2020-05-12 15:34:07', 34, 27748),
+	(83, 'Roldan', 'Martín Miguel', 'Roldan, Martín Miguel', '1979-06-06', 'M', '02266 525093 ', '', 13, 'roldan_martin_miguel@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:09', 'SOL', '2020-05-12 15:34:09', 34, 27750),
+	(84, 'López', 'Adriana', 'López, Adriana', '1963-07-26', 'F', '02320 479299 ', '', 13, 'adrianalopezdurand@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:11', 'SOL', '2020-05-12 15:34:11', 34, 27753),
+	(85, 'Bolis', 'Ricardo', 'Bolis, Ricardo', '1900-01-01', 'M', '11-6965-0535 ', '', 13, 'ainaraanabel@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:13', 'SOL', '2020-05-12 15:34:13', 34, 27755),
+	(86, 'Dameli', 'Marcos', 'Dameli, Marcos', '1996-06-28', 'M', '0220-4836102 ', '', 13, 'marcosdameli@gmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:15', 'SOL', '2020-05-12 15:34:15', 34, 27757),
+	(87, 'Tejada', 'Lionel', 'Tejada, Lionel', '1900-01-01', 'M', '15-3945-0273 ', '', 13, 'liote37@gmail.com ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:17', 'SOL', '2020-05-12 15:34:17', 34, 27758),
+	(88, 'a Tecce', 'Paol', 'a Tecce, Paol', '1976-12-07', 'F', '4717 4997 ', '', 13, 'paotecce@yahoo.com.ar ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:19', 'SOL', '2020-05-12 15:34:19', 34, 27760),
+	(89, 'Vicente', 'Malena', 'Vicente, Malena', '1998-03-20', 'F', '02302 571882 ', '', 13, 'malenavicente1@gmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:22', 'SOL', '2020-05-12 15:34:22', 34, 27761),
+	(90, 'Mendez', 'Walter Enrique', 'Mendez, Walter Enrique', '1962-03-27', 'M', '1534699817 ', '', 13, 'fernanraulmendez@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:25', 'SOL', '2020-05-12 15:34:25', 34, 27766),
+	(91, 'Arrighi', 'María Lourdes', 'Arrighi, María Lourdes', '1984-01-18', 'F', '2006 5944 ', '', 13, 'marialourdesarrighi@gmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:27', 'SOL', '2020-05-12 15:34:27', 34, 27769),
+	(92, 'Kanzepolsky', 'Laura Silvina', 'Kanzepolsky, Laura Silvina', '1971-03-23', 'F', '15 6108 4200 ', '', 13, 'laurakanze@yahoo.com.ar ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:29', 'SOL', '2020-05-12 15:34:29', 34, 27770),
+	(93, 'Campañá', 'Agustín', 'Campañá, Agustín', '1981-04-24', 'M', '03444 422079 ', '', 13, 'agustin1905@hotmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:32', 'SOL', '2020-05-12 15:34:32', 34, 27771),
+	(94, 'Bravo', 'Matías Andrés', 'Bravo, Matías Andrés', '2002-07-18', 'M', '15-6728-0163 ', '', 13, 'paoola.martinezz@hotmail.com.ar ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:34', 'SOL', '2020-05-12 15:34:34', 34, 27773),
+	(95, 'Bordoli Olivera', 'Nélida', 'Bordoli Olivera, Nélida', '1942-12-01', 'F', '15-5942-5385 ', '', 13, 'nbordoli@arnet.com.ar ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:40', 'SOL', '2020-05-12 15:34:40', 34, 27774),
+	(96, 'Vasquez', 'Franco', 'Vasquez, Franco', '2015-04-09', 'M', '11-2270-1090 ', '', 13, 'alicia.cejas1@gmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:42', 'SOL', '2020-05-12 15:34:42', 34, 27775),
+	(97, 'Garcia', 'Martina', 'Garcia, Martina', '1998-06-12', 'F', '15 4089 0109 ', '', 13, 'vgarcia.martina@gmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:44', 'SOL', '2020-05-12 15:34:44', 34, 27779),
+	(98, 'Zhou', 'Zaiqi', 'Zhou, Zaiqi', '1978-06-24', 'M', '15 5996 6123 ', '', 13, 'zhou.zaiqi@iosfa.gob.ar ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:46', 'SOL', '2020-05-12 15:34:46', 34, 27780),
+	(99, 'Acosta', 'Araceli Itatí', 'Acosta, Araceli Itatí', '2004-09-10', 'F', '15 5417 1384 ', '', 13, ' ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:48', 'SOL', '2020-05-12 15:34:48', 34, 27782),
+	(100, 'Ramirez Cano', 'Bautista Lionel', 'Ramirez Cano, Bautista Lionel', '2011-10-13', 'M', '4212 9864 ', '', 13, 'bautistalionel1310@gmail.com ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:50', 'SOL', '2020-05-12 15:34:50', 34, 27783),
+	(101, 'Sobrado', 'Martiniano Ariel', 'Sobrado, Martiniano Ariel', '2003-06-30', 'M', '5017 1675 ', '', 13, 'laura_scorpino@hotmail.com ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:52', 'SOL', '2020-05-12 15:34:52', 34, 27787),
+	(102, 'García', 'Victor Martín', 'García, Victor Martín', '1992-11-09', 'M', '02281 432675 ', '', 13, 'martin.der.2010@gmail.com ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:53', 'SOL', '2020-05-12 15:34:53', 34, 27789),
+	(103, 'Oviedo', 'Leopoldina', 'Oviedo, Leopoldina', '1955-11-25', 'F', '15-6183-6349 ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:55', 'SOL', '2020-05-12 15:34:55', 34, 27790),
+	(104, 'Scheneider', 'Melany', 'Scheneider, Melany', '1900-01-01', 'F', '0236-15-458-1383 ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:34:57', 'SOL', '2020-05-12 15:34:57', 34, 27791),
+	(105, 'Melnik', 'Sabrina Belén', 'Melnik, Sabrina Belén', '1985-09-16', 'F', '15 6568 2117 ', '', 13, 'sabrina.melnik@estudiomelnik.com.ar ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:02', 'SOL', '2020-05-12 15:35:02', 34, 27792),
+	(106, 'Benegas', 'Miriam', 'Benegas, Miriam', '1972-12-03', 'F', '115369-4259 ', '', 13, ' ', 0, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:04', 'SOL', '2020-05-12 15:35:04', 34, 27795),
+	(107, 'Fonte', 'Nadia Soledad', 'Fonte, Nadia Soledad', '1982-06-20', 'F', '4204 7030 ', '', 13, 'nadia_fonte@hotmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:05', 'SOL', '2020-05-12 15:35:05', 34, 27797),
+	(108, 'Diaz Baylon', 'Laura Eliana', 'Diaz Baylon, Laura Eliana', '1979-05-31', 'F', '5963 2972 ', '', 13, 'laurabaylon@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:07', 'SOL', '2020-05-12 15:35:07', 34, 27798),
+	(109, 'Chiaserotti', 'Liliana', 'Chiaserotti, Liliana', '1972-04-17', 'F', '15-5469-4243 ', '', 13, 'lili_isa17@yahoo.com.ar ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:09', 'SOL', '2020-05-12 15:35:09', 34, 27799),
+	(110, 'Gago Turiel', 'Gimena Natalia', 'Gago Turiel, Gimena Natalia', '1985-02-23', 'F', '15 6481 4172 ', '', 13, 'gimena_gt@hotmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:11', 'SOL', '2020-05-12 15:35:11', 34, 27803),
+	(111, 'Cordoba', 'Joel', 'Cordoba, Joel', '1988-01-16', 'M', '0341 3496797 ', '', 13, 'joelcordoba@hotmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:13', 'SOL', '2020-05-12 15:35:13', 34, 27805),
+	(112, 'del Valle Heredia', 'Silvia', 'del Valle Heredia, Silvia', '1977-03-24', 'F', '0351 4976502 ', '', 13, 'silvitadelvalle@yahoo.com.ar ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:19', 'SOL', '2020-05-12 15:35:19', 34, 27806),
+	(113, 'Fernandez', 'Sebastian', 'Fernandez, Sebastian', '1900-01-01', 'M', ' ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:21', 'SOL', '2020-05-12 15:35:21', 34, 27809),
+	(114, 'Ramírez Pérez', 'Benicio Gael', 'Ramírez Pérez, Benicio Gael', '2016-04-28', 'M', '0351 3415870 ', '', 13, 'lucca0504@gmail.com ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:27', 'SOL', '2020-05-12 15:35:27', 34, 27813),
+	(115, 'Segovia', 'Romina', 'Segovia, Romina', '1900-01-01', 'F', '0379-507-1929 ', '', 13, 'romisegovia2006@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:29', 'SOL', '2020-05-12 15:35:29', 34, 27818),
+	(116, 'Lenner', 'Silvia Marina', 'Lenner, Silvia Marina', '1958-04-18', 'F', '03447 480744 ', '', 13, 'silvialenner@hotmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:31', 'SOL', '2020-05-12 15:35:31', 34, 27819),
+	(117, 'Luna', 'Luis', 'Luna, Luis', '1959-04-18', 'M', '03447-15449703 ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:32', 'SOL', '2020-05-12 15:35:32', 34, 27820),
+	(118, 'Martinez', 'Eulogia', 'Martinez, Eulogia', '1900-01-01', 'F', ' ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:34', 'SOL', '2020-05-12 15:35:34', 34, 27825),
+	(119, 'Zerpa', 'Victor', 'Zerpa, Victor', '1985-07-01', 'M', '0388154102203 ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:36', 'SOL', '2020-05-12 15:35:36', 34, 27826),
+	(120, 'Martínez', 'Valeria Dalila', 'Martínez, Valeria Dalila', '1985-04-20', 'F', '02302 647210 ', '', 13, 'dalimartinez1704@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:40', 'SOL', '2020-05-12 15:35:40', 34, 27827),
+	(121, 'Tapia', 'Lucas', 'Tapia, Lucas', '1900-01-01', 'M', '261 5063291 ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:42', 'SOL', '2020-05-12 15:35:42', 34, 27830),
+	(122, 'Godoy', 'Esteban Nicolas', 'Godoy, Esteban Nicolas', '2006-01-20', 'M', '2616666273 ', '', 13, ' ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:44', 'SOL', '2020-05-12 15:35:44', 34, 27832),
+	(123, 'Gigena', 'Isabella', 'Gigena, Isabella', '2015-04-16', 'F', '261153075653 ', '', 13, ' ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:46', 'SOL', '2020-05-12 15:35:46', 34, 27835),
+	(124, 'Franco', 'Carlos Alberto', 'Franco, Carlos Alberto', '1982-05-12', 'M', '0376-5068678 ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:48', 'SOL', '2020-05-12 15:35:48', 34, 27838),
+	(125, 'Maffullo', 'Bruno Ciro', 'Maffullo, Bruno Ciro', '2013-10-01', 'M', '15 4927 1358 ', '', 13, 'maffullowalter@hotmail.com.ar ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:51', 'SOL', '2020-05-12 15:35:51', 34, 28167),
+	(126, 'Iglesias', 'Kevin', 'Iglesias, Kevin', '2004-09-21', 'M', ' ', '', 13, ' ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:53', 'SOL', '2020-05-12 15:35:53', 34, 28168),
+	(127, 'Zamora', 'Miguel Armando', 'Zamora, Miguel Armando', '1973-01-05', 'M', '15 6096 1828 ', '', 13, 'armandoza911@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:55', 'SOL', '2020-05-12 15:35:55', 34, 28170),
+	(128, 'Gómez', 'Luka Agustín', 'Gómez, Luka Agustín', '2003-12-21', 'M', '15 5669 0823 ', '', 13, 'roxana_mambrin@live.com.ar ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:57', 'SOL', '2020-05-12 15:35:57', 34, 28171),
+	(129, 'Zapata', 'Roberto', 'Zapata, Roberto', '1963-01-24', 'M', '11-5516-5889 ', '', 13, 'robertozapata@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:35:59', 'SOL', '2020-05-12 15:35:59', 34, 28172),
+	(130, 'Toniolo', 'José', 'Toniolo, José', '1949-06-16', 'M', '4740 1696 ', '', 13, 'liligarcia1950@gmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:01', 'SOL', '2020-05-12 15:36:01', 34, 28466),
+	(131, 'Purpora', 'María Cecilia', 'Purpora, María Cecilia', '1980-04-09', 'F', '15 3872 5633 ', '', 13, 'ceciliapurpora@gmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:03', 'SOL', '2020-05-12 15:36:03', 34, 28467),
+	(132, 'Osorio', 'Mario', 'Osorio, Mario', '1968-08-09', 'M', '4241-5961 ', '', 13, ' ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:06', 'SOL', '2020-05-12 15:36:06', 34, 28469),
+	(133, 'Donatti', 'Claudia', 'Donatti, Claudia', '1963-11-23', 'F', '15 5384 3366 ', '', 13, 'claudonatti@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:08', 'SOL', '2020-05-12 15:36:08', 34, 28470),
+	(134, 'Cruchinho', 'Maria Eugenia', 'Cruchinho, Maria Eugenia', '1982-11-14', 'F', '0353 4529259 ', '', 13, 'ecruchinho@hotmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:10', 'SOL', '2020-05-12 15:36:10', 34, 28473),
+	(135, 'Morales Sanchez', 'Victor Armando', 'Morales Sanchez, Victor Armando', '1992-02-25', 'M', '0351 5401763 ', '', 13, 'armando25vi@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:12', 'SOL', '2020-05-12 15:36:12', 34, 28474),
+	(136, 'Fuenzalida', 'Magdalena Nadia', 'Fuenzalida, Magdalena Nadia', '1987-11-01', 'F', '0380 4431869 ', '', 13, 'nadiafuenzalida7@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:14', 'SOL', '2020-05-12 15:36:14', 34, 28475),
+	(137, 'Castaño', 'Graciela Susana', 'Castaño, Graciela Susana', '1980-08-23', 'F', '03476 495848 ', '', 13, 'greisy.susana@hotmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:16', 'SOL', '2020-05-12 15:36:16', 34, 28481),
+	(138, 'Chavez', 'Marcos', 'Chavez, Marcos', '1944-04-25', 'M', '02320 437458 ', '', 13, 'patriciachavez43@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:18', 'SOL', '2020-05-12 15:36:18', 34, 28541),
+	(139, 'Ramos', 'Jorgelina Paola Luján', 'Ramos, Jorgelina Paola Luján', '1992-05-16', 'F', '02396 472203 ', '', 13, 'jorgelinapramos@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:22', 'SOL', '2020-05-12 15:36:22', 34, 28544),
+	(140, 'Bruno', 'Vittorio Manuel', 'Bruno, Vittorio Manuel', '2012-06-12', 'M', '02355 648571 ', '', 13, 'brunoconstrucciones@yahoo.com.ar ', 0, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:26', 'SOL', '2020-05-12 15:36:26', 34, 28574),
+	(141, 'Arratia', 'Abril Shayel', 'Arratia, Abril Shayel', '2009-04-07', 'F', '0299 4095183 ', '', 13, 'joannatorres750@gmail.com ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:33', 'SOL', '2020-05-12 15:36:33', 34, 28869),
+	(142, 'Diaz', 'Jose Luis', 'Diaz, Jose Luis', '1972-11-12', 'M', '(02920)15694535 ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:36', 'SOL', '2020-05-12 15:36:36', 34, 28871),
+	(143, 'Salas', 'Roque', 'Salas, Roque', '1969-04-29', 'M', ' ', '', 13, 'salasconcierto@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:37', 'SOL', '2020-05-12 15:36:37', 34, 28872),
+	(144, 'Villafaña', 'Mónica', 'Villafaña, Mónica', '1990-10-28', 'F', '0264 4634457 ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:40', 'SOL', '2020-05-12 15:36:40', 34, 28880),
+	(145, 'Tirado', 'Daniela Beatriz', 'Tirado, Daniela Beatriz', '1986-04-09', 'F', '0264 4106040 ', '', 13, 'danielabtirado@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:41', 'SOL', '2020-05-12 15:36:41', 34, 28881),
+	(146, 'Noval', 'Ana Carolina', 'Noval, Ana Carolina', '1991-03-18', 'F', '03468 440810 ', '', 13, 'pamenoval@gmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:43', 'SOL', '2020-05-12 15:36:43', 34, 28887),
+	(147, 'Gardeñes', 'Lara Sanchez', 'Gardeñes, Lara Sanchez', '2017-01-13', 'F', '0362 15303795 ', '', 13, 'sanchez.claudio@hotmail.com ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:45', 'SOL', '2020-05-12 15:36:45', 34, 28892),
+	(148, 'Pignalberi', 'Verónica', 'Pignalberi, Verónica', '1976-12-17', 'F', '0342 4604243 ', '', 13, 'veronicagruposm@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:47', 'SOL', '2020-05-12 15:36:47', 34, 28895),
+	(149, 'Miño', 'Josefina', 'Miño, Josefina', '1962-03-19', 'F', '0349715535350 ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:49', 'SOL', '2020-05-12 15:36:49', 34, 28896),
+	(150, 'Villaruel', 'Vladimir', 'Villaruel, Vladimir', '2016-01-15', 'M', 'Paula Barrientos ', '', 13, ' ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:52', 'SOL', '2020-05-12 15:36:52', 34, 28897),
+	(151, 'Raies', 'Naiara Luna', 'Raies, Naiara Luna', '1997-03-12', 'F', '03462 15538212 ', '', 13, 'naia-luna@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:53', 'SOL', '2020-05-12 15:36:53', 34, 28898),
+	(152, 'Coronel', 'Felix Faustino', 'Coronel, Felix Faustino', '1950-03-10', 'M', '0381 4922415 ', '', 13, 'felix-lf@hotmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:36:55', 'SOL', '2020-05-12 15:36:55', 34, 28900),
+	(153, 'del Carmen Santillan', 'Haydeé', 'del Carmen Santillan, Haydeé', '1966-11-01', 'F', '03854 4968445 ', '', 13, 'haydee_santillan@hotmail.com ', 0, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:37:03', 'SOL', '2020-05-12 15:37:03', 34, 28902),
+	(154, 'Pardo', 'Selene Analía', 'Pardo, Selene Analía', '2000-03-29', 'F', '15 5138 7861 ', '', 13, 'sil.paredes@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:37:05', 'SOL', '2020-05-12 15:37:05', 34, 29107),
+	(155, 'Ramadán', 'María Haydeé', 'Ramadán, María Haydeé', '1959-04-27', 'F', '15 6305 3437 ', '', 13, 'mariahramadan@gmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:37:08', 'SOL', '2020-05-12 15:37:08', 34, 29111),
+	(156, 'Halak', 'Claudia Karina Aida', 'Halak, Claudia Karina Aida', '1970-04-20', 'F', '15 6485 1080 ', '', 13, 'karyhk86@gmail.com ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:37:11', 'SOL', '2020-05-12 15:37:11', 34, 29345),
+	(157, 'Correa', 'Agustina Milagros', 'Correa, Agustina Milagros', '1997-08-22', 'F', '15 3368 9619 ', '', 13, 'ags1977@live.com.ar ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:37:15', 'SOL', '2020-05-12 15:37:15', 34, 29348),
+	(158, 'Barros', 'Alexandra', 'Barros, Alexandra', '1900-01-01', 'F', '1569607920 ', '', 13, ' ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:37:17', 'SOL', '2020-05-12 15:37:17', 34, 29368),
+	(159, 'Crespo', 'Arturo Emanuel', 'Crespo, Arturo Emanuel', '1998-08-27', 'M', '15 6679 9396 ', '', 13, 'erlypen@yahoo.com.ar ', 17, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:37:19', 'SOL', '2020-05-12 15:37:19', 34, 29823),
+	(160, 'Bertinat', 'Juan Ignacio', 'Bertinat, Juan Ignacio', '1900-01-01', 'M', ' ', '', 13, ' ', 19, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:37:21', 'SOL', '2020-05-12 15:37:21', 34, 29827),
+	(161, 'Silva', 'Sonia', 'Silva, Sonia', '1969-12-27', 'F', '02613725412 ', '', 13, ' ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:37:23', 'SOL', '2020-05-12 15:37:23', 34, 29843),
+	(162, 'Gugliara', 'Luis', 'Gugliara, Luis', '1948-02-18', 'M', '4212 5409 ', '', 13, 'veronicagugliara@hotmail.com ', 20, 4, 0, NULL, 34, NULL, 7, 8, '2020-05-12 15:37:25', 'SOL', '2020-05-12 15:37:25', 34, 29853);
+/*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
