@@ -25,9 +25,9 @@ include './config/config.php';
         /*@import "resources/JQuery-EasyUI-1.4.2/locale/easyui-lang-es.js";*/
     </style>
     <?php
-    # Si bajo los INCLUDES se duplican las flechas del accordion
-    include "resources/Includes/BootstrapHTML5.php";
-    include "resources/Includes/EasyUI.php";
+    // Si bajo los INCLUDES se duplican las flechas del accordion
+    include 'resources/Includes/BootstrapHTML5.php';
+    include 'resources/Includes/EasyUI.php';
     ?>
 </head>
 
@@ -62,11 +62,11 @@ include './config/config.php';
             <p class="nav_item" onclick="pop('administrador/canales.php')"><span class="margin-right fa fa-hospital-o"></span>Canal</p>
             <p class="nav_item" onclick="pop('administrador/clientes.php')"><span class="margin-right fa fa-hospital-o"></span>Clientes</p>
             <p class="nav_item" onclick="pop('administrador/dosis.php')"><span class="margin-right fa fa-medkit"></span>Presentaciones</p>
-            <p class="nav_item" onclick="pop('administrador/unidades.php')"><span class="margin-right fa fa-medkit"></span>Unidades</p>
+            <!--<p class="nav_item" onclick="pop('administrador/unidades.php')"><span class="margin-right fa fa-medkit"></span>Unidades</p>-->
             <p class="nav_item" onclick="pop('administrador/especialidades.php')"><span class="margin-right fa fa-stethoscope"></span>Especialidad</p>
             <p class="nav_item" onclick="pop('administrador/patologias.php')"><span class="margin-right fa fa-heartbeat"></span>Patología</p>
             <p class="nav_item" onclick="pop('administrador/usuarios.php')"><span class="margin-right fa fa-users"></span>Usuarios</p>
-            <p class="nav_item" onclick="pop('administrador/adm_regs.php')"><span class="margin-right fa fa-sliders"></span>Admin. Registros</p>
+            <!--<p class="nav_item" onclick="pop('administrador/adm_regs.php')"><span class="margin-right fa fa-sliders"></span>Admin. Registros</p>-->
             <p class="nav_item" onclick="pop('administrador/seguridad.php')"><span class="margin-right fa fa-lock"></span>Seguridad</p>
         </div>
         <div title="Ayuda" style="overflow: auto; padding: 10px;">
