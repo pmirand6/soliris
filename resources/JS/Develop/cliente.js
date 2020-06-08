@@ -10,7 +10,7 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
       allowClear: true,
       language: 'es',
       ajax: {
-        url: 'http://localhost:3000/clientes/',
+        url: 'https://intranet.raffo:8080/api/list_clientes.asp',
         dataType: 'json',
         delay: 250,
         data(params) {
