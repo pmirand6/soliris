@@ -2,11 +2,15 @@
   "env": {
     "browser": true,
     "es6": true,
-    "jquery": true,
-
+    "jquery": true
   },
-  "extends": ["airbnb-base", "prettier"],
-  "plugins": ["prettier"],
+  "extends": [
+    "airbnb-base",
+    "prettier"
+  ],
+  "plugins": [
+    "prettier"
+  ],
   "parser": "babel-eslint",
   "globals": {
     "Atomics": "readonly",
