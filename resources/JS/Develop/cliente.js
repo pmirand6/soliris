@@ -27,12 +27,6 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
         },
         cache: true,
       },
-      // templateResult: formatRepo,
-      templateSelection(data, container) {
-        console.log(data.element)
-        /* $(data.element).attr('data-username', data.username)
-        return data.text */
-      },
     })
   })
 })

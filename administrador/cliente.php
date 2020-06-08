@@ -22,9 +22,8 @@ require '../config/config.php';
         @import "../resources/Sprites/TBL-icons.css";
         /* Custom CSS */
         @import "../resources/CSS/Develop/canales.css";
-        /** Select2 Style */
+        /*Select2 */
         @import "../resources/select2/dist/css/select2.css";
-        /** Select2 Bootstrap */
         @import "../resources/select2/dist/css/select2-bootstrap.css";
     </style>
 </head>
@@ -39,7 +38,7 @@ require '../config/config.php';
   
   <br>
     <div class="container">
-        <form action="" method="get">
+        <form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form">
             <div class="form-group">
                 <label class="col-sm-4 col-xs-4 control-label" for="nombre">Apellido, Nombre</label>
                 <div class="col-sm-6 col-xs-8">
@@ -57,7 +56,6 @@ require '../config/config.php';
 <?php
     include '../resources/Includes/BootstrapHTML5.php';
     include '../resources/Includes/FormValidation.php';
-    include '../resources/Includes/EasyUI.php';
     include '../resources/Includes/select2.php';
 ?>
 
