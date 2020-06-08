@@ -20,6 +20,7 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
           }
         },
         processResults(data) {
+          console.log(data)
           return {
             results: data,
           }
