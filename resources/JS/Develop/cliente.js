@@ -37,6 +37,11 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
   })
 })
 
+$('#select-clientes').on('select2:select', function (e) {
+  let data = e.params.data
+  console.log(data)
+})
+
 function getCurrentHostname() {
   var protocolo
   var url
