@@ -5,7 +5,7 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
   $(document).ready(function () {
     $('#select-clientes').select2({
       theme: 'bootstrap',
-      placeholder: 'Seleccione un APM',
+      placeholder: 'Seleccione un Cliente',
       minimumInputLength: 3,
       allowClear: true,
       language: 'es',
@@ -20,7 +20,6 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
           }
         },
         processResults(data) {
-          console.log(data)
           return {
             results: data,
           }
@@ -34,6 +33,9 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
 $('#select-clientes').on('select2:select', function (e) {
   let data = e.params.data
   console.log(data)
+  $('#zcust_addr').val(data.id)
+  $('#zcust_city').val(data.zcust_city)
+  $('#zcust_line1').val(data.zcust_line1)
 })
 
 function getCurrentHostname() {
