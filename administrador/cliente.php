@@ -76,7 +76,7 @@ require '../config/config.php';
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="nombre">zcust_line1</label>
+                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Convenio</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-user-secret"></span></div>
