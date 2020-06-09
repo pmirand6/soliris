@@ -40,16 +40,16 @@ require '../config/config.php';
     <div class="container">
         <form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form">
             <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Cliente</label>
+                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Nombre</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-user-secret"></span></div>
-                        <select id="select-clientes" name="select-clientes" type="text" placeholder="Nombre..." class="form-control" ></select>
+                        <select id="selectClientes" name="selectClientes" type="text" placeholder="Nombre..." class="form-control" ></select>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="nombre">zcust_addr</label>
+                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Código</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-user-secret"></span></div>
@@ -58,7 +58,7 @@ require '../config/config.php';
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="nombre">zcust_city</label>
+                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Ciudad</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-user-secret"></span></div>
@@ -67,7 +67,7 @@ require '../config/config.php';
                 </div>
             </div>
              <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="nombre">zcust_line1</label>
+                <label class="col-sm-4 col-xs-4 control-label" for="nombre">Dirección</label>
                 <div class="col-sm-6 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-user-secret"></span></div>
@@ -82,10 +82,18 @@ require '../config/config.php';
                         <div class="input-group-addon"><span class="fa fa-user-secret"></span></div>
                         <select class="form-control" name="selConvenio" id="selConvenio">
                            <option style="display:none">Seleccione una Opción</option>
-                            <option value="0">SI</option>
-                            <option value="1">NO</option>
+                            <option value="1">SI</option>
+                            <option value="0">NO</option>
                         </select>
                     </div>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <div class="col-sm-12">
+                    <button type="submit" id="bot_guardar" name="bot_guardar" class="btn btn-success disabled">
+                        <span class="fa fa-save"></span>
+                        Guardar
+                    </button>
                 </div>
             </div>
         </form>

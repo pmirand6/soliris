@@ -1,8 +1,9 @@
 <?php
 
-require('../config/config.php');
-include $_SERVER['DOCUMENT_ROOT'] . _SG;
-include $_SERVER['DOCUMENT_ROOT'] . _FN;
+require '../config/config.php';
+include $_SERVER['DOCUMENT_ROOT']._SG;
+include $_SERVER['DOCUMENT_ROOT']._FN;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,6 +53,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
                         <th> Ventas </th>
                         <th> Auditor </th>
                         <th> APM </th>
+                        <th> MSL </th>
                         <th> Acción </th>
                     </tr>
                 </thead>
@@ -111,9 +113,9 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
 
 
     <?php
-    include "../resources/Includes/BootstrapHTML5.php";
-    include "../resources/Includes/FormValidation.php";
-    include "../resources/Includes/DataTables.php";
+    include '../resources/Includes/BootstrapHTML5.php';
+    include '../resources/Includes/FormValidation.php';
+    include '../resources/Includes/DataTables.php';
     ?>
     <!-- Custom JS -->
     <script type="text/javascript" src="../resources/JS/Develop/seguridad.js"></script>
