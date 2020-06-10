@@ -24,7 +24,7 @@ if (isset($_POST['oper']) and $_POST['oper'] == 'Guardar') {
     /* -------------- */
 
     if (isset($id) and $id != '') {
-        $SQL = "SELECT FU_UP_APM('$id', '$nombreCompleto', '$estado', '$usuario') as response";
+        $SQL = "SELECT FU_UP_APM('$id', '$estado', '$usuario') as response";
     } else {
         /* Verifico que no exista el APM en la base */
         $arr_exists = mysqli_query($db, "SELECT id FROM apm WHERE email = '$email';");
