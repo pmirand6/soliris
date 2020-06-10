@@ -35,7 +35,7 @@ function getUrlHTTP() {
 /** Se genera un nuevo cliente */
 function createCliente() {
   const parametros = $('.form').serializeArray()
-  parametros.push({ name: 'oper', value: 'guarda' })
+  parametros.push({ name: 'oper', value: 'Guardar' })
 
   $.post(
     ajaxUrl,
@@ -45,15 +45,6 @@ function createCliente() {
     },
     'json'
   )
-
-  $.ajax({
-    url: `${aplicacion}/ajax/ajx.cliente.php`,
-    type: 'POST',
-    data: parametros,
-    success(data) {
-      alertMessage(data)
-    },
-  })
 }
 
 $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
@@ -130,16 +121,7 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
         // Prevent form submission
         e.preventDefault()
 
-        const parametros = {
-          oper: 'Guardar',
-          id: $('#id').val(),
-          username: $('#nombreSelect').find(':selected').attr('data-username'),
-          email: $('#nombreSelect').find(':selected').val(),
-          nombreCompleto: $('#nombreSelect').find(':selected').text(),
-          estado: $('#estado').val(),
-        }
-
-        createCliente(parametros)
+        createCliente()
       })
       .submit(function (e) {
         e.preventDefault()
