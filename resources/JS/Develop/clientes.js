@@ -36,21 +36,21 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
 
 function reloadTBLinitial() {
   $('#DataCanal').html('')
-  $('#DataCanal').load(`${aplicacion}/vistas/canal/vista_canales.php`)
+  $('#DataCanal').load(`${aplicacion}/vistas/cliente/vista_cliente.php`)
   $('#url').val('')
 }
-function callCanal(id) {
+function callCliente(id) {
   $('#win').window('open') // close a window
-  $('#win_can').attr('src', `${aplicacion}/administrador/canal.php?id=${id}`)
+  $('#win_can').attr('src', `${aplicacion}/administrador/cliente.php?id=${id}`)
 }
-function ActivarCanales(id) {
+function ActivarCliente(id) {
   if (confirm('Desea activar a este Canal?')) {
     let parametros = {
       oper: 'Activar',
       id,
     }
     $.ajax({
-      url: `${aplicacion}/ajax/ajx.canal_form.php`,
+      url: `${aplicacion}/ajax/ajx.cliente.php`,
       type: 'POST',
       data: parametros,
       success(opciones) {
@@ -66,14 +66,14 @@ function ActivarCanales(id) {
   }
 }
 
-function delCanal(id) {
+function delCliente(id) {
   if (confirm('Desea desactivar a este Cliente?')) {
     var parametros = {
       oper: 'Eliminar',
       id,
     }
     $.ajax({
-      url: `${aplicacion}/ajax/ajx.canal_form.php`,
+      url: `${aplicacion}/ajax/ajx.cliente.php`,
       type: 'POST',
       data: parametros,
       success(opciones) {
