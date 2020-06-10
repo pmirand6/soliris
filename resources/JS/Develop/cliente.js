@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-use-before-define
-const aplicacion = `${getCurrentHostname()}/${getUrlHTTP()}`
+var aplicacion = `${getCurrentHostname()}/${getUrlHTTP()}`
 const ajaxUrl = `${aplicacion}/ajax/ajx.cliente.php`
 
 function alertMessage(data) {
@@ -70,13 +70,13 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
         url: 'https://intranet.raffo:8080/api/list_clientes.asp',
         dataType: 'json',
         delay: 250,
-        data(params) {
+        data: function (params) {
           return {
             q: params.term, // search term
             page: params.page,
           }
         },
-        processResults(data) {
+        processResults: function (data) {
           return {
             results: data,
           }

@@ -109,6 +109,7 @@ require '../config/config.php';
 
     <!-- Custom JS -->
         <script type="text/javascript" src="../resources/JS/Develop/cliente.js"></script>
+        <script></script>
     
 </body>
 </html>
