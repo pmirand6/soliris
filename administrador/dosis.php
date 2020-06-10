@@ -33,19 +33,11 @@ include $_SERVER['DOCUMENT_ROOT'] . _BD;
     <div class="text-center">
       <h3>Listado de Presentaciones</h3>
       <hr>
-      <p style="float: left;margin-left: 22px;"><strong>Seleccionar una presentación para ver el detalle</strong></p>
-      <br>
     </div>
   </section>
   <br>
   <div class="row col-sm-12 col-xs-12">
     <div class="col-sm-11 col-xs-11 text-left" style="margin-left: 10px">
-      <button type="button" title="Nueva Presentacion" id="newDosis" class="btn btn-xs btn-warning pointer fa fa- text-right" style="margin-right: 10px;margin-bottom: 5px;"> Nueva Presentacion</button>
-      <br>
-      <!-- Text Input para reconstruir las Tablas -->
-      <input type="hidden" name="url" id="url">
-      <!--  DataTable Canales  -->
-      <br>
       <div id="DataDosis"></div>
     </div>
   </div>

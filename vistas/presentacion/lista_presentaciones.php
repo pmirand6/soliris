@@ -72,6 +72,7 @@
         </script>
     </head>
     <body>
+    <div class="container">
         <table cellpadding="0" cellspacing="0" border="0" class="table table-bordered" id="TBLDosis" style="font-size: 13px">
             <thead>
                 <tr>
@@ -79,29 +80,26 @@
                     <th> Presentación </th>
                     <th> Código </th>
                     <th> Familia </th>
-                    <th> Acciones </th>
+                    
                 </tr>
             </thead>
             <tbody>';
-    while ($row = mysqli_fetch_assoc($result)) {
-        $arr_tbody .= "<tr class=\"TBLrows\">";
-        $arr_tbody .= '<td>' . $row["id"] . '</td>';
-        $arr_tbody .= '<td><b class="pointer" onclick="callDosis(\'' . $row["id"] . '\')">' . ucwords(strtolower($row["valor"])) . '</b></td>';
-        $arr_tbody .= '<td>' . $row["codigo_np"] . '</td>';
-        $arr_tbody .= '<td>' . $row["familia"] . '</td>';
-        //$arr_tbody .= '<td><span class="pointer TBL TBL-Baja" title="E" onclick="delDosis(\'' . $row["id"] . '\')"></span></td>';
-        $arr_tbody .= '<td><button type=\'button\' class=\'del_can btn btn-danger\' title=\'Eliminar\' style=\'margin-left: 13px;\' onclick="delDosis(\'' . $row["id"] . '\')"><i class=\'fa fa-trash-o\'></i></button></td>';
-        $arr_tbody .= '</tr>';
-    };
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $arr_tbody .= "<tr class=\"TBLrows\">";
+                    $arr_tbody .= '<td>' . $row["id"] . '</td>';
+                    $arr_tbody .= '<td>' . ucwords(strtolower($row["valor"])) . '</td>';
+                    $arr_tbody .= '<td>' . $row["codigo_np"] . '</td>';
+                    $arr_tbody .= '<td>' . $row["familia"] . '</td>';
+                    $arr_tbody .= '</tr>';
+                };
 
-    mysqli_free_result($result);
-    mysqli_close($db);
+                mysqli_free_result($result);
+                mysqli_close($db);
 
-    $arr_tbody .= "
-
-
+                $arr_tbody .= "
             </tbody>
         </table>
+        </div>
     </body>
 </html>";
 
