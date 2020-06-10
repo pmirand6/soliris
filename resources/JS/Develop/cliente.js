@@ -60,7 +60,7 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
   // script is now loaded and executed.
   // put your dependent JS here.
   $(document).ready(function () {
-    $('#select-clientes').select2({
+    $('#selectClientes').select2({
       theme: 'bootstrap',
       placeholder: 'Seleccione un Cliente',
       minimumInputLength: 3,
