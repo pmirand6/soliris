@@ -100,13 +100,13 @@ function startTime() {
   s = checkTime(s);
   document.getElementById("info").innerHTML =
     "<p>" +
-    "Hora actual: " +
+    "Hora: " +
     h +
     ":" +
     m +
     ":" +
     s +
-    "&nbsp;   Fecha Actual: " + getDate() +
+    "&nbsp;   Fecha: " + getDate() +
     "<br/> <br/>Sistema de seguimiento y autorización de pacientes para el producto soliris" +
     "</p>";
   var t = setTimeout(function () {
@@ -137,7 +137,7 @@ function viewHistory() {
 function getDate(){
   var today = new Date();
   var dd = today.getDate();
-  var mm = today.getMonth()+1; //January is 0!
+  var mm = today.toLocaleString('default', { month: 'long' }); //January is 0!
   var yyyy = today.getFullYear();
 
   if(dd<10) {
