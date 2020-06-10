@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3ba546b2-867b-43b3-ac0c-8da83ad051c3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/ajax/ajx.paciente.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/ajx.paciente.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/paciente/form_paciente.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/paciente/form_paciente.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/paciente/form_paciente_fv.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/paciente/form_paciente_fv.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DatabaseLocalColorSettings">
+    <colors>
+      <entry key="bc3f04e7-02a1-41ba-bb98-e0f6e3d8f60f" value="Green" />
+    </colors>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Desarrollo" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Desarrollo" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Desarrollo" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="soliris: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="localhost" id="acc2570c-704c-4e84-ac9f-831d9d2268d6" name="localhost" port="81" use_path_mappings="true" />
+    </servers>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+  <component name="ProjectId" id="1YzMSdr4tJ00of4P2iErOzp2kHM" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
+  </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="1" Folder0="C:\Program Files\JetBrains\PhpStorm 2019.3.3\dic" CustomDictionaries="1" CustomDictionary0="C:\Program Files\JetBrains\PhpStorm 2019.3.3\dic\spanish-utf8.dic" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3ba546b2-867b-43b3-ac0c-8da83ad051c3" name="Default Changelist" comment="" />
+      <created>1583940970520</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583940970520</updated>
+      <workItem from="1583940972383" duration="1713000" />
+      <workItem from="1583945781934" duration="633000" />
+      <workItem from="1583946450626" duration="33000" />
+      <workItem from="1583946497719" duration="395000" />
+      <workItem from="1583947054615" duration="2293000" />
+      <workItem from="1583949394935" duration="2426000" />
+      <workItem from="1584015605965" duration="3897000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="540" y="177" key="#CLI_Interpreters" timestamp="1583941290379">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="540" y="177" key="#CLI_Interpreters/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1583941290379" />
+    <state x="552" y="178" key="#Inspections" timestamp="1583947952130">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#Inspections/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1583947952130" />
+    <state x="552" y="178" width="816" height="775" key="#Intentions" timestamp="1584016105735">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" width="816" height="775" key="#Intentions/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584016105735" />
+    <state x="552" y="178" key="#Plugins" timestamp="1583948692108">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#Plugins/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1583948692108" />
+    <state x="552" y="178" key="#SQL_Dialects" timestamp="1583948234039">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#SQL_Dialects/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1583948234039" />
+    <state x="-1368" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583945567233">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1368" y="181" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1583945567233" />
+    <state x="675" y="352" key="#com.jetbrains.php.debug.validation.PhpWebServerValidationDialog#" timestamp="1583941114031">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="675" y="352" key="#com.jetbrains.php.debug.validation.PhpWebServerValidationDialog#/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1583941114031" />
+    <state x="0" y="379" key="#org.intellij.plugins.intelliLang.inject.config.ui.BaseInjectionDialog" timestamp="1584016313606">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-883" y="379" key="#org.intellij.plugins.intelliLang.inject.config.ui.BaseInjectionDialog/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1583947159999" />
+    <state x="0" y="379" key="#org.intellij.plugins.intelliLang.inject.config.ui.BaseInjectionDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584016313606" />
+    <state x="707" y="375" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1583947931396">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="707" y="375" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1583947931396" />
+    <state x="740" y="277" key="FileChooserDialogImpl" timestamp="1584018740006">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1180" y="277" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1583947203379" />
+    <state x="740" y="277" key="FileChooserDialogImpl/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584018740006" />
+    <state width="196" height="457" key="HiddenNamespacesPopup" timestamp="1583948353689">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="196" height="457" key="HiddenNamespacesPopup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1583948353689" />
+    <state x="487" y="21" width="1127" height="716" key="SettingsEditor" timestamp="1584018926177">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1229" y="227" width="1127" height="716" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1583947423769" />
+    <state x="487" y="21" key="SettingsEditor/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584018926177" />
+    <state width="328" height="441" key="SqlResolveConfigurable" timestamp="1583949289057">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="328" height="441" key="SqlResolveConfigurable/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1583949289057" />
+    <state x="667" y="347" key="com.intellij.ide.util.TipDialog" timestamp="1584015620341">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1253" y="347" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1583947059439" />
+    <state x="667" y="347" key="com.intellij.ide.util.TipDialog/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584015620341" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1584018008260">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1297" y="225" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1040/0.0.1920.1040@-1920.0.1920.1040" timestamp="1583945604915" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/-1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1584018008260" />
+  </component>
+</project>

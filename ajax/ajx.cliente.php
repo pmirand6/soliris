@@ -13,15 +13,13 @@ if (isset($_POST['oper']) and $_POST['oper'] == 'Guardar') {
         $id = $_POST['id'];
     }
 
-    $nombre = mysqli_real_escape_string($db, $_POST['nombre']);
-    $familia = mysqli_real_escape_string($db, $_POST['familia']);
-    $direccion = mysqli_real_escape_string($db, $_POST['direccion']);
-    $mail = mysqli_real_escape_string($db, $_POST['mail']);
-    $dir_tec = mysqli_real_escape_string($db, $_POST['dir_tec']);
-    $cont_venta = mysqli_real_escape_string($db, $_POST['cont_venta']);
-    $cont_otro = mysqli_real_escape_string($db, $_POST['cont_otro']);
 
-    $estado = mysqli_real_escape_string($db, $_POST['estado']);
+    $convenio = $_POST["selConvenio"];
+    $p_zcust_addr = $_POST["zcust_addr"];
+    $p_zcust_ad_name = $_POST["zcust_ad_name"];
+    $p_zcust_ad_city = $_POST["zcust_city"];
+    $p_zcust_ad_line1 = $_POST["zcust_line1"];
+    
     $usuario = $_SESSION['soliris_usuario'];
 
     /* Seteo de variables */
@@ -31,16 +29,10 @@ if (isset($_POST['oper']) and $_POST['oper'] == 'Guardar') {
     if (isset($id) and $id != '') {
         $SQL = "SELECT FU_UP_CANAL('$nombre', '$familia', '$direccion', '$mail', '$dir_tec', '$cont_venta', '$cont_otro', '$estado', '$usuario', '$id') as response";
     } else {
-        /* Verifico que no exista el Medico en la base */
-        $arr_exists = mysqli_query($db, "SELECT id FROM canales WHERE canal = '$nombre';");
-        /* Determinar el número de filas del resultado */
-        $row_cnt = mysqli_num_rows($arr_exists);
-        if ($row_cnt == 0) {
-            $SQL = "SELECT FU_NEW_CANAL('$nombre', '$familia', '$direccion', '$mail', '$dir_tec', '$cont_venta', '$cont_otro', '$usuario', '$estado') as response";
-        } else {
-            echo 'ERROR: Ya existe un canal con ese nombre';
-        }
-        mysqli_free_result($arr_exists);
+        $SQL = "CALL ST_NEW_CANAL('$usuario', $convenio, '$p_zcust_addr', '$p_zcust_ad_name', '$p_zcust_ad_city', '$p_zcust_ad_line1')";
+
+        
+        
     }
 
     /* Realizo la consulta */

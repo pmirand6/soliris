@@ -35,7 +35,11 @@ function getUrlHTTP() {
 /** Se genera un nuevo cliente */
 function createCliente() {
   const parametros = $('.form').serializeArray()
-  parametros.push({ name: 'oper', value: 'Guardar' })
+  parametros.push({ name: 'zcust_ad_name', value: $('#selectClientes').text() })
+  parametros.push({ name: 'zcust_addr', value: $('#zcust_addr').val() })
+  parametros.push({ name: 'zcust_city', value: $('#zcust_city').val() })
+  parametros.push({ name: 'zcust_line1', value: $('#zcust_line1').val() })
+
 
   $.post(
     ajaxUrl,
@@ -79,7 +83,8 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
     $('#selectClientes').on('select2:select', function (e) {
       // eslint-disable-next-line prefer-destructuring
       const data = e.params.data
-
+      
+      
       $('#zcust_addr').val(data.id)
       $('#zcust_city').val(data.zcust_city)
       $('#zcust_line1').val(data.zcust_line1)

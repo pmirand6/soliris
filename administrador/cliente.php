@@ -81,7 +81,7 @@ require '../config/config.php';
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-user-secret"></span></div>
                         <select class="form-control" name="selConvenio" id="selConvenio">
-                           <option style="display:none">Seleccione una Opción</option>
+                           <option style="display:none" value="">Seleccione una Opción</option>
                             <option value="1">SI</option>
                             <option value="0">NO</option>
                         </select>
