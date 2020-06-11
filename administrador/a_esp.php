@@ -52,6 +52,8 @@ if(isset($_GET["id"])){
             @import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
         /* Bootstrap Validator */
             @import "../resources/Bootstrap-Validator/CSS/formValidation.min.css";
+        /**SweetAlert */
+        @import "../resources/sweetalert2/dist/sweetalert2.min.css";
 
     </style>
 
@@ -133,6 +135,7 @@ if(isset($_GET["id"])){
 <?php
     include "../resources/Includes/BootstrapHTML5.php";
     include "../resources/Includes/FormValidation.php";
+    include "../resources/Includes/sweetalert2.php";
 ?>
     <!-- Custom JS -->
         <script src="../resources/JS/Develop/a_esp.js"></script>

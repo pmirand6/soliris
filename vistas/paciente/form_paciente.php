@@ -18,6 +18,13 @@ switch ($grupo) {
             include('../vistas/paciente/documentacion_paciente.php');
         }
         break;
+    case 'admin':
+        include __DIR__ . '/form_paciente_ventas.php';
+        if (isset($_GET["id"]) && ($_GET["id"] !== 0)) {
+            $id = $_GET["id"];
+            include('../vistas/paciente/documentacion_paciente.php');
+        }
+        break;
     case 'fv':
         // vista del dictamen del paciente
         if (isset($_GET["id"]) && ($_GET["id"] !== 0)) {

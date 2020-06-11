@@ -1,7 +1,12 @@
+
+
 /**
  * Created by jgallina on 30/04/2015.
  */
 var aplicacion = getCurrentHostname() + '/' + getUrlHTTP()
+const Toast = Swal.mixin({
+  allowOutsideClick: false
+})
 
 $.getScript(aplicacion + '/resources/JS/funciones.min.js', function () {
   // script is now loaded and executed.
@@ -63,10 +68,17 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function () {
           data: parametros,
           success: function (opciones) {
             if (opciones.indexOf('ERROR') != 0) {
-              alert('Se registró correctamente, ya puede cerrar esta ventana')
-              parent.location.reload()
+              // Configuracion de Sweetalert
+              
+              // eslint-disable-next-line no-undef
+              Toast.fire('Registro Correcto', 'Se generó correctamente el registró', 'success')
+                .then((result) => {
+                  if (result.value) {
+                    parent.location.reload();
+                  }
+                })
             } else {
-              alert(opciones)
+              Swal.fire('ERROR', opciones, 'error')
             }
           },
         })

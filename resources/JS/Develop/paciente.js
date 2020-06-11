@@ -86,6 +86,7 @@ function l_dictamen_paciente() {
   });
 
   $.post("../ajax/ajx.paciente_form.php", data, function (data) {
+    Swal.fire('Actualización correcta', 'Se actualizó el paciente. Se enviará un email informando dicho cambio', 'success')
     l_mail_dictamenPaciente(document.getElementById("idPac").innerHTML);
     window.location.href = aplicacion + "/main/panel.php";
   });
@@ -708,7 +709,7 @@ function l_savePac() {
           }
         });
       } else {
-        alert(opciones);
+        Swal.fire(opciones);
       }
     },
   });
@@ -802,7 +803,7 @@ function l_actualizaPac() {
                 }
               });
             } else {
-              alert(opciones);
+              Swal.fire(opciones);
             }
           },
         });
@@ -839,11 +840,11 @@ function save_admin() {
       async: false,
       success: function (opciones) {
         if (opciones.indexOf("ERROR") != 0) {
-          alert("Se registró correctamente.");
+          Swal.fire("Se registró correctamente.");
           l_mail_dictamenPaciente($("#id").val());
           window.location.href = aplicacion + "/main/panel.php";
         } else {
-          alert(opciones);
+          Swal.fire(opciones);
         }
       },
     });
