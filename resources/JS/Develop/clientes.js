@@ -13,7 +13,7 @@ $.getScript(`${aplicacion}/resources/JS/funciones.min.js`, function () {
       closed: true,
       minimizable: false,
       maximizable: false,
-      title: 'Editar Canal',
+      title: 'Editar Cliente',
       closeOnEscape: true,
       draggable: false,
       maximized: true,
