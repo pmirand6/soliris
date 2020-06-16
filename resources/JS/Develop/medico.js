@@ -319,6 +319,7 @@ function saveMed(parametros) {
               confirmButtonColor: "#3085d6",
               cancelButtonColor: "#d33",
               confirmButtonText: "Si",
+              allowOutsideClick: false,
               cancelButtonText: "No",
             }).then((result) => {
               if (result.value) {
@@ -336,6 +337,7 @@ function saveMed(parametros) {
                 icon: "success",
                 showCancelButton: true,
                 confirmButtonText: "Cerrar",
+                allowOutsideClick: false,
                 showCancelButton: false,
               }).then((result) =>{
                 if(result.value){
@@ -350,6 +352,7 @@ function saveMed(parametros) {
             icon: "success",
             showCancelButton: true,
             confirmButtonText: "Ok",
+            allowOutsideClick: false,
             showCancelButton: false,
           }).then((result) =>{
             if(result.value){
@@ -361,7 +364,15 @@ function saveMed(parametros) {
           });
         }
       } else {
-        alert(opciones);
+        Swal.fire({
+          title: "ERROR",
+          text: opciones,
+          icon: "error",
+          showCancelButton: true,
+          confirmButtonText: "Ok",
+          allowOutsideClick: false,
+          showCancelButton: false,
+        });
       }
     },
   });
