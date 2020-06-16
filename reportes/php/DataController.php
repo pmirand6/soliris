@@ -10,8 +10,11 @@ class DataController {
     private $dbSet;
     public function __construct() {
         //TODO: use your database credentials
-        $mySQL = new mysqli(constant("_URL_SERVIDOR"), constant("_USUARIO_BD"), constant("_PASSWORD_BD"),constant("_TABLA_BD"));
+        $mySQL = new mysqli(_URL_SERVIDOR, _USUARIO_BD, _PASSWORD_BD,_TABLA_BD);
         $this->dbSet = new DbSet($mySQL, "vw_reporte_360"); //selecciono tabla
+        /* cambiar el conjunto de caracteres a utf8 */
+        $mySQL->set_charset("utf8");
+        
     }
     public function FillDbIfEmpty() {
         if ($this->dbSet->GetCount() == 0) {
