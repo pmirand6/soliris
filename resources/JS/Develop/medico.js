@@ -344,10 +344,21 @@ function saveMed(parametros) {
               });
           }
         } else {
-          window.location.href =
-            getCurrentHostname() +
-            "/soliris/administrador/docs_medico.php?id=" +
-            opciones;
+          Swal.fire({
+            title: "Registro Correcto",
+            text: "Se registró correctamente, Continue con la carga de documentación",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonText: "Ok",
+            showCancelButton: false,
+          }).then((result) =>{
+            if(result.value){
+              window.location.href =
+              getCurrentHostname() +
+              "/soliris/administrador/docs_medico.php?id=" +
+              opciones;
+            }
+          });
         }
       } else {
         alert(opciones);
