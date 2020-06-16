@@ -26,11 +26,7 @@
 			$u_venta="Sin Ventas";
 		}
 		
-		/*if (isset($row["APM"])){
-			$u_apm=$row["APM"];
-		}else{
-			$u_apm="----";
-		}*/
+		
 		 
         $arr_row = array(
             "id" => $row["id"],
@@ -44,7 +40,7 @@
             "email" => $row["email"],
             "telefono" => $row["telefono"],
             "notas" => $row["notas"],
-            "estado" => "<div class=\"TBL TBL-" . $estado . "\" title=\"$estado\"><p class=\"hidden\">$estado</p></div>",
+            "estado" => "<div class=\"TBL TBL-" . str_replace(' ', '_', $estado) . "\" title=\"$estado\"><p class=\"hidden\">$estado</p></div>",
             "sub-estado" => $row["sub_estado"],
 			"uventa" => $u_venta
         );

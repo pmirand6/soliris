@@ -25,7 +25,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
         /* Style DataTables Bootstrap*/
         @import "../resources/DataTables/datatables.min.css";
         /* Iconos de Estados */
-        @import "../resources/Sprites/TBL-icons.css";
+        @import "../resources/Sprites/spriteListado.css";
         /* Custom CSS */
         @import "../resources/CSS/Develop/pacientes.css";
     </style>
