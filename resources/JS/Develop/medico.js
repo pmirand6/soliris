@@ -284,7 +284,7 @@ $.getScript(
         window.location.href =
           getCurrentHostname() +
           "/soliris/administrador/docs_medico.php?id=" +
-          getQuerystring("id");
+          getQuerystring("id") + '&oper=mod';
       });
 
       $("#histDocs").click(function () {
