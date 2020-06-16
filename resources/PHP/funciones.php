@@ -77,7 +77,7 @@ function disable_campo($value, $id)
 {
     //Disable de Campos cargados, aplicado en medico.php - PGM
     if (!empty($id)) {
-        if ((strcasecmp($value, 'FV') != 0) and (strcasecmp($value, 'ADMIN') != 0)) {
+        if ((strcasecmp($value, 'atencion_paciente') != 0) and (strcasecmp($value, 'ADMIN') != 0)) {
             echo 'disabled';
         }
     }
