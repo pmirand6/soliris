@@ -233,6 +233,7 @@ $.getScript(
             swalWithBootstrapButtons
               .fire({
                 title: "Comentario de Modificación",
+                allowOutsideClick: false,
                 input: "textarea",
                 icon: "info",
                 text: "Debe indicar un comentario para ejecutar esta acción",
@@ -251,6 +252,7 @@ $.getScript(
               })
               .then((result) => {
                 if (result.value) {
+                  $(".form :input").prop("disabled", true);
                   parametros.oper = "Actualizar";
                   parametros.estado = $("#estado")
                     .find(":selected")
@@ -309,9 +311,8 @@ function saveMed(parametros) {
     data: parametros,
     success: function (opciones) {
       if (opciones.indexOf("ERROR") != 0) {
-       
         if (getQuerystring("id")) {
-          if (parametros.estado == "19") {
+          if (parametros.estado === "19") {
             Swal.fire({
               title: "Actualización Correcta. Desea actualizar la documentación?",
               icon: "info",
