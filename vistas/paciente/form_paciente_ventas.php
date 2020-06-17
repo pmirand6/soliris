@@ -28,6 +28,8 @@ Full screen Modal
 
 </style>
 
+?>
+
 
 <form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form" autocomplete="off" id="frm-paciente">
 <span id="estadoDictamen"></span>
@@ -217,7 +219,25 @@ Full screen Modal
                 </div>
             </div>
         </fieldset>
-        <!-- Button (Double) -->
+        
+     <!-- estado -->
+     <?php if(isset($_GET["id"]) AND $_GET["id"] != "") { ?>
+        <div class="form-group text-center">
+        <div class="col-sm-12">
+            <button type="submit" id="bot_guardar" name="bot_guardar" data-loading-text="Loading..."
+            class="btn btn-success disabled">
+            <span class="fa fa-save"></span>
+            Guardar
+        </button>
+        <button type="button" id="bot_borrar" name="bot_borrar" data-loading-text="Loading..."
+            class="btn btn-danger">
+            <span class="fa fa-trash"></span>
+            Borrar
+        </button>
+    </div>
+            <?php } else {?>
+
+                <!-- Button (Double) -->
     <div class="form-group text-center">
         <div class="col-sm-12">
             <button type="submit" id="bot_guardar" name="bot_guardar" data-loading-text="Loading..."
@@ -226,6 +246,8 @@ Full screen Modal
             Guardar
         </button>
     </div>
+
+            <?php }?>
 </div>
 
 </form>

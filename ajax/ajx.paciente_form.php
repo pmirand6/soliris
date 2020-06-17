@@ -80,6 +80,29 @@ if (isset($_POST["oper"]) and (strcasecmp($_POST["oper"], "savePac") == 0)) {
     mysqli_close($db);
 }
 
+if (isset($_POST["oper"]) and (strcasecmp($_POST["oper"], "bajaPac") == 0)) {
+    require_once("../config/config.php");
+    include_once $_SERVER['DOCUMENT_ROOT'] . _BD;
+    include_once $_SERVER['DOCUMENT_ROOT'] . _FN;
+
+    $idPac = $_POST["idPac"];
+    $notas = mysqli_real_escape_string($db, $_POST["notas"]);
+
+    $SQL = "CALL ST_BAJA_PAC($idPac, '$notas')";
+    
+        /* Realizo la consulta */
+        // Verificar el log de auditoria
+        if (isset($SQL) and $SQL != "") {
+
+            $response = MySQL_sendFunctionAudit("$SQL", "paciente_form.php", "0");
+            
+            // FIXME ARREGLAR EL ENVIO DE MAIL CUANDO SE ACTUALIZA EL PACIENTE
+            //  sendMailPM('Paciente Pendiente', $nombre, '', '');
+
+        }
+        mysqli_close($db);
+}
+
 
 
 
@@ -98,7 +121,7 @@ if (isset($_POST["oper"]) and (strcasecmp($_POST["oper"], "actualizaPac") == 0))
         $f_nac = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_POST["f_nac"]))), 'Y-m-d');
         $sexo = mysqli_real_escape_string($db, strtoupper($_POST["sexo"]));
         $pais = mysqli_real_escape_string($db, strtoupper($_POST["pais"]));
-        $estado = (!isset($_POST["estado"]) || $_POST["estado"] != '' || $_SESSION["grupo"] != 'ventas') ? 7 : $_POST["estado"];
+        $estado = (!isset($_POST["estado"]) || $_POST["estado"] != '' || $_SESSION["grupo"] != 'atencion_paciente') ? 7 : $_POST["estado"];
         $sub_estado = mysqli_real_escape_string($db, $_POST["sub_estado"]);
         $patologia = mysqli_real_escape_string($db, $_POST["patologia"]);
         $notas = mysqli_real_escape_string($db, $_POST["notas"]);

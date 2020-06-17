@@ -74,6 +74,11 @@ $.getScript(aplicacion + "/resources/JS/funciones.min.js", function () {
       e.preventDefault();
       l_dictamen_paciente();
     });
+    $("#bot_borrar").click(function (e) {
+      e.preventDefault();
+      l_bajaPac();
+    });
+    
   });
 });
 
@@ -256,6 +261,8 @@ function l_estado_dictamen(
         break;
       case "Baja":
         $class = "alert-danger";
+        $("#bot_guardar").html('Habilitar Paciente').removeClass('btn-success').addClass('btn-info');
+        $("#bot_borrar").hide()
         break;
       case "Rechazado":
         $class = "alert-danger";
@@ -812,6 +819,73 @@ function l_actualizaPac() {
                     }
                   });
                 }
+              });
+            } else {
+              Swal.fire(opciones);
+            }
+          },
+        });
+      }
+    });
+}
+
+function l_bajaPac() {
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
+  swalWithBootstrapButtons
+    .fire({
+      title: "Baja de Paciente",
+      input: "textarea",
+      icon: "warning",
+      text: "Debe indicar un comentario para ejecutar esta acción",
+      allowOutsideClick: false,
+      inputPlaceholder: "Ingrese un Comentario",
+      inputAttributes: {
+        "aria-label": "Ingrese un Comentario",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Guardar",
+      cancelButtonText: "Cancelar",
+      inputValidator: (value) => {
+        if (!value) {
+          return "Debe escribir un comentario";
+        }
+      },
+    })
+    .then((result) => {
+      if (result.value) {
+       
+
+        $.ajax({
+          url: aplicacion + "/ajax/ajx.paciente_form.php",
+          type: "POST",
+          data: {
+            'oper': 'bajaPac',
+            'idPac': document.getElementById("idPac").innerHTML,
+            'notas': result.value
+          },
+          async: false,
+          success: function (opciones) {
+            if (opciones.indexOf("ERROR") != 0) {
+              Swal.fire({
+                title:
+                  "Se Inactivó el paciente",
+                icon: "info",
+                showCancelButton: true,
+                allowOutsideClick: false,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "OK",
+                showCancelButton: false
+              }).then((result) => {
+                if (result.value) {
+                  parent.location.reload();
+                } 
               });
             } else {
               Swal.fire(opciones);
