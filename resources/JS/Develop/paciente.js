@@ -97,7 +97,7 @@ function l_dictamen_paciente() {
       showCancelButton: false,
     }).then((result) =>{
       if(result.value){
-        window.location.href = aplicacion + "/main/panel.php";
+        parent.location.reload();
       }
     });
   });
