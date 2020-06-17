@@ -230,8 +230,8 @@ Full screen Modal
         </button>
         <button type="button" id="bot_borrar" name="bot_borrar" data-loading-text="Loading..."
             class="btn btn-danger">
-            <span class="fa fa-trash"></span>
-            Borrar
+            <span class="fa fa-ban"></span>
+            Baja
         </button>
     </div>
             <?php } else {?>
