@@ -97,7 +97,7 @@ $idPaciente = $_GET["idPac"];
                                 </div>
                             </div>
                             <div class="field is-horizontal">
-                                <div class="field-label"><label class="label is-normal">Canal</label></div>
+                                <div class="field-label"><label class="label is-normal">Canal / Cliente</label></div>
                                 <div class="field-body">
                                     <div class="field">
                                         <p class="control has-icons-right form-group">

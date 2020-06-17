@@ -17,7 +17,7 @@ if (isset($_GET['q'])) {
 
     $json = [];
     while ($row = mysqli_fetch_assoc($result)) {
-        $json[] = ['id' => $row['id'], 'text' => $row['canal']];
+        $json[] = ['id' => $row['id'], 'text' => $row['zcust_ad_name']];
     }
 
     echo json_encode($json);
