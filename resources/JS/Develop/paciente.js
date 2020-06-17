@@ -86,9 +86,20 @@ function l_dictamen_paciente() {
   });
 
   $.post("../ajax/ajx.paciente_form.php", data, function (data) {
-    Swal.fire('Actualización correcta', 'Se actualizó el paciente. Se enviará un email informando dicho cambio', 'success')
     l_mail_dictamenPaciente(document.getElementById("idPac").innerHTML);
-    window.location.href = aplicacion + "/main/panel.php";
+    Swal.fire({
+      title: "Actualización Correcta",
+      text: 'Se actualizó el paciente. Se enviará un email informando dicho cambio',
+      icon: "success",
+      showCancelButton: false,
+      confirmButtonText: "OK",
+      allowOutsideClick: false,
+      showCancelButton: false,
+    }).then((result) =>{
+      if(result.value){
+        window.location.href = aplicacion + "/main/panel.php";
+      }
+    });
   });
 }
 
