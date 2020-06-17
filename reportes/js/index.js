@@ -84,6 +84,7 @@
             width: 150,
             area: "row",
             selector: function (data) {
+              
               let idPac = data.paciente_id;
               let idVenta = data.id;
               let campo = '<ul class="docs">';
@@ -98,7 +99,7 @@
                   campo += l_docs_icon(string[pos], idVenta, idPac);
                 }
               } else {
-                campo += l_docs_icon(dataDoc, idVenta);
+                campo += l_docs_icon(dataDoc, idVenta, idPac);
               }
               return campo + "</ul>";
             },
@@ -140,6 +141,7 @@
   }
 
   function l_docs_icon(value, idVenta = null, idPac = null) {
+    
     if (value.indexOf("Sin Documentación") == -1) {
       var dir =
         aplicacion +
