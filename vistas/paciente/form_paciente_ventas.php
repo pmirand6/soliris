@@ -28,7 +28,6 @@ Full screen Modal
 
 </style>
 
-?>
 
 
 <form class="form-horizontal col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10 form" autocomplete="off" id="frm-paciente">
