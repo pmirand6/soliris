@@ -60,7 +60,7 @@ include './config/config.php';
             <p class="nav_item" onclick="pop('administrador/apms.php')"><span class="margin-right fa fa-user-secret"></span>APM</p>
             <p class="nav_item" onclick="pop('administrador/instituciones.php')"><span class="margin-right fa fa-institution"></span>Institución</p>
             <!--<p class="nav_item" onclick="pop('administrador/canales.php')"><span class="margin-right fa fa-hospital-o"></span>Canal</p>-->
-            <p class="nav_item" onclick="pop('administrador/clientes.php')"><span class="margin-right fa fa-hospital-o"></span>Clientes</p>
+            <p class="nav_item" onclick="pop('administrador/clientes.php')"><span class="margin-right fa fa-hospital-o"></span>Canales / Clientes</p>
             <p class="nav_item" onclick="pop('administrador/dosis.php')"><span class="margin-right fa fa-medkit"></span>Presentaciones</p>
             <!--<p class="nav_item" onclick="pop('administrador/unidades.php')"><span class="margin-right fa fa-medkit"></span>Unidades</p>-->
             <p class="nav_item" onclick="pop('administrador/especialidades.php')"><span class="margin-right fa fa-stethoscope"></span>Especialidad</p>
