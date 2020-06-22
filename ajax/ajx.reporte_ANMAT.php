@@ -4,8 +4,8 @@ require_once("../config/config.php");
 include $_SERVER['DOCUMENT_ROOT'] . _BD;
 include '../resources/PHP/PHPExcel_1.8.0/PHPExcel.php';
 if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
-    $ini = $_GET["ini"];
-    $fin = $_GET["fin"];
+    $ini = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["ini"]))), 'Y-m-d');
+    $fin = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["fin"]))), 'Y-m-d');
 
     // Se crea el objeto PHPExcel
     $objPHPExcel = new PHPExcel();
@@ -42,10 +42,7 @@ if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
         ->setCellValue('A14', 'Cantidad de Unidades vendidas en el Periodo')
         ->setCellValue('A15', 'Dosis')
         ->setCellValue('B15', 'Cantidad')
-        ->setCellValue('A16', '4mg.')
-        ->setCellValue('A17', '3mg.')
-        ->setCellValue('A18', '2mg.')
-        ->setCellValue('A19', '1mg.')
+        ->setCellValue('A19', '300mg.')
         ->setCellValue('A20', 'Total.')
         ->setCellValue('A23', 'Distribución de Pacientes por patología')
         ->setCellValue('A24', 'Patología')
@@ -295,41 +292,46 @@ if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
 
 
     // VARIABLES
+    // Cuenta de cantidad de ventas
 
-    $SQL1 = "SELECT count(distinct(nombre)) as CantPacientes FROM soliris_maestro WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-    $SQL2 = "SELECT count(distinct(nombre)) as CantMasculinos FROM soliris_maestro WHERE sexo='M' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-    $SQL3 = "SELECT count(distinct(RM.nombre)) as CantFemeninosSG FROM soliris_maestro as RM LEFT JOIN pacientes as P ON(RM.nombre=P.id) WHERE RM.sexo='F' AND RM.estado='NP' AND (P.c_gestar in ('NO') OR isnull(P.c_gestar)) AND RM.fecha_venta BETWEEN '$ini' AND '$fin';";
-    $SQL4 = "SELECT count(distinct(RM.nombre)) as CantFemeninosCG FROM soliris_maestro as RM LEFT JOIN pacientes as P ON(RM.nombre=P.id) WHERE RM.sexo='F' AND RM.estado='NP' AND P.c_gestar in ('SI') AND RM.fecha_venta BETWEEN '$ini' AND '$fin';";
+    $SQL1 = "SELECT count(distinct(id)) as CantPacientes FROM maestro_ventas WHERE estado_id = 23 AND fecha_venta BETWEEN '$ini' AND '$fin';";
+
+    // Distinción entre pacientes con capacidad de gestar
+    /*$SQL2 = "SELECT count(distinct(nombre)) as CantMasculinos FROM maestro_ventas WHERE sexo='M' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+    $SQL3 = "SELECT count(distinct(RM.nombre)) as CantFemeninosSG FROM maestro_ventas as RM LEFT JOIN pacientes as P ON(RM.nombre=P.id) WHERE RM.sexo='F' AND RM.estado='NP' AND (P.c_gestar in ('NO') OR isnull(P.c_gestar)) AND RM.fecha_venta BETWEEN '$ini' AND '$fin';";
+    $SQL4 = "SELECT count(distinct(RM.nombre)) as CantFemeninosCG FROM maestro_ventas as RM LEFT JOIN pacientes as P ON(RM.nombre=P.id) WHERE RM.sexo='F' AND RM.estado='NP' AND P.c_gestar in ('SI') AND RM.fecha_venta BETWEEN '$ini' AND '$fin';";*/
 
     //CONTEO DE UNIDADES
 
-    $SQL5 = "SELECT COUNT(*) as Cant4 FROM soliris_maestro WHERE LEFT(dosis, 2) = '4' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';"; //null
-    $SQL6 = "SELECT COUNT(*) as Cant3 FROM soliris_maestro WHERE LEFT(dosis, 2) = '3' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-    $SQL7 = "SELECT COUNT(*) as Cant2 FROM soliris_maestro WHERE LEFT(dosis, 2) = '2' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-    $SQL8 = "SELECT COUNT(*) as Cant1 FROM soliris_maestro WHERE LEFT(dosis, 2) = '1' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-    $SQL9 = "SELECT COUNT(*) as CantUni FROM soliris_maestro WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+    $SQL5 = "SELECT
+          COUNT(*) AS Cant
+        FROM maestro_ventas
+        WHERE presentacion_id = 27
+        AND estado_id = 23
+        AND fecha_venta BETWEEN '$ini' AND '$fin';"; //null
+
+    //Se comentan estas consultas ya que hay una sola unidad
+    /*
+    $SQL6 = "SELECT COUNT(*) as Cant3 FROM maestro_ventas WHERE LEFT(dosis, 2) = '3' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+    $SQL7 = "SELECT COUNT(*) as Cant2 FROM maestro_ventas WHERE LEFT(dosis, 2) = '2' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+    $SQL8 = "SELECT COUNT(*) as Cant1 FROM maestro_ventas WHERE LEFT(dosis, 2) = '1' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+    $SQL9 = "SELECT COUNT(*) as CantUni FROM maestro_ventas WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";*/
 
 
-    // SE CORRIGEN LAS DOSIS DE soliris Y SE CAMBIA POR COUNT
-    /*$SQL5 = "SELECT SUM(unidades) as Cant25 FROM soliris_maestro WHERE LEFT(dosis, 2) = '25' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";//null
-        $SQL6 = "SELECT SUM(unidades) as Cant15 FROM soliris_maestro WHERE LEFT(dosis, 2) = '15' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-        $SQL7 = "SELECT SUM(unidades) as Cant10 FROM soliris_maestro WHERE LEFT(dosis, 2) = '10' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-        $SQL8 = "SELECT SUM(unidades) as Cant5 FROM soliris_maestro WHERE LEFT(dosis, 1) = '5' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-        $SQL9 = "SELECT SUM(unidades) as CantUni FROM soliris_maestro WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";*/
 
 
     $SubTotPac = getData('CantPacientes', $SQL1, '', 9);
 
     $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A5', getData('CantPacientes', $SQL1, '', 9))
-        ->setCellValue('A7', getData('CantMasculinos', $SQL2, $SubTotPac, 0))
+        /*->setCellValue('A7', getData('CantMasculinos', $SQL2, $SubTotPac, 0))
         ->setCellValue('A9', getData('CantFemeninosSG', $SQL3, $SubTotPac, 0))
-        ->setCellValue('A11', getData('CantFemeninosCG', $SQL4, $SubTotPac, 0))
-        ->setCellValue('B16', getData('Cant4', $SQL5, '', 9))
-        ->setCellValue('B17', getData('Cant3', $SQL6, '', 9))
+        ->setCellValue('A11', getData('CantFemeninosCG', $SQL4, $SubTotPac, 0))*/
+        ->setCellValue('B16', getData('Cant', $SQL5, '', 9));
+        /*->setCellValue('B17', getData('Cant3', $SQL6, '', 9))
         ->setCellValue('B18', getData('Cant2', $SQL7, '', 9))
         ->setCellValue('B19', getData('Cant1', $SQL8, '', 9))
-        ->setCellValue('B20', getData('CantUni', $SQL9, '', 9));
+        ->setCellValue('B20', getData('CantUni', $SQL9, '', 9));*/
 
 
     // PGM- SE COMENTA ESTA LINEA Y SE MODIFICA EL ÚLTIMO PARÁMETRO POR 9 PARA QUE LA FUNCION
@@ -344,12 +346,30 @@ if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
     $num = 25;
 
     // $SQL10 = "SELECT valor FROM auxiliar WHERE tipo='patologia';";
-    $SQL10 = "SELECT count(*) as CANT, patologia as valor FROM soliris_maestro WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin' GROUP BY patologia ORDER BY CANT DESC;";
+
+    $SQL10 = "SELECT
+              COUNT(*) AS CANT,
+              p.patologia_nombre AS valor
+            FROM maestro_ventas m
+              INNER JOIN patologia p ON p.id = m.patologia_id
+            WHERE m.estado_id = 23
+            AND fecha_venta BETWEEN '$ini' AND '$fin'
+            GROUP BY p.patologia_nombre
+            ORDER BY CANT DESC;";
     $resultPats = mysqli_query($db, $SQL10);
     while ($rowPats = mysqli_fetch_assoc($resultPats)) {
         $patologia = $rowPats["valor"];
 
-        $SQL10_1 = "SELECT count(distinct(nombre)) as Cantidad FROM soliris_maestro WHERE patologia='$patologia' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin' ORDER BY Cantidad DESC;";
+        $SQL10_1 = "SELECT
+                  COUNT(DISTINCT (m.id)) AS Cantidad
+                FROM maestro_ventas m
+                  INNER JOIN patologia p ON p.id = m.id
+                WHERE p.patologia_nombre = '$patologia'
+                AND m.estado_id = 23
+                AND m.fecha_venta BETWEEN '$ini' AND '$fin'
+                ORDER BY Cantidad DESC;";
+
+
         $resultPatsVal = mysqli_query($db, $SQL10_1);
         while ($rowPatsVal = mysqli_fetch_assoc($resultPatsVal)) {
             $patologiaValor = $rowPatsVal["Cantidad"];
@@ -379,6 +399,8 @@ if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
 ?>
 
     <?php
+
+    /** Retorna los datos para armar el excel */
     function getData($fieldName, $SQL, $TotPac, $responseType)
     {
 
@@ -390,6 +412,9 @@ if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
 
 
         $result = mysqli_query($db, $SQL);
+
+
+
         $response = "";
         while ($row = mysqli_fetch_assoc($result)) {
             switch ($responseType) {
@@ -412,6 +437,10 @@ if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
 
         return $response;
     }
+
+    /** Funcion para obtener los meses
+     * @param $value (número del mes)
+     */
     function convertDate($value)
     {
         $mons = array(1 => "Ene", 2 => "Feb", 3 => "Mar", 4 => "Abr", 5 => "May", 6 => "Jun", 7 => "Jul", 8 => "Ago", 9 => "Sep", 10 => "Oct", 11 => "Nov", 12 => "Dec");

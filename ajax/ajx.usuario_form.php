@@ -31,7 +31,7 @@ if (isset($_POST["oper"]) and $_POST["oper"] == "Guardar") {
         $SQL = "CALL `ST_UP_USUARIO`($id, '$usuario', '$mail', '$estado', $rol)";
     } else {
         $SQL = "CALL `ST_NEW_USUARIO`('$usuario', '$mail', '$estado', $rol)";
-        mysqli_free_result($arr_exists);
+        
     }
 
     
