@@ -5,33 +5,33 @@ include $_SERVER['DOCUMENT_ROOT'] . _BD;
 
 
 if(isset($_GET["ini"]) AND !empty($_GET["ini"]) AND isset($_GET["fin"]) AND !empty($_GET["fin"])){
-    $ini = $_GET["ini"];
-    $fin = $_GET["fin"];
+    /**
+     *  Formateo de fechas recibidas
+     */
+    $ini = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["ini"]))), 'Y-m-d');
+    $fin = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["fin"]))), 'Y-m-d');
+
 
     $query = "
     SELECT
-    RM.cargado as Cargado
+    RM.usuario_id as usuario_id,
+    (SELECT UPPER(FU_GET_USERNAME_USUARIO(RM.usuario_id))) as Cargado
     FROM
-    soliris_maestro as RM
+    maestro_ventas as RM
     WHERE
-    RM.fecha_venta BETWEEN '$ini' AND '$fin' AND  RM.estado='NP' GROUP BY RM.cargado;";
+    RM.fecha_venta BETWEEN '$ini' AND '$fin' AND  RM.estado_id= 23 GROUP BY Cargado, RM.usuario_id;";
 
     $result = mysqli_query($db, $query);
 
     $arr_tbody = array();
     while ($row = mysqli_fetch_assoc($result)) {
         $cargado = $row["Cargado"];
-        $MG1 = subQuerys_Cargados($cargado, '1 Mg', $ini, $fin);
-        $MG2 = subQuerys_Cargados($cargado, '2 Mg', $ini, $fin);
-        $MG3 = subQuerys_Cargados($cargado, '3 Mg', $ini, $fin);
-        $MG4 = subQuerys_Cargados($cargado, '4 Mg', $ini, $fin);
+        $usuarioId = $row["usuario_id"];
+        $dosis = subQuerys_Cargados($usuarioId, 27, $ini, $fin);
 
         $arr_row = array(
             "cargado" => $cargado,
-            "dosis1" => $MG1,
-            "dosis2" => $MG2,
-            "dosis3" => $MG3,
-            "dosis4" => $MG4
+            "dosis1" => $dosis,
             );
         array_push($arr_tbody, $arr_row);
     };
@@ -52,14 +52,14 @@ function subQuerys_Cargados($user, $dosis, $ini, $fin){
 
     $querysQ = "
     SELECT
-    SUM(RM.unidades)/21 as Cantidad
+    SUM(RM.unidades) as Cantidad
     FROM
-    soliris_maestro as RM
+    maestro_ventas as RM
     WHERE
-    RM.dosis = '$dosis' AND
+    RM.presentacion_id = '$dosis' AND
     RM.fecha_venta BETWEEN '$ini' AND '$fin' AND
-    RM.estado = 'NP' AND
-    RM.cargado = '$user';";
+    RM.estado_id = 23 AND
+    RM.usuario_id = '$user';";
 
     $resultsQ = mysqli_query($db, $querysQ);
 

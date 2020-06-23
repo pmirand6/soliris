@@ -8,10 +8,14 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
 include '../resources/PHP/PHPExcel_1.8.0/PHPExcel.php';
 
 if (!empty($_GET["ini"]) AND !empty($_GET["fin"])){
-    $ini = $_GET["ini"];
-    $fin = $_GET["fin"];
+    /**
+     *  Formateo de fechas recibidas
+     */
+    $ini = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["ini"]))), 'Y-m-d');
+    $fin = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["fin"]))), 'Y-m-d');
 
-        // Se crea el objeto PHPExcel
+
+    // Se crea el objeto PHPExcel
     $objPHPExcel = new PHPExcel();
 
         // Se asignan las propiedades del libro
@@ -319,25 +323,25 @@ if (!empty($_GET["ini"]) AND !empty($_GET["fin"])){
 
         // VARIABLES
 
-                                        $SQL1 = "SELECT count(distinct(nombre)) as CantPacientes FROM soliris_maestro WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-                                        $SQL2 = "SELECT count(distinct(nombre)) as CantMasculinos FROM soliris_maestro WHERE sexo='M' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-                                        $SQL3 = "SELECT count(distinct(RM.nombre)) as CantFemeninosSG FROM soliris_maestro as RM LEFT JOIN pacientes as P ON(RM.nombre=P.id) WHERE RM.sexo='F' AND RM.estado='NP' AND (P.c_gestar in ('NO') OR isnull(P.c_gestar)) AND RM.fecha_venta BETWEEN '$ini' AND '$fin';";
-                                        $SQL4 = "SELECT count(distinct(RM.nombre)) as CantFemeninosCG FROM soliris_maestro as RM LEFT JOIN pacientes as P ON(RM.nombre=P.id) WHERE RM.sexo='F' AND RM.estado='NP' AND P.c_gestar in ('SI') AND RM.fecha_venta BETWEEN '$ini' AND '$fin';";
+                                        $SQL1 = "SELECT count(distinct(nombre)) as CantPacientes FROM maestro_ventas WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+                                        $SQL2 = "SELECT count(distinct(nombre)) as CantMasculinos FROM maestro_ventas WHERE sexo='M' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+                                        $SQL3 = "SELECT count(distinct(RM.nombre)) as CantFemeninosSG FROM maestro_ventas as RM LEFT JOIN pacientes as P ON(RM.nombre=P.id) WHERE RM.sexo='F' AND RM.estado='NP' AND (P.c_gestar in ('NO') OR isnull(P.c_gestar)) AND RM.fecha_venta BETWEEN '$ini' AND '$fin';";
+                                        $SQL4 = "SELECT count(distinct(RM.nombre)) as CantFemeninosCG FROM maestro_ventas as RM LEFT JOIN pacientes as P ON(RM.nombre=P.id) WHERE RM.sexo='F' AND RM.estado='NP' AND P.c_gestar in ('SI') AND RM.fecha_venta BETWEEN '$ini' AND '$fin';";
 
                                         //CONTEO DE UNIDADES
 
-        $SQL5 = "SELECT COUNT(*) as Cant4 FROM soliris_maestro WHERE LEFT(dosis, 2) = '4' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";//null
-        $SQL6 = "SELECT COUNT(*) as Cant3 FROM soliris_maestro WHERE LEFT(dosis, 2) = '3' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-        $SQL7 = "SELECT COUNT(*) as Cant2 FROM soliris_maestro WHERE LEFT(dosis, 2) = '2' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-        $SQL8 = "SELECT COUNT(*) as Cant1 FROM soliris_maestro WHERE LEFT(dosis, 2) = '1' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-        $SQL9 = "SELECT COUNT(*) as CantUni FROM soliris_maestro WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+        $SQL5 = "SELECT COUNT(*) as Cant4 FROM maestro_ventas WHERE LEFT(dosis, 2) = '4' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";//null
+        $SQL6 = "SELECT COUNT(*) as Cant3 FROM maestro_ventas WHERE LEFT(dosis, 2) = '3' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+        $SQL7 = "SELECT COUNT(*) as Cant2 FROM maestro_ventas WHERE LEFT(dosis, 2) = '2' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+        $SQL8 = "SELECT COUNT(*) as Cant1 FROM maestro_ventas WHERE LEFT(dosis, 2) = '1' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+        $SQL9 = "SELECT COUNT(*) as CantUni FROM maestro_ventas WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
 
 
-                                        /*$SQL5 = "SELECT SUM(unidades) as Cant4 FROM soliris_maestro WHERE LEFT(dosis, 2) = '4' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-                                        $SQL6 = "SELECT SUM(unidades) as Cant3 FROM soliris_maestro WHERE LEFT(dosis, 2) = '3' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-                                        $SQL7 = "SELECT SUM(unidades) as Cant2 FROM soliris_maestro WHERE LEFT(dosis, 2) = '2' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-                                        $SQL8 = "SELECT SUM(unidades) as Cant1 FROM soliris_maestro WHERE LEFT(dosis, 1) = '1' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-                                        $SQL9 = "SELECT SUM(unidades) as CantUni FROM soliris_maestro WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";*/
+                                        /*$SQL5 = "SELECT SUM(unidades) as Cant4 FROM maestro_ventas WHERE LEFT(dosis, 2) = '4' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+                                        $SQL6 = "SELECT SUM(unidades) as Cant3 FROM maestro_ventas WHERE LEFT(dosis, 2) = '3' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+                                        $SQL7 = "SELECT SUM(unidades) as Cant2 FROM maestro_ventas WHERE LEFT(dosis, 2) = '2' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+                                        $SQL8 = "SELECT SUM(unidades) as Cant1 FROM maestro_ventas WHERE LEFT(dosis, 1) = '1' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
+                                        $SQL9 = "SELECT SUM(unidades) as CantUni FROM maestro_ventas WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";*/
 
 
                                         $SubTotPac = getData('CantPacientes', $SQL1, '', 9);
@@ -368,12 +372,12 @@ if (!empty($_GET["ini"]) AND !empty($_GET["fin"])){
                                         $num = 25;
 
         // $SQL10 = "SELECT valor FROM auxiliar WHERE tipo='patologia';";
-                                        $SQL10 = "SELECT count(*) as CANT, patologia as valor FROM soliris_maestro WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin' GROUP BY patologia ORDER BY CANT DESC;";
+                                        $SQL10 = "SELECT count(*) as CANT, patologia as valor FROM maestro_ventas WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin' GROUP BY patologia ORDER BY CANT DESC;";
                                         $resultPats = mysqli_query($db, $SQL10);
                                         while ($rowPats = mysqli_fetch_assoc($resultPats)) {
                                             $patologia = $rowPats["valor"];
 
-                                            $SQL10_1 = "SELECT count(distinct(nombre)) as Cantidad FROM soliris_maestro WHERE patologia='$patologia' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin' ORDER BY Cantidad DESC;";
+                                            $SQL10_1 = "SELECT count(distinct(nombre)) as Cantidad FROM maestro_ventas WHERE patologia='$patologia' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin' ORDER BY Cantidad DESC;";
                                             $resultPatsVal = mysqli_query($db, $SQL10_1);
                                             while ($rowPatsVal = mysqli_fetch_assoc($resultPatsVal)) {
                                                 $patologiaValor = $rowPatsVal["Cantidad"];
@@ -452,21 +456,21 @@ if (!empty($_GET["ini"]) AND !empty($_GET["fin"])){
               SELECT
               count(distinct(RM.nombre)) as Data
               FROM
-              soliris_maestro as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
+              maestro_ventas as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
               WHERE
               LEFT(RM.dosis, 1) = '$dosis' AND P.sexo = 'M' AND RM.estado='NP' AND RM.fecha_venta BETWEEN '$ini' AND '$fin'; ";
               $SQLdist2 = "
               SELECT
               count(distinct(RM.nombre)) as Data
               FROM
-              soliris_maestro as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
+              maestro_ventas as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
               WHERE
               LEFT(RM.dosis, 1) = '$dosis' AND P.sexo = 'F' AND P.c_gestar = 'NO' AND RM.estado='NP' AND RM.fecha_venta BETWEEN '$ini' AND '$fin'; ";
               $SQLdist3 = "
               SELECT
               count(distinct(RM.nombre)) as Data
               FROM
-              soliris_maestro as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
+              maestro_ventas as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
               WHERE
               LEFT(RM.dosis, 1) = '$dosis' AND P.sexo = 'F' AND P.c_gestar = 'SI' AND RM.estado='NP' AND RM.fecha_venta BETWEEN '$ini' AND '$fin'; ";
               break;
@@ -476,21 +480,21 @@ if (!empty($_GET["ini"]) AND !empty($_GET["fin"])){
               SELECT
               count(distinct(RM.nombre)) as Data
               FROM
-              soliris_maestro as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
+              maestro_ventas as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
               WHERE
               LEFT(RM.dosis, 2) = '$dosis' AND P.sexo = 'M' AND RM.estado='NP' AND RM.fecha_venta BETWEEN '$ini' AND '$fin'; ";
               $SQLdist2 = "
               SELECT
               count(distinct(RM.nombre)) as Data
               FROM
-              soliris_maestro as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
+              maestro_ventas as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
               WHERE
               LEFT(RM.dosis, 2) = '$dosis' AND P.sexo = 'F' AND P.c_gestar = 'NO' AND RM.estado='NP' AND RM.fecha_venta BETWEEN '$ini' AND '$fin'; ";
               $SQLdist3 = "
               SELECT
               count(distinct(RM.nombre)) as Data
               FROM
-              soliris_maestro as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
+              maestro_ventas as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
               WHERE
               LEFT(RM.dosis, 2) = '$dosis' AND P.sexo = 'F' AND P.c_gestar = 'SI'AND RM.estado='NP' AND RM.fecha_venta BETWEEN '$ini' AND '$fin'; ";
               break;
@@ -531,21 +535,21 @@ include $_SERVER['DOCUMENT_ROOT'] . _BD;
           SELECT
           count(distinct(RM.nombre)) as Data
           FROM
-          soliris_maestro as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
+          maestro_ventas as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
           WHERE
           RM.patologia = '$patologia' AND P.sexo = 'M' AND RM.estado='NP' AND RM.fecha_venta BETWEEN '$ini' AND '$fin'; ";
           $SQLdist2 = "
           SELECT
           count(distinct(RM.nombre)) as Data
           FROM
-          soliris_maestro as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
+          maestro_ventas as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
           WHERE
           RM.patologia = '$patologia' AND P.sexo = 'F' AND P.c_gestar = 'NO' AND RM.estado='NP' AND RM.fecha_venta BETWEEN '$ini' AND '$fin'; ";
           $SQLdist3 = "
           SELECT
           count(distinct(RM.nombre)) as Data
           FROM
-          soliris_maestro as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
+          maestro_ventas as RM INNER JOIN pacientes as P ON (P.id = RM.nombre)
           WHERE
           RM.patologia = '$patologia' AND P.sexo = 'F' AND P.c_gestar = 'SI' AND RM.estado='NP' AND RM.fecha_venta BETWEEN '$ini' AND '$fin'; ";
 

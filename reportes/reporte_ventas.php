@@ -43,7 +43,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                 <div class="col-sm-8 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
-                        <input id="aoIni" name="aoIni" type="text" placeholder="YYYY-MM-DD" class="form-control input-md date" autocomplete="off">
+                        <input id="aoIni" name="aoIni" type="text" placeholder="DD-MM-YYYY" class="form-control input-md date" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                 <div class="col-sm-8 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
-                        <input id="aoFin" name="aoFin" type="text" placeholder="YYYY-MM-DD" class="form-control input-md date" autocomplete="off">
+                        <input id="aoFin" name="aoFin" type="text" placeholder="DD-MM-YYYY" class="form-control input-md date" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -81,10 +81,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                 <thead>
                     <tr>
                         <th>Usuario</th>
-                        <th>Dosis 1 MG</th>
-                        <th>Dosis 2 MG</th>
-                        <th>Dosis 3 MG</th>
-                        <th>Dosis 4 MG</th>
+                        <th>Dosis 300 MG</th>
                     </tr>
                 </thead>
                 <tbody>

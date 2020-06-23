@@ -5,16 +5,20 @@ include $_SERVER['DOCUMENT_ROOT'] . _BD;
 include_once "../resources/Includes/HighCharts.php";
 
 
-        $ini = $_GET["ini"];
-        $fin = $_GET["fin"];
+/**
+ *  Formateo de fechas recibidas
+ */
+$ini = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["ini"]))), 'Y-m-d');
+$fin = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["fin"]))), 'Y-m-d');
 
-        $query = "
-            SELECT
-              RM.cargado as Cargado
-            FROM
-              soliris_maestro as RM
-            WHERE
-              RM.fecha_venta BETWEEN '$ini' AND '$fin' AND RM.estado='NP' GROUP BY RM.cargado;";
+$query = "
+    SELECT
+    RM.usuario_id as usuario_id,
+    (SELECT UPPER(FU_GET_USERNAME_USUARIO(RM.usuario_id))) as Cargado
+    FROM
+    maestro_ventas as RM
+    WHERE
+    RM.fecha_venta BETWEEN '$ini' AND '$fin' AND  RM.estado_id= 23 GROUP BY Cargado, RM.usuario_id;";
 
         $result = mysqli_query($db, $query);
 
@@ -40,11 +44,9 @@ include_once "../resources/Includes/HighCharts.php";
 
         while ($row = mysqli_fetch_assoc($result)) {
             $user = $row["Cargado"];
+            $usuarioId = $row["usuario_id"];
             $arr_graf = "";
-            $arr_graf .= user_chart_stats($user, '1 Mg', $ini, $fin);
-            $arr_graf .= user_chart_stats($user, '2 Mg', $ini, $fin);
-            $arr_graf .= user_chart_stats($user, '3 Mg', $ini, $fin);
-            $arr_graf .= user_chart_stats($user, '4 Mg', $ini, $fin);
+            $arr_graf .= user_chart_stats($usuarioId, 27, $ini, $fin);
 
 //            echo $arr_graf;
 
@@ -105,19 +107,18 @@ include_once "../resources/Includes/HighCharts.php";
     function user_chart_stats($user, $dosis, $ini, $fin){
         require_once('../config/config.php');
         include $_SERVER['DOCUMENT_ROOT'] . _BD;
-        
 
 
         $querysQ = "
-        SELECT
-            SUM(RM.unidades)/21 as Cantidad
-        FROM
-            soliris_maestro as RM
-        WHERE
-            RM.dosis = '$dosis' AND
-            RM.fecha_venta BETWEEN '$ini' AND '$fin' AND
-            RM.estado = 'NP' AND
-            RM.cargado = '$user';";
+    SELECT
+    SUM(RM.unidades) as Cantidad
+    FROM
+    maestro_ventas as RM
+    WHERE
+    RM.presentacion_id = '$dosis' AND
+    RM.fecha_venta BETWEEN '$ini' AND '$fin' AND
+    RM.estado_id = 23 AND
+    RM.usuario_id = '$user';";
 
         $resultsQ = mysqli_query($db, $querysQ);
 

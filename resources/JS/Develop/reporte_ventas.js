@@ -7,7 +7,7 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
         $('#limpiar').hide();
 
         $('.date').datepicker({
-            format: "yyyy-mm-dd",
+            format: "dd-mm-yyyy",
             language: "es",
             endDate: getDate(),
             calendarWeeks: true,
@@ -35,9 +35,6 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
             "aoColumns": [
                 { "mData": "cargado", "bSearchable": true, "sWidth": "40%","sClass": "center"},
                 { "mData": "dosis1", "bSearchable": true, "sWidth": "15%", "sClass": "center"},
-                { "mData": "dosis2", "bSearchable": true, "sWidth": "15%", "sClass": "center"},
-                { "mData": "dosis3", "bSearchable": true, "sWidth": "15%", "sClass": "center"},
-                { "mData": "dosis4", "bSearchable": true, "sWidth": "15%", "sClass": "center"}
             ],
             "buttons": [
                 { extend: 'copyHtml5', 
@@ -102,7 +99,7 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
 			                },
 			                date: {
 				                message: 'La fecha inicial no puede ser superior a la fecha final',
-				                format: 'YYYY-MM-DD',
+				                format: 'DD-MM-YYYY',
 				                max: 'aoFin'
 			                }
 		                }
@@ -115,7 +112,7 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
 			                },
 			                date: {
 				                message: 'La fecha final no puede ser inferior a la fecha inicial',
-				                format: 'YYYY-MM-DD',
+				                format: 'DD-MM-YYYY',
 				                min: 'aoIni'
 			                }
 		                }
