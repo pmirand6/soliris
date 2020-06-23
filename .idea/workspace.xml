@@ -19,22 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ba546b2-867b-43b3-ac0c-8da83ad051c3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/soliris.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="3ba546b2-867b-43b3-ac0c-8da83ad051c3" name="Default Changelist" comment="Configuracion de reporte anmat">
+      <changelist_data name="Pablo Miranda" email="pmirand6@gmail.com" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ajax/ajx.reporte_ANMAT.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/ajx.reporte_ANMAT.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ajax/ajx.usuario_form.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/ajx.usuario_form.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,9 +31,12 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIEW_PUSH_PROTECTED_ONLY" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpServers">
@@ -92,7 +83,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="1" Folder0="C:\Program Files\JetBrains\PhpStorm 2019.3.3\dic" CustomDictionaries="1" CustomDictionary0="C:\Program Files\JetBrains\PhpStorm 2019.3.3\dic\spanish-utf8.dic" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
@@ -113,8 +104,16 @@
       <workItem from="1583949394935" duration="2426000" />
       <workItem from="1584015605965" duration="3897000" />
       <workItem from="1592845537509" duration="433000" />
-      <workItem from="1592846051258" duration="5650000" />
+      <workItem from="1592846051258" duration="14114000" />
     </task>
+    <task id="LOCAL-00001" summary="Configuracion de reporte anmat">
+      <created>1592851952888</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1592851952888</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,12 +132,22 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Configuracion de reporte anmat" />
+    <option name="LAST_COMMIT_MESSAGE" value="Configuracion de reporte anmat" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="263" y="19" key="#CLI_Interpreters" timestamp="1592846161275">
+    <state x="263" y="19" key="#CLI_Interpreters" timestamp="1592868242935">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="263" y="19" key="#CLI_Interpreters/0.0.1366.728@0.0.1366.728" timestamp="1592846161275" />
+    <state x="263" y="19" key="#CLI_Interpreters/0.0.1366.728@0.0.1366.728" timestamp="1592868242935" />
+    <state x="275" y="22" key="#Deployment" timestamp="1592880659009">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="22" key="#Deployment/0.0.1366.728@0.0.1366.728" timestamp="1592880659009" />
+    <state x="309" y="42" key="#Inspections" timestamp="1592868603734">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="309" y="42" key="#Inspections/0.0.1366.728@0.0.1366.728" timestamp="1592868603734" />
     <state x="390" y="7" key="#PHP" timestamp="1592846192995">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -151,10 +160,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="22" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.728@0.0.1366.728" timestamp="1592847789786" />
+    <state x="459" y="276" width="447" height="265" key="ComposerInitDialogKey" timestamp="1592868250156">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="459" y="276" width="447" height="265" key="ComposerInitDialogKey/0.0.1366.728@0.0.1366.728" timestamp="1592868250156" />
     <state x="550" y="114" key="EnvironmentVariablesDialog" timestamp="1592847132300">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="550" y="114" key="EnvironmentVariablesDialog/0.0.1366.728@0.0.1366.728" timestamp="1592847132300" />
+    <state x="462" y="105" key="FileChooserDialogImpl" timestamp="1592868452211">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="462" y="105" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1592868452211" />
     <state width="905" height="179" key="GridCell.Tab.0.bottom" timestamp="1592847862863">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -175,13 +192,21 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="196" height="457" key="HiddenNamespacesPopup/0.0.1366.728@0.0.1366.728" timestamp="1592847834085" />
-    <state x="184" y="9" key="SettingsEditor" timestamp="1592846082113">
+    <state x="415" y="121" key="PHPComposerAddDependencyDialogDimensionKey" timestamp="1592868270010">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="9" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1592846082113" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1592850916712">
+    <state x="415" y="121" key="PHPComposerAddDependencyDialogDimensionKey/0.0.1366.728@0.0.1366.728" timestamp="1592868270010" />
+    <state x="184" y="9" key="SettingsEditor" timestamp="1592880739538">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1592850916712" />
+    <state x="184" y="9" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1592880739538" />
+    <state width="82" height="441" key="SqlResolveConfigurable" timestamp="1592868438477">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="82" height="441" key="SqlResolveConfigurable/0.0.1366.728@0.0.1366.728" timestamp="1592868438477" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1592869840829">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1592869840829" />
   </component>
 </project>

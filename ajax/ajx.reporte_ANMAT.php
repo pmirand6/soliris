@@ -4,6 +4,10 @@ require_once("../config/config.php");
 include $_SERVER['DOCUMENT_ROOT'] . _BD;
 include '../resources/PHP/PHPExcel_1.8.0/PHPExcel.php';
 if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
+
+    /**
+     *  Formateo de fechas recibidas
+     */
     $ini = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["ini"]))), 'Y-m-d');
     $fin = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["fin"]))), 'Y-m-d');
 
@@ -13,40 +17,37 @@ if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
     // Se asignan las propiedades del libro
     $objPHPExcel->getProperties()->setCreator("Raffo"); // Nombre del autor
 
-    // Se combinan las celdas A1 hasta D1, para colocar ahí el titulo del reporte
+    // Se combinan las celdas A1 hasta B1, para colocar ahí el titulo del reporte
     $objPHPExcel->setActiveSheetIndex(0)
-        ->mergeCells('A1:B1')
-        ->mergeCells('A2:B2')
-        ->mergeCells('A3:B3')
-        ->mergeCells('A4:B4')
-        ->mergeCells('A5:B5')
-        ->mergeCells('A6:B6')
-        ->mergeCells('A7:B7')
-        ->mergeCells('A8:B8')
-        ->mergeCells('A9:B9')
-        ->mergeCells('A10:B10')
-        ->mergeCells('A11:B11')
-        ->mergeCells('A12:B12')
-        ->mergeCells('A13:B13')
-        ->mergeCells('A14:B14')
-        ->mergeCells('A21:B21')
-        ->mergeCells('A22:B22')
-        ->mergeCells('A23:B23');
+        ->mergeCells('A1:B1') // Titulo del reporte
+        ->mergeCells('A2:B2') // Salto de linea
+        ->mergeCells('A3:B3') // Salto de linea
+        ->mergeCells('A4:B4') // Titulo Cantidad de Pacientes
+        ->mergeCells('A5:B5') // Data de Cantidad de Pacientes
+        ->mergeCells('A6:B6') // Salto de linea
+        ->mergeCells('A7:B7') // Salto de linea
+        ->mergeCells('A8:B8') // Salto de linea
+        ->mergeCells('A9:B9') // Titulo Cantidad de Unidades vendidas en el Periodo
+        ->mergeCells('A10:A10') // Subtitulo de Dosis y Cantidades
+        ->mergeCells('A11:A11') // Data de Dosis y Cantidad
+        ->mergeCells('A12:A12') // Totales
+        ->mergeCells('A13:B13') // Salto de linea
+        ->mergeCells('A14:B14') // Salto de linea
+        ->mergeCells('A15:B15') // Titulo de Distribución de Pacientes por patología
+        ->mergeCells('A16:A16') // Subtitulos de Patologias
+        ->mergeCells('A17:A17'); // Comienzo de data de patologias
     // Se agregan los titulos del reporte
     $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A1', "Reporte Semestral -ANMAT- (Periodo: " . convertDate($ini) . " al " . convertDate($fin) . ")") // Titulo del reporte
         ->setCellValue('A4', 'Cantidad de Pacientes')  //Titulo de las secciones
-        ->setCellValue('A6', 'Cantidad de Pacientes (Hombres)')
-        ->setCellValue('A8', 'Cantidad de Pacientes (Mujeres Sin Capacidad de Gestar)')
-        ->setCellValue('A10', 'Cantidad de Pacientes (Mujeres Con Capacidad de Gestar)')
-        ->setCellValue('A14', 'Cantidad de Unidades vendidas en el Periodo')
-        ->setCellValue('A15', 'Dosis')
-        ->setCellValue('B15', 'Cantidad')
-        ->setCellValue('A19', '300mg.')
-        ->setCellValue('A20', 'Total.')
-        ->setCellValue('A23', 'Distribución de Pacientes por patología')
-        ->setCellValue('A24', 'Patología')
-        ->setCellValue('B24', 'Cantidad');
+        ->setCellValue('A9', 'Cantidad de Unidades vendidas en el Periodo')
+        ->setCellValue('A10', 'Dosis')
+        ->setCellValue('B10', 'Cantidad')
+        ->setCellValue('A11', '300 mg.')
+        ->setCellValue('A12', 'Total.')
+        ->setCellValue('A15', 'Distribución de Pacientes por patología')
+        ->setCellValue('A16', 'Patología')
+        ->setCellValue('B16', 'Cantidad');
 
 
     // ESTILOS
@@ -260,22 +261,16 @@ if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
     // HEADERS
     $objPHPExcel->getActiveSheet()->getStyle('A1:B1')->applyFromArray($estiloTituloReporte);
     $objPHPExcel->getActiveSheet()->getStyle('A4:B4')->applyFromArray($estiloTitulo1);
-    $objPHPExcel->getActiveSheet()->getStyle('A6:B6')->applyFromArray($estiloTitulo2);
-    $objPHPExcel->getActiveSheet()->getStyle('A8:B8')->applyFromArray($estiloTitulo3);
-    $objPHPExcel->getActiveSheet()->getStyle('A10:B10')->applyFromArray($estiloTitulo4);
-    $objPHPExcel->getActiveSheet()->getStyle('A14:B14')->applyFromArray($estiloTitulo5);
-    $objPHPExcel->getActiveSheet()->getStyle('A15:B15')->applyFromArray($estiloTitulo5);
-    $objPHPExcel->getActiveSheet()->getStyle('A23:B23')->applyFromArray($estiloTitulo6);
-    $objPHPExcel->getActiveSheet()->getStyle('A24:B24')->applyFromArray($estiloTitulo6);
+    $objPHPExcel->getActiveSheet()->getStyle('A9:B9')->applyFromArray($estiloTitulo5);
+    $objPHPExcel->getActiveSheet()->getStyle('A10:B10')->applyFromArray($estiloTitulo5);
+    $objPHPExcel->getActiveSheet()->getStyle('A15:B15')->applyFromArray($estiloTitulo6);
+    $objPHPExcel->getActiveSheet()->getStyle('A16:B16')->applyFromArray($estiloTitulo6);
     // DATA
     $objPHPExcel->getActiveSheet()->getStyle('A5:B5')->applyFromArray($estiloData);
-    $objPHPExcel->getActiveSheet()->getStyle('A7:B7')->applyFromArray($estiloData);
-    $objPHPExcel->getActiveSheet()->getStyle('A9:B9')->applyFromArray($estiloData);
-    $objPHPExcel->getActiveSheet()->getStyle('A11:B11')->applyFromArray($estiloData);
-    $objPHPExcel->getActiveSheet()->getStyle('A16:A20')->applyFromArray($estiloSubTitData);
-    $objPHPExcel->getActiveSheet()->getStyle('B16:B20')->applyFromArray($estiloData);
-    $objPHPExcel->getActiveSheet()->getStyle('A25:A40')->applyFromArray($estiloSubTitData);
-    $objPHPExcel->getActiveSheet()->getStyle('B25:B40')->applyFromArray($estiloData);
+    $objPHPExcel->getActiveSheet()->getStyle('A11:A12')->applyFromArray($estiloSubTitData);
+    $objPHPExcel->getActiveSheet()->getStyle('B11:B12')->applyFromArray($estiloData);
+    $objPHPExcel->getActiveSheet()->getStyle('A17:A40')->applyFromArray($estiloSubTitData);
+    $objPHPExcel->getActiveSheet()->getStyle('B17:B40')->applyFromArray($estiloData);
 
     // ################# FIN ESTILOS ################
 
@@ -292,16 +287,13 @@ if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
 
 
     // VARIABLES
-    // Cuenta de cantidad de ventas
+    // Contador de Pacientes con ventas en NP
 
-    $SQL1 = "SELECT count(distinct(id)) as CantPacientes FROM maestro_ventas WHERE estado_id = 23 AND fecha_venta BETWEEN '$ini' AND '$fin';";
 
-    // Distinción entre pacientes con capacidad de gestar
-    /*$SQL2 = "SELECT count(distinct(nombre)) as CantMasculinos FROM maestro_ventas WHERE sexo='M' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-    $SQL3 = "SELECT count(distinct(RM.nombre)) as CantFemeninosSG FROM maestro_ventas as RM LEFT JOIN pacientes as P ON(RM.nombre=P.id) WHERE RM.sexo='F' AND RM.estado='NP' AND (P.c_gestar in ('NO') OR isnull(P.c_gestar)) AND RM.fecha_venta BETWEEN '$ini' AND '$fin';";
-    $SQL4 = "SELECT count(distinct(RM.nombre)) as CantFemeninosCG FROM maestro_ventas as RM LEFT JOIN pacientes as P ON(RM.nombre=P.id) WHERE RM.sexo='F' AND RM.estado='NP' AND P.c_gestar in ('SI') AND RM.fecha_venta BETWEEN '$ini' AND '$fin';";*/
+    $SQL1 = "SELECT count(distinct(paciente_id)) as CantPacientes FROM maestro_ventas WHERE estado_id = 23 AND fecha_venta BETWEEN '$ini' AND '$fin';";
 
-    //CONTEO DE UNIDADES
+
+    //Cantidad de ventas
 
     $SQL5 = "SELECT
           COUNT(*) AS Cant
@@ -310,77 +302,40 @@ if (!empty($_GET["ini"]) and !empty($_GET["fin"])) {
         AND estado_id = 23
         AND fecha_venta BETWEEN '$ini' AND '$fin';"; //null
 
-    //Se comentan estas consultas ya que hay una sola unidad
-    /*
-    $SQL6 = "SELECT COUNT(*) as Cant3 FROM maestro_ventas WHERE LEFT(dosis, 2) = '3' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-    $SQL7 = "SELECT COUNT(*) as Cant2 FROM maestro_ventas WHERE LEFT(dosis, 2) = '2' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-    $SQL8 = "SELECT COUNT(*) as Cant1 FROM maestro_ventas WHERE LEFT(dosis, 2) = '1' AND estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";
-    $SQL9 = "SELECT COUNT(*) as CantUni FROM maestro_ventas WHERE estado='NP' AND fecha_venta BETWEEN '$ini' AND '$fin';";*/
-
-
-
 
     $SubTotPac = getData('CantPacientes', $SQL1, '', 9);
 
     $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A5', getData('CantPacientes', $SQL1, '', 9))
-        /*->setCellValue('A7', getData('CantMasculinos', $SQL2, $SubTotPac, 0))
-        ->setCellValue('A9', getData('CantFemeninosSG', $SQL3, $SubTotPac, 0))
-        ->setCellValue('A11', getData('CantFemeninosCG', $SQL4, $SubTotPac, 0))*/
-        ->setCellValue('B16', getData('Cant', $SQL5, '', 9));
-        /*->setCellValue('B17', getData('Cant3', $SQL6, '', 9))
-        ->setCellValue('B18', getData('Cant2', $SQL7, '', 9))
-        ->setCellValue('B19', getData('Cant1', $SQL8, '', 9))
-        ->setCellValue('B20', getData('CantUni', $SQL9, '', 9));*/
+        ->setCellValue('B11', getData('Cant', $SQL5, '', 9))
+        ->setCellValue('B12', getData('Cant', $SQL5, '', 9));
+
+    $num = 17;
+
+    $sqlVentasPatologia = "SELECT
+          COUNT(DISTINCT (p.id)) AS cantVentasPat,
+          p.patologia_id,
+          (SELECT pat.patologia_nombre FROM patologia pat WHERE pat.id = p.patologia_id) AS patNombre
+        FROM paciente p
+          INNER JOIN maestro_ventas mv ON mv.paciente_id = p.id
+          WHERE mv.estado_id = 23
+          AND mv.fecha_venta BETWEEN '$ini' AND '$fin'
+        GROUP BY p.patologia_id";
 
 
-    // PGM- SE COMENTA ESTA LINEA Y SE MODIFICA EL ÚLTIMO PARÁMETRO POR 9 PARA QUE LA FUNCION
-    // getData no lo divida por 21 //
-    /*
-        ->setCellValue('B16', getData('Cant4', $SQL5, '', 1))
-        ->setCellValue('B17', getData('Cant3', $SQL6, '', 1))
-        ->setCellValue('B18', getData('Cant1', $SQL7, '', 1))
-        ->setCellValue('B19', getData('CantUni', $SQL8, '', 1))*/
+    $resultPats = mysqli_query($db, $sqlVentasPatologia);
 
+    while ($rowPat = mysqli_fetch_assoc($resultPats)){
+        //Seteo de celda de Nombre de Patologia
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . $num, $rowPat["patNombre"]);
+        //Seteo de celda de Cantidad de ventas de Patologia
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B' . $num, $rowPat["cantVentasPat"]);
 
-    $num = 25;
-
-    // $SQL10 = "SELECT valor FROM auxiliar WHERE tipo='patologia';";
-
-    $SQL10 = "SELECT
-              COUNT(*) AS CANT,
-              p.patologia_nombre AS valor
-            FROM maestro_ventas m
-              INNER JOIN patologia p ON p.id = m.patologia_id
-            WHERE m.estado_id = 23
-            AND fecha_venta BETWEEN '$ini' AND '$fin'
-            GROUP BY p.patologia_nombre
-            ORDER BY CANT DESC;";
-    $resultPats = mysqli_query($db, $SQL10);
-    while ($rowPats = mysqli_fetch_assoc($resultPats)) {
-        $patologia = $rowPats["valor"];
-
-        $SQL10_1 = "SELECT
-                  COUNT(DISTINCT (m.id)) AS Cantidad
-                FROM maestro_ventas m
-                  INNER JOIN patologia p ON p.id = m.id
-                WHERE p.patologia_nombre = '$patologia'
-                AND m.estado_id = 23
-                AND m.fecha_venta BETWEEN '$ini' AND '$fin'
-                ORDER BY Cantidad DESC;";
-
-
-        $resultPatsVal = mysqli_query($db, $SQL10_1);
-        while ($rowPatsVal = mysqli_fetch_assoc($resultPatsVal)) {
-            $patologiaValor = $rowPatsVal["Cantidad"];
-
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A' . $num, $patologia);
-            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B' . $num, $patologiaValor);
-        };
-        mysqli_free_result($resultPatsVal);
         $num = $num + 1;
-    };
+    }
+
     mysqli_free_result($resultPats);
+
 
     // FIN VARIABLES
 
