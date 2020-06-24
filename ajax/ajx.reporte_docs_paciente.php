@@ -5,8 +5,12 @@
     
 
     if(isset($_GET["ini"]) AND !empty($_GET["ini"]) AND isset($_GET["fin"]) AND !empty($_GET["fin"])){
-        $ini = $_GET["ini"];
-        $fin = $_GET["fin"];
+        /**
+         *  Formateo de fechas recibidas
+         */
+        $ini = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["ini"]))), 'Y-m-d');
+        $fin = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["fin"]))), 'Y-m-d');
+
         $condicion =  "YEAR(RM.fecha_venta) BETWEEN $ini AND $fin";
     } else {
         $condicion = " YEAR(RM.fecha_venta) = year(now()) ";
@@ -21,11 +25,11 @@
         (SELECT RD.documento FROM soliris_documentacion as RD WHERE RD.referencia = 'pacientes' AND RD.tipo = 'Tarjeta' AND RD.id_maestro = RM.nombre ORDER BY RD.id DESC LIMIT 1 ) as Tarjeta,
         (SELECT RD.documento FROM soliris_documentacion as RD WHERE RD.referencia = 'pacientes' AND RD.tipo = 'Consentimiento' AND RD.id_maestro = RM.nombre ORDER BY RD.id DESC LIMIT 1) as Consentimiento
     FROM
-        soliris_maestro as RM INNER JOIN pacientes as P ON (RM.nombre = P.id)
+        maestro_ventas as RM INNER JOIN pacientes as P ON (RM.nombre = P.id)
     WHERE
         $condicion
     AND 
-        RM.estado = 'NP'
+        RM.estado_id = 23
     GROUP BY RM.nombre;";
 
 

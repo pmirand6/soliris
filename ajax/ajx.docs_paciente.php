@@ -45,7 +45,7 @@ if(isset($_FILES["myfile"]) && isset($_POST["oper"]) && $_POST["oper"] == 'saveD
     referencia: 'Paciente', 
     tipoDoc: 'Otro', <- Tipo de documento
     oper: 'saveDocPac'
-    f_doc_vac || f_doc_otro en formato dd-mm-yyyy
+    f_doc_vac || f_doc_consentimiento en formato dd-mm-yyyy
   */
 
 
@@ -62,8 +62,8 @@ if(isset($_FILES["myfile"]) && isset($_POST["oper"]) && $_POST["oper"] == 'saveD
     $fecha_documento = date_format($date_format, 'Y-m-d');
 
   }
-  if (isset($_POST["f_doc_otro"])) {
-    $date_format = date_create_from_format('d-m-Y', $_POST["f_doc_otro"]);
+  if (isset($_POST["f_doc_consentimiento"])) {
+    $date_format = date_create_from_format('d-m-Y', $_POST["f_doc_consentimiento"]);
     $fecha_documento = date_format($date_format, 'Y-m-d');
   }
   

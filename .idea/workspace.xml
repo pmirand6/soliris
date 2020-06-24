@@ -19,15 +19,21 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ba546b2-867b-43b3-ac0c-8da83ad051c3" name="Default Changelist" comment="Configuracion de reporte anmat">
+    <list default="true" id="3ba546b2-867b-43b3-ac0c-8da83ad051c3" name="Default Changelist" comment="ajuste de reporte de ventas por productos">
+      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bc3f04e7-02a1-41ba-bb98-e0f6e3d8f60f.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bc3f04e7-02a1-41ba-bb98-e0f6e3d8f60f/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bc3f04e7-02a1-41ba-bb98-e0f6e3d8f60f/storage_v2/_src_/schema/soliris.o-n5hg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bc3f04e7-02a1-41ba-bb98-e0f6e3d8f60f/storage_v2/_src_/schema/soliris.o-n5hg.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLinters/jshint.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ajax/ajx.reporte_productos.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/ajx.reporte_productos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ajax/ajx.reporte_ventas.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/ajx.reporte_ventas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ajax/ajx.reporte_ventas_pieChart.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/ajx.reporte_ventas_pieChart.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reportes/reporte_productos.php" beforeDir="false" afterPath="$PROJECT_DIR$/reportes/reporte_productos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reportes/reporte_ventas.php" beforeDir="false" afterPath="$PROJECT_DIR$/reportes/reporte_ventas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/JS/Develop/reporte_productos.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/JS/Develop/reporte_productos.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/JS/Develop/reporte_ventas.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/JS/Develop/reporte_ventas.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajax/ajx.docs_paciente.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/ajx.docs_paciente.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajax/ajx.pacientes.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/ajx.pacientes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ajax/ajx.reporte_docs_paciente.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/ajx.reporte_docs_paciente.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/JS/Develop/docs_paciente.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/JS/Develop/docs_paciente.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/JS/Develop/reporte_docs_paciente.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/JS/Develop/reporte_docs_paciente.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vistas/paciente/form_docs_paciente.php" beforeDir="false" afterPath="$PROJECT_DIR$/vistas/paciente/form_docs_paciente.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +54,17 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsBowerSettings">
+    <node-interpreter value="project" />
+    <bower-package value="" />
+    <bower.json value="" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="PhpServers">
     <servers>
@@ -87,13 +104,20 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.linters.configure.manually.selectedeslint" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.jscs" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.path.for.package.jscs" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.selected.package.eslint" value="C:\Users\Gaston\AppData\Roaming\npm\node_modules\eslint" />
+    <property name="node.js.selected.package.jscs" value="" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript.Bower" />
   </component>
   <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="1" Folder0="C:\Program Files\JetBrains\PhpStorm 2019.3.3\dic" CustomDictionaries="1" CustomDictionary0="C:\Program Files\JetBrains\PhpStorm 2019.3.3\dic\spanish-utf8.dic" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
@@ -114,7 +138,8 @@
       <workItem from="1583949394935" duration="2426000" />
       <workItem from="1584015605965" duration="3897000" />
       <workItem from="1592845537509" duration="433000" />
-      <workItem from="1592846051258" duration="16138000" />
+      <workItem from="1592846051258" duration="19507000" />
+      <workItem from="1592951111967" duration="9200000" />
     </task>
     <task id="LOCAL-00001" summary="Configuracion de reporte anmat">
       <created>1592851952888</created>
@@ -130,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592880820429</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="ajuste de reporte de ventas por productos">
+      <created>1592882848791</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1592882848791</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,11 +178,13 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Configuracion de reporte anmat" />
-    <option name="LAST_COMMIT_MESSAGE" value="Configuracion de reporte anmat" />
+    <MESSAGE value="ajuste de reporte de ventas por productos" />
+    <option name="LAST_COMMIT_MESSAGE" value="ajuste de reporte de ventas por productos" />
   </component>
   <component name="WindowStateProjectService">
     <state x="263" y="19" key="#CLI_Interpreters" timestamp="1592868242935">
@@ -161,10 +195,22 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="275" y="22" key="#Deployment/0.0.1366.728@0.0.1366.728" timestamp="1592880659009" />
+    <state x="551" y="256" key="#ESLint" timestamp="1592960278589">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="551" y="256" key="#ESLint/0.0.1366.728@0.0.1366.728" timestamp="1592960278589" />
     <state x="309" y="42" key="#Inspections" timestamp="1592868603734">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="309" y="42" key="#Inspections/0.0.1366.728@0.0.1366.728" timestamp="1592868603734" />
+    <state x="259" y="0" key="#JSHint" timestamp="1592960448613">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="259" y="0" key="#JSHint/0.0.1366.728@0.0.1366.728" timestamp="1592960448613" />
+    <state x="568" y="227" key="#Notifications" timestamp="1592960130865">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="568" y="227" key="#Notifications/0.0.1366.728@0.0.1366.728" timestamp="1592960130865" />
     <state x="390" y="7" key="#PHP" timestamp="1592846192995">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -213,21 +259,21 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="415" y="121" key="PHPComposerAddDependencyDialogDimensionKey/0.0.1366.728@0.0.1366.728" timestamp="1592868270010" />
-    <state x="184" y="9" key="SettingsEditor" timestamp="1592880739538">
+    <state x="184" y="9" key="SettingsEditor" timestamp="1592960596480">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="184" y="9" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1592880739538" />
+    <state x="184" y="9" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1592960596480" />
     <state width="82" height="441" key="SqlResolveConfigurable" timestamp="1592868438477">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="82" height="441" key="SqlResolveConfigurable/0.0.1366.728@0.0.1366.728" timestamp="1592868438477" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1592880828394">
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1592882851944">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1592880828394" />
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1592881626340">
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1592882851944" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1592965606229">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1592881626340" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1592965606229" />
   </component>
 </project>

@@ -3,7 +3,7 @@ $.getScript(aplicacion + '/resources/JS/funciones.min.js', function(){
     // script is now loaded and executed.
     // put your dependent JS here.
     $(document).ready(function() {
-        var currentTime = new Date()
+    const currentTime = new Date()
 
         $('#loading').hide();
         $('.date').datepicker({

@@ -46,7 +46,7 @@
 
             <!-- Fecha Documento Otro-->
             <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="f_doc_otro">Fecha de Otro</label>
+                <label class="col-sm-4 col-xs-4 control-label" for="f_doc_otro">Fecha de Consentimiento</label>
                 <div class="col-sm-4 col-xs-8">
                     <div class="input-group">
                         <div class="input-group-addon"><span class="fa fa-calendar"></span></div>
@@ -56,7 +56,7 @@
             </div>
             <!-- File Otro -->
             <div class="form-group">
-                <label class="col-sm-4 col-xs-4 control-label" for="file_otro">Otro</label>
+                <label class="col-sm-4 col-xs-4 control-label" for="file_otro">Consentimiento</label>
                 <div class="col-sm-4 col-xs-6">
                     <div id="file_otro">Subir</div>
                 </div>
