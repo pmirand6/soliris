@@ -20,11 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3ba546b2-867b-43b3-ac0c-8da83ad051c3" name="Default Changelist" comment="Cambio de nombre de documento a &quot;Consentimiento&quot;.&#10;Se ajusto en pacientes.php que en la columna consentimiento muestre la fecha del consentimiento y no de la vacunación.&#10;Se ajusto que requiera los dos documentos para cargar la documentación del paciente.">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/templateLanguages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/soliris.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/soliris.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/JS/Develop/docs_paciente.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/JS/Develop/docs_paciente.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/administrador/pacientes.php" beforeDir="false" afterPath="$PROJECT_DIR$/administrador/pacientes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/JS/Develop/pacientes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/JS/Develop/pacientes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -133,7 +129,7 @@
       <workItem from="1592846051258" duration="19507000" />
       <workItem from="1592951111967" duration="10622000" />
       <workItem from="1592967230803" duration="1403000" />
-      <workItem from="1592968649677" duration="4549000" />
+      <workItem from="1592968649677" duration="4671000" />
     </task>
     <task id="LOCAL-00001" summary="Configuracion de reporte anmat">
       <created>1592851952888</created>
@@ -163,7 +159,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592965901411</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Cambio de nombre de documento a &quot;Consentimiento&quot;.&#10;Se ajusto en pacientes.php que en la columna consentimiento muestre la fecha del consentimiento y no de la vacunación.&#10;Se ajusto que requiera los dos documentos para cargar la documentación del paciente.">
+      <created>1593179508753</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1593179508753</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,10 +284,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="82" height="441" key="SqlResolveConfigurable/0.0.1366.728@0.0.1366.728" timestamp="1592868438477" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1592965952168">
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1593179511459">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1592965952168" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1593179511459" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1593179463506">
       <screen x="0" y="0" width="1366" height="728" />
     </state>

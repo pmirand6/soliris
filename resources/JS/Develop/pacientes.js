@@ -60,8 +60,8 @@ $(document).ready(function () {
         sClass: 'center',
       },
       { mData: 'fconsen', bSearchable: true, sWidth: '10%', sClass: 'center' },
-      { mData: 'email', bSearchable: true, sWidth: '10%', sClass: 'center', bVisible: 'false' },
-      { mData: 'telefono', bSearchable: true, sWidth: '2%', sClass: 'center', bVisible: 'false' },
+      // { mData: 'email', bSearchable: true, sWidth: '10%', sClass: 'center', bVisible: 'false' },
+      // { mData: 'telefono', bSearchable: true, sWidth: '2%', sClass: 'center', bVisible: 'false' },
       { mData: 'notas', bSearchable: true, sWidth: '5%', sClass: 'center' },
       { mData: 'estado', bSearchable: true, sWidth: '3%', sClass: 'center' },
       {

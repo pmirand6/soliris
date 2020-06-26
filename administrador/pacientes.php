@@ -90,8 +90,8 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                         <th> Patología </th>
                         <th> Sub Patología </th>
                         <th> F. Cons</th>
-                        <th> E-Mail </th>
-                        <th> Tel </th>
+                        <!--<th> E-Mail </th>-->
+                        <!--<th> Tel </th>-->
                         <th> Notas </th>
                         <th> Estado </th>
                         <th> Sub Estado </th>
