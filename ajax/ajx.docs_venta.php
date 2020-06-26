@@ -11,8 +11,8 @@ if (isset($_POST["oper"], $_POST["f_receta"]) && $_POST["oper"] == 'checkDocFech
     $sql = "CALL ST_CONTROL_RECETA_VENTA('$f_receta', '$idPac')";
     $response = MySQL_sendFunctionAudit("$sql", "check_doc_receta", "1");
 
-    
-    if($response[0]["mensaje"] != '0'){
+
+    if($response[0]["mensaje"] !== '0'){
         $resp = array(
             'title' => 'Documento con Fecha Duplicada',
             'icon' => 'warning',
@@ -25,7 +25,7 @@ if (isset($_POST["oper"], $_POST["f_receta"]) && $_POST["oper"] == 'checkDocFech
     } else {
         echo false;
     }
-    
+
 }
 
 
