@@ -1,11 +1,6 @@
-/**
- * Created by jgallina on 20/04/2015.
- */
-var aplicacion = `${getCurrentHostname()}/${getUrlHTTP()}`
-var paramPaciente = JSON.parse(window.localStorage.getItem('paramPaciente'))
-var flagDocumento
-var flagRespuesta = true
-var vacunacion = $('#file_consentimiento').uploadFile({
+const aplicacion = `${getCurrentHostname()}/${getUrlHTTP()}`
+const paramPaciente = JSON.parse(window.localStorage.getItem('paramPaciente'))
+const vacunacion = $('#file_consentimiento').uploadFile({
   url: `${aplicacion}/ajax/ajx.docs_paciente.php`,
   autoSubmit: false,
   dragDrop: false,
@@ -39,7 +34,7 @@ var vacunacion = $('#file_consentimiento').uploadFile({
     alert(status + errMsg)
   },
 })
-var consentimiento = $('#file_otro').uploadFile({
+const consentimiento = $('#file_otro').uploadFile({
   url: `${aplicacion}/ajax/ajx.docs_paciente.php`,
   autoSubmit: false,
   dragDrop: false,
