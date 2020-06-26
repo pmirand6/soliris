@@ -19,10 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ba546b2-867b-43b3-ac0c-8da83ad051c3" name="Default Changelist" comment="Se sacaron las columnas de telefono y email">
+    <list default="true" id="3ba546b2-867b-43b3-ac0c-8da83ad051c3" name="Default Changelist" comment="Se arregla la configuracion del control de receta">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ajax/ajx.docs_venta.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/ajx.docs_venta.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/JS/Develop/generar_venta.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/JS/Develop/generar_venta.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +128,7 @@
       <workItem from="1592846051258" duration="19507000" />
       <workItem from="1592951111967" duration="10622000" />
       <workItem from="1592967230803" duration="1403000" />
-      <workItem from="1592968649677" duration="6235000" />
+      <workItem from="1592968649677" duration="6862000" />
     </task>
     <task id="LOCAL-00001" summary="Configuracion de reporte anmat">
       <created>1592851952888</created>
@@ -174,7 +172,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593179731718</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Se arregla la configuracion del control de receta">
+      <created>1593181421143</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1593181421143</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,7 +203,8 @@
     <MESSAGE value="ajuste de reporte de ventas por productos" />
     <MESSAGE value="Cambio de nombre de documento a &quot;Consentimiento&quot;.&#10;Se ajusto en pacientes.php que en la columna consentimiento muestre la fecha del consentimiento y no de la vacunación.&#10;Se ajusto que requiera los dos documentos para cargar la documentación del paciente." />
     <MESSAGE value="Se sacaron las columnas de telefono y email" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se sacaron las columnas de telefono y email" />
+    <MESSAGE value="Se arregla la configuracion del control de receta" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se arregla la configuracion del control de receta" />
   </component>
   <component name="WindowStateProjectService">
     <state x="263" y="19" key="#CLI_Interpreters" timestamp="1592868242935">
