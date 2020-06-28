@@ -12,7 +12,7 @@
     }
 
 
-			
+
     $result = mysqli_query($db, $query);
     $arr_tbody = array();
     while ($row = mysqli_fetch_assoc($result)) {
@@ -20,15 +20,15 @@
         $name = strtoupper($row["name"]);
         $sexo = $row["sexo"];
         $estado = $row["estado"];
-		
+
 		if (isset($row["uventa"])){
 			$u_venta=$row["uventa"];
 		}else{
 			$u_venta="Sin Ventas";
 		}
-		
-		
-		 
+
+
+
         $arr_row = array(
             "id" => $row["id"],
             "paciente" => "<b class=\"pointer\" onclick=\"callPac('$id', '{$_SESSION["grupo"]}')\">$name</b>",
@@ -38,6 +38,7 @@
             "patologia" => $row["patologia"],
             "subPatologia" => $row["subPatologia"],
             "fconsen" => $row["fecha_con"],
+            "fvac" => $row["fecha_vac"],
             "email" => $row["email"],
             "telefono" => $row["telefono"],
             "notas" => $row["notas"],

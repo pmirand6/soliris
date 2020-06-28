@@ -86,11 +86,11 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                         <th> Paciente </th>
                         <th> Sexo </th>
                         <th>Edad </th>
-                        <th> F. Nac</th>
+                        <th> Fecha Nacimiento</th>
                         <th> Patología </th>
                         <th> Sub Patología </th>
-                        <th> F. Cons</th>
-                        <!--<th> E-Mail </th>-->
+                        <th> Fecha Consentimiento</th>
+                        <th> Fecha Vacunación </th>
                         <!--<th> Tel </th>-->
                         <th> Notas </th>
                         <th> Estado </th>

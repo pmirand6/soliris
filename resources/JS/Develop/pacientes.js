@@ -42,7 +42,7 @@ $(document).ready(function () {
     sDom: '<"top"B>frt<"bottom"ip><"clear">',
     deferRender: true,
     aoColumns: [
-      { mData: 'id', bSearchable: true, bVisible: true, sClass: 'center' },
+      { mData: 'id', sWidth: '2%', bSearchable: true, bVisible: true, sClass: 'center' },
       { mData: 'paciente', bSearchable: true, sWidth: '20%', sClass: 'center' },
       { mData: 'sexo', bSearchable: true, sWidth: '2%', sClass: 'center' },
       { mData: 'edad', bSearchable: true, sWidth: '3%', sClass: 'center' },
@@ -60,7 +60,7 @@ $(document).ready(function () {
         sClass: 'center',
       },
       { mData: 'fconsen', bSearchable: true, sWidth: '10%', sClass: 'center' },
-      // { mData: 'email', bSearchable: true, sWidth: '10%', sClass: 'center', bVisible: 'false' },
+      { mData: 'fvac', bSearchable: true, sWidth: '15%', sClass: 'center' },
       // { mData: 'telefono', bSearchable: true, sWidth: '2%', sClass: 'center', bVisible: 'false' },
       { mData: 'notas', bSearchable: true, sWidth: '5%', sClass: 'center' },
       { mData: 'estado', bSearchable: true, sWidth: '3%', sClass: 'center' },
