@@ -8,8 +8,8 @@
         /**
          *  Formateo de fechas recibidas
          */
-        $ini = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["ini"]))), 'Y-m-d');
-        $fin = date_format(date_create_from_format('d-m-Y', mysqli_real_escape_string($db, strtoupper($_GET["fin"]))), 'Y-m-d');
+        $ini = $_GET["ini"];
+        $fin = $_GET["fin"];
 
         $condicion =  "YEAR(RM.fecha_venta) BETWEEN $ini AND $fin";
     } else {

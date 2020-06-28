@@ -19,11 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ba546b2-867b-43b3-ac0c-8da83ad051c3" name="Default Changelist" comment="Se agrega la fecha de vacunación el listado de pacientes.php&#10;Se crea la función en la BD FU_SHOW_FECHA_VAC_PAC y se modifica el ST_LIST_PACIENTES para que muestre la fecha de vacunación">
+    <list default="true" id="3ba546b2-867b-43b3-ac0c-8da83ad051c3" name="Default Changelist" comment="Se configura el reporte de ventas por documentacion de paciente">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ajax/ajx.reporte_docs_paciente.php" beforeDir="false" afterPath="$PROJECT_DIR$/ajax/ajx.reporte_docs_paciente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reportes/reporte_docs_paciente.php" beforeDir="false" afterPath="$PROJECT_DIR$/reportes/reporte_docs_paciente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/JS/Develop/reporte_docs_paciente.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/JS/Develop/reporte_docs_paciente.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +130,7 @@
       <workItem from="1592951111967" duration="10622000" />
       <workItem from="1592967230803" duration="1403000" />
       <workItem from="1592968649677" duration="6862000" />
-      <workItem from="1593310232664" duration="3424000" />
+      <workItem from="1593310232664" duration="4262000" />
     </task>
     <task id="LOCAL-00001" summary="Configuracion de reporte anmat">
       <created>1592851952888</created>
@@ -190,7 +188,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593311612690</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Se configura el reporte de ventas por documentacion de paciente">
+      <created>1593362816387</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1593362816387</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,7 +221,8 @@
     <MESSAGE value="Se sacaron las columnas de telefono y email" />
     <MESSAGE value="Se arregla la configuracion del control de receta" />
     <MESSAGE value="Se agrega la fecha de vacunación el listado de pacientes.php&#10;Se crea la función en la BD FU_SHOW_FECHA_VAC_PAC y se modifica el ST_LIST_PACIENTES para que muestre la fecha de vacunación" />
-    <option name="LAST_COMMIT_MESSAGE" value="Se agrega la fecha de vacunación el listado de pacientes.php&#10;Se crea la función en la BD FU_SHOW_FECHA_VAC_PAC y se modifica el ST_LIST_PACIENTES para que muestre la fecha de vacunación" />
+    <MESSAGE value="Se configura el reporte de ventas por documentacion de paciente" />
+    <option name="LAST_COMMIT_MESSAGE" value="Se configura el reporte de ventas por documentacion de paciente" />
   </component>
   <component name="WindowStateProjectService">
     <state x="263" y="19" key="#CLI_Interpreters" timestamp="1592868242935">
@@ -311,10 +317,10 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state width="82" height="441" key="SqlResolveConfigurable/0.0.1366.728@0.0.1366.728" timestamp="1592868438477" />
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1593311615586">
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2" timestamp="1593362817912">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1593311615586" />
+    <state x="275" y="97" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1593362817912" />
     <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1593361565610">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
