@@ -77,7 +77,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _SG;
                         <th>Nombre</th>
                         <th>Nro Ventas (Periodo)</th>
                         <th>Última Venta</th>
-                        <th>Tarjeta</th>
+                        <th>Vacunación</th>
                         <th>Consentimiento</th>
                     </tr>
                 </thead>
@@ -117,7 +117,7 @@ function functRI($apm, $ao, $mes){
 function functUP($apm, $ao, $mes){
     require('../config/config.php');
     include $_SERVER['DOCUMENT_ROOT'] . _BD;
-    
+
     $SQLFU = "SELECT count(id) as CANT FROM soliris_maestro WHERE apm = '$apm' AND year(fecha_venta) = '$ao' AND month(fecha_venta) = '$mes' AND estado = 'NP' AND tipo = 'FU';";
     $responseFU = mysqli_query($db, $SQLFU);
     if ($responseFU){

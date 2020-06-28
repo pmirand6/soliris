@@ -1,8 +1,8 @@
 <?php
-    
+
         require_once('../config/config.php');
     include $_SERVER['DOCUMENT_ROOT'] . _BD;
-    
+
 
     if(isset($_GET["ini"]) AND !empty($_GET["ini"]) AND isset($_GET["fin"]) AND !empty($_GET["fin"])){
         /**
@@ -18,31 +18,44 @@
 
     $query = "
     SELECT
-        MAX(RM.id) as ID,
-        P.nombre as Nombre,
-        COUNT(RM.id) as CANT,
-        MAX(RM.fecha_venta) as U_Venta,
-        (SELECT RD.documento FROM soliris_documentacion as RD WHERE RD.referencia = 'pacientes' AND RD.tipo = 'Tarjeta' AND RD.id_maestro = RM.nombre ORDER BY RD.id DESC LIMIT 1 ) as Tarjeta,
-        (SELECT RD.documento FROM soliris_documentacion as RD WHERE RD.referencia = 'pacientes' AND RD.tipo = 'Consentimiento' AND RD.id_maestro = RM.nombre ORDER BY RD.id DESC LIMIT 1) as Consentimiento
-    FROM
-        maestro_ventas as RM INNER JOIN pacientes as P ON (RM.nombre = P.id)
-    WHERE
-        $condicion
-    AND 
-        RM.estado_id = 23
-    GROUP BY RM.nombre;";
+  P.id, 
+  P.nombre_completo AS Nombre,
+  COUNT(RM.id) AS CANT,
+  MAX(RM.fecha_venta) AS U_Venta,
+  (SELECT d.valor
+FROM rel_paciente_documentos r
+INNER JOIN documentos d ON r.documento_id = d.id
+INNER JOIN documentos_tipo dt ON dt.id = d.documentos_tipo_id
+WHERE r.paciente_id = RM.paciente_id
+AND dt.tipo = 'Vacunacion'
+AND d.estado_id = 15) AS Vacunacion,
+  (SELECT d.valor
+FROM rel_paciente_documentos r
+INNER JOIN documentos d ON r.documento_id = d.id
+INNER JOIN documentos_tipo dt ON dt.id = d.documentos_tipo_id
+WHERE r.paciente_id = RM.paciente_id
+AND dt.tipo = 'Consentimiento'
+AND d.estado_id = 15) AS Consentimiento
+FROM maestro_ventas AS RM
+  INNER JOIN paciente AS P
+    ON (RM.paciente_id = P.id)
+WHERE $condicion
+AND RM.estado_id = 23
+GROUP BY P.id;";
+
+
 
 
     $result = mysqli_query($db, $query);
 
     $arr_tbody = array();
     while ($row = mysqli_fetch_assoc($result)) {
-        $ID = $row["ID"];
+        $ID = $row["id"];
         $Nombre = ucwords(strtolower($row["Nombre"]));
         $CANT = $row["CANT"];
         $U_Venta = $row["U_Venta"];
-        $Tarjeta = $row["Tarjeta"];
-        $extensionTar = strtolower(pathinfo($row["Tarjeta"], PATHINFO_EXTENSION));
+        $vacunacion = $row["Vacunacion"];
+        $extensionTar = strtolower(pathinfo($row["Vacunacion"], PATHINFO_EXTENSION));
         $Consentimiento = $row["Consentimiento"];
         $extensionCon = strtolower(pathinfo($row["Consentimiento"], PATHINFO_EXTENSION));
 
@@ -51,7 +64,7 @@
             "Nombre" => $Nombre,
             "CANT" => $CANT,
             "U_Venta" => $U_Venta,
-            "Tarjeta" => "<span class=\"file_extension _$extensionTar\" title=\"Consentimiento\" onclick = \"openfile('$Tarjeta')\"  style='cursor:pointer;'>",
+            "vacunacion" => "<span class=\"file_extension _$extensionTar\" title=\"Consentimiento\" onclick = \"openfile('$vacunacion')\"  style='cursor:pointer;'>",
             "Consentimiento" => "<span class=\"file_extension _$extensionCon\" title=\"Consentimiento\" onclick = \"openfile('$Consentimiento')\"  style='cursor:pointer;'>"
         );
         array_push($arr_tbody, $arr_row);
