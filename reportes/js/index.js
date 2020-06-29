@@ -1,4 +1,7 @@
 ﻿$(function () {
+  DevExpress.localization.locale(navigator.language);
+
+
   var url = aplicacion + "/reportes/php/service.php";
   var db = DevExpress.data.AspNet.createStore({
     key: "id",
@@ -44,6 +47,10 @@
       showRowGrandTotals: true,
       showRowTotals: true,
       showColumnTotals: true,
+      fieldPanel: {
+        // ...
+        visible: true // shows the Field Panel
+      },
       export: {
         enabled: true,
         fileName: "reporte_360",
@@ -75,7 +82,7 @@
             area: "row",
             sortBySummaryField: "Total",
             selector: function (data) {
-              return data.id + " (" + data.canal + ")";
+              return `<strong>Venta ID: </strong>\u00A0${data.id}  <strong>  \u00A0\u00A0\u00A0\u00A0Canal: </strong> \u00A0${data.canal}`
             },
           },
           {

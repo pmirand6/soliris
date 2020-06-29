@@ -1,13 +1,11 @@
 <?php
-#REVISAR
-
 require_once('../config/config.php');
 include $_SERVER['DOCUMENT_ROOT'] . _BD;
 include $_SERVER['DOCUMENT_ROOT'] . _FN;
 
 include '../resources/PHP/PHPExcel_1.8.0/PHPExcel.php';
 
-if (!empty($_GET["ini"]) AND !empty($_GET["fin"])){
+if (!empty($_GET["ini"]) and !empty($_GET["fin"])){
     /**
      *  Formateo de fechas recibidas
      */
@@ -385,10 +383,10 @@ if (!empty($_GET["ini"]) AND !empty($_GET["fin"])){
                                                 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$num, $patologia);
                                                 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$num, $patologiaValor);
                                                 $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$num, getDataCantPat($patologia, $ini, $fin));
-                                            };
+                                            }
                                             mysqli_free_result($resultPatsVal);
                                             $num = $num + 1;
-                                        };
+                                        }
                                         mysqli_free_result($resultPats);
 
         // FIN VARIABLES
@@ -435,7 +433,7 @@ if (!empty($_GET["ini"]) AND !empty($_GET["fin"])){
                                                 $response = number_format($field, 0);
                                                 break;
                                             }
-                                        };
+                                        }
                                         mysqli_free_result($result);
 
                                         return $response;
@@ -507,17 +505,17 @@ if (!empty($_GET["ini"]) AND !empty($_GET["fin"])){
           $result = mysqli_query($db, $SQLdist1);
           while ($row = mysqli_fetch_assoc($result)) {
             $response = "Masculinos: " . $row["Data"] . " | ";
-        };
+        }
 
         $result2 = mysqli_query($db, $SQLdist2);
         while ($row2 = mysqli_fetch_assoc($result2)) {
             $response .= "Femenino (Sin Capacidad): " . $row2["Data"] . " | ";
-        };
+        }
 
         $result3 = mysqli_query($db, $SQLdist3);
         while ($row3 = mysqli_fetch_assoc($result3)) {
             $response .= "Femenino (Con Capacidad): " . $row3["Data"];
-        };
+        }
 
         return $response;
     }
@@ -557,17 +555,17 @@ include $_SERVER['DOCUMENT_ROOT'] . _BD;
           $result = mysqli_query($db, $SQLdist1);
           while ($row = mysqli_fetch_assoc($result)) {
             $response = "Masculinos: " . $row["Data"] . " | ";
-        };
+        }
 
         $result2 = mysqli_query($db, $SQLdist2);
         while ($row2 = mysqli_fetch_assoc($result2)) {
             $response .= "Femenino (Sin Capacidad): " . $row2["Data"] . " | ";
-        };
+        }
 
         $result3 = mysqli_query($db, $SQLdist3);
         while ($row3 = mysqli_fetch_assoc($result3)) {
             $response .= "Femenino (Con Capacidad): " . $row3["Data"];
-        };
+        }
 
         return $response;
     }

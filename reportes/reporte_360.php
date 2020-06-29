@@ -21,7 +21,7 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
 		@import "../resources/CSS/Font-Awesome-4.5.0/css/font-awesome.min.css";
 		/* EasyUI */
 		@import "../resources/JQuery-EasyUI-1.4.2/themes/bootstrap/easyui.css";
-		
+
 		/* Iconos de Estados Listados */
 		@import "../resources/Sprites/spriteListado.css";
 	</style>
@@ -36,8 +36,10 @@ include $_SERVER['DOCUMENT_ROOT'] . _FN;
 	?>
 	<script src="../resources/JS/funciones.min.js"></script>
 	<script src="../resources/jszip/dist/jszip.min.js"></script>
-	<script type="text/javascript" src="../resources/devextreme/dist/js/dx.all.js"></script>
+
+    <script type="text/javascript" src="../resources/devextreme/dist/js/dx.all.js"></script>
 	<script type="text/javascript" src="../resources/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+    <script type="text/javascript" src="../resources/devextreme/dist/js/localization/dx.messages.es.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 
 </head>

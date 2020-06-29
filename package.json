@@ -10,6 +10,7 @@
     "devextreme": "19.2.7",
     "dhx-pivot": "^1.4.1",
     "formvalidation": "^0.6.2-dev",
+    "globalize": "^1.5.0",
     "lodash.debounce": "^4.0.8",
     "select2-bootstrap-theme": "^0.1.0-beta.10",
     "sweetalert2": "^9.10.7",
